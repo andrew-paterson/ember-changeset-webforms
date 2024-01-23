@@ -10,5 +10,17 @@
     "name": "feature/ember-5",
     "sha": "701cd48927efce0b45dc31710f19888325e05912",
     "tag": null
+  },
+  "2.0.0": {
+    "path": "versions/2.0.0",
+    "name": "2.0.0",
+    "sha": "701cd48927efce0b45dc31710f19888325e05912",
+    "tag": "2.0.0"
+  },
+  "-latest": {
+    "path": "",
+    "name": "Latest",
+    "sha": "701cd48927efce0b45dc31710f19888325e05912",
+    "tag": "2.0.0"
   }
 }
