@@ -1,1 +1,8 @@
-{}
+{
+  "main": {
+    "path": "versions/main",
+    "name": "main",
+    "sha": "2e2a6e41fcf7f1b33da3099341b41a54e9209b06",
+    "tag": null
+  }
+}
