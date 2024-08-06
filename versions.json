@@ -8,13 +8,13 @@
   "0.0.2": {
     "path": "versions/0.0.2",
     "name": "0.0.2",
-    "sha": "dfb7b5c470d2bb91dacb871125cefb76a2b32902",
+    "sha": "64c7370769af24e2a10faf595ea6a1f5dab31f89",
     "tag": "0.0.2"
   },
   "-latest": {
     "path": "",
     "name": "Latest",
-    "sha": "dfb7b5c470d2bb91dacb871125cefb76a2b32902",
+    "sha": "64c7370769af24e2a10faf595ea6a1f5dab31f89",
     "tag": "0.0.2"
   }
 }
