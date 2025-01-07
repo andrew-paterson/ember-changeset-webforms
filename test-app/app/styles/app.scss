@@ -1,0 +1,112 @@
+body {
+  position: relative;
+}
+
+:root {
+  --brand-primary: #806ca5;
+}
+
+// @import '_variables';
+@import 'bootstrap';
+@import 'ember-power-select';
+
+.ember-power-select-trigger-multiple-input {
+  border-color: transparent !important;
+}
+
+.docs-rounded {
+  .docs-p-4 {
+    // @import '_power-datetime-picker';
+    .remove-clone-icon {
+      height: 18px;
+      fill: #999;
+      &:hover {
+        fill: $danger;
+      }
+    }
+  }
+}
+
+.docs-border-grey-lighter {
+  border-color: #bbb;
+}
+
+.hljs-tag {
+  color: #abb2bf;
+}
+
+.hljs-function .hljs-title {
+  color: #e6c07b;
+}
+
+.formatted-list {
+  padding-left: 1.5em;
+  ul {
+    padding-left: 1.5em;
+    list-style: inherit;
+  }
+  li {
+    list-style: disc;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.monospaced {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.text-grey {
+  color: #777;
+}
+
+.element-classlist {
+  background: rgb(54, 158, 54);
+  color: #fff;
+}
+
+.width-lg {
+  width: 24px;
+}
+
+.height-lg {
+  height: 24px;
+}
+
+.btn {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.no-validate {
+  background-image: none !important;
+  &:invalid {
+    border-color: inherit !important;
+  }
+  &:valid {
+    border-color: inherit !important;
+  }
+}
+
+.field-type-phone-number-with-country-code {
+  input {
+    background-image: none !important;
+    background: transparent !important;
+  }
+}
+
+.card-box-shadow {
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+}
