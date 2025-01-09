@@ -6,7 +6,7 @@ body {
   --brand-primary: #806ca5;
 }
 
-// @import '_variables';
+@import 'ember-changeset-webforms/dist/scss/variables';
 @import 'bootstrap';
 @import 'ember-power-select';
 
@@ -16,7 +16,8 @@ body {
 
 .docs-rounded {
   .docs-p-4 {
-    // @import '_power-datetime-picker';
+    @import 'ember-power-calendar';
+    @import 'ember-changeset-webforms/dist/scss/power-datetime-picker';
     .remove-clone-icon {
       height: 18px;
       fill: #999;

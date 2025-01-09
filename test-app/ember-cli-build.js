@@ -8,9 +8,13 @@ module.exports = function (defaults) {
     autoImport: {
       watchDependencies: ['ember-changeset-webforms'],
     },
-    snippetSearchPaths: ['app', '../addon/src/utils', 'config'],
+    snippetSearchPaths: [
+      'app',
+      '../ember-changeset-webforms/src/utils',
+      'config',
+    ],
     'ember-cli-addon-docs': {
-      documentingAddonAt: '../addon',
+      documentingAddonAt: '../ember-changeset-webforms',
     },
   });
 
