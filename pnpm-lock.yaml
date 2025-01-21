@@ -31,10 +31,10 @@ importers:
         version: 2.3.0(@babel/core@7.23.7)
       ember-changeset:
         specifier: ^4.1.2
-        version: 4.1.2(ember-data@5.3.0(@babel/core@7.23.7)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0)))(webpack@5.89.0)
+        version: 4.1.2(ember-data@5.3.0(@babel/core@7.23.7)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)))
       ember-changeset-validations:
         specifier: ^4.1.1
-        version: 4.1.1(webpack@5.89.0)
+        version: 4.1.1
       ember-cli-inline-content:
         specifier: ^0.4.1
         version: 0.4.1
@@ -13700,7 +13700,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  ember-changeset-validations@4.1.1(webpack@5.89.0):
+  ember-changeset-validations@4.1.1:
     dependencies:
       ember-auto-import: 2.7.2(webpack@5.89.0)
       ember-cli-babel: 7.26.11
@@ -13712,7 +13712,7 @@ snapshots:
       - supports-color
       - webpack
 
-  ember-changeset@4.1.2(ember-data@5.3.0(@babel/core@7.23.7)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0)))(webpack@5.89.0):
+  ember-changeset@4.1.2(ember-data@5.3.0(@babel/core@7.23.7)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5))):
     dependencies:
       '@embroider/macros': 1.16.10
       '@glimmer/tracking': 1.1.2

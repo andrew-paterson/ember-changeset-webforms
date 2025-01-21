@@ -11,3 +11,7 @@
   display: flex;
   padding: var(--cwf-field-power-select-option-with-checkbox-padding-y) 0;
 }
+
+.ember-power-select-trigger-multiple-input {
+  border-color: transparent !important;
+}

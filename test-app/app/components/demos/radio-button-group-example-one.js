@@ -14,6 +14,10 @@ export default class RadioButtonGroupExampleOneComponent extends Component {
         fieldId: 'rgbColours',
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Select colour',
+        classNames: {
+          optionsWrapper: ['$inherited', 'd-flex'],
+          labelledRadioButton: ['$inherited', 'me-4'],
+        },
         options: [
           {
             label: 'Red',
