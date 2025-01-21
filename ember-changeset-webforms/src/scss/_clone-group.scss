@@ -4,19 +4,10 @@
     display: flex;
   }
   .clone-actions {
-    padding-top: $spacer-md;
-    padding-right: $spacer-md;
+    padding-top: --spacer-md;
+    padding-right: --spacer-md;
     svg {
       height: 20px;
     }
   }
-
-  // .clone-group-actions {
-  //   width: 100%;
-  //   margin-top: 10px;
-  // }
-
-  // .cwf-clone {
-  //   display: flex;
-  // }
 }

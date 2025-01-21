@@ -1,3 +1,13 @@
+:root {
+  --default-svg-stroke-width: 1px;
+  --default-svg-stroke-color: #ccc;
+
+  --pojo-form-field-default-icon-fill: #ccc;
+
+  // Icons
+  --pojo-form-field-validation-icon-width: 20px;
+  --pojo-form-field-icon-position: right center;
+}
 @function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
@@ -11,15 +21,6 @@
   }
   @return $string;
 }
-
-$default-svg-stroke-width: 1px !default;
-$default-svg-stroke-color: #ccc !default;
-
-$pojo-form-field-default-icon-fill: #ccc;
-
-// Icons
-$pojo-form-field-validation-icon-width: 20px;
-$pojo-form-field-icon-position: right center;
 
 @mixin calendar-icon($fill: $pojo-form-field-default-icon-fill) {
   background-image: str-replace(
