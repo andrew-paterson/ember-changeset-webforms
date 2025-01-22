@@ -6,6 +6,13 @@
 @import 'ember-bootstrap/utilities';
 @import 'ember-bootstrap/root';
 
+#ember-basic-dropdown-wormhole {
+  @import 'ember-bootstrap/bootstrap';
+  .ember-power-select-options {
+    padding: 0;
+    margin: 0;
+  }
+}
 .docs-rounded {
   .docs-p-4 {
     @import 'ember-bootstrap/bootstrap';

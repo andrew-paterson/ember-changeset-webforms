@@ -16,7 +16,7 @@ import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
-import { calendarSelect } from 'ember-power-calendar/test-support';
+import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import moment from 'moment';
 
 module('Acceptance | Power datepicker field', function (hooks) {

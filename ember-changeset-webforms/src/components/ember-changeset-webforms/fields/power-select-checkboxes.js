@@ -1,6 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import './power-select-checkboxes.css';
 
 export default class PowerSelectCheckboxesComponent extends Component {
   @tracked orderedOptions;

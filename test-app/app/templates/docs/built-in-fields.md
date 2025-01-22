@@ -1,10 +1,8 @@
-
-
 The value of a field will set the property in the underlying changeset at the path defined as `propertyName` or `fieldId`.
 
 ## Input
 
-Renders an HTML input. 
+Renders an HTML input.
 
 Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding events occur.
 
@@ -16,14 +14,13 @@ The above props are in addition to the generic field props shown with their defa
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
 
-
 <Demos::InputExampleOne />
 
 <Demos::InputExampleTwo />
 
 ## Textarea
 
-Renders an HTML textarea. 
+Renders an HTML textarea.
 
 Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding events occur.
 
@@ -35,8 +32,8 @@ The above props are in addition to the generic field props shown with their defa
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
 
-
 <Demos::TextareaExampleOne />
+
 ## Single checkbox
 
 Renders a single checkbox with a label.
@@ -50,7 +47,6 @@ The field ID is set to `true` or `false` depending on whether the checkbox is ch
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 ### Single checkbox basic usage
 
@@ -68,17 +64,17 @@ You can use a custom component for the checkbox label by passing `checkBoxLabelC
 
 The object passed must take the following form.
 
-``` 
-{ 
-  path: // String, required. The path to the component to render', 
+```
+{
+  path: // String, required. The path to the component to render',
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```
 
-* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and `key` props for that option.
-* Accessibility features
-  * Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
-  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
+- The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and `key` props for that option.
+- Accessibility features
+  - Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
+  - Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
 
 <Demos::SingleCheckboxExampleThree />
 
@@ -93,7 +89,6 @@ Renders a radio button group. The value of the field as a whole is the `value` p
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 ### Radio button group `options` prop
 
@@ -113,21 +108,22 @@ The above props are in addition to the generic field props shown with their defa
 
 When using a custom component for option labels, either by:
 
-* passing `optionLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
-* by passing `labelComponent` to a specific option. The component passed will then be rendered in place of the standard label element for that specific option, and will override `optionLabelComponent`.
+- passing `optionLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
+- by passing `labelComponent` to a specific option. The component passed will then be rendered in place of the standard label element for that specific option, and will override `optionLabelComponent`.
 
 In both cases the following applies, the object passed must take the following form.
 
-``` 
-{ 
-  path: // String, required. The path to the component to render', 
+```
+{
+  path: // String, required. The path to the component to render',
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```
-* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and  `value` props for that option.
-* Accessibility features
-  * Set `for={{@for}}` on the label element, to ensure that the browser knows which radio button the label is for.
-  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the radio button works correctly.
+
+- The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and `value` props for that option.
+- Accessibility features
+  - Set `for={{@for}}` on the label element, to ensure that the browser knows which radio button the label is for.
+  - Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the radio button works correctly.
 
 <Demos::RadioButtonGroupExampleTwo />
 
@@ -140,7 +136,6 @@ Renders a checkbox group. The value of the field as a whole is an array which wi
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 ### Checkbox group options
 
@@ -160,22 +155,22 @@ The above props are in addition to the generic field props shown with their defa
 
 When using a custom component for option labels, either by:
 
-* passing `optionLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
-* by passing `labelComponent` to a specific option. The component passed will then be rendered in place of the standard label element for that specific option, and will override `optionLabelComponent`.
+- passing `optionLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
+- by passing `labelComponent` to a specific option. The component passed will then be rendered in place of the standard label element for that specific option, and will override `optionLabelComponent`.
 
 In both cases the following applies, the object passed must take the following form.
 
-``` 
-{ 
-  path: // String, required. The path to the component to render', 
+```
+{
+  path: // String, required. The path to the component to render',
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```
 
-* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label`, `key`, and `onlyCheckedOption` props for that option.
-* Accessibility features
-  * Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
-  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
+- The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label`, `key`, and `onlyCheckedOption` props for that option.
+- Accessibility features
+  - Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
+  - Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
 
 <Demos::CheckboxGroupExampleTwo />
 
@@ -184,7 +179,6 @@ In both cases the following applies, the object passed must take the following f
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 ## Static content field
 
@@ -208,10 +202,13 @@ The above props are in addition to the generic field props shown with their defa
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
 
-
 ## Power select
 
-Renders an [ember-power-select](https://ember-power-select.com) component.
+Renders an [Ember Power Select](https://ember-power-select.com) component.
+
+Note that you must [install Ember Power Select](https://ember-power-select.com/docs/installation).
+
+You will also need to ensure that the styles for the Power Select componenent are loaded. See [these docs](https://ember-power-select.com/docs/styles).
 
 ### Power select field props
 
@@ -220,7 +217,6 @@ Renders an [ember-power-select](https://ember-power-select.com) component.
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 Note also that if passed, value of `placeholder` will display as the placeholder in the select box until an option is selected.
 
@@ -238,25 +234,37 @@ In the example below, the user only sees the country names, but the value of the
 
 ### Power select with custom components for the options and selected item
 
-In this scenario, we want the actual value of the field to be the 3 letter country code, but we want only ever want user to see the full country name. 
+In this scenario, we want the actual value of the field to be the 3 letter country code, but we want only ever want user to see the full country name.
 
 We thus pass an array of country code strings as options, but then use custom components for the selected item and options to show the full country name for each ID.
 
 When the user clicks a country name, the value of the field will be set to the 3 letter id.
 
 <Demos::PowerSelectExampleThree />
+
 ### Power select with multiple selection
 
 Passing `multipleSelection: true` will render a [Power select multiple component](https://ember-power-select.com/docs/multiple-selection).
 
 <Demos::PowerSelectMultipleExampleOne />
+
+## Power select checkboxes
+
+An extension of the power select field which allows multiple selections and shows a checkbox with each option.
+
+### Basic usage (PSC)
+
+<Demos::PowerSelectCheckboxesExampleOne />
+
 ## Power datepicker
 
-Displays an input which shows the current selected date or datetime. When the input is focussed, a dropdown shows, including an [Ember Power Calendar](https://ember-power-calendar.com) component, and optionally a time selection component below that. 
+Displays an input which shows the current selected date or datetime. When the input is focussed, a dropdown shows, including an [Ember Power Calendar](https://ember-power-calendar.com) component, and optionally a time selection component below that.
 
-The datetime can be updated by simply editing the string in the trigger input, or bu using the calendar component, and the time selector component is it is shown. 
+In order to use this field, you will need to [install Ember Power Calendar and import the related styles](https://ember-power-calendar.com/docs/installation) in your comsuming application.
 
-The `dateTimeFormat` option is important. This is the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component. 
+The datetime can be updated by simply editing the string in the trigger input, or bu using the calendar component, and the time selector component is it is shown.
+
+The `dateTimeFormat` option is important. This is the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component.
 
 The value output by this field will also always be a formatted according to this format.
 
@@ -267,7 +275,6 @@ The value output by this field will also always be a formatted according to this
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
-
 
 ### defaultValue
 
@@ -289,7 +296,7 @@ Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime`
 
 ### With minDate and maxDate
 
-`minDate` and `maxDate` can both be passed in order to set the earliest and latest allowed dates respectively. In the calendar component, all dates before `minDate` or after `maxDate` will be disabled. 
+`minDate` and `maxDate` can both be passed in order to set the earliest and latest allowed dates respectively. In the calendar component, all dates before `minDate` or after `maxDate` will be disabled.
 
 If the user types a date into the trigger input which is before `minDate` or after `maxDate`, then when the `onChnage` event fires, the value will be ignored and the trigger will be reset to its previous value.
 
@@ -299,15 +306,15 @@ If the user types a date into the trigger input which is before `minDate` or aft
 
 If `showTimeSelector` is `true` then by default a series of inputs will be shown for time selection, based on a 24 hours clock with hours, minutes, seconds and milliseconds.
 
-All inputs can be updated either by typing numbers, or by using the arrow keys. 
+All inputs can be updated either by typing numbers, or by using the arrow keys.
 
-* An arrow key on its own increments the value by 1.
-* An arrow key + `Shift` increments the value by 10.
-* An arrow key + `Ctrl` + `Shift` increments the value by 100.
+- An arrow key on its own increments the value by 1.
+- An arrow key + `Shift` increments the value by 10.
+- An arrow key + `Ctrl` + `Shift` increments the value by 100.
 
-If the user input exceeds the maximum value for the relevant time unit, the value will be forcibly set to the maximum value. 
+If the user input exceeds the maximum value for the relevant time unit, the value will be forcibly set to the maximum value.
 
-If the user input is lower than the minimum value for the relevant time unit, the value will be forcibly set to the minimum value. 
+If the user input is lower than the minimum value for the relevant time unit, the value will be forcibly set to the minimum value.
 
 <Demos::PowerDatepickerExampleThree />
 
@@ -331,13 +338,19 @@ The AM/PM input can be updated wither by typing in the input, or using arrow up 
 
 ### With a different display format from the underlying date value format
 
-It is possible pass `dateTimeDisplayFormat` to have a different display format in the datetime trigger input, to the underlying date format specified by `dateTimeFormat`. 
+It is possible pass `dateTimeDisplayFormat` to have a different display format in the datetime trigger input, to the underlying date format specified by `dateTimeFormat`.
 
-In this case, the field value will still be formattd according to `dateTimeFormat`. `dateTimeFormat` will still be the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component.  
+In this case, the field value will still be formattd according to `dateTimeFormat`. `dateTimeFormat` will still be the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component.
 
 This could be useful where your server requires one date format, but your users would expect another format.
 
 <Demos::PowerDatepickerExampleFive />
+
+### Styling the close and calendar icons
+
+Example styling to add a gray calendar icon to the component when no date is selected, and a more attractive cross icon which shows when there is a value.
+
+<DocsSnippet @name="styling-close-button-and-calendar-icons.scss" />
 
 ## Clicker
 
@@ -353,28 +366,27 @@ Renders a `div` element with `role="button"` the classNames provided. The inner 
 
 <Forms::ClickerExampleOneFormSchema />
 
-
 ### Clicker field with a custom component
 
 You can use a custom component for the checkbox label by passing `displayComponent` to the field. The component passed will then be rendered in place of the standard clicker component.
 
 The object passed must take the following form.
 
-``` 
-{ 
-  path: // String, required. The path to the component to render', 
+```
+{
+  path: // String, required. The path to the component to render',
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```
 
-* The component will also have access to an `formField` prop, with the formField object.
-* The component will also have access to the `clickerElementClass` property. These are the classnames that would be applied to the standard clicker element, derived by resolving th default class names for the field, with any overrides provided.
-* The component will also have access to the `changesetWebform` object, which is contains the form settings, form fields and underlying changeset.
+- The component will also have access to an `formField` prop, with the formField object.
+- The component will also have access to the `clickerElementClass` property. These are the classnames that would be applied to the standard clicker element, derived by resolving th default class names for the field, with any overrides provided.
+- The component will also have access to the `changesetWebform` object, which is contains the form settings, form fields and underlying changeset.
 
 Pass `displayComponent` as an object containing:
 
-* `path` - the path to the component to render
-* `props`
+- `path` - the path to the component to render
+- `props`
 
 If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
 

@@ -13,7 +13,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
-import { selectChoose } from 'ember-power-select/test-support/helpers';
+import { selectChoose } from 'ember-power-select/test-support';
 
 module('Acceptance | Field validation', function (hooks) {
   setupApplicationTest(hooks);

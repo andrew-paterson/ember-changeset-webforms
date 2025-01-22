@@ -1,9 +1,9 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import validateFields from '../utils/validate-fields';
-import nullifyExcludedFields from '../utils/nullify-excluded-fields';
-import createChangesetWebform from '../utils/create-changeset-webform';
-import isPromise from '../utils/is-promise';
+import validateFields from '../utils/validate-fields.js';
+import nullifyExcludedFields from '../utils/nullify-excluded-fields.js';
+import createChangesetWebform from '../utils/create-changeset-webform.js';
+import isPromise from '../utils/is-promise.js';
 import { tracked } from '@glimmer/tracking';
 
 export default class ChangesetWebform extends Component {

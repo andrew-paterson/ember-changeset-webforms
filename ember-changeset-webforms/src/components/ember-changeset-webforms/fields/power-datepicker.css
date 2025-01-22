@@ -1,0 +1,58 @@
+.power-datetime-picker {
+  display: flex;
+  align-items: center;
+}
+.power-datetime-picker > .ember-basic-dropdown .ember-basic-dropdown-trigger {
+  display: flex;
+  flex-basis: 0;
+  flex-shrink: 1;
+}
+.power-datetime-picker
+  > .ember-basic-dropdown
+  .ember-basic-dropdown-trigger
+  input {
+  background: transparent;
+  border-width: 0;
+  margin-left: 10px;
+}
+.power-datetime-picker
+  > .ember-basic-dropdown
+  .ember-basic-dropdown-trigger
+  input:focus {
+  box-shadow: none;
+  outline: 0;
+  border-width: 0;
+}
+.power-datetime-picker .ember-power-calendar-nav-control {
+  --ember-power-calendar-nav-control-width: 30px;
+  --ember-power-calendar-nav-control-height: 30px;
+  width: var(--ember-power-calendar-nav-control-width);
+  height: var(--ember-power-calendar-nav-control-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: var(--ember-power-calendar-nav-control-height);
+}
+.power-datetime-picker .ember-power-calendar-nav-control:hover {
+  --ember-power-calendar-nav-control-hover-background-color: #eee;
+  background: var(--ember-power-calendar-nav-control-hover-background-color);
+}
+
+.power-datetime-picker input.date-select {
+  border-width: 0;
+  padding-right: 0;
+  background: transparent;
+}
+
+.cwf-time-selector {
+  display: flex;
+}
+.cwf-time-selector .time-selector-field {
+  min-width: 60px;
+}
+.cwf-time-selector .time-selector-field input {
+  width: 100%;
+}
+.cwf-time-selector .time-selector-field.time-selector-field-milliseconds {
+  min-width: 80px;
+}

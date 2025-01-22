@@ -1,0 +1,4 @@
+.cwf-field-power-select-option-checkbox {
+  --cwf-field-power-select-option-checkbox-margin-right: 10px;
+  margin-right: var(--cwf-field-power-select-option-checkbox-margin-right);
+}

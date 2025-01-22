@@ -1,6 +1,8 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { typeOf as emberTypeOf } from '@ember/utils';
+import './power-select.css';
+
 export default class PowerSelect extends Component {
   get componentName() {
     return this.args.formField.multipleSelection

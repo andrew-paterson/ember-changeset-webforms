@@ -1,9 +1,29 @@
-<label
-  class="power-select-item power-select-option-with-checkbox
-    {{sanitise-classname @optionName}}
-    "
-  ...attributes
+<div
+  class="form-check"
+  {{did-insert this.didInsert}}
+  {{did-update this.selectionChanged @selected}}
 >
-  <div class="checkbox {{if this.isSelected 'checked'}} margin-right-lg"></div>
-  {{@optionName}}
-</label>
+  <input
+    id={{this.checkboxId}}
+    type="checkbox"
+    aria-labelledby={{this.labelId}}
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'checkboxElement'
+        @changesetWebform
+      }}
+      {{ember-changeset-webforms/dynamic-class-names
+        'powerSelectOptionCheckbox'
+        @changesetWebform
+      }}"
+  />
+  <label
+    id={{this.labelId}}
+    for={{this.checkboxId}}
+    class="cwf-field-power-select-item cwf-field-power-select-option-with-checkbox
+      {{sanitise-classname @optionName}}
+      "
+    ...attributes
+  >
+    {{@optionName}}
+  </label>
+</div>

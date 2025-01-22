@@ -2,6 +2,7 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import FormFieldClone from '../../../utils/form-field-clone';
 import { tracked } from '@glimmer/tracking';
+import './validating-clone-group.css';
 
 class destinationElementClass {
   @tracked cloneGroupActions;

@@ -32,9 +32,9 @@
     "decorator-transforms": "^2.3.0",
     "ember-changeset": "^4.1.2",
     "ember-changeset-validations": "^4.1.1",
+    "ember-cli-inline-content": "^0.4.1",
     "ember-get-config": "^2.1.1",
     "ember-radio-button": "3.0.0-beta.1",
-    "ember-cli-inline-content": "^0.4.1",
     "ember-test-selectors": "^7.0.0",
     "flat": "^5.0.2",
     "lodash.mergewith": "^4.6.2",
@@ -58,7 +58,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.4.2",
     "rollup": "^4.29.1",
-    "rollup-plugin-copy": "^3.5.0"
+    "rollup-plugin-copy": "^3.5.0",
+    "webpack": "^5.89.0"
   },
   "engines": {
     "node": ">= 18"
