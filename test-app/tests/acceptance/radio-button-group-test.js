@@ -7,7 +7,7 @@ module('Acceptance | Radio button group', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Basics', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/radio-button-group');
     assert
       .dom(`${testEls.radioButtonGroupExample1} ${testEls.currentValue}`)
       .doesNotExist('Current value not shown on load.');
@@ -32,7 +32,7 @@ module('Acceptance | Radio button group', function (hooks) {
   });
 
   test('With component label', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/radio-button-group');
     assert
       .dom(`${testEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(

@@ -7,7 +7,7 @@ module('Acceptance | Checkbox group', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Basic', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/checkbox-group');
     await click(
       `${testEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption1} input`,
     );

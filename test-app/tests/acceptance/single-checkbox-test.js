@@ -7,7 +7,7 @@ module('Acceptance | Single checkbox', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Basic', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/single-checkbox');
     const parentFieldSelector = testEls.singleCheckboxBasicUse;
     assert.ok(true);
   });

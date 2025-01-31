@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { typeOf as emberTypeOf } from '@ember/utils';
-import './power-select.css';
+import 'ember-power-select/styles';
 
 export default class PowerSelect extends Component {
   get componentName() {

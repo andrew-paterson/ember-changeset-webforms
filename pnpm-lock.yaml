@@ -41,6 +41,12 @@ importers:
       ember-get-config:
         specifier: ^2.1.1
         version: 2.1.1
+      ember-power-calendar:
+        specifier: ^1.3.1
+        version: 1.3.1(@babel/core@7.23.7)(@ember/test-helpers@3.2.1(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0))(webpack@5.89.0))(@glimmer/component@1.1.2(@babel/core@7.23.7))(@glimmer/tracking@1.1.2)(ember-concurrency@4.0.2(@babel/core@7.23.7)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0)))(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0))
+      ember-power-select:
+        specifier: ^8.3.1
+        version: 8.6.2(@babel/core@7.23.7)(@ember/test-helpers@3.2.1(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0))(webpack@5.89.0))(@glimmer/component@1.1.2(@babel/core@7.23.7))(@glimmer/tracking@1.1.2)(ember-basic-dropdown@8.4.0(@ember/string@3.1.1)(@ember/test-helpers@3.2.1(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0))(webpack@5.89.0))(@glimmer/component@1.1.2(@babel/core@7.23.7))(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0)))(ember-concurrency@4.0.2(@babel/core@7.23.7)(@glimmer/tracking@1.1.2)(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0)))(ember-source@5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2(@babel/core@7.23.7))(rsvp@4.8.5)(webpack@5.89.0))
       ember-radio-button:
         specifier: 3.0.0-beta.1
         version: 3.0.0-beta.1

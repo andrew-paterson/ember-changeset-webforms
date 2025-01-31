@@ -19,8 +19,17 @@ Router.map(function () {
     this.route('field-validation');
     this.route('integrating-custom-validators');
     this.route('clonable-form-fields');
-    this.route('built-in-fields');
     this.route('configure-classnames');
+    this.route('input');
+    this.route('textarea');
+    this.route('single-checkbox');
+    this.route('radio-button-group');
+    this.route('checkbox-group');
+    this.route('static-content-field');
+    this.route('power-select');
+    this.route('power-select-checkboxes');
+    this.route('power-datepicker');
+    this.route('clicker');
   });
   this.route('not-found', { path: '/*path' });
 });

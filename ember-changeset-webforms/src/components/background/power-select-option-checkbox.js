@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import safeName from '../../utils/safe-name';
+import './power-select-option-checkbox.css';
 
 export default class PowerSelectOptionCheckbox extends Component {
   get isSelected() {

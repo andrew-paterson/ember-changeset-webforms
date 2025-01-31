@@ -7,7 +7,7 @@ module('Acceptance | Clicker', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Default clicker element', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/clicker');
     const el = find(testEls.clickerExample1);
     el.scrollIntoView();
     assert
@@ -48,7 +48,7 @@ module('Acceptance | Clicker', function (hooks) {
   });
 
   test('Custom component', async function (assert) {
-    await visit('/docs/built-in-fields#clicker-field-basic-usage');
+    await visit('/docs/clicker');
     const el = find(testEls.clickerExample2);
     el.scrollIntoView();
     assert

@@ -1,8 +1,9 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import keyCodesMap from '../../utils/keycodes-map';
+import keyCodesMap from '../../utils/keycodes-map.js';
 import { tracked } from '@glimmer/tracking';
 import moment from 'moment';
+import 'ember-power-calendar/styles';
 
 export default class PowerDatetimePicker extends Component {
   @tracked center;

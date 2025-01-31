@@ -23,7 +23,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Date select', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepickerBasicUse;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -81,7 +81,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Date select with minDate 2022-11-10 and maxDate 2022-11-16', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     // TODO write test to check that calendarStartMonth works and is overridden by defaultValue or data passed in.
     const parentFieldSelector = testEls.powerDatepickerMinMaxDate;
     const dateTimeInput = find(
@@ -163,7 +163,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Date select with advanced', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepickerAdvancedUse;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -221,7 +221,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Main input (24 hour format)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -609,7 +609,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Main input (12 hour format)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1008,7 +1008,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Arrow keys - hour controls (24 hours format)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
@@ -1043,7 +1043,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Arrow keys - hour controls (12 hour format)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker12HourTimeSelect;
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${testEls.rawDateTime}`,
@@ -1105,7 +1105,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Arrow keys - minute controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect; //
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
@@ -1142,7 +1142,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Arrow keys - second controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
@@ -1181,7 +1181,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Arrow keys - millisecond controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
@@ -1242,7 +1242,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Typed input - hour controls (12 hour clock)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1338,7 +1338,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Typed input - hour controls (24 hour clock)', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1461,7 +1461,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Typed input - minute controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1559,7 +1559,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Typed input - second controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1657,7 +1657,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Typed input - millisecond controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -1755,7 +1755,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('AM PM controls', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -2043,7 +2043,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Millisecond digits', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepickerUnusualFormat;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -2068,7 +2068,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   });
 
   test('Custom timeSelectorFields HH:mm', async function (assert) {
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepickerCustomTimeSelect;
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3aFormStartDateField}`,
@@ -2088,7 +2088,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     );
   }),
     test('Display date format differs from date format', async function (assert) {
-      await visit('/docs/built-in-fields');
+      await visit('/docs/power-datepicker');
       const parentFieldSelector = testEls.powerDatepickerUnusualFormat;
       const dateTimeInput = find(
         `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
@@ -2175,7 +2175,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Misc zzz', async function (assert) {
     // Main input (24 hour format)
     // Filling in Msec value of more than 8 digits simply chops off all but the first three
-    await visit('/docs/built-in-fields');
+    await visit('/docs/power-datepicker');
     const parentFieldSelector = testEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
       `${parentFieldSelector} ${testEls.powerDatepickerInput}`,
