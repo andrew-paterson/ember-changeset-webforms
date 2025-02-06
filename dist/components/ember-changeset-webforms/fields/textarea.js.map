@@ -1,0 +1,1 @@
+{"version":3,"file":"textarea.js","sources":["../../../../src/components/ember-changeset-webforms/fields/textarea.js"],"sourcesContent":["import Input from './input';\n\nexport default class Textarea extends Input {}\n"],"names":["Textarea","Input","setComponentTemplate","TEMPLATE"],"mappings":";;;;;;AAEe,MAAMA,QAAQ,SAASC,KAAK,CAAC;AAAEC,oBAAA,CAAAC,QAAA,EAAzBH,QAAQ,CAAA;;;;"}
