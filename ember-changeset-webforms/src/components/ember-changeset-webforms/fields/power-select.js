@@ -1,13 +1,17 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { typeOf as emberTypeOf } from '@ember/utils';
+import PowerSelectComponent from 'ember-power-select/components/power-select';
+import PowerSelectMultipleComponent from 'ember-power-select/components/power-select-multiple';
+import { ensureSafeComponent } from '@embroider/util';
+
 import 'ember-power-select/styles';
 
 export default class PowerSelect extends Component {
-  get componentName() {
+  get componentClass() {
     return this.args.formField.multipleSelection
-      ? 'power-select-multiple'
-      : 'power-select';
+      ? ensureSafeComponent(PowerSelectMultipleComponent)
+      : ensureSafeComponent(PowerSelectComponent);
   }
 
   @action

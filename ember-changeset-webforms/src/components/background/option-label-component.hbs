@@ -1,0 +1,18 @@
+{{#if @optionLabelComponent}}
+  <@optionLabelComponent.componentClass
+    @props={{@optionLabelComponent.props}}
+    @option={{@option}}
+    @for={{@for}}
+    @labelId={{@labelId}}
+    @checked={{@checked}}
+    @changesetWebform={{@changesetWebform}}
+    @formField={{@formField}}
+    ...attributes
+  />
+{{else if @optionMarkdownLabel}}
+  <label for={{@for}} id={{@labelId}} ...attributes>
+    <Background::MarkdownToHtml @source={{@optionMarkdownLabel}} />
+  </label>
+{{else if @label}}
+  <label for={{@for}} id={{@labelId}} ...attributes>{{@label}}</label>
+{{/if}}

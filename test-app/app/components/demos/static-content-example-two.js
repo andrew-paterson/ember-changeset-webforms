@@ -12,7 +12,7 @@ export default class StaticContentExampleTwoComponent extends Component {
         fieldId: 'staticContent',
         fieldType: 'staticContent',
         contentComponent: {
-          path: 'forms/component-for-static-content-field',
+          componentClass: 'forms/component-for-static-content-field',
           props: {
             info: 'This text was passed to the label component dynamically for this option, via the contentComponent.props object',
           },

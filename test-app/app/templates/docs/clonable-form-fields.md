@@ -12,7 +12,7 @@ The `cloneFieldSchema` property behaves exactly as the field Schema on any other
 
 The following default field settings can also be overridden:
 
-<InterpolatedSimpleJsSnippet @object={{this.cloneGroupFieldAddonDefaults}} @excludeKeys={{array "fieldType" "componentPath" "cloneFieldSchema"}} />
+<InterpolatedSimpleJsSnippet @object={{this.cloneGroupFieldAddonDefaults}} @excludeKeys={{array "fieldType" "componentClass" "cloneFieldSchema"}} />
 
 ## Tracked clone settings
 
@@ -39,7 +39,6 @@ In order to validate on the length of the array, add the `validateLength` valida
 <Demos::CloneGroupFormWithData />
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clone button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
-
 
 ## Validation notes
 

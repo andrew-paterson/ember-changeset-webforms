@@ -25,14 +25,16 @@
         @formField.validationStatus
       }}"
   />
-  <Background::LabelComponent
-    @labelComponent={{@labelComponent}}
+  <Background::OptionLabelComponent
+    @optionLabelComponent={{@optionLabelComponent}}
     @option={{@option}}
-    @markdownLabel={{@markdownLabel}}
+    @optionMarkdownLabel={{@optionMarkdownLabel}}
     @label={{@label}}
     @for={{this.checkboxId}}
     @labelId={{this.labelId}}
     @checked={{@value}}
+    @changesetWebform={{@changesetWebform}}
+    @formField={{@formField}}
     class={{ember-changeset-webforms/dynamic-class-names
       "checkboxLabel"
       @changesetWebform

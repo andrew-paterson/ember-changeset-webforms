@@ -1,8 +1,9 @@
 {{#if @formField.contentComponent}}
-  {{component
-    @formField.contentComponent.path
-    props=@formField.contentComponent.props
-  }}
+  <@formField.contentComponent.componentClass
+    @props={{@formField.contentComponent.props}}
+    @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
+  />
 {{else}}
   {{this.textElement}}
 {{/if}}

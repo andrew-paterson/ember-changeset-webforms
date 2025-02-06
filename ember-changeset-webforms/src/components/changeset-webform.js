@@ -5,8 +5,9 @@ import nullifyExcludedFields from '../utils/nullify-excluded-fields.js';
 import createChangesetWebform from '../utils/create-changeset-webform.js';
 import isPromise from '../utils/is-promise.js';
 import { tracked } from '@glimmer/tracking';
-
+import { inject as service } from '@ember/service';
 export default class ChangesetWebform extends Component {
+  @service emberChangesetWebforms;
   @tracked changesetWebform;
 
   get formSettings() {
@@ -60,6 +61,7 @@ export default class ChangesetWebform extends Component {
   @action
   generateChangesetWebform(formSchema, data, customValidators, opts) {
     this.changesetWebform = createChangesetWebform(
+      this.emberChangesetWebforms.changesetWebformsDefaults,
       formSchema,
       data,
       customValidators,

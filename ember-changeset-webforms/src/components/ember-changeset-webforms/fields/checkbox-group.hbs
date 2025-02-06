@@ -16,11 +16,11 @@
       }}
       @value={{readonly option.value}}
       @label={{option.label}}
-      @labelComponent={{or
-        option.labelComponent
+      @optionLabelComponent={{or
+        option.optionLabelComponent
         @formField.optionLabelComponent
       }}
-      @markdownLabel={{option.optionLabelMarkdown}}
+      @optionMarkdownLabel={{option.optionMarkdownLabel}}
       @containerName={{@formSettings.formName}}
       @changedAction={{fn this.checkboxToggled option}}
       @name={{@formField.name}}

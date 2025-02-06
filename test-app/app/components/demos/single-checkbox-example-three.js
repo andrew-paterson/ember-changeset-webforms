@@ -12,7 +12,7 @@ export default class SingleCheckboxExampleThreeComponent extends Component {
         fieldId: 'acceptTerms',
         fieldType: 'singleCheckbox',
         checkBoxLabelComponent: {
-          path: 'forms/component-for-single-checkbox-option',
+          componentClass: 'forms/component-for-single-checkbox-option',
           props: {
             info: 'This text was passed to the label component dynamically for this option, via the checkBoxLabelComponent.props object.',
           },

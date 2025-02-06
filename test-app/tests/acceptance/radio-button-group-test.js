@@ -37,7 +37,7 @@ module('Acceptance | Radio button group', function (hooks) {
       .dom(`${testEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
         'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info',
-        'Both field.optionLabelComponent and option.labelComponent are loading correctly, and the option and props obejcts are passed in correctly to field.optionLabelComponent.',
+        'Both field.optionLabelComponent and option.optionLabelComponent are loading correctly, and the option and props obejcts are passed in correctly to field.optionLabelComponent.',
       );
     await click(
       `${testEls.radioButtonGroupExample2} ${testEls.moreInfoToggler}`,
@@ -46,7 +46,7 @@ module('Acceptance | Radio button group', function (hooks) {
       .dom(`${testEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
         'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info This text was passed to the label component dynamically for this option, via the labelComponent.props object.',
-        'The option and props obejcts are correctly passed in to option.labelComponent.',
+        'The option and props obejcts are correctly passed in to option.optionLabelComponent.',
       );
   });
 });

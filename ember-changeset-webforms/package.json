@@ -29,6 +29,7 @@
     "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^3.2.1",
     "@embroider/addon-shim": "^1.9.0",
+    "@embroider/util": "^1.13.2",
     "decorator-transforms": "^2.3.0",
     "ember-changeset": "^4.1.2",
     "ember-changeset-validations": "^4.1.1",
@@ -68,10 +69,10 @@
   },
   "ember-addon": {
     "app-js": {
-      "./components/background/label-component.js": "./dist/_app_/components/background/label-component.js",
       "./components/background/labelled-checkbox.js": "./dist/_app_/components/background/labelled-checkbox.js",
       "./components/background/labelled-radio-button.js": "./dist/_app_/components/background/labelled-radio-button.js",
       "./components/background/markdown-to-html.js": "./dist/_app_/components/background/markdown-to-html.js",
+      "./components/background/option-label-component.js": "./dist/_app_/components/background/option-label-component.js",
       "./components/background/power-calendar-nav.js": "./dist/_app_/components/background/power-calendar-nav.js",
       "./components/background/power-datetime-picker.js": "./dist/_app_/components/background/power-datetime-picker.js",
       "./components/background/power-select-checkboxes-trigger.js": "./dist/_app_/components/background/power-select-checkboxes-trigger.js",

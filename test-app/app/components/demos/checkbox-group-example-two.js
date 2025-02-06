@@ -13,7 +13,7 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
         fieldType: 'checkboxGroup',
         fieldLabel: 'Custom label components',
         optionLabelComponent: {
-          path: 'forms/component-for-all-checkbox-options',
+          componentClass: 'forms/component-for-all-checkbox-options',
           props: {
             infoLink: 'https://example.com',
           },
@@ -30,10 +30,10 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
           {
             label: 'Option 3',
             key: '3',
-            labelComponent: {
-              path: 'forms/component-for-single-checkbox-option',
+            optionLabelComponent: {
+              componentClass: 'forms/component-for-single-checkbox-option',
               props: {
-                info: 'This text was passed to the label component dynamically for this option, via the labelComponent.props object.',
+                info: 'This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
               },
             },
           },

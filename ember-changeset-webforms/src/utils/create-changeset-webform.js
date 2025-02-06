@@ -4,12 +4,13 @@ import parseChangesetWebformField from './parse-changeset-webform-field';
 import FormSettings from './form-settings';
 
 export default function createChangesetWebform(
+  appDefaults,
   formSchema,
   data,
   customValidators,
   opts,
 ) {
-  const formSchemaWithDefaults = getWithDefaultUtil(formSchema);
+  const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
   const parsedFields = formSchemaWithDefaults.fields.map((item) =>
     parseChangesetWebformField(
       item,

@@ -21,7 +21,7 @@ export default class ClickerExampleTwoFormSchema extends Component {
         },
         clickerText: 'Advanced options',
         displayComponent: {
-          path: 'forms/custom-clicker-component',
+          componentClass: 'forms/custom-clicker-component',
           props: {
             buttonType: 'danger',
           },

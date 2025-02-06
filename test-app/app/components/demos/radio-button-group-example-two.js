@@ -13,7 +13,7 @@ export default class RadioButtonGroupExampleTwoComponent extends Component {
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Custom label components',
         optionLabelComponent: {
-          path: 'forms/component-for-all-radio-options',
+          componentClass: 'forms/component-for-all-radio-options',
           props: {
             infoLink: 'https://example.com',
           },
@@ -30,10 +30,10 @@ export default class RadioButtonGroupExampleTwoComponent extends Component {
           {
             label: 'Option 3',
             value: '3',
-            labelComponent: {
-              path: 'forms/component-for-single-radio-option',
+            optionLabelComponent: {
+              componentClass: 'forms/component-for-single-radio-option',
               props: {
-                info: 'This text was passed to the label component dynamically for this option, via the labelComponent.props object.',
+                info: 'This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
               },
             },
           },

@@ -2,12 +2,12 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-// import customValidators from '../../validators';
 import { validateUniqueness, validatePhoneNumber } from '../../validators';
 const customValidators = {
   validateUniqueness,
   validatePhoneNumber,
 };
+
 export default class DemosCustomFieldUsageComponent extends Component {
   customValidators = customValidators;
   @tracked phoneNumber;
