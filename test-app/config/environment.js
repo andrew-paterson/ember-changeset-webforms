@@ -25,47 +25,47 @@ module.exports = function (environment) {
 
   ENV.changesetWebformsDefaults = {};
   // TODO write tests for these classnames being added correctly.
-  // BEGIN-SNIPPET app-wide-classes.js
-  ENV.changesetWebformsDefaults.generalClassNames = {
-    labelElement: ['$inherited', 'label-el'],
-  };
-  // END-SNIPPET
+  // // BEGIN-SNIPPET app-wide-classes.js
+  // ENV.changesetWebformsDefaults.generalClassNames = {
+  //   labelElement: ['$inherited', 'label-el'],
+  // };
+  // // END-SNIPPET
 
-  // BEGIN-SNIPPET app-wide-field-options.js
-  // config/environment.js
-  ENV.changesetWebformsDefaults.fieldTypes = [
-    {
-      fieldType: 'radioButtonGroup',
-      classNames: {
-        labelElement: ['$inherited', 'radio-button-group-label'],
-      },
-    },
-    {
-      fieldType: 'phoneNumberWithCountryCode',
-      componentPath: 'custom-fields/phone-number-with-country-code',
-      classNames: {
-        fieldControls: [
-          '$validationClassNames',
-          'form-control',
-          'p-0',
-          'bg-white',
-        ],
-        phoneNumberInput: [
-          'form-control ',
-          'border ',
-          'border-0 ',
-          'border-start',
-        ],
-        countryCodeTrigger: [
-          'input-group-text ',
-          'pe-5 ',
-          'border ',
-          'border-0',
-        ],
-      },
-    },
-  ];
-  // END-SNIPPET
+  // // BEGIN-SNIPPET app-wide-field-options.js
+  // // config/environment.js
+  // ENV.changesetWebformsDefaults.fieldTypes = [
+  //   {
+  //     fieldType: 'radioButtonGroup',
+  //     classNames: {
+  //       labelElement: ['$inherited', 'radio-button-group-label'],
+  //     },
+  //   },
+  //   {
+  //     fieldType: 'phoneNumberWithCountryCode',
+  //     componentClass: 'custom-fields/phone-number-with-country-code',
+  //     classNames: {
+  //       fieldControls: [
+  //         '$validationClassNames',
+  //         'form-control',
+  //         'p-0',
+  //         'bg-white',
+  //       ],
+  //       phoneNumberInput: [
+  //         'form-control ',
+  //         'border ',
+  //         'border-0 ',
+  //         'border-start',
+  //       ],
+  //       countryCodeTrigger: [
+  //         'input-group-text ',
+  //         'pe-5 ',
+  //         'border ',
+  //         'border-0',
+  //       ],
+  //     },
+  //   },
+  // ];
+  // // END-SNIPPET
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

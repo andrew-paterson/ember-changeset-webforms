@@ -86,13 +86,13 @@
           data-test-id="cwf-max-clones-reached"
         >{{@masterFormField.maxClonesReachedText}}</div>
       {{else}}
-        {{component
-          @masterFormField.addCloneButtonComponent
-          onClickAddCloneButton=this.onClickAddCloneButton
-          formField=@masterFormField
-          cloneFieldLabel=(get @masterFormField.clonedFields "0.fieldLabel")
-          changesetWebform=@changesetWebform
-        }}
+        <@masterFormField.addCloneButtonComponent.componentClass
+          @props={{@masterFormField.addCloneButtonComponent.props}}
+          @onClickAddCloneButton={{this.onClickAddCloneButton}}
+          @formField={{@masterFormField}}
+          @cloneFieldLabel={{get @masterFormField.clonedFields "0.fieldLabel"}}
+          @changesetWebform={{@changesetWebform}}
+        />
       {{/if}}
     </div>
   {{/in-element}}

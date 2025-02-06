@@ -2,6 +2,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import CustomClickerComponent from '../forms/custom-clicker-component.js';
+import { ensureSafeComponent } from '@embroider/util';
 
 class customProps {
   @tracked showAdvanced = false;
@@ -21,7 +23,7 @@ export default class ClickerExampleTwoFormSchema extends Component {
         },
         clickerText: 'Advanced options',
         displayComponent: {
-          path: 'forms/custom-clicker-component',
+          componentClass: ensureSafeComponent(CustomClickerComponent),
           props: {
             buttonType: 'danger',
           },

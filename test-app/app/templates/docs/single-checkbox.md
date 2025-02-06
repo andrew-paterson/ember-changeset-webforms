@@ -30,7 +30,7 @@ The object passed must take the following form.
 
 ```
 {
-  path: // String, required. The path to the component to render',
+  componentClass: // Class, required. The imported class of the component to render.
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```

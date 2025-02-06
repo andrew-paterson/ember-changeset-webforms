@@ -25,14 +25,16 @@
       @formField.validationStatus
     }}"
   />
-  <Background::LabelComponent
-    @labelComponent={{@labelComponent}}
+  <Background::OptionLabelComponent
+    @optionLabelComponent={{@optionLabelComponent}}
     @option={{@option}}
-    @markdownLabel={{@markdownLabel}}
+    @optionMarkdownLabel={{@optionMarkdownLabel}}
     @label={{@label}}
     @for={{this.radioId}}
     @labelId={{this.labelId}}
     @checked={{this.checked}}
+    @changesetWebform={{@changesetWebform}}
+    @formField={{@formField}}
     class={{ember-changeset-webforms/dynamic-class-names
       "radioButtonLabel"
       @changesetWebform

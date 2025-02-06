@@ -31,24 +31,22 @@
       data-test-cwf-field
       {{did-insert this.didInsert}}
     >
-      {{#let (component @formField.componentPath) as |FieldComponent|}}
-        <FieldComponent
-          @formField={{@formField}}
-          @formFields={{@formFields}}
-          @formSettings={{@formSettings}}
-          @updateFieldValue={{this.updateFieldValue}}
-          @onUserInteraction={{this.onUserInteraction}}
-          @changesetWebform={{@changesetWebform}}
-          @dataTestFieldId={{this.dataTestFieldId}}
-          @labelId={{this.labelId}}
-          @ariaLabelledBy={{this.ariaLabelledBy}}
-          @ariaLabel={{this.ariaLabel}}
-          @ariaErrorMessage={{this.ariaErrorMessage}}
-          @ariaDescribedBy={{this.ariaDescribedBy}}
-          @isGroup={{this.isGroup}}
-          @submitForm={{@submitForm}}
-        />
-      {{/let}}
+      <@formField.componentClass
+        @formField={{@formField}}
+        @formFields={{@formFields}}
+        @formSettings={{@formSettings}}
+        @updateFieldValue={{this.updateFieldValue}}
+        @onUserInteraction={{this.onUserInteraction}}
+        @changesetWebform={{@changesetWebform}}
+        @dataTestFieldId={{this.dataTestFieldId}}
+        @labelId={{this.labelId}}
+        @ariaLabelledBy={{this.ariaLabelledBy}}
+        @ariaLabel={{this.ariaLabel}}
+        @ariaErrorMessage={{this.ariaErrorMessage}}
+        @ariaDescribedBy={{this.ariaDescribedBy}}
+        @isGroup={{this.isGroup}}
+        @submitForm={{@submitForm}}
+      />
       {{#if @formField.description}}
         <EmberChangesetWebforms::FieldElements::FieldDescription
           @description={{@formField.description}}

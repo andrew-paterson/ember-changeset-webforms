@@ -15,16 +15,14 @@
   data-test-id="{{@clonedFormField.id}}"
   {{did-insert this.didInsert}}
 >
-  {{#let (component @clonedFormField.componentPath) as |FieldComponent|}}
-    <FieldComponent
-      @formField={{@clonedFormField}}
-      @clonedFormField={{@clonedFormField}}
-      @masterFormField={{@masterFormField}}
-      @onUserInteraction={{this.onUserInteractionClone}}
-      @updateFieldValue={{this.updateCloneValue}}
-      @cloneField={{@cloneField}}
-      @removeClone={{@removeClone}}
-      @changesetWebform={{@changesetWebform}}
-    />
-  {{/let}}
+  <@clonedFormField.componentClass
+    @formField={{@clonedFormField}}
+    @clonedFormField={{@clonedFormField}}
+    @masterFormField={{@masterFormField}}
+    @onUserInteraction={{this.onUserInteractionClone}}
+    @updateFieldValue={{this.updateCloneValue}}
+    @cloneField={{@cloneField}}
+    @removeClone={{@removeClone}}
+    @changesetWebform={{@changesetWebform}}
+  />
 </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

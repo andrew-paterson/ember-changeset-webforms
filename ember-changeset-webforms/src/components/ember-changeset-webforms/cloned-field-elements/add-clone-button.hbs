@@ -8,17 +8,17 @@
   {{on "click" (fn @onClickAddCloneButton @formField.cloneGroupName)}}
   data-test-id="cwf-add-clone-button"
 >
-  {{#let
-    (component @changesetWebform.formSettings.addCloneButtonIcon)
-    as |AddCloneButton|
-  }}
-    <AddCloneButton
+  {{#if @changesetWebform.formSettings.addCloneButtonIconComponent}}
+    <@changesetWebform.formSettings.addCloneButtonIconComponent.componentClass
+      @props={{@changesetWebform.formSettings.addCloneButtonIconComponent.props}}
+      @changesetWebform={{@changesetWebform}}
+      @formField={{@formField}}
       class={{ember-changeset-webforms/dynamic-class-names
         "buttonIcon,addCloneButtonIcon"
         @changesetWebform
       }}
     />
-  {{/let}}
+  {{/if}}
   {{or
     @formField.cloneButtonText
     (concat "Add " @cloneFieldLabel " field")

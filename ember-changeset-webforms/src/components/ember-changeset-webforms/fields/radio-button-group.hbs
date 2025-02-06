@@ -15,11 +15,11 @@
       @name={{or @formField.name @formField.id}}
       @disabled={{if @formField.disabled true option.disabled}}
       @label={{option.label}}
-      @labelComponent={{or
-        option.labelComponent
+      @optionLabelComponent={{or
+        option.optionLabelComponent
         @formField.optionLabelComponent
       }}
-      @markdownLabel={{option.optionLabelMarkdown}}
+      @optionMarkdownLabel={{option.optionMarkdownLabel}}
       @containerName={{@formSettings.formName}}
       @changedAction={{this.onRadioChange}}
       @option={{option}}

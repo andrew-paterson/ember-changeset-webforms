@@ -1,15 +1,16 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel @formField={{@formField}} />
 {{#if @formField.displayComponent}}
-  {{component
-    @formField.displayComponent.path
-    props=@formField.displayComponent.props
-    formField=@formField
-    clickerElementClass=(ember-changeset-webforms/dynamic-class-names
-      "clickerElement" @changesetWebform @formField
-    )
-    changesetWebform=@changesetWebform
-    onClick=(fn this.onClick @formField)
-  }}
+  <@formField.displayComponent.componentClass
+    @props={{@formField.displayComponent.props}}
+    @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
+    @clickerElementClass={{ember-changeset-webforms/dynamic-class-names
+      "clickerElement"
+      @changesetWebform
+      @formField
+    }}
+    @onClick={{fn this.onClick @formField}}
+  />
 {{else}}
   <div
     role="button"

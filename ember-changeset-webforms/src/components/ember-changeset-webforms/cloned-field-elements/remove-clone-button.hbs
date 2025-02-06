@@ -13,16 +13,16 @@
     data-test-class="cwf-remove-clone-button"
     title="Remove {{@formField.fieldId}}"
   >
-    {{#let
-      (component @masterFormField.removeCloneComponent)
-      as |RemoveCloneIcon|
-    }}
-      <RemoveCloneIcon
-        class="{{ember-changeset-webforms/dynamic-class-names
-            'removeCloneButtonIcon'
-            @changesetWebform
-            @formField
-          }}"
-      />
-    {{/let}}</div>
+    <@masterFormField.removeCloneComponent.componentClass
+      @props={{@props}}
+      @changesetWebform={{@changesetWebform}}
+      @formField={{@masterFormField}}
+      @formFieldClone={{@formField}}
+      class="{{ember-changeset-webforms/dynamic-class-names
+          'removeCloneButtonIcon'
+          @changesetWebform
+          @formField
+        }}"
+    />
+  </div>
 {{/if}}

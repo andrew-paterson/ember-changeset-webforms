@@ -2,6 +2,20 @@ import config from 'ember-get-config';
 import _mergeWith from 'lodash.mergewith';
 import mergeWithDefaultClassNames from './merge-with-default-class-names';
 import moment from 'moment';
+import InputComponent from '../components/ember-changeset-webforms/fields/input.js';
+import TextareaComponent from '../components/ember-changeset-webforms/fields/textarea.js';
+import PowerSelectComponent from '../components/ember-changeset-webforms/fields/power-select.js';
+import PowerDatepickerComponent from '../components/ember-changeset-webforms/fields/power-datepicker.js';
+import CheckboxComponent from '../components/ember-changeset-webforms/fields/checkbox.js';
+import RadioButtonGroupComponent from '../components/ember-changeset-webforms/fields/radio-button-group.js';
+import CheckboxGroupComponent from '../components/ember-changeset-webforms/fields/checkbox-group.js';
+import ClickerComponent from '../components/ember-changeset-webforms/fields/clicker.js';
+import StaticContentComponent from '../components/ember-changeset-webforms/fields/static-content.js';
+import PowerSelectCheckboxesComponent from '../components/ember-changeset-webforms/fields/power-select-checkboxes.js';
+import IconTrashComponent from '../components/icons/icon-trash.js';
+import AddCloneButtonComponent from '../components/ember-changeset-webforms/cloned-field-elements/add-clone-button.js';
+import PowerSelectCheckboxesTriggerComponent from '../components/background/power-select-checkboxes-trigger.js';
+import { ensureSafeComponent } from '@embroider/util';
 
 const addonDefaults = {
   generalClassNames: {
@@ -47,7 +61,10 @@ const addonDefaults = {
     formFields: ['form-fields'],
     formActions: ['form-actions', 'mt-4'],
     submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
-    submitButtonIcon(classNameSettings, changesetWebform /* formField */) {
+    submitButtonIconComponent(
+      classNameSettings,
+      changesetWebform /* formField */,
+    ) {
       if (changesetWebform.formSettings.requestInFlight) {
         return classNameSettings.requestInFlight;
       }
@@ -112,8 +129,15 @@ const addonDefaults = {
     novalidate: true, // Disable the browser's native validation feedback
     hideSubmitButton: false, // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
-    submitButtonIcon: null, // String - path to the component icon to show on the submit form button. Note that if null, an empty element will still appear on the submit button, with the class names defined for submitButtonIcon. If false, the element will not appear on the submit button.
-    addCloneButtonIcon: null,
+    submitButtonIconComponent: null, // Object with { componentClass, props }.
+    // `componentClass` is the imported class of the component to show on the submit form button.
+    // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+    // `@changesetWebform is passed to the component.
+    // Note that if null, an empty element will still appear on the submit button, with the class names defined for submitButtonIconComponent. If false, the element will not appear on the submit button.
+    addCloneButtonIconComponent: null, // Object with { componentClass, props }.
+    // `componentClass` is the imported class of the component to show on the submit form button.
+    // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+    // `@changesetWebform, and @formField are passed to the component.
     clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully. If set to `suppressDefaultValues` all fields will br cleared.
     showClearFormButton: false, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
     clearFormButtonText: 'Clear form', // String - text to show on the clear form button TODO implement
@@ -138,7 +162,11 @@ const addonDefaults = {
     castOut: false, // Boolean - exclude the field from validation and submission
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
     fieldLabel: null, // String - the label to show on the field
-    labelComponent: null, // String - path to a component to use as the label. If set, takes the place of fieldLabel
+    labelComponent: null, // Object with { componentClass, props }.
+    // If set, fieldLabel becomes null.
+    // `componentClass` is the imported class of the component to show inside the field label element.
+    // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+    // `@changesetWebform, and @formField are passed to the component.
     labelMarkdown: null, // String - a markdown string to render as HTML within the label element.
     hideLabel: null, // Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
@@ -160,15 +188,24 @@ const addonDefaults = {
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
       alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/input',
+      componentClass: ensureSafeComponent(InputComponent),
     },
     {
       // BEGIN-SNIPPET clone-group-field-options.js
       fieldType: 'clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
-      removeCloneComponent: 'icons/icon-trash', // String - path to the component to use as the remove clone element
-      addCloneButtonComponent:
-        'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
+      removeCloneComponent: {
+        componentClass: ensureSafeComponent(IconTrashComponent),
+      }, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to show as the remove clone icon.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@changesetWebform, @formField, and @formFieldClone are passed to the component.
+      addCloneButtonComponent: {
+        componentClass: ensureSafeComponent(AddCloneButtonComponent),
+      }, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to replace add clone button.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@changesetWebform and @formField are passed to the component.
       hideSuccessValidation: true,
       minClones: 1, // Number - minimum number of clones allowed.
       maxClones: null, // Number - maximum number of clones allowed.
@@ -178,7 +215,7 @@ const addonDefaults = {
       cloneGroupActionsPosition: 'cloneGroupWrapper',
       isFieldset: true,
       // END-SNIPPET
-      componentPath:
+      componentClass:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
     },
     {
@@ -188,7 +225,7 @@ const addonDefaults = {
       alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/textarea',
+      componentClass: ensureSafeComponent(TextareaComponent),
     },
     {
       // BEGIN-SNIPPET powerSelect-field-options.js
@@ -198,11 +235,14 @@ const addonDefaults = {
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
       options: [], // Array of items. Items ban be of any type, but they must all be the same type. If an array of objects ios passed, then optionDisplayProp can be passed to determine which property in the object should be shown as the label of the option in the list.
       optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
-      optionComponent: null,
-      selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
+      optionComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to show on the add clone button.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@changesetWebform and @formField are passed to the component.
+      selectedItemComponent: null, // The imported class of the component to pass to the Power Select component. See https://ember-power-select.com/docs/api-reference
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/power-select',
+      componentClass: ensureSafeComponent(PowerSelectComponent),
     },
     {
       // BEGIN-SNIPPET powerDatePicker-field-options.js
@@ -227,7 +267,7 @@ const addonDefaults = {
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       alwaysValidateOn: ['valueUpdated', 'blurDateTimeInput'], // Array of strings
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/power-datepicker',
+      componentClass: ensureSafeComponent(PowerDatepickerComponent),
       customParser(field) {
         // TODO document this
         field.dateTimeFormat = field.dateTimeFormat.replace(/S{1,}/, 'SSS');
@@ -247,48 +287,67 @@ const addonDefaults = {
     {
       // BEGIN-SNIPPET singleCheckbox-field-options.js
       fieldType: 'singleCheckbox',
-      checkBoxLabelComponent: null, // String - path to the component to use as the checkbox label
+      checkBoxLabelComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to replace the checkbox label.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
+      // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       checkboxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/checkbox',
+      componentClass: ensureSafeComponent(CheckboxComponent),
     },
     {
       // BEGIN-SNIPPET radioButtonGroup-field-options.js
       fieldType: 'radioButtonGroup',
       options: [], // Array of objects.
-      optionLabelComponent: null, // Optional. // Component to replace the standard label element for each option.
+      optionLabelComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to replace the label element for each option.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
+      // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/radio-button-group',
+      componentClass: ensureSafeComponent(RadioButtonGroupComponent),
     },
     {
       // BEGIN-SNIPPET checkboxGroup-field-options.js
       fieldType: 'checkboxGroup',
       options: [], // Array of objects.
-      optionLabelComponent: null, // Optional. Can be used to override the default label component used to render the radio button options, which simply displays the label of each option. Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
+      optionLabelComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to replace the label element for each option.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
+      // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/checkbox-group',
+      componentClass: ensureSafeComponent(CheckboxGroupComponent),
     },
     {
       // BEGIN-SNIPPET clicker-field-options.js
       fieldType: 'clicker',
       clickerText: null, // String - text to display in the clicker element.
-      displayComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
+      displayComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to show on the add clone button.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@onClick`, @changesetWebform and @formField are passed to the component.
+      // Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/clicker',
+      componentClass: ensureSafeComponent(ClickerComponent),
     },
     {
       // BEGIN-SNIPPET staticContent-field-options.js
       fieldType: 'staticContent',
       text: null,
       textElement: 'h3 ', // TODO check this
-      contentComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
+      contentComponent: null, // Object with { componentClass, props }.
+      // `componentClass` is the imported class of the component to show on the add clone button.
+      // `props` can be included to pass state or data to the component, accessible as {{@props}}.
+      // `@changesetWebform and @formField are passed to the component.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/static-content',
+      componentClass: ensureSafeComponent(StaticContentComponent),
     },
     {
       // BEGIN-SNIPPET powerSelectCheckboxes-field-options.js
@@ -298,12 +357,13 @@ const addonDefaults = {
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
       options: [], // Array of items. Items ban be of any type, but they must all be the same type. If an array of objects ios passed, then optionDisplayProp can be passed to determine which property in the object should be shown as the label of the option in the list.
       optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
-      optionComponent: null,
-      selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
-      triggerComponent: 'background/power-select-checkboxes-trigger',
+      triggerComponent: ensureSafeComponent(
+        PowerSelectCheckboxesTriggerComponent,
+      ), // Optional -  imported class of the component pass to the Power Select compoent as `triggerComponent`.
+      // `@extra` is passed to the component from the Power Select component
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/power-select-checkboxes',
+      componentClass: ensureSafeComponent(PowerSelectCheckboxesComponent),
     },
   ],
 };
@@ -311,8 +371,8 @@ const addonDefaults = {
 
 export { addonDefaults };
 
-export default function getWithDefault(formSchema = {}) {
-  const appDefaults = config.changesetWebformsDefaults || {};
+export default function getWithDefault(appDefaults = {}, formSchema = {}) {
+  // const appDefaults = config.changesetWebformsDefaults || {};
   const formSettings = _mergeWith(
     {},
     addonDefaults.formSettings,
