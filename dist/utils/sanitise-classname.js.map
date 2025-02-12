@@ -1,0 +1,1 @@
+{"version":3,"file":"sanitise-classname.js","sources":["../../src/utils/sanitise-classname.js"],"sourcesContent":["export default function sanitiseClassname() {\n  return true;\n}\n"],"names":["sanitiseClassname"],"mappings":"AAAe,SAASA,iBAAiBA,GAAG;AAC1C,EAAA,OAAO,IAAI;AACb;;;;"}

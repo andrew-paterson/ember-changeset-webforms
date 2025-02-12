@@ -1,0 +1,10 @@
+.power-select-option-with-checkbox {
+  font-size: 1em;
+  display: flex;
+  padding: var(--cwf-field-power-select-option-with-checkbox-padding-y) 0;
+}
+
+.cwf-field-power-select-option-checkbox {
+  --cwf-field-power-select-option-checkbox-margin-right: 10px;
+  margin-right: var(--cwf-field-power-select-option-checkbox-margin-right);
+}
