@@ -46,7 +46,7 @@ export default class ValidatingField extends Component {
     var formField = this.args.formField;
     const changeset = this.args.changesetWebform.changeset;
     if (changeset.get(formField.propertyName)) {
-      formField.eventLog.pushObject('insert');
+      formField.eventLog.push('insert');
       this.validateField(formField);
     }
     this.args.onFieldInserted(this.args.formField);
@@ -73,7 +73,7 @@ export default class ValidatingField extends Component {
     if (this.isDestroyed || this.isDestroying || formField.disabled) {
       return;
     }
-    formField.eventLog.pushObject(eventName);
+    formField.eventLog.push(eventName);
     this.validateField(formField);
     this.args.onUserInteraction(formField, eventName, value, event);
   }

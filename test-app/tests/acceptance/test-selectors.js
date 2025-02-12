@@ -427,4 +427,9 @@ export default {
     '[data-test-id="unique-form-recovery-email-field"]',
   uniqueFormRecoveryEmailFieldLabel:
     '[data-test-id="unique-form-recovery-email-field-label"]',
+  powerSelectMultipleExample1FormCountryField:
+    '[data-test-id="power-select-multiple-example1-form-country-field"]',
+  powerSelectCheckboxesSelectedItems:
+    '[data-test-class="power-select-checkboxes-selected-items"]',
+    
 };

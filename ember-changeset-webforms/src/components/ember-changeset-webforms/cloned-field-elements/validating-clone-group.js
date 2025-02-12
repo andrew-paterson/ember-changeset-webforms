@@ -1,7 +1,8 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import FormFieldClone from '../../../utils/form-field-clone';
 import { tracked } from '@glimmer/tracking';
+import FormFieldClone from '../../../utils/form-field-clone';
+import removeObject from '../../../utils/remove-object.js';
 import './validating-clone-group.css';
 
 class destinationElementClass {
@@ -102,7 +103,7 @@ export default class ValidatingCloneGroup extends Component {
     const clone = new FormFieldClone(newField);
     clone.changeset = this.args.changesetWebform.changeset;
     clone.masterFormField = masterFormField;
-    masterFormField.clonedFields.pushObject(clone);
+    masterFormField.clonedFields.push(clone);
     // masterFormField.clonedFields = masterFormField.clonedFields;
     clone.index = masterFormField.clonedFields.indexOf(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
@@ -126,14 +127,13 @@ export default class ValidatingCloneGroup extends Component {
   removeClone(clone) {
     var masterFormField = this.args.masterFormField;
     var index = masterFormField.clonedFields.indexOf(clone);
-
-    masterFormField.clonedFields.removeObject(clone);
+    removeObject(masterFormField.clonedFields, clone);
     this.checkMinMaxClones(masterFormField);
     var groupValue =
       this.args.changesetWebform.changeset.get(masterFormField.propertyName) ||
       []; //TODO check this.
     groupValue.splice(index, 1);
-    masterFormField.eventLog.pushObject('removeClone');
+    masterFormField.eventLog.push('removeClone');
     this.args.updateFieldValue(groupValue, masterFormField);
 
     masterFormField.clonedFields.forEach((clone, index) => {

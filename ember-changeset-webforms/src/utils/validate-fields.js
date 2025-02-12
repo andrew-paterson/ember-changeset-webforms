@@ -9,7 +9,7 @@ export default function validateAllowedFields(changesetWebform) {
       );
     })
     .map((allowedField) => {
-      allowedField.eventLog.pushObject('submit');
+      allowedField.eventLog.push('submit');
       if (allowedField.clonedFields) {
         // TODO does this really belong in a util.
         allowedField.clonedFields.forEach((clonedField, index) => {
@@ -22,7 +22,7 @@ export default function validateAllowedFields(changesetWebform) {
               clonedField.validationRules[0].activateValidation || [];
             clonedField.validationRules[0].activateValidation.push(index);
           }
-          clonedField.eventLog.pushObject('submit');
+          clonedField.eventLog.push('submit');
         });
         // TODO test for cloned fields without any validation rules
       }

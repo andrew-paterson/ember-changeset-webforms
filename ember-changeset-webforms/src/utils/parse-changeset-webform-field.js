@@ -71,7 +71,7 @@ function parse(fieldSchema, customValidators, formSettings) {
       if (
         !field.validatesOn.find((fieldEvent) => fieldEvent === `${event}Clone`)
       ) {
-        field.validatesOn.pushObject(`${event}Clone`);
+        field.validatesOn.push(`${event}Clone`);
       }
     });
   }

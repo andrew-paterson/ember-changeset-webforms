@@ -1,6 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import removeObject from '../../../utils/remove-object.js';
 import 'ember-power-select/styles';
 
 export default class PowerSelectCheckboxesComponent extends Component {
@@ -16,9 +17,9 @@ export default class PowerSelectCheckboxesComponent extends Component {
       ? [...formField.fieldValue] // To avoid mutating the original array
       : [];
     if (currentlySelectedOptions.indexOf(option) > -1) {
-      currentlySelectedOptions.removeObject(option);
+      removeObject(currentlySelectedOptions, option);
     } else {
-      currentlySelectedOptions.pushObject(option);
+      currentlySelectedOptions.push(option);
     }
     this.args.onUserInteraction('optionClicked');
     this.args.updateFieldValue(currentlySelectedOptions);

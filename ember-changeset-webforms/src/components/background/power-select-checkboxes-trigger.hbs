@@ -1,5 +1,8 @@
 {{#if @extra.fieldValue.length}}
-  <div class="ember-power-select-selected-item selected-items">
+  <div
+    class="ember-power-select-selected-item selected-items"
+    data-test-class="power-select-checkboxes-selected-items"
+  >
     <span class="selected-items-count">{{@extra.fieldValue.length}}</span>
     selected
   </div>

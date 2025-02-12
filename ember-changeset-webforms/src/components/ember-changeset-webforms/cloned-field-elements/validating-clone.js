@@ -10,8 +10,8 @@ export default class ValidatingClone extends Component {
         this.args.clonedFormField.index
       ]
     ) {
-      this.args.clonedFormField.eventLog.pushObject('insert');
-      this.args.masterFormField.eventLog.pushObject('insertClone');
+      this.args.clonedFormField.eventLog.push('insert');
+      this.args.masterFormField.eventLog.push('insertClone');
       this.args.clonedFormField.updateValidationActivation();
       this.args.validateField(this.args.masterFormField);
     }
@@ -28,8 +28,8 @@ export default class ValidatingClone extends Component {
     } else if (eventName === 'focusIn') {
       clonedFormField.focussed = true;
     }
-    clonedFormField.eventLog.pushObject(eventName);
-    this.args.masterFormField.eventLog.pushObject(`${eventName}Clone`);
+    clonedFormField.eventLog.push(eventName);
+    this.args.masterFormField.eventLog.push(`${eventName}Clone`);
     clonedFormField.updateValidationActivation();
     this.args.onUserInteraction(`${eventName}Clone`);
   }
@@ -37,8 +37,8 @@ export default class ValidatingClone extends Component {
   @action
   updateCloneValue(value) {
     const clonedFormField = this.args.clonedFormField;
-    this.args.clonedFormField.eventLog.pushObject('valueUpdated');
-    this.args.masterFormField.eventLog.pushObject('valueUpdatedClone');
+    this.args.clonedFormField.eventLog.push('valueUpdated');
+    this.args.masterFormField.eventLog.push('valueUpdatedClone');
     clonedFormField.updateValidationActivation();
     this.args.updateFieldValue(
       this.updatedGroupValue(
