@@ -1,8 +1,9 @@
 import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
 export default class FormFieldClone {
   @tracked index;
   @tracked id;
-  @tracked eventLog = [];
+  @tracked eventLog = TrackedArray.from([]);
   @tracked focussed;
   @tracked changeset;
   @tracked validatesOn = [];

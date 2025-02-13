@@ -137,7 +137,6 @@ module('Acceptance | Cloned fields', function (hooks) {
           'Third clone gets correct validation error messages when user focusses out and clone has invalid emailin the input.',
       },
     );
-
     await cth.removeClone(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"]`,
     );

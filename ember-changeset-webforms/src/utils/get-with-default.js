@@ -1,6 +1,5 @@
-import config from 'ember-get-config';
 import _mergeWith from 'lodash.mergewith';
-import mergeWithDefaultClassNames from './merge-with-default-class-names';
+import mergeWithDefaultClassNames from './merge-with-default-class-names.js';
 import moment from 'moment';
 import InputComponent from '../components/ember-changeset-webforms/fields/input.js';
 import TextareaComponent from '../components/ember-changeset-webforms/fields/textarea.js';
@@ -44,7 +43,7 @@ const addonDefaults = {
     focussedField: ['focussed'],
     fieldWrapper: ['cwf-field', 'mb-3'],
     cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
-    fieldControls: ['field-controls'],
+    fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: null,
     requiredField: ['required'],
     optionsWrapper: ['cwf-field-options'],
@@ -175,7 +174,7 @@ const addonDefaults = {
     includeLabelForAttr: false, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
     isFieldset: false, // Boolean - if true, the field options are wrapped in a fieldset element, and the field label is wrapped in a legend element.
     // END-SNIPPET
-    eventLog: [],
+    // eventLog: [],
   },
   fieldTypes: [
     {

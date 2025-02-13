@@ -1,12 +1,13 @@
 import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
+
 export default class FormField {
   @tracked cloneCountStatus;
-  @tracked clonedFields;
-  @tracked eventLog = [];
+  @tracked clonedFields = TrackedArray.from([]);
+  @tracked eventLog = TrackedArray.from([]);
   @tracked focussed;
   @tracked changeset;
   @tracked validatesOn = [];
-  // @tracked wasValidated;
   // BEGIN-SNIPPET field-settings-tracked-props.js
   @tracked hidden;
   @tracked disabled;

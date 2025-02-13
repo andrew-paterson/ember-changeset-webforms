@@ -1,6 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
 import FormFieldClone from '../../../utils/form-field-clone';
 import removeObject from '../../../utils/remove-object.js';
 import './validating-clone-group.css';
@@ -94,17 +95,15 @@ export default class ValidatingCloneGroup extends Component {
   @action
   cloneField(opts = {}) {
     var masterFormField = this.args.masterFormField;
-    masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
     newField.id = `${masterFormField.id}-clone-${this.cloneId(masterFormField)}`;
     newField.isClone = true;
     newField.cloneId = this.cloneId(masterFormField);
-    newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
+    newField.eventLog = TrackedArray.from([]); // BD must recreate this, otherwise all clones share the same instance of eventLog array.
     const clone = new FormFieldClone(newField);
     clone.changeset = this.args.changesetWebform.changeset;
     clone.masterFormField = masterFormField;
     masterFormField.clonedFields.push(clone);
-    // masterFormField.clonedFields = masterFormField.clonedFields;
     clone.index = masterFormField.clonedFields.indexOf(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
     masterFormField.lastUpdatedClone = {

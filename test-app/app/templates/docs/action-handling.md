@@ -2,15 +2,15 @@
 
 ## submitAction
 
-When the user clicks the submit button, 
+When the user clicks the submit button,
 
 Optional. Provides `(changeset.data, changesetWebform)` as arguments.
 
-The action you pass can either return a promise, or be a synchronous action. 
+The action you pass can either return a promise, or be a synchronous action.
 
 ### Promise example
 
-In the case of a promise based action, return the promise so that the `ChangesetWebform` component can fire the `submitSuccess` or `submitError` actions where they are passed (See below). 
+In the case of a promise based action, return the promise so that the `ChangesetWebform` component can fire the `submitSuccess` or `submitError` actions where they are passed (See below).
 
 // TODO interactive
 
@@ -34,27 +34,30 @@ submitAction(changesetData, changesetWebform) {
 If `submitAction` is not passed, the fallback submit below code will run.
 
 ```javascript
-changeset.save().then(saveChangesetResponse => {
-  changesetWebform.formSettings.set('requestInFlight', false);
-  if (this.submitSuccess) {
-    this.submitSuccess(saveChangesetResponse, changesetWebform);
-  }
-  if (changesetWebform.formSettings.clearFormAfterSubmit) {
-    this.send('clearForm');
-  }
-}).catch(error => {
-  if (this.submitError) {
-    this.submitError(error, changesetWebform);
-  }
-  changesetWebform.formSettings.set('requestInFlight', false);
-});
+changeset
+  .save()
+  .then((saveChangesetResponse) => {
+    changesetWebform.formSettings.set('requestInFlight', false);
+    if (this.submitSuccess) {
+      this.submitSuccess(saveChangesetResponse, changesetWebform);
+    }
+    if (changesetWebform.formSettings.clearFormAfterSubmit) {
+      this.send('clearForm');
+    }
+  })
+  .catch((error) => {
+    if (this.submitError) {
+      this.submitError(error, changesetWebform);
+    }
+    changesetWebform.formSettings.set('requestInFlight', false);
+  });
 ```
 
 ## beforeSubmitAction
 
 Provides `(changesetWebform)` as the only argument. Runs after a user initiates form submission, but before `nullifyExcludedFields` and `submitAction`.
 
-## afterGenerateChangesetWebform 
+## afterGenerateChangesetWebform
 
 When the `ChangesetWebform` component is inserted, it calls the util that generates the parses the formSchema and generates an Ember object containing the form field sand settings. Immediately after doing so, it fires this action, providing the `changesetWebform` object as the only argument. The object contains the following properties.
 
@@ -113,9 +116,10 @@ It provides `(formField, ChangesetWebform, snapshot)` as arguments.
 Runs after an individual field is validated.
 
 Provides `(formField, changesetWebform, fieldValidationErrors)` as arguments.
+
 ## onUserInteraction
 
-Fires after any individual field calls the `onUserInteraction` action in the `ValidatingField` component. This occurs anytime a user interacts with a field, whether or not that interaction updates the value of the field. 
+Fires after any individual field calls the `onUserInteraction` action in the `ValidatingField` component. This occurs anytime a user interacts with a field, whether or not that interaction updates the value of the field.
 
 Examples include focussing in or out of an input, clicking a clicker element, or click the add clone or remove clone buttons for clonable fields.
 
@@ -131,7 +135,7 @@ It provides `(formField, changesetWebform, eventName, event)` as arguments.
 
 <Docs::ActionHandling::OnUserInteractionForm />
 
---------
+---
 
 ## beforeSubmitAction
 

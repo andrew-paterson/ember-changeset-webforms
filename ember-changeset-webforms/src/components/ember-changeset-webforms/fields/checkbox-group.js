@@ -18,7 +18,9 @@ export default class CheckboxGroup extends Component {
     options.forEach((option) => (option.onlyCheckedOption = false));
     checkedItems = checkedItems || [];
     if (checkedItems.length === 1) {
-      const checkedOption = options.findBy('key', checkedItems[0]);
+      const checkedOption = options.find(
+        (option) => option.key === checkedItems[0],
+      );
       checkedOption.onlyCheckedOption = true;
     }
     return options;

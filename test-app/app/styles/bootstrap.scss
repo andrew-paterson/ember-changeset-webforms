@@ -13,8 +13,9 @@
     margin: 0;
   }
 }
+@import 'ember-bootstrap/bootstrap';
+
 .docs-rounded {
-  .docs-p-4 {
-    @import 'ember-bootstrap/bootstrap';
+  .docs-p-4 * {
   }
 }

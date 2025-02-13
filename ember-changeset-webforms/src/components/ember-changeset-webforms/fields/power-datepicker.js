@@ -12,9 +12,9 @@ export default class PowerDatepicker extends Component {
   onSelectDateTime(dateTime) {
     var formField = this.args.formField;
     if (formField.dateRangeSettings) {
-      var rangePartner = this.args.formFields.findBy(
-        'fieldId',
-        formField.dateRangeSettings.rangePartnerFieldId,
+      var rangePartner = this.args.formFields.find(
+        (field) =>
+          field.fieldId === formField.dateRangeSettings.rangePartnerFieldId,
       );
       if (rangePartner) {
         if (rangePartner.dateRangeSettings.rangePosition === 'start') {

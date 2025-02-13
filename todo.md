@@ -1,6 +1,7 @@
 [ ] Docs for custom fields
 [ ] default styles for remove clone button
 [ ] Docs for power date picker must show defaultDate outside the input on load.
+[ ] Test for validate on insert (All tests passed when eventLog.push no longer updated the templates)
 
 ## Power selct
 
