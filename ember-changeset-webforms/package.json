@@ -34,7 +34,6 @@
     "ember-changeset": "^4.1.2",
     "ember-changeset-validations": "^4.1.1",
     "ember-cli-inline-content": "^0.4.1",
-    "ember-get-config": "^2.1.1",
     "ember-power-calendar": "^1.4.0",
     "ember-power-select": "^8.7.0",
     "ember-radio-button": "3.0.0-beta.1",
@@ -119,7 +118,6 @@
       "./helpers/moment-format.js": "./dist/_app_/helpers/moment-format.js",
       "./helpers/sanitise-classname.js": "./dist/_app_/helpers/sanitise-classname.js",
       "./validators/cloned.js": "./dist/_app_/validators/cloned.js",
-      "./validators/index.js": "./dist/_app_/validators/index.js",
       "./validators/unique-clone.js": "./dist/_app_/validators/unique-clone.js"
     },
     "main": "addon-main.cjs",
