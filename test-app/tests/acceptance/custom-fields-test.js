@@ -1,7 +1,7 @@
 import { visit, fillIn, focus, blur, click } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors';
+import testEls from './test-selectors.js';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
 import { selectChoose } from 'ember-power-select/test-support';

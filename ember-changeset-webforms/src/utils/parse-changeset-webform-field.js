@@ -1,7 +1,7 @@
-import FormField from './form-field';
+import FormField from './form-field.js';
 import { typeOf as emberTypeOf } from '@ember/utils';
-import Option from './option-class';
-import safeName from './safe-name';
+import Option from './option-class.js';
+import safeName from './safe-name.js';
 
 export default function parseChangesetWebformField(
   field,

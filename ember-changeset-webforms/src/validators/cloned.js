@@ -12,7 +12,7 @@ import {
   validateConfirmation,
 } from 'ember-changeset-validations/validators';
 
-import uniqueClone from './unique-clone';
+import uniqueClone from './unique-clone.js';
 
 const defaultValidators = {
   validateDate,

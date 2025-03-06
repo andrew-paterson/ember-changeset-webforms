@@ -9,7 +9,7 @@
 import { module, todo } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 // import cth from 'ember-changeset-webforms/test-support/helpers';
-// import testEls from './test-selectors';
+// import testEls from './test-selectors.js';
 // import els from 'ember-changeset-webforms/test-support/element-selectors';
 
 module('Acceptance | TODO', function (hooks) {

@@ -1,4 +1,4 @@
-import PowerDatePickerExampleGeneric from './power-datepicker-example-generic';
+import PowerDatePickerExampleGeneric from './power-datepicker-example-generic.js';
 
 export default class PowerDatePickerExampleFiveComponent extends PowerDatePickerExampleGeneric {
   // BEGIN-SNIPPET power-datepicker-example-5.js

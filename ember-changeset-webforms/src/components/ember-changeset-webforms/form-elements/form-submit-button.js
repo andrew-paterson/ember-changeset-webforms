@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import dynamicClassNames from '../../../utils/dynamic-class-names';
+import dynamicClassNames from '../../../utils/dynamic-class-names.js';
 
 export default class FormSubmitButton extends Component {
   customType = 'button'; // TODO make configurable

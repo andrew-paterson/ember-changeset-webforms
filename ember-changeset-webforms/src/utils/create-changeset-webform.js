@@ -1,7 +1,7 @@
-import createChangeset from './create-changeset';
-import getWithDefaultUtil from './get-with-default';
-import parseChangesetWebformField from './parse-changeset-webform-field';
-import FormSettings from './form-settings';
+import createChangeset from './create-changeset.js';
+import getWithDefaultUtil from './get-with-default.js';
+import parseChangesetWebformField from './parse-changeset-webform-field.js';
+import FormSettings from './form-settings.js';
 
 export default function createChangesetWebform(
   appDefaults,

@@ -1,6 +1,6 @@
 // import defaultValidators from 'ember-changeset-validations/validators';
-import clonedValidator from '../validators/cloned';
-import uniqueCloneValidator from '../validators/unique-clone';
+import clonedValidator from '../validators/cloned.js';
+import uniqueCloneValidator from '../validators/unique-clone.js';
 import { unflatten } from 'flat';
 
 import {

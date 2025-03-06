@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import safeName from '../../utils/safe-name';
+import safeName from '../../utils/safe-name.js';
 
 export default class LabelledRadioButton extends Component {
   get radioId() {

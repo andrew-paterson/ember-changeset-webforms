@@ -1,6 +1,5 @@
 // BEGIN-SNIPPET custom-validators-form.js
 import Component from '@glimmer/component';
-// import customValidators from '../../validators';
 import { validateUniqueness, validatePhoneNumber } from '../../validators';
 const customValidators = {
   validateUniqueness,

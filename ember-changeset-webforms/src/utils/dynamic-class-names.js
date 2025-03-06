@@ -1,5 +1,5 @@
 import _mergeWith from 'lodash.mergewith';
-import mergeWithDefaultClassNames from './merge-with-default-class-names';
+import mergeWithDefaultClassNames from './merge-with-default-class-names.js';
 
 export default function dynamicClassNames(
   elementTypesString,

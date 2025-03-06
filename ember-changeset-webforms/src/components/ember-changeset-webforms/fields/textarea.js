@@ -1,3 +1,3 @@
-import Input from './input';
+import Input from './input.js';
 
 export default class Textarea extends Input {}

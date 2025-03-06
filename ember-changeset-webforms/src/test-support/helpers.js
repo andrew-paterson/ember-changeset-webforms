@@ -1,5 +1,5 @@
 import { find, findAll, click, waitUntil } from '@ember/test-helpers';
-import els from './element-selectors';
+import els from './element-selectors.js';
 import { camelize } from '@ember/string';
 
 export default {

@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import dynamicClassNames from '../../utils/dynamic-class-names';
+import dynamicClassNames from '../../utils/dynamic-class-names.js';
 
 export default helper(function dynamicClasses(params) {
   return dynamicClassNames(params[0], params[1], params[2]);

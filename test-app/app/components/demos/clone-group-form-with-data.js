@@ -1,4 +1,4 @@
-import CloneGroupFormComponent from './clone-group-form';
+import CloneGroupFormComponent from './clone-group-form.js';
 export default class CloneGroupFormWithFormWithDataComponent extends CloneGroupFormComponent {
   // BEGIN-SNIPPET clone-group-form-data.js
   data = {
