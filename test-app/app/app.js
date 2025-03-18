@@ -1,11 +1,12 @@
 import Application from '@ember/application';
-import Resolver from './resolver.js';
+import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
-import config from './config/environment.js';
+import config from './config/environment';
 import { registerDateLibrary } from 'ember-power-calendar';
 import DateUtils from 'ember-power-calendar-moment';
-// import 'ember-power-calendar/styles';
-// import 'ember-power-select/styles';
+import 'ember-power-calendar/styles';
+import 'ember-power-select/styles';
+import 'ember-basic-dropdown/styles';
 
 registerDateLibrary(DateUtils);
 

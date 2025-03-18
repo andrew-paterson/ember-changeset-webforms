@@ -1,3 +1,3 @@
-import ApplicationController from '../application.js';
+import ApplicationController from '../application';
 
 export default class BasicUsage extends ApplicationController {}

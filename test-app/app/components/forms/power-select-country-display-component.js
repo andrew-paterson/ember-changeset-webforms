@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET power-select-country-display-component.js
 import Component from '@glimmer/component';
 
 export default class PowerSelectSelectedItemComponent extends Component {
@@ -26,8 +27,9 @@ export default class PowerSelectSelectedItemComponent extends Component {
 
   get displayCountry() {
     const related = this.countries.find(
-      (country) => country.id === this.option,
+      (country) => country.id === this.args.option,
     );
     return related.name;
   }
 }
+// END-SNIPPET

@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
-import ComponentForAllRadioOptions from '../forms/component-for-all-radio-options.js';
-import ComponentForSingleRadioOption from '../forms/component-for-single-radio-option.js';
+import ComponentForAllRadioOptions from '../forms/component-for-all-radio-options';
+import ComponentForSingleRadioOption from '../forms/component-for-single-radio-option';
 import { ensureSafeComponent } from '@embroider/util';
 
 export default class RadioButtonGroupExampleTwoComponent extends Component {

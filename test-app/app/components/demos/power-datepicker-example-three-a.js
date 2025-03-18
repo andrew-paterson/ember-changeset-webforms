@@ -1,4 +1,4 @@
-import PowerDatePickerExampleGeneric from './power-datepicker-example-generic.js';
+import PowerDatePickerExampleGeneric from './power-datepicker-example-generic';
 import moment from 'moment';
 
 export default class PowerDatepickerExampleThreeAComponent extends PowerDatePickerExampleGeneric {

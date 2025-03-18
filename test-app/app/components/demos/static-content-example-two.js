@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import ComponentForStaticContentField from '../forms/component-for-static-content-field.js';
+import ComponentForStaticContentField from '../forms/component-for-static-content-field';
 import { ensureSafeComponent } from '@embroider/util';
 
 export default class StaticContentExampleTwoComponent extends Component {

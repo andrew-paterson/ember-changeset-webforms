@@ -1,0 +1,14 @@
+{{! BEGIN-SNIPPET power-select-custom-trigger-component.hbs }}
+{{#if (ember-power-select-is-selected-present @select.selected)}}
+  <span class="ember-power-select-selected-item">{{yield
+      @select.selected
+      @select
+    }}</span>
+{{else}}
+  I'm a custom trigger
+  {{#if
+    @extra.triggerItemComponent
+  }}&nbsp;&nbsp;{{@extra.triggerItemComponent}}{{/if}}
+{{/if}}
+<span class="ember-power-select-status-icon"></span>
+{{! END-SNIPPET }}

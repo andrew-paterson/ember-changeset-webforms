@@ -1,7 +1,7 @@
 import { visit, find, click } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors.js';
+import testEls from './test-selectors';
 
 module('Acceptance | Clicker', function (hooks) {
   setupApplicationTest(hooks);

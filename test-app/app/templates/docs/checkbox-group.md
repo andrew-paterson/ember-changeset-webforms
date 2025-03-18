@@ -12,7 +12,7 @@ The above props are in addition to the generic field props shown with their defa
 
 Each option in the `options` property of field with type `checkboxGroup` can have the following properties.
 
-<DocsSnippet @name="checkbox-group-option.js" />
+<DocsSnippet @name="checkbox-group-option.js" @title="Checkbox group options"/>
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -22,7 +22,13 @@ The above props are in addition to the generic field props shown with their defa
 
 <Demos::CheckboxGroupExampleOne />
 
-## Custom components for Checkbox group options
+## Option label content in markdown
+
+Pass a string of markdown content as `optionLabelmarkdown` and it will be rendered inside the label element for the option.
+
+<Demos::CheckboxGroupExampleThree />
+
+## Option label content with a custom component
 
 When using a custom component for option labels, either by:
 
@@ -44,8 +50,6 @@ In both cases the following applies, the object passed must take the following f
   - Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
 
 <Demos::CheckboxGroupExampleTwo />
-
-<DocsSnippet @name="clicker-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 

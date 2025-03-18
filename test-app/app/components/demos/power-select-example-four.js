@@ -1,12 +1,12 @@
 import Component from '@glimmer/component';
-import PowerSelectCountryDisplayComponent from '../forms/power-select-country-display-component';
+import PowerSelectCountryDisplayComponent from '../forms/power-select-custom-trigger-component';
 import { ensureSafeComponent } from '@embroider/util';
 
 export default class PowerSelectExampleThreeComponent extends Component {
-  // BEGIN-SNIPPET power-select-example-3.js
+  // BEGIN-SNIPPET power-select-example-4.js
   formSchema = {
     formSettings: {
-      formName: 'powerSelectExample3',
+      formName: 'powerSelectExample4',
       hideSubmitButton: true,
     },
     fields: [
@@ -15,15 +15,10 @@ export default class PowerSelectExampleThreeComponent extends Component {
         fieldType: 'powerSelect',
         fieldLabel: 'Select country',
         extra: {
-          selectedItemComponent:
-            '[Some additional data from @formField.extra.selectedItemComponent]',
+          triggerItemComponent:
+            '[Some additional data from @formField.extra.triggerComponent]',
         },
-        optionComponent: {
-          componentClass: ensureSafeComponent(
-            PowerSelectCountryDisplayComponent,
-          ),
-        },
-        selectedItemComponent: ensureSafeComponent(
+        triggerComponent: ensureSafeComponent(
           PowerSelectCountryDisplayComponent,
         ),
         options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],

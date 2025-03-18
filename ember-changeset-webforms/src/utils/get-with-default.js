@@ -232,8 +232,8 @@ const addonDefaults = {
       allowClear: false, // Boolean. If true, the select box shows a clear icon which clears the value oif the field. See https://ember-power-select.com/docs/the-trigger for more.
       searchEnabled: false, // Boolean. If true, a search box will display at the top of the select options, and will filter the options list then the user types. See https://ember-power-select.com/docs/the-search for more.
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
-      options: [], // Array of items. Items ban be of any type, but they must all be the same type. If an array of objects ios passed, then optionDisplayProp can be passed to determine which property in the object should be shown as the label of the option in the list.
-      optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
+      options: [], // Array of items to show in the dropdown. Items can either all be objects, or they can all be primitives, such as strings or numbers. If an array of objects is passed, then optionDisplayProp should be passed to determine which property in the object should be shown as the label of the option in the list.
+      optionDisplayProp: null, // String - which property of the object to show in the list if options is an array of objects.
       optionComponent: null, // Object with { componentClass, props }.
       // `componentClass` is the imported class of the component to show on the add clone button.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
@@ -299,7 +299,7 @@ const addonDefaults = {
     {
       // BEGIN-SNIPPET radioButtonGroup-field-options.js
       fieldType: 'radioButtonGroup',
-      options: [], // Array of objects.
+      options: [], // Array of objects, see /docs/radio-button-group#radio-button-group-options-prop
       optionLabelComponent: null, // Object with { componentClass, props }.
       // `componentClass` is the imported class of the component to replace the label element for each option.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
@@ -313,7 +313,7 @@ const addonDefaults = {
     {
       // BEGIN-SNIPPET checkboxGroup-field-options.js
       fieldType: 'checkboxGroup',
-      options: [], // Array of objects.
+      options: [], // Array of objects, docs/checkbox-group#checkbox-group-options.
       optionLabelComponent: null, // Object with { componentClass, props }.
       // `componentClass` is the imported class of the component to replace the label element for each option.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
@@ -354,8 +354,8 @@ const addonDefaults = {
       allowClear: false, // Boolean. If true, the select box shows a clear icon which clears the value oif the field. See https://ember-power-select.com/docs/the-trigger for more.
       searchEnabled: false, // Boolean. If true, a search box will display at the top of the select options, and will filter the options list then the user types. See https://ember-power-select.com/docs/the-search for more.
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
-      options: [], // Array of items. Items ban be of any type, but they must all be the same type. If an array of objects ios passed, then optionDisplayProp can be passed to determine which property in the object should be shown as the label of the option in the list.
-      optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
+      options: [], // Array of items to show in the dropdown. Items can either all be objects, or they can all be primitives, such as strings or numbers. If an array of objects is passed, then optionDisplayProp should be passed to determine which property in the object should be shown as the label of the option in the list.
+      optionDisplayProp: null, // String - which property of the object to show in the list if options is an array of objects.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       triggerComponent: ensureSafeComponent(
         PowerSelectCheckboxesTriggerComponent,

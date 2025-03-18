@@ -3,7 +3,7 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { selectChoose } from 'ember-power-select/test-support';
 import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
-import testEls from './test-selectors.js';
+import testEls from './test-selectors';
 
 module('Acceptance | Power select checkboxes', function (hooks) {
   setupApplicationTest(hooks);

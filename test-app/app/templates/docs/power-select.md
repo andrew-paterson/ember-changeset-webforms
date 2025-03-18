@@ -38,6 +38,10 @@ When the user clicks a country name, the value of the field will be set to the 3
 
 <Demos::PowerSelectExampleThree />
 
+## Power select with custom component for the trigger
+
+<Demos::PowerSelectExampleFour />
+
 ## Power select with multiple selection
 
 Passing `multipleSelection: true` will render a [Power select multiple component](https://ember-power-select.com/docs/multiple-selection).

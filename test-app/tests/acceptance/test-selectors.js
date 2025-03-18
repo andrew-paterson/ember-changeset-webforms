@@ -150,6 +150,11 @@ export default {
   radioButtonGroupExample1: '[data-test-id="radio-button-group-example-1"]',
   radioButtonGroupExampleFormRgbColoursFieldRadioOption00ff00:
     '[data-test-id="radio-button-group-example-form-rgb-colours-field-radio-option-00ff00"]',
+  radioButtonGroupExample3FormRgbColoursFieldRadioOptionFf0000:
+    '[data-test-id="radio-button-group-example3-form-rgb-colours-field-radio-option-ff0000"]',
+  radioButtonGroupExample3FormRgbColoursFieldRadioOption00ff00:
+    '[data-test-id="radio-button-group-example3-form-rgb-colours-field-radio-option-00ff00"]',
+
   currentValue: '[data-test-id="current-value"]',
   ____cwfSubmitFormButton: '[data-test-id="cwf-submit-form-button"]',
   ____afterGenerateChangesetWebformForm:
@@ -300,6 +305,13 @@ export default {
     '[data-test-id="checkbox-group-example2-form-checkboxes2-field-checkbox-option-2"]',
   'checkboxGroupExample2FormCheckboxes2FieldCheckboxOption-3':
     '[data-test-id="checkbox-group-example2-form-checkboxes2-field-checkbox-option-3"]',
+  checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption1:
+    '[data-test-id="checkbox-group-example3-form-checkboxes3-field-checkbox-option-option-1"]',
+  checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption2:
+    '[data-test-id="checkbox-group-example3-form-checkboxes3-field-checkbox-option-option-2"]',
+  checkboxGroupExample2FormCheckboxes2FieldLabel:
+    '[data-test-id="checkbox-group-example2-form-checkboxes2-field-label"]',
+
   staticContentBasicUse: '[data-test-id="static-content-basic-use"]',
   staticContentExample1: '[data-test-id="static-content-example1"]',
   staticContentExample1FormStaticContentField:
@@ -431,5 +443,8 @@ export default {
     '[data-test-id="power-select-multiple-example1-form-country-field"]',
   powerSelectCheckboxesSelectedItems:
     '[data-test-class="power-select-checkboxes-selected-items"]',
-    
+  powerSelectExample1FormCountryField:
+    '[data-test-id="power-select-example1-form-country-field"]',
+  powerSelectExample2FormCountryField:
+    '[data-test-id="power-select-example2-form-country-field"]',
 };

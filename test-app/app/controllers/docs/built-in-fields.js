@@ -3,19 +3,21 @@ import Controller from '@ember/controller';
 export default class BuiltInFields extends Controller {
   radioButtonGroupOption = {
     // BEGIN-SNIPPET radio-button-group-option.js
-    value: null, //
-    // Either one of labelComponent or label must be passed.
+    value: null, // Will be fieldValue when this option is checked.
+    // One of label, optionLabelComponent or optionLabelMarkdown must be passed.
     label: null, // String to display as the label of the option.
-    labelComponent: null, // Optional. Component to replace the standard label element for a single option.
+    optionLabelComponent: null, // Optional. Component class to replace the standard label element for the option.
+    optionLabelMarkdown: null, // Optional. Markdown content that will be rendered as HTML inside the label element for the option.
     // END-SNIPPET
   };
 
   checkboxGroupOption = {
     // BEGIN-SNIPPET checkbox-group-option.js
-    key: null,
-    // Either one of labelComponent or label must be passed.
+    key: null, // If checked, the value of key will be added to the fieldValue array.
+    // One of label, optionLabelComponent or optionLabelMarkdown must be passed.
     label: null, // String to display as the label of the option.
-    labelComponent: null, // Optional. Component to replace the standard label element for a single option
+    optionLabelComponent: null, // Optional. Component class to replace the standard label element for the option.
+    optionLabelMarkdown: null, // Optional. Markdown content that will be rendered as HTML inside the label element for the option.
     // END-SNIPPET
   };
 }

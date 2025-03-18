@@ -1,3 +1,3 @@
-import CustomFieldUsage from './custom-field-usage.js';
+import CustomFieldUsage from './custom-field-usage';
 
 export default class DemosCustomFieldExampleComponent extends CustomFieldUsage {}

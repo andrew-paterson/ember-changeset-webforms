@@ -21,9 +21,14 @@
   @matcher={{@formField.matcher}}
   @closeOnSelect={{@formField.closeOnSelect}}
   @selectedItemComponent={{@formField.selectedItemComponent}}
+  @extra={{@formField.extra}}
+  @triggerComponent={{@formField.triggerComponent}}
   as |option|
 >
+
   {{#if @formField.optionComponent}}
+    {{log @formField}}
+
     <@formField.optionComponent.componentClass
       @props={{@formField.optionComponent.props}}
       @changesetWebform={{@changesetWebform}}

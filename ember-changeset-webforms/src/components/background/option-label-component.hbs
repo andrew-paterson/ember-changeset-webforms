@@ -9,9 +9,9 @@
     @formField={{@formField}}
     ...attributes
   />
-{{else if @optionMarkdownLabel}}
+{{else if @optionLabelMarkdown}}
   <label for={{@for}} id={{@labelId}} ...attributes>
-    <Background::MarkdownToHtml @source={{@optionMarkdownLabel}} />
+    <Background::MarkdownToHtml @source={{@optionLabelMarkdown}} />
   </label>
 {{else if @label}}
   <label for={{@for}} id={{@labelId}} ...attributes>{{@label}}</label>

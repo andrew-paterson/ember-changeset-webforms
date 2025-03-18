@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import ComponentForSingleCheckboxOption from '../forms/component-for-single-checkbox-option.js';
+import ComponentForSingleCheckboxOption from '../forms/component-for-single-checkbox-option';
 import { ensureSafeComponent } from '@embroider/util';
 
 export default class SingleCheckboxExampleThreeComponent extends Component {

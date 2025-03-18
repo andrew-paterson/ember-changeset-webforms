@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code.js';
+import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
 import { ensureSafeComponent } from '@embroider/util';
 export default class EmberChangesetWebforms extends Service {
   // BEGIN-SNIPPET app-wide-classes.js

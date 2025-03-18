@@ -8,6 +8,7 @@
   ...attributes
 >
   {{#each this.options as |option|}}
+    {{log option}}
     <Background::LabelledCheckbox
       @dataTestId={{concat
         @dataTestFieldId
@@ -20,7 +21,7 @@
         option.optionLabelComponent
         @formField.optionLabelComponent
       }}
-      @optionMarkdownLabel={{option.optionMarkdownLabel}}
+      @optionLabelMarkdown={{option.optionLabelMarkdown}}
       @containerName={{@formSettings.formName}}
       @changedAction={{fn this.checkboxToggled option}}
       @name={{@formField.name}}

@@ -1,7 +1,7 @@
 import { visit, click, findAll } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors.js';
+import testEls from './test-selectors';
 
 module('Acceptance | Checkbox group', function (hooks) {
   setupApplicationTest(hooks);
@@ -64,5 +64,56 @@ module('Acceptance | Checkbox group', function (hooks) {
       0,
       'Zero checkbox not checked after third checkbox is clicked.',
     );
+  });
+
+  test('With component label', async function (assert) {
+    await visit('/docs/checkbox-group');
+    assert
+      .dom(`${testEls.checkboxGroupExample2FormCheckboxes2Field}`)
+      .hasText(
+        'Custom label components Option 1 This is a custom label component applied to all of the checkbox options Option 2 This is a custom label component applied to all of the checkbox options Option 3 This is a custom component for the label of one specific option. More info',
+        'Both field.optionLabelComponent and option.optionLabelComponent are loading correctly, and the option and props obejcts are passed in correctly to field.optionLabelComponent.',
+      );
+    await click(`${testEls.checkboxGroupExample2} ${testEls.moreInfoToggler}`);
+    assert
+      .dom(`${testEls.checkboxGroupExample2FormCheckboxes2Field}`)
+      .hasText(
+        'Custom label components Option 1 This is a custom label component applied to all of the checkbox options Option 2 This is a custom label component applied to all of the checkbox options Option 3 This is a custom component for the label of one specific option. More info This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
+        'The option and props obejcts are correctly passed in to option.optionLabelComponent.',
+      );
+  });
+
+  test('With markdown label', async function (assert) {
+    await visit('/docs/checkbox-group');
+    assert
+      .dom(
+        `${testEls.checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption1} strong`,
+      )
+      .exists(
+        'First option label correctly has markdown rendered into a strong tag.',
+      );
+    assert
+      .dom(
+        `${testEls.checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption2} em`,
+      )
+      .exists(
+        'Second option label correctly has markdown rendered into an em tag.',
+      );
+    assert
+      .dom(
+        `${testEls.checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption2}`,
+      )
+      .hasText(
+        'Option 2',
+        'Second option label has correct text after markdown is rendered.',
+      );
+    assert
+      .dom(
+        `${testEls.checkboxGroupExample3FormCheckboxes3FieldCheckboxOptionOption2} label`,
+      )
+      .hasClass(
+        'form-check-label',
+        'Second label gets class globally applied to option labels',
+      );
   });
 });

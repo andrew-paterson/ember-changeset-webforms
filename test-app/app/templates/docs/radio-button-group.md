@@ -24,7 +24,13 @@ The above props are in addition to the generic field props shown with their defa
 
 <Demos::RadioButtonGroupExampleOne />
 
-## Custom components for Radio button group options
+## Option label content in markdown
+
+Pass a string of markdown content as `optionLabelmarkdown` and it will be rendered inside the label element for the option.
+
+<Demos::RadioButtonGroupExampleThree />
+
+## Option label content with a custom component
 
 When using a custom component for option labels, either by:
 

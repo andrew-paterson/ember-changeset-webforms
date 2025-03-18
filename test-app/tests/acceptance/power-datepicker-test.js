@@ -12,7 +12,7 @@ import {
 import { module, test } from 'qunit';
 import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors.js';
+import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';

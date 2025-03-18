@@ -1,7 +1,7 @@
 import { visit, click } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors.js';
+import testEls from './test-selectors';
 
 module('Acceptance | Radio button group', function (hooks) {
   setupApplicationTest(hooks);
@@ -36,7 +36,7 @@ module('Acceptance | Radio button group', function (hooks) {
     assert
       .dom(`${testEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
-        'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info',
+        'Custom label components Option 1 This is a custom label component applied to all of the radio options Option 2 This is a custom label component applied to all of the radio options Option 3 This is a custom component for the label of one specific radio option More info',
         'Both field.optionLabelComponent and option.optionLabelComponent are loading correctly, and the option and props obejcts are passed in correctly to field.optionLabelComponent.',
       );
     await click(
@@ -45,8 +45,42 @@ module('Acceptance | Radio button group', function (hooks) {
     assert
       .dom(`${testEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
-        'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
+        'Custom label components Option 1 This is a custom label component applied to all of the radio options Option 2 This is a custom label component applied to all of the radio options Option 3 This is a custom component for the label of one specific radio option More info This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
         'The option and props obejcts are correctly passed in to option.optionLabelComponent.',
+      );
+  });
+
+  test('With markdown label', async function (assert) {
+    await visit('/docs/radio-button-group');
+    assert
+      .dom(
+        `${testEls.radioButtonGroupExample3FormRgbColoursFieldRadioOptionFf0000} strong`,
+      )
+      .exists(
+        'First option label correctly has markdown rendered into a strong tag.',
+      );
+    assert
+      .dom(
+        `${testEls.radioButtonGroupExample3FormRgbColoursFieldRadioOption00ff00} em`,
+      )
+      .exists(
+        'Second option label correctly has markdown rendered into an em tag.',
+      );
+    assert
+      .dom(
+        `${testEls.radioButtonGroupExample3FormRgbColoursFieldRadioOption00ff00}`,
+      )
+      .hasText(
+        'Green',
+        'Second option label has correct text after markdown is rendered.',
+      );
+    assert
+      .dom(
+        `${testEls.radioButtonGroupExample3FormRgbColoursFieldRadioOption00ff00} label`,
+      )
+      .hasClass(
+        'form-check-label',
+        'Second label gets class globally applied to option labels',
       );
   });
 });

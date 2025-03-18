@@ -1,4 +1,4 @@
-import PowerDatePickerExampleGeneric from './power-datepicker-example-generic.js';
+import PowerDatePickerExampleGeneric from './power-datepicker-example-generic';
 import moment from 'moment';
 import { tracked } from '@glimmer/tracking';
 export default class PowerDateickerExampleThreeComponent extends PowerDatePickerExampleGeneric {

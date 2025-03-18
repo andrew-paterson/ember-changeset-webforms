@@ -13,7 +13,7 @@
       @validateField={{this.validateField}}
       @afterClickAddCloneButton={{@afterClickAddCloneButton}}
       @onUserInteraction={{this.onUserInteraction}}
-      @dataTestFieldId={{this.dataTestFieldId}}
+      @dataTestFieldId={{or @dataTestId @formField.id}}
       @changesetWebform={{@changesetWebform}}
       {{did-insert this.didInsert}}
     />
@@ -38,7 +38,7 @@
         @updateFieldValue={{this.updateFieldValue}}
         @onUserInteraction={{this.onUserInteraction}}
         @changesetWebform={{@changesetWebform}}
-        @dataTestFieldId={{this.dataTestFieldId}}
+        @dataTestFieldId={{or @dataTestId @formField.id}}
         @labelId={{this.labelId}}
         @ariaLabelledBy={{this.ariaLabelledBy}}
         @ariaLabel={{this.ariaLabel}}

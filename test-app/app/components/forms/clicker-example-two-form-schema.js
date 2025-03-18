@@ -2,7 +2,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import CustomClickerComponent from '../forms/custom-clicker-component.js';
+import CustomClickerComponent from '../forms/custom-clicker-component';
 import { ensureSafeComponent } from '@embroider/util';
 
 class customProps {
