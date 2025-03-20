@@ -8,7 +8,7 @@ export default function formSchemaFromQueryParams(
       formName: formName,
       submitButtonText: 'Apply Filters',
       clearFormButtonText: 'Reset filters',
-      showClearFormButton: true,
+      clearFormButton: true,
       clearFormAfterSubmit: false,
       submitAfterClear: true,
     },

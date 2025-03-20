@@ -80,9 +80,9 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  onFieldInsertedAction(formField) {
-    if (this.args.onFieldInserted) {
-      this.args.onFieldInserted(formField, this.changesetWebform);
+  afterFieldInsertedAction(formField) {
+    if (this.args.afterFieldInserted) {
+      this.args.afterFieldInserted(formField, this.changesetWebform);
     }
   }
 
@@ -231,6 +231,10 @@ export default class ChangesetWebform extends Component {
   @action
   discardChanges(changesetWebform) {
     changesetWebform.changeset.rollback();
+    changesetWebform.fields.forEach((field) => {
+      field.eventLog = ['insert'];
+      field.validate();
+    });
   }
 
   @action

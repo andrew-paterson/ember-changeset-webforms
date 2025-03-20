@@ -47,7 +47,7 @@
           @afterFieldValidation={{this.afterFieldValidationAction}}
           @onFieldValueChange={{this.onFieldValueChangeAction}}
           @onUserInteraction={{this.onUserInteraction}}
-          @onFieldInserted={{this.onFieldInsertedAction}}
+          @afterFieldInserted={{this.afterFieldInsertedAction}}
         />
       {{/each}}
     </div>
@@ -80,24 +80,49 @@
             }}"
         />
       {{/unless}}
-      {{#if this.formSettings.showRollbackChangesetButton}}
+      {{#if this.formSettings.discardChangesButton}}
         <button
-          class={{this.formSettings.showRollbackChangesetButtonClasses}}
+          class={{ember-changeset-webforms/dynamic-class-names
+            "buttonElement,discardChangesButton"
+            this.changesetWebform
+          }}
           type="button"
-          data-test-id="cwf-reset-form-button"
+          data-test-id="cwf-discard-changes-button"
           {{on "click" (fn this.discardChanges this.changesetWebform)}}
-        >{{this.formSettings.showRollbackChangesetButtonText}}</button>
+        >
+          {{#if this.formSettings.discardChangesButtonIcon}}
+            <this.formSettings.discardChangesButtonIcon.componentClass
+              @props={{this.formSettings.discardChangesButtonIcon.props}}
+              @changesetWebform={{this.changesetWebform}}
+              class={{ember-changeset-webforms/dynamic-class-names
+                "buttonIcon,discardChangesButtonIcon"
+                this.changesetWebform
+              }}
+            />
+          {{/if}}
+          {{this.formSettings.discardChangesButtonText}}</button>
       {{/if}}
-      {{#if this.formSettings.showClearFormButton}}
+      {{#if this.formSettings.clearFormButton}}
         <button
           type="button"
-          data-test-id="cwf-reset-form-button"
+          data-test-id="cwf-clear-form-button"
           {{on "click" (fn this.clearForm this.changesetWebform)}}
           class="{{ember-changeset-webforms/dynamic-class-names
               'buttonElement,clearFormButton'
               this.changesetWebform
             }}"
-        >{{this.formSettings.clearFormButtonText}}</button>
+        >
+          {{#if this.formSettings.clearFormButtonIcon}}
+            <this.formSettings.clearFormButtonIcon.componentClass
+              @props={{this.formSettings.clearFormButtonIcon.props}}
+              @changesetWebform={{this.changesetWebform}}
+              class={{ember-changeset-webforms/dynamic-class-names
+                "buttonIcon,clearFormButtonIcon"
+                this.changesetWebform
+              }}
+            />
+          {{/if}}
+          {{this.formSettings.clearFormButtonText}}</button>
       {{/if}}
     </div>
   </form>

@@ -56,7 +56,7 @@ export default {
     '[data-test-id="clicker-example2-form-toggle-advanced-field"]',
   iconArrowDown: '[data-test-icon="icon-arrow-down"]',
   cwfResetFormButton: '[data-test-id="cwf-reset-form-button"]',
-  signup: '[data-test-id="signup"]',
+  signupForm: '[data-test-id="signup"]',
   signupFormNameField: '[data-test-id="signup-form-name-field"]',
   signupFormNameFieldLabel: '[data-test-id="signup-form-name-field-label"]',
   signupFormEmailField: '[data-test-id="signup-form-email-field"]',
@@ -447,4 +447,15 @@ export default {
     '[data-test-id="power-select-example1-form-country-field"]',
   powerSelectExample2FormCountryField:
     '[data-test-id="power-select-example2-form-country-field"]',
+  powerSelectExample3FormCountryField:
+    '[data-test-id="power-select-example3-form-country-field"]',
+  powerSelectExample4FormCountryField:
+    '[data-test-id="power-select-example4-form-country-field"]',
+  cwfSubmitFormButton: '[data-test-id="cwf-submit-form-button"]',
+  cwfDiscardChangesButton: '[data-test-id="cwf-discard-changes-button"]',
+  cwfClearFormButton: '[data-test-id="cwf-clear-form-button"]',
+  signupFormRecoveryEmailField:
+    '[data-test-id="signup-form-recovery-email-field"]',
+  signupFormNameField: '[data-test-id="signup-form-name-field"]',
+  dataTestCwfField: '[data-test-cwf-field]',
 };

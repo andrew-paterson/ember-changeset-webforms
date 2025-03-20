@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import PowerSelectCountryDisplayComponent from '../forms/power-select-custom-trigger-component';
 import { ensureSafeComponent } from '@embroider/util';
 
-export default class PowerSelectExampleThreeComponent extends Component {
+export default class PowerSelectExampleFoutComponent extends Component {
   // BEGIN-SNIPPET power-select-example-4.js
   formSchema = {
     formSettings: {
@@ -16,7 +16,7 @@ export default class PowerSelectExampleThreeComponent extends Component {
         fieldLabel: 'Select country',
         extra: {
           triggerItemComponent:
-            '[Some additional data from @formField.extra.triggerComponent]',
+            ' => Data from @formField.extra.triggerComponent',
         },
         triggerComponent: ensureSafeComponent(
           PowerSelectCountryDisplayComponent,

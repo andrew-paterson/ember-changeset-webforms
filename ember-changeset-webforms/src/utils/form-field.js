@@ -1,5 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
+import removeObjects from './remove-objects.js';
+import removeAll from './remove-all.js';
 
 export default class FormField {
   @tracked cloneCountStatus;
@@ -20,11 +22,13 @@ export default class FormField {
   }
 
   get fieldValue() {
-    return this.changeset.get(this.fieldId);
+    // TODO check this works wehen fieldId and property name are different
+    return this.changeset.get(this.propertyName);
   }
 
   get validationErrors() {
-    return this.changeset.get(`error.${this.fieldId}.validation`) || [];
+    // TODO check this works wehen fieldId and property name are different
+    return this.changeset.get(`error.${this.propertyName}.validation`) || [];
   }
 
   get masterFormFieldValidationErrors() {
@@ -53,6 +57,13 @@ export default class FormField {
       return null;
     }
     if (!this.eventLogValidated.length) {
+      return null;
+    }
+    if (
+      this.eventLogValidated.length === 1 &&
+      this.eventLogValidated[0] === 'insert' &&
+      !this.fieldValue
+    ) {
       return null;
     }
     return true;
@@ -157,12 +168,27 @@ export default class FormField {
     return results;
   }
 
-  updateValue(value) {
-    this.eventLog.push('valueUpdated');
+  updateValue(value, eventName = 'valueUpdated') {
+    this.eventLog.push(eventName);
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
     changeset.set(this.propertyName, value);
     this.validate();
+  }
+
+  applyDefaultValue() {
+    if (this.fieldValue !== undefined) {
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(this, 'defaultValue')) {
+      this.updateValue(this.defaultValue, 'defaultApplied');
+    }
+  }
+
+  reset() {
+    this.changeset.rollbackProperty(this.propertyName);
+    // We use removeAll to avoid eventLog being forcibly reset as a prop, which breaks tracking
+    removeAll(this.eventLog);
   }
 
   validate() {
@@ -175,10 +201,16 @@ export default class FormField {
       if (!this.eventLogValidated.length) {
         return;
       }
+      if (
+        this.eventLogValidated.length === 1 &&
+        this.eventLogValidated[0] === 'insert' &&
+        !this.fieldValue
+      ) {
+        return;
+      }
       changeset
         .validate(formField.propertyName)
         .then(() => {
-          // formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];
           resolve(fieldValidationErrors);
         })

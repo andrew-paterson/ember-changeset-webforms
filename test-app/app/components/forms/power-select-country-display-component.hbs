@@ -1,5 +1,13 @@
 {{! BEGIN-SNIPPET power-select-country-display-component.hbs }}
-<span class="power-select-item {{@option}}">{{this.displayCountry}}{{#if
-    @extra.selectedItemComponent
-  }}&nbsp;&nbsp;{{@extra.selectedItemComponent}}{{/if}}</span>
+{{#if @extra.selectedItemComponent}}
+  <span class="ember-power-select-selected-item">
+    <span class="power-select-item {{@option}}">{{this.displayCountry}}<code
+        class="ms-2"
+      >{{@extra.selectedItemComponent}}</code></span>
+  </span>
+{{else}}
+  <span class="power-select-item {{@option}}">{{this.displayCountry}}<code
+      class="ms-2"
+    >{{@props.data}}</code></span>
+{{/if}}
 {{! END-SNIPPET }}

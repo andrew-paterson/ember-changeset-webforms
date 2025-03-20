@@ -92,7 +92,6 @@ module('Acceptance | Field validation', function (hooks) {
           'Validation runs after selecting option in radio button group.',
       },
     );
-
     await click(
       `${testEls.signupFormConfirmHumanField} input[type="checkbox"]`,
     );

@@ -4,14 +4,24 @@
   disabled={{this.disabled}}
   ...attributes
 >
+  {{#if @formSettings.submitButtonIcon}}
+    <@formSettings.submitButtonIcon.componentClass
+      @props={{@formSettings.submitButtonIcon.props}}
+      @changesetWebform={{@changesetWebform}}
+      class={{ember-changeset-webforms/dynamic-class-names
+        "buttonIcon,submitButtonIcon"
+        @changesetWebform
+      }}
+    />
+  {{/if}}
   {{@formSettings.submitButtonText}}
   {{#if @changesetWebform.formSettings.requestInFlight}}
-    {{#if @formSettings.submitButtonIconComponent}}
-      <@formSettings.submitButtonIconComponent.componentClass
-        @props={{@formSettings.submitButtonIconComponent}}
+    {{#if @formSettings.requestInFlightIcon}}
+      <@formSettings.requestInFlightIcon.componentClass
+        @props={{@formSettings.requestInFlightIcon.props}}
         @changesetWebform={{@changesetWebform}}
         class={{ember-changeset-webforms/dynamic-class-names
-          "buttonIcon,submitButtonIconComponent"
+          "requestInFlightIcon"
           @changesetWebform
         }}
       />

@@ -1,16 +1,16 @@
 import Component from '@glimmer/component';
-
+import { action } from '@ember/object';
 export default class SignupFormComponent extends Component {
   // BEGIN-SNIPPET signup-form.js
   formSchema = {
     formSettings: {
-      formName: 'signup',
+      formName: 'Signup',
       submitSuccessMessage: 'Thank you for signing up.',
       submitButtonText: 'Sign up',
       modelName: 'user', // TODO required?
       clearFormAfterSubmit: true,
-      showRollbackChangesetButton: true,
-      showClearFormButton: true,
+      discardChangesButton: true,
+      clearFormButton: true,
     },
     fields: [
       {
@@ -185,4 +185,13 @@ export default class SignupFormComponent extends Component {
     ],
   };
   // END-SNIPPET
+  @action
+  submit() {
+    console.log('submit');
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 }

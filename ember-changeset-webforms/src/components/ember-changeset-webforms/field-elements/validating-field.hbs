@@ -16,6 +16,7 @@
       @dataTestFieldId={{or @dataTestId @formField.id}}
       @changesetWebform={{@changesetWebform}}
       {{did-insert this.didInsert}}
+      {{will-destroy this.willDestroyAction}}
     />
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
@@ -30,6 +31,7 @@
       @validationErrorsArray={{@formField.validationErrors}}
       data-test-cwf-field
       {{did-insert this.didInsert}}
+      {{will-destroy this.willDestroyAction}}
     >
       <@formField.componentClass
         @formField={{@formField}}

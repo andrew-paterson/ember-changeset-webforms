@@ -11,16 +11,17 @@ export default function createChangesetWebform(
   opts,
 ) {
   const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
-  const parsedFields = formSchemaWithDefaults.fields.map((item) =>
+  const parsedFields = formSchemaWithDefaults.fields.map((field) =>
     parseChangesetWebformField(
-      item,
+      field,
       customValidators,
       formSchemaWithDefaults.formSettings,
     ),
   );
   const changeset = createChangeset(parsedFields, data, customValidators, opts);
-  parsedFields.forEach((field) => {
-    field.changeset = changeset;
+  parsedFields.forEach((formField) => {
+    formField.changeset = changeset;
+    formField.applyDefaultValue();
   });
   return {
     changeset: changeset,

@@ -14,13 +14,23 @@ The above props are in addition to the generic field props shown with their defa
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
 
-Note also that if passed, value of `placeholder` will display as the placeholder in the select box until an option is selected.
+With a few exceptions, all of the options listed in the [Ember Power Select API reference](https://ember-power-select.com/docs/api-reference) can also be passed.
 
-## Power select where options is an array of strings
+The following propwerties from the [Ember Power Select API reference](https://ember-power-select.com/docs/api-reference) won't be recognised, as these are handled automatically.
+
+- `ariaLabelledBy`
+- `class`
+- `labelText`
+- `labelClass`
+- `labelClickAction`
+- `triggerClass`
+- `dropDownClass`
+
+## Where options is an array of strings
 
 <Demos::PowerSelectExampleOne />
 
-## Power select where options is an array of objects
+## Where options is an array of objects
 
 Where an array of objects is passed to `options`, `optionDisplayProp` must be set to tell the power select component which property to use as the display for both the options in the list, the display of the selected item and the propertuy to target when searching the list.
 
@@ -28,7 +38,11 @@ In the example below, the user only sees the country names, but the value of the
 
 <Demos::PowerSelectExampleTwo />
 
-## Power select with custom components for the options and selected item
+## Custom trigger component
+
+<Demos::PowerSelectExampleFour />
+
+## Custom components for the options and selected item
 
 In this scenario, we want the actual value of the field to be the 3 letter country code, but we want only ever want user to see the full country name.
 
@@ -37,10 +51,6 @@ We thus pass an array of country code strings as options, but then use custom co
 When the user clicks a country name, the value of the field will be set to the 3 letter id.
 
 <Demos::PowerSelectExampleThree />
-
-## Power select with custom component for the trigger
-
-<Demos::PowerSelectExampleFour />
 
 ## Power select with multiple selection
 

@@ -10,7 +10,6 @@ export default function dynamicClassNames(
   if (!changesetWebform) {
     return;
   }
-
   const elementTypes = elementTypesString.split(',');
   elementTypes.forEach((elementType) => {
     let classNameSettings =

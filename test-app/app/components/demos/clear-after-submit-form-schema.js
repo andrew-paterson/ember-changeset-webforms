@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-
+import { action } from '@ember/object';
 export default class ClearAfterSubmitFormComponent extends Component {
   // BEGIN-SNIPPET clear-after-submit-form-schema.js
   formSchema = {
@@ -7,8 +7,8 @@ export default class ClearAfterSubmitFormComponent extends Component {
       formName: 'clearAfterSubmitForm',
       clearFormAfterSubmit: true,
       submitButtonText: 'Create account',
-      showClearFormButton: true,
-      showRollbackChangesetButton: true,
+      clearFormButton: true,
+      discardChangesButton: true,
     },
     fields: [
       {
@@ -25,4 +25,13 @@ export default class ClearAfterSubmitFormComponent extends Component {
     ],
   };
   // END-SNIPPET
+  @action
+  submit() {
+    console.log('submit');
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 }

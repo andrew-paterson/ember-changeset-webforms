@@ -42,14 +42,19 @@ export default class ValidatingField extends Component {
   }
 
   @action
+  willDestroyAction() {
+    const formField = this.args.formField;
+    if (formField.resetWhenRemoved) {
+      this.args.formField.reset();
+    }
+  }
+
+  @action
   didInsert() {
     var formField = this.args.formField;
-    const changeset = this.args.changesetWebform.changeset;
-    if (changeset.get(formField.propertyName)) {
-      formField.eventLog.push('insert');
-      this.validateField(formField);
-    }
-    this.args.onFieldInserted(this.args.formField);
+    formField.eventLog.push('insert');
+    this.validateField(formField);
+    this.args.afterFieldInserted(formField);
   }
 
   @action

@@ -2105,7 +2105,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
       const timeSelectorMinutesInput = find(
         testEls.timeSelectorFieldInputMinutes,
       );
-
       assert
         .dom(`${parentFieldSelector} ${testEls.outputFieldValue}`)
         .hasText(

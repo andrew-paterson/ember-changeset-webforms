@@ -4,11 +4,11 @@ export default class FormSettings {
   // BEGIN-SNIPPET form-settings-tracked-props.js
   @tracked hideSubmitButton;
   @tracked submitButtonText;
-  @tracked submitButtonIconComponent;
-  @tracked showClearFormButton;
+  @tracked requestInFlightIcon;
+  @tracked clearFormButton;
   @tracked clearFormButtonText;
-  @tracked showRollbackChangesetButton;
-  @tracked showRollbackChangesetButtonText;
+  @tracked discardChangesButton;
+  @tracked discardChangesButtonText;
   @tracked requestInFlight;
   // END-SNIPPET
   constructor(args) {

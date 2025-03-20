@@ -30,8 +30,8 @@ const addonDefaults = {
     labelElement: ['form-label'],
     checkboxElement: ['form-check-input', '$validationClassNames'],
     radioButtonElement: ['form-check-input', '$validationClassNames'],
-    buttonElement: ['btn'],
-    buttonIcon: ['ms-1'],
+    buttonElement: ['btn', 'd-inline-flex'],
+    buttonIcon: ['me-2', 'button-icon'],
     // Request in flight
     requestInFlight: [
       'request-in-flight',
@@ -60,16 +60,16 @@ const addonDefaults = {
     formFields: ['form-fields'],
     formActions: ['form-actions', 'mt-4'],
     submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
-    submitButtonIconComponent(
-      classNameSettings,
-      changesetWebform /* formField */,
-    ) {
+    submitButtonIcon: [],
+    requestInFlightIcon(classNameSettings, changesetWebform) {
       if (changesetWebform.formSettings.requestInFlight) {
-        return classNameSettings.requestInFlight;
+        return ['ms-2'].concat(classNameSettings.requestInFlight);
       }
     },
-    rollbackChangesetButton: ['btn-gray-medium'],
-    clearFormButton: ['btn-gray-medium'],
+    discardChangesButtonIcon: [],
+    clearFormButtonIcon: [],
+    discardChangesButton: ['btn-warning', 'btn-lg'],
+    clearFormButton: ['btn-dark', 'btn-lg'],
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
@@ -85,9 +85,11 @@ const addonDefaults = {
       'p-2',
       'pb-0',
     ],
+    addCloneButtonIcon: [],
     removeCloneButtonIcon: ['fill-gray-medium', 'remove-clone-icon'],
     // fieldType === 'powerSelect'
     powerSelectTrigger: ['form-control', '$validationClassNames'],
+    powerSelectDropdown: [],
     // fieldType === powerDatePicker
     powerDatePickerTriggerWrapper: [
       'form-control',
@@ -128,22 +130,21 @@ const addonDefaults = {
     novalidate: true, // Disable the browser's native validation feedback
     hideSubmitButton: false, // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
-    submitButtonIconComponent: null, // Object with { componentClass, props }.
+    requestInFlightIcon: null, // Object with { componentClass, props }.
     // `componentClass` is the imported class of the component to show on the submit form button.
     // `props` can be included to pass state or data to the component, accessible as {{@props}}.
     // `@changesetWebform is passed to the component.
-    // Note that if null, an empty element will still appear on the submit button, with the class names defined for submitButtonIconComponent. If false, the element will not appear on the submit button.
+    // Note that if null, an empty element will still appear on the submit button, with the class names defined for requestInFlightIcon. If false, the element will not appear on the submit button.
     addCloneButtonIconComponent: null, // Object with { componentClass, props }.
     // `componentClass` is the imported class of the component to show on the submit form button.
     // `props` can be included to pass state or data to the component, accessible as {{@props}}.
     // `@changesetWebform, and @formField are passed to the component.
-    clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully. If set to `suppressDefaultValues` all fields will br cleared.
-    showClearFormButton: false, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
+    clearFormButton: false, // Boolean - whether or not to show the button that will empty all fields.
     clearFormButtonText: 'Clear form', // String - text to show on the clear form button TODO implement
-    submitAfterClear: false, // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
-    showRollbackChangesetButton: false, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
-    showRollbackChangesetButtonText: 'Discard changes',
-
+    discardChangesButton: false, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
+    discardChangesButtonText: 'Discard changes',
+    submitAfterClear: false, // Boolean. If true submits, the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters.
+    clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully. If set to `suppressDefaultValues` all fields will br cleared.
     // END-SNIPPET
   },
   fieldSettings: {
@@ -169,6 +170,7 @@ const addonDefaults = {
     labelMarkdown: null, // String - a markdown string to render as HTML within the label element.
     hideLabel: null, // Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
+    resetWhenRemoved: true, // Boolean - reset the field value when the field is removed from the DOM, for example by setting hidden to true.
     classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
     cloneActionsPosition: 'fieldActions', // String - where to place the remove clone button in relation to the cloned field. Can be [TODO]
     includeLabelForAttr: false, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.

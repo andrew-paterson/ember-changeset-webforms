@@ -16,12 +16,15 @@ export default class PowerSelectExampleThreeComponent extends Component {
         fieldLabel: 'Select country',
         extra: {
           selectedItemComponent:
-            '[Some additional data from @formField.extra.selectedItemComponent]',
+            '=> Data from @formField.extra.selectedItemComponent',
         },
         optionComponent: {
           componentClass: ensureSafeComponent(
             PowerSelectCountryDisplayComponent,
           ),
+          props: {
+            data: '=> Data from @formField.optionComponent.props.data',
+          },
         },
         selectedItemComponent: ensureSafeComponent(
           PowerSelectCountryDisplayComponent,

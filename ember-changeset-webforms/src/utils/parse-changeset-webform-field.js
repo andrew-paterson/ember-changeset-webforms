@@ -4,24 +4,25 @@ import Option from './option-class.js';
 import safeName from './safe-name.js';
 
 export default function parseChangesetWebformField(
-  field,
+  fieldSchema,
   customValidators,
   formSettings,
 ) {
-  if (!field) {
+  if (!fieldSchema) {
     return;
   }
-  if (!field.fieldId) {
+  if (!fieldSchema.fieldId) {
     throw Error(
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
-  const parsedField = parse(field, customValidators, formSettings);
+  const parsedField = parse(fieldSchema, customValidators, formSettings);
   return new FormField(parsedField);
 }
 
 function parse(fieldSchema, customValidators, formSettings) {
   let field = { ...fieldSchema };
+  field.fieldSchema = fieldSchema;
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function (rule) {
       return (

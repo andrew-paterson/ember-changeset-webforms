@@ -51,7 +51,7 @@
     }}
     {{if @formField.readonly 'readonly'}}
     {{if @formField.hideSuccessValidation 'hide-success-validation'}}"
-  {{did-insert (fn this.registerElementContainer "fieldWrapper")}}
+  {{did-insert (fn this.registerElementContainer "fieldWrapperEl")}}
   ...attributes
 >
   {{#if this.hasFieldActions}}

@@ -5,10 +5,13 @@
       @select
     }}</span>
 {{else}}
-  I'm a custom trigger
-  {{#if
-    @extra.triggerItemComponent
-  }}&nbsp;&nbsp;{{@extra.triggerItemComponent}}{{/if}}
+  <span class="ember-power-select-placeholder">
+    I'm a custom trigger
+    {{#if @extra.triggerItemComponent}}<code
+        class="ms-2"
+      >{{@extra.triggerItemComponent}}</code>{{/if}}
+  </span>
+
 {{/if}}
 <span class="ember-power-select-status-icon"></span>
 {{! END-SNIPPET }}

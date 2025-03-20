@@ -32,7 +32,7 @@ export default {
     } else {
       elements = arg;
     }
-    if (indexes) {
+    if (indexes?.length) {
       elements = indexes.map((index) => elements[index]);
     }
     return elements;
@@ -50,127 +50,164 @@ export default {
   },
 
   async passedValidation(arg, assert, opts = {}) {
-    const element = this.getElement(arg);
-    const validBackgroundImage = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")`;
-    const validBorderColour = 'rgb(25, 135, 84)';
-    const validClass = 'is-valid';
-    const invalidClass = 'is-invalid';
+    const fieldElement = this.getElement(arg);
+    opts.validationBackgroundImage =
+      opts.validBackgroundImage ||
+      `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")`;
+    opts.validationBorderColour = opts.validBorderColour || 'rgb(25, 135, 84)';
+    opts.validationBackgroundColour =
+      opts.validBackgroundColour || 'rgb(25, 135, 84)';
+    opts.presentValidationClass = opts.validClass || 'is-valid';
+    opts.absentValidationClass = opts.invalidClass || 'is-invalid';
+    opts.assertionPrefix = opts.assertionPrefix || 'Field passsed validation';
+
     await this.waitForMs(200);
-    const validatingElement =
-      element.querySelector('.form-control') ||
-      element.querySelector('.form-check-input');
-
-    const validatingElementType = element.querySelector('.form-control')
-      ? 'control'
-      : 'check';
-
-    const validatingElementCSS = window.getComputedStyle(
-      validatingElement,
-      null,
-    );
     if (assert) {
-      assert
-        .dom(validatingElement)
-        .hasClass(
-          validClass,
-          `Form ${validatingElementType} element has class '${validClass}' => ${opts.assertionSuffix}`,
-        );
-      assert
-        .dom(validatingElement)
-        .doesNotHaveClass(
-          invalidClass,
-          `[Field passed validation] Form ${validatingElementType} element does not have class '${invalidClass}' => ${opts.assertionSuffix}`,
-        );
-      assert.strictEqual(
-        validBorderColour,
-        validatingElementCSS.getPropertyValue('border-color'),
-        `[Field passed validation] Form ${validatingElementType} element has valid border colour => ${opts.assertionSuffix}`,
+      assert.ok(
+        fieldElement.querySelectorAll(els.cwfFieldError).length === 0,
+        `[${opts.assertionPrefix}] field does not have any error messages => ${opts.assertionSuffix}`,
       );
-      if (validatingElementType === 'control') {
-        assert.strictEqual(
-          validBackgroundImage,
-          validatingElementCSS.getPropertyValue('background-image'),
-          `[Field passed validation] Form ${validatingElementType} element has valid background image => ${opts.assertionSuffix}`,
+      assert
+        .dom(fieldElement.querySelector(els.cwfFieldErrors))
+        .doesNotExist(
+          `[${opts.assertionPrefix}] field does not have error messages container element => ${opts.assertionSuffix}`,
         );
-      }
-      if (validatingElementType === 'check') {
-        assert.strictEqual(
-          validBorderColour,
-          validatingElementCSS.getPropertyValue('background-color'),
-          `[Field passed validation] Form ${validatingElementType} element has valid background colour => ${opts.assertionSuffix}`,
-        );
-      }
     }
-    if (
-      validatingElement.classList.contains('is-valid') &&
-      validatingElementCSS.getPropertyValue('border-color') ===
-        validBorderColour &&
-      validatingElementCSS.getPropertyValue('background-image') ===
-        validBackgroundImage
-    ) {
-      return true;
-    }
-    return false;
+    return this.checkValidation(fieldElement, assert, opts);
   },
 
   async failedValidation(arg, assert, opts = {}) {
-    const element = this.getElement(arg);
-    const invalidBackgroundImage = `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e")`;
-    const invalidBorderColour = 'rgb(220, 53, 69)';
-    const validClass = 'is-valid';
-    const invalidClass = 'is-invalid';
-    await this.waitForMs(200);
-    const validatingElement =
-      element.querySelector('.form-control') ||
-      element.querySelector('.form-check-input');
+    const fieldElement = this.getElement(arg);
+    opts.validationBackgroundImage =
+      opts.invalidBackgroundImage ||
+      `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e")`;
+    opts.validationBorderColour =
+      opts.invalidBorderColour || 'rgb(220, 53, 69)';
+    opts.validationBackgroundColour =
+      opts.invalidBackgroundColour || 'rgb(220, 53, 69)';
+    opts.presentValidationClass = opts.invalidClass || 'is-invalid';
+    opts.absentValidationClass = opts.validClass || 'is-valid';
+    opts.assertionPrefix = opts.assertionPrefix || 'Field failed validation';
 
-    const validatingElementType = element.querySelector('.form-control')
-      ? 'control'
-      : 'check';
-    const validatingElementCSS = window.getComputedStyle(
-      validatingElement,
-      null,
+    await this.waitForMs(200);
+    if (assert) {
+      assert.ok(
+        fieldElement.querySelectorAll(els.cwfFieldError).length >= 1,
+        `[${opts.assertionPrefix}] field has at least one error message => ${opts.assertionSuffix}`,
+      );
+    }
+    return this.checkValidation(fieldElement, assert, opts);
+  },
+
+  checkValidation(fieldElement, assert, opts = {}) {
+    opts.elementWithValidationClass = opts.elementWithValidationClass || [
+      '.form-control',
+      '.form-check-input',
+    ];
+    opts.validationBorderColourElements =
+      opts.validationBorderColourElements || [
+        '.form-control',
+        '.form-check-input',
+      ];
+    opts.validationBackgroundColourElements =
+      opts.validationBackgroundColourElements || ['.form-check-input'];
+    opts.validationBackgroundImageElements =
+      opts.validationBackgroundImageElements || ['.form-control'];
+    const firstMatchingEl = (selectors) => {
+      for (var selector of selectors) {
+        const el = fieldElement.querySelector(selector);
+        if (el) {
+          return el;
+        }
+      }
+      return null;
+    };
+    const validatingElementCSS = (selectors) => {
+      const el = firstMatchingEl(selectors);
+      if (el) {
+        return window.getComputedStyle(el, null);
+      }
+      return null;
+    };
+    const validationBorderColourElementsCss = validatingElementCSS(
+      opts.validationBorderColourElements,
     );
+    const validationBackgroundImageElementsCss = validatingElementCSS(
+      opts.validationBackgroundImageElements,
+    );
+    const validationBackgroundColourElementsCss = validatingElementCSS(
+      opts.validationBackgroundColourElements,
+    );
+
+    const elementWithValidationClass =
+      firstMatchingEl(opts.elementWithValidationClass) || fieldElement;
+
     if (assert) {
       assert
-        .dom(validatingElement)
+        .dom(elementWithValidationClass)
         .hasClass(
-          invalidClass,
-          `[Field failed validation] Form ${validatingElementType} element has class '${invalidClass}' => ${opts.assertionSuffix}`,
+          opts.presentValidationClass,
+          `[${opts.assertionPrefix}] ${opts.elementWithValidationClass} element has class '${opts.presentValidationClass}' => ${opts.assertionSuffix}`,
         );
       assert
-        .dom(validatingElement)
+        .dom(
+          fieldElement.querySelector(opts.elementWithValidationClass) ||
+            fieldElement,
+        )
         .doesNotHaveClass(
-          validClass,
-          `[Field failed validation] Form ${validatingElementType} element does not have class '${validClass}' => ${opts.assertionSuffix}`,
+          opts.absentValidationClass,
+          `[${opts.assertionPrefix}] Form ${opts.elementWithValidationClass} element does not have class '${opts.absentValidationClass}' => ${opts.assertionSuffix}`,
         );
-      assert.strictEqual(
-        invalidBorderColour,
-        validatingElementCSS.getPropertyValue('border-color'),
-        `[Field failed validation] Form ${validatingElementType} element has invalid border colour => ${opts.assertionSuffix}`,
-      );
-      if (validatingElementType === 'control') {
+
+      if (validationBorderColourElementsCss) {
         assert.strictEqual(
-          invalidBackgroundImage,
-          validatingElementCSS.getPropertyValue('background-image'),
-          `[Field failed validation] Form ${validatingElementType} element has invalid background image => ${opts.assertionSuffix}`,
+          validationBorderColourElementsCss.getPropertyValue('border-color'),
+          opts.validationBorderColour,
+          `[${opts.assertionPrefix}] The appropriate element has valid border colour ${opts.validationBorderColour} => ${opts.assertionSuffix}`,
         );
       }
-      if (validatingElementType === 'check') {
+
+      if (validationBackgroundImageElementsCss) {
         assert.strictEqual(
-          invalidBorderColour,
-          validatingElementCSS.getPropertyValue('background-color'),
-          `[Field failed validation] Form ${validatingElementType} element has invalid background colour => ${opts.assertionSuffix}`,
+          validationBackgroundImageElementsCss.getPropertyValue(
+            'background-image',
+          ),
+          opts.validationBackgroundImage,
+          `[${opts.assertionPrefix}] The appropriate element has valid background image => ${opts.assertionSuffix}`,
+        );
+      }
+
+      if (validationBackgroundColourElementsCss) {
+        assert.strictEqual(
+          validationBackgroundColourElementsCss.getPropertyValue(
+            'background-color',
+          ),
+          opts.validationBackgroundColour,
+          `[${opts.assertionPrefix}] The appropriate element has valid background colour ${opts.validationBackgroundColour} => ${opts.assertionSuffix}`,
         );
       }
     }
+
     if (
-      validatingElement.classList.contains(invalidClass) &&
-      element.querySelector(els.cwfFieldErrors) &&
-      validatingElementCSS.getPropertyValue('border-color') ===
-        invalidBorderColour &&
-      validatingElementCSS.getPropertyValue('background-image') ===
-        invalidBackgroundImage
+      elementWithValidationClass.classList.contains(
+        opts.presentValidationClass,
+      ) &&
+      [
+        validationBorderColourElementsCss,
+        validationBackgroundColourElementsCss,
+        validationBackgroundImageElementsCss,
+      ].filter((el) => el).length > 1 &&
+      (!validationBorderColourElementsCss ||
+        validationBorderColourElementsCss.getPropertyValue('border-color') ===
+          opts.validationBorderColour) &&
+      (!validationBackgroundColourElementsCss ||
+        validationBackgroundColourElementsCss.getPropertyValue(
+          'background-color',
+        ) === opts.validationBackgroundColour) &&
+      (!validationBackgroundImageElementsCss ||
+        validationBackgroundImageElementsCss.getPropertyValue(
+          'background-image',
+        ) === opts.validationBackgroundImage)
     ) {
       return true;
     }
@@ -205,8 +242,11 @@ export default {
     );
   },
 
-  async allValidated(arg, indexes) {
+  async allValidated(arg, indexes = []) {
     const els = this.getElements(arg, indexes);
+    if (!els.length) {
+      return false;
+    }
     for (var el of els) {
       if (!(await this.wasValidated(el))) {
         return false;
@@ -215,8 +255,11 @@ export default {
     return true;
   },
 
-  async noneValidated(arg, indexes) {
+  async noneValidated(arg, indexes = []) {
     const els = this.getElements(arg, indexes);
+    if (!els.length) {
+      return false;
+    }
     for (var el of els) {
       if (await this.wasValidated(el)) {
         return false;
@@ -225,9 +268,9 @@ export default {
     return true;
   },
 
-  async removeClone(arg, indexes) {
+  async removeClone(arg, indexes = []) {
     const element = this.getElement(arg);
-    if (indexes) {
+    if (indexes?.length) {
       const elementsToClick = indexes.map(
         (index) => element.querySelectorAll(els.cwfRemoveClone)[index],
       );

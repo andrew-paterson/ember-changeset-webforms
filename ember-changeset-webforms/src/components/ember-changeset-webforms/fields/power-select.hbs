@@ -1,34 +1,74 @@
 <this.componentClass
+  @allowClear={{@formField.allowClear}}
+  @animationEnabled={{@formField.animationEnabled}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @ariaInvalid={{@formField.ariaInvalid}}
+  @ariaLabel={{@formField.ariaLabel}}
+  @ariaLabelledBy={{@ariaLabelledBy}}
+  @beforeOptionsComponent={{@formField.beforeOptionsComponent}}
+  @buildSelection={{@formField.buildSelection}}
+  @calculatePosition={{@formField.calculatePosition}}
+  @closeOnSelect={{@formField.closeOnSelect}}
+  @defaultHighlighted={{@formField.defaultHighlighted}}
+  @destination={{@formField.destination}}
+  @disabled={{@formField.disabled}}
+  @dropdownClass={{ember-changeset-webforms/dynamic-class-names
+    "powerSelectDropdown"
+    @changesetWebform
+    @formField
+  }}
+  @eventType={{@formField.eventType}}
+  @extra={{@formField.extra}}
+  @groupComponent={{@formField.groupComponent}}
+  @highlightOnHover={{@formField.highlightOnHover}}
+  @horizontalPosition={{@formField.horizontalPosition}}
+  @initiallyOpened={{@formField.initiallyOpened}}
+  @loadingMessage={{@formField.loadingMessage}}
+  @matchTriggerWidth={{@formField.matchTriggerWidth}}
+  @matcher={{@formField.matcher}}
+  @noMatchesMessage={{@formField.noMatchesMessage}}
+  @noMatchesMessageComponent={{@formField.noMatchesMessageComponent}}
+  @onBlur={{@formField.onBlur}}
+  @onChange={{fn this.onChange @formField}}
+  @onClose={{@formField.onClose}}
+  @onFocus={{@formField.onFocus}}
+  @onInput={{@formField.onInput}}
+  @onKeydown={{fn this.onKeydown @formField}}
+  @onOpen={{@formField.onOpen}}
+  @options={{@formField.options}}
+  @optionsComponent={{@formField.optionsComponent}}
+  @placeholder={{@formField.placeholder}}
+  @placeholderComponent={{@formField.placeholderComponent}}
+  @preventScroll={{@formField.preventScroll}}
+  @registerAPI={{@formField.registerAPI}}
+  @renderInPlace={{@formField.renderInPlace}}
+  @resultCountMessage={{@formField.resultCountMessage}}
+  @rootEventType={{@formField.rootEventType}}
+  @scrollTo={{@formField.scrollTo}}
+  @search={{@formField.search}}
+  @searchEnabled={{@formField.searchEnabled}}
+  @searchField={{@formField.optionDisplayProp}}
+  @searchFieldPosition={{@formField.searchFieldPosition}}
+  @searchMessage={{@formField.searchMessage}}
+  @searchPlaceholder={{or @formField.searchPlaceholder "Search"}}
+  @selected={{@formField.fieldValue}}
+  @selectedItemComponent={{@formField.selectedItemComponent}}
+  @tabindex={{@formField.tabindex}}
   @triggerClass={{concat
     "validation-area "
     (ember-changeset-webforms/dynamic-class-names
       "powerSelectTrigger" @changesetWebform @formField
     )
   }}
-  @options={{@formField.options}}
-  @selected={{@formField.fieldValue}}
-  @searchPlaceholder={{or @formField.searchPlaceholder "Search"}}
-  @searchField={{@formField.optionDisplayProp}}
-  @allowClear={{@formField.allowClear}}
-  @searchEnabled={{@formField.searchEnabled}}
-  @placeholder={{@formField.placeholder}}
-  @onChange={{fn this.onChange @formField}}
-  @onKeydown={{fn this.onKeydown @formField}}
-  @onclose={{@onclose}}
-  @triggerId={{@formField.id}}
-  @ariaLabelledBy={{@ariaLabelledBy}}
-  @disabled={{@formField.disabled}}
-  @matcher={{@formField.matcher}}
-  @closeOnSelect={{@formField.closeOnSelect}}
-  @selectedItemComponent={{@formField.selectedItemComponent}}
-  @extra={{@formField.extra}}
+  @afterOptionsComponent={{@formField.afterOptionsComponent}}
   @triggerComponent={{@formField.triggerComponent}}
+  @triggerId={{@formField.id}}
+  @triggerRole={{@formField.triggerRole}}
+  @typeAheadMatcher={{@formField.typeAheadMatcher}}
+  @verticalPosition={{@formField.verticalPosition}}
   as |option|
 >
-
   {{#if @formField.optionComponent}}
-    {{log @formField}}
-
     <@formField.optionComponent.componentClass
       @props={{@formField.optionComponent.props}}
       @changesetWebform={{@changesetWebform}}

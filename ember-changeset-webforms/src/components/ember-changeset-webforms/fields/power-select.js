@@ -8,6 +8,12 @@ import { ensureSafeComponent } from '@embroider/util';
 import 'ember-power-select/styles';
 
 export default class PowerSelect extends Component {
+  get test() {
+    return {
+      allowClear: true,
+    };
+  }
+
   get componentClass() {
     return this.args.formField.multipleSelection
       ? ensureSafeComponent(PowerSelectMultipleComponent)

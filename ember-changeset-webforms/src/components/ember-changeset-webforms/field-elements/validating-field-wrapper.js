@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 class destinationElementClass {
   @tracked fieldActions;
   @tracked fieldContents;
-  @tracked fieldWrapper;
+  @tracked fieldWrapperEl;
 }
 
 export default class ValidatingFieldWrapper extends Component {
@@ -32,7 +32,7 @@ export default class ValidatingFieldWrapper extends Component {
   get fieldContentsDestinationElement() {
     return this.hasFieldActions
       ? this.destinationElement.fieldContents
-      : this.destinationElement.fieldWrapper;
+      : this.destinationElement.fieldWrapperEl;
   }
 
   get cloneActionsDestinationElement() {
