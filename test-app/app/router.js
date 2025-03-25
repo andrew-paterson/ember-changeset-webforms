@@ -30,6 +30,9 @@ Router.map(function () {
     this.route('power-select-checkboxes');
     this.route('power-datepicker');
     this.route('clicker');
+    this.route('hiding-and-showing-fields');
+    this.route('form-methods');
+    this.route('field-methods');
   });
   this.route('not-found', { path: '/*path' });
 });

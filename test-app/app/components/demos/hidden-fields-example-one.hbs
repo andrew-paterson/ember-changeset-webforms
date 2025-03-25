@@ -1,0 +1,23 @@
+<DocsDemo as |demo|>
+  <demo.example @name="hidden-fields-example-1.hbs">
+    <div data-test-id="hidden-fields-example-1">
+      <ChangesetWebform
+        @formSchema={{this.formSchema}}
+        @onFieldValueChange={{this.onFieldValueChange}}
+      />
+      {{#if this.changesetIsValid}}
+        <button class="btn btn-outline-primary">Next</button>
+      {{/if}}
+    </div>
+  </demo.example>
+  <demo.snippet
+    @name="hidden-fields-example-1.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="hidden-fields-example-1.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

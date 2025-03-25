@@ -16,6 +16,8 @@ Each option in the `options` property of field with type `radioButtonGroup` can 
 
 <DocsSnippet @name="radio-button-group-option.js" />
 
+You can also pass a primitive value, such as a string or number as an option. In this case the option will be expanded into an object in which the values of the `label` and `value` properties will be the same.
+
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}

@@ -14,6 +14,8 @@ Each option in the `options` property of field with type `checkboxGroup` can hav
 
 <DocsSnippet @name="checkbox-group-option.js" @title="Checkbox group options"/>
 
+You can also pass a primitive value, such as a string or number as an option. In this case the option will be expanded into an object in which the values of the `key` and `value` properties will be the same.
+
 The above props are in addition to the generic field props shown with their default values below.
 
 {{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}

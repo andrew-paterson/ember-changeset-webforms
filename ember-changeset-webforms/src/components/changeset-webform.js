@@ -1,11 +1,12 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import validateFields from '../utils/validate-fields.js';
 import nullifyExcludedFields from '../utils/nullify-excluded-fields.js';
 import createChangesetWebform from '../utils/create-changeset-webform.js';
+import onSubmit from '../utils/on-submit.js';
 import isPromise from '../utils/is-promise.js';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+
 export default class ChangesetWebform extends Component {
   @service emberChangesetWebforms;
   @tracked changesetWebform;
@@ -112,8 +113,30 @@ export default class ChangesetWebform extends Component {
   //  TODO allow action to completely replace this action
   @action
   submitForm(changesetWebform) {
+    onSubmit(changesetWebform, this.args);
+    return;
     const changeset = changesetWebform.changeset;
-    validateFields(changesetWebform)
+    changesetWebform.fields.forEach((field) => {
+      field.eventLog.push('submit');
+      if (field.clonedFields) {
+        // TODO does this really belong in a util.
+        field.clonedFields.forEach((clonedField, index) => {
+          if (
+            clonedField.validationRules &&
+            clonedField.validationRules.length
+          ) {
+            // TODO DRY this up
+            clonedField.validationRules[0].activateValidation =
+              clonedField.validationRules[0].activateValidation || [];
+            clonedField.validationRules[0].activateValidation.push(index);
+          }
+          clonedField.eventLog.push('submit');
+        });
+        // TODO test for cloned fields without any validation rules
+      }
+    });
+    changesetWebform
+      .validateFields()
       .then((validationResult) => {
         if (this.args.afterValidateFields) {
           this.args.afterValidateFields(changesetWebform, validationResult);

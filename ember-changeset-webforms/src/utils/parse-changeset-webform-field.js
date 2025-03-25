@@ -20,6 +20,12 @@ export default function parseChangesetWebformField(
   return new FormField(parsedField);
 }
 
+function isPrimitive(value) {
+  return (
+    value === null || (typeof value !== 'object' && typeof value !== 'function')
+  );
+}
+
 function parse(fieldSchema, customValidators, formSettings) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
@@ -48,6 +54,12 @@ function parse(fieldSchema, customValidators, formSettings) {
 
   if (field.options) {
     field.options = field.options.map(function (option) {
+      if (field.fieldType === 'radioButtonGroup' && isPrimitive(option)) {
+        option = { label: option, value: option };
+      }
+      if (field.fieldType === 'checkboxGroup' && isPrimitive(option)) {
+        option = { label: option, key: option };
+      }
       if (emberTypeOf(option) === 'object') {
         return new Option(option);
       }
