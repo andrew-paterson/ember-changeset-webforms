@@ -43,11 +43,21 @@ export default class ValidatingField extends Component {
 
   @action
   didInsert() {
-    console.log('test3');
     var formField = this.args.formField;
     formField.eventLog.push('insert');
     this.validateField(formField);
     this.args.afterFieldInserted(formField);
+  }
+
+  @action
+  willDestroyAction() {
+    var formField = this.args.formField;
+    if (formField.dynamicallyExcluded) {
+      if (formField.resetWhenRemoved) {
+        formField.reset();
+      }
+    }
+    this.args.afterFieldRemoved(formField);
   }
 
   @action

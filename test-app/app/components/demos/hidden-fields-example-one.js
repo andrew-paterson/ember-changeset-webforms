@@ -54,8 +54,6 @@ export default class FormWideClassSettingsComponent extends Component {
       }
     }
     changesetWebform.validateFields().then((res) => {
-      console.log(res);
-      console.log(changesetWebform.fields);
       this.changesetIsValid = changesetWebform.changeset.isValid;
     });
   }

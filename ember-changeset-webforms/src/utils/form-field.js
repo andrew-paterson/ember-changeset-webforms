@@ -89,7 +89,7 @@ export default class FormField {
     if (
       this.overrideConditionsFulfilled(
         this.dynamicIncludeExclude.toggleDefault,
-        this.changeset,
+        this,
       )
     ) {
       result = !result;
@@ -97,64 +97,16 @@ export default class FormField {
     return result;
   }
 
-  checkCondition(changeset, condition) {
-    const value = changeset.get(condition.fieldId); // Needs to use propertyName or better yet, fieldValue
-
-    if (condition.valueEquals && (!value || value !== condition.valueEquals)) {
-      return false;
-    }
-    if (
-      condition.valueLengthEq &&
-      (!value || value.length !== condition.valueLengthEq)
-    ) {
-      return false;
-    }
-    if (
-      condition.valueLengthLt &&
-      (!value || !(value.length < condition.valueLengthLt))
-    ) {
-      return false;
-    }
-    if (
-      condition.valueLengthLte &&
-      (!value || !(value.length <= condition.valueLengthLte))
-    ) {
-      return false;
-    }
-    if (
-      condition.valueLengthGt &&
-      (!value || !(value.length > condition.valueLengthGt))
-    ) {
-      return false;
-    }
-    if (
-      condition.valueLengthGte &&
-      (!value || !(value.length >= condition.valueLengthGte))
-    ) {
-      return false;
-    }
-
-    if (
-      condition.valueIncludes &&
-      (!value || !value.includes(condition.valueIncludes))
-    ) {
-      return false;
-    }
-    if (
-      condition.valueExcludes &&
-      (!value || value.includes(condition.valueExcludes)) // Should valueExcludes be true if value is null or undefined?
-    ) {
-      return false;
-    }
-    return true;
+  overrideConditionsFulfilled(ruleSet, formField) {
+    return this.checkConditions(ruleSet, formField);
   }
 
-  checkConditions(ruleSet, changeset) {
+  checkConditions(ruleSet, formField) {
     const results = ruleSet.conditions.map((condition) => {
       if (condition.conditions) {
-        return this.checkConditions(condition, changeset);
+        return this.checkConditions(condition, formField);
       }
-      return this.checkCondition(changeset, condition);
+      return this.checkCondition(formField, condition);
     });
     if (ruleSet.ruleType === 'allConditionsTrue') {
       return results.includes(false) ? false : true;
@@ -163,9 +115,28 @@ export default class FormField {
     }
   }
 
-  overrideConditionsFulfilled(ruleSet, changeset) {
-    const results = this.checkConditions(ruleSet, changeset);
-    return results;
+  checkCondition(formField, condition) {
+    const value = formField.siblings.find(
+      (siblingField) => siblingField.fieldId === condition.fieldId,
+    )?.fieldValue;
+    if (!value) {
+      return false;
+    }
+    const dynamicIncludeExcludeConditions =
+      formField.dynamicIncludeExcludeConditions || {};
+    const conditionChecks = Object.assign(
+      {},
+      {
+        valueEquals: (value, condition) => value === condition.valueEquals,
+      },
+      dynamicIncludeExcludeConditions,
+    );
+    for (var key in conditionChecks) {
+      if (condition[key] && !conditionChecks[key](value, condition)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   updateValue(value, eventName = 'valueUpdated') {

@@ -25,7 +25,7 @@ Setting `hidden` to `true` on a fields has several implications:
 
 - the related changeset property will not be validated when the `validateFields` method is run on submit, or in an action.
 - the fields HTML element will be removed from the DOM entirely.
-- the related data property will not be included in the data which is sent with teh submit action.
+- the related data property will not be included in the data which is sent with the submit action.
 
 See the below example of using `showField` and `hideField`.
 

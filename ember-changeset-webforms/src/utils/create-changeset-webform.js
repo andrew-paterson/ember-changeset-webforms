@@ -9,7 +9,7 @@ export default function createChangesetWebform(
   formSchema,
   data,
   customValidators,
-  opts,
+  dynamicIncludeExcludeConditions,
 ) {
   const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
   const parsedFields = formSchemaWithDefaults.fields.map((field) =>
@@ -19,9 +19,14 @@ export default function createChangesetWebform(
       formSchemaWithDefaults.formSettings,
     ),
   );
-  const changeset = createChangeset(parsedFields, data, customValidators, opts);
-  parsedFields.forEach((formField) => {
+  const changeset = createChangeset(parsedFields, data, customValidators);
+  parsedFields.forEach((formField, index) => {
+    formField.index = index;
     formField.changeset = changeset;
+    formField.siblings = parsedFields.filter(
+      (field) => field.fieldId !== formField.fieldId,
+    );
+    formField.dynamicIncludeExcludeConditions = dynamicIncludeExcludeConditions;
     formField.applyDefaultValue();
   });
   return {

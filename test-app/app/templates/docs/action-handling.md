@@ -162,3 +162,11 @@ submitError(error, formFields, formSettings, changeset) {
 ## submitSuccess
 
 submitSuccess(response, formFields, formMetaData, changeset) {
+
+## afterFieldInserted
+
+afterFieldInserted(formField, changesetWebform)
+
+## afterFieldRemoved
+
+afterFieldRemoved(formField, changesetWebform)
