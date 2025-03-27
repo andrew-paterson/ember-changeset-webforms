@@ -151,5 +151,5 @@ module('Acceptance | Field validation', function (hooks) {
     );
   });
 
-  // TODO - validation of all fields on submit, and ignores hidden fields.
+  // TODO - validation of all fields on submit, and ignores omitted fields.
 });

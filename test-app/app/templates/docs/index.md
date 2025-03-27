@@ -10,21 +10,17 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 
 ## Example
 
-
 <Demos::SignupForm />
 
 ## Features
 
-* Define your form schema as plain old JavaScript object, and the `ChangesetWebform` component will render the form.
-* The addon provides 11 default fields, and allows for the creation of custom fields whgich can then easily be used throughout your application.
-* You can define a field as clonable, allowing the end user to add or remove instances of the field.
-* You have fine grained control over CSS classes at global, form and individual field level.
-* The addon integrates all of the validation methods which are part of [Ember Changeset Validations](https://github.com/poteto/ember-changeset-validations) by default, and makes it easy to define and integrate custom validators.
-* You can pass an array of validation event names, to control when validation happens for a specific field- these are `keyUp`, `insert`, `focusOut` and `onChange`.
-* The addon provides several action hooks, allowing your app to respond to user interactions in various ways.
-* Conditional fields - only allow a field to show if another field has a certain value, but updating its `hidden` setting. Fields which are hidden are not validated and they are not included in the data submitted by the form.
-* Fine grained configuration control. Configuration options can be set at the app level, form level and, where appropriate, at field level. 
-* Configurable CSS class names - configure the classnames applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.
-
-
-
+- Define your form schema as plain old JavaScript object, and the `ChangesetWebform` component will render the form.
+- The addon provides 11 default fields, and allows for the creation of custom fields whgich can then easily be used throughout your application.
+- You can define a field as clonable, allowing the end user to add or remove instances of the field.
+- You have fine grained control over CSS classes at global, form and individual field level.
+- The addon integrates all of the validation methods which are part of [Ember Changeset Validations](https://github.com/poteto/ember-changeset-validations) by default, and makes it easy to define and integrate custom validators.
+- You can pass an array of validation event names, to control when validation happens for a specific field- these are `keyUp`, `insert`, `focusOut` and `onChange`.
+- The addon provides several action hooks, allowing your app to respond to user interactions in various ways.
+- Conditional fields - only allow a field to show if another field has a certain value, but updating its `omitted` setting. Fields which are omitted are not validated and they are not included in the data submitted by the form.
+- Fine grained configuration control. Configuration options can be set at the app level, form level and, where appropriate, at field level.
+- Configurable CSS class names - configure the classnames applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.

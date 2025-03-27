@@ -85,7 +85,7 @@ module('Acceptance | Custom fields', function (hooks) {
       await cth.wasValidated(
         `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       ),
-      'Validation is hidden on the field when the phone number input is focussed.',
+      'Validation is omitted on the field when the phone number input is focussed.',
     );
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await assert.ok(

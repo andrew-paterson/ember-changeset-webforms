@@ -274,4 +274,4 @@ formField.datepickerPlaceholder for power-datetime-picker formfield.
 Default search placeholder for power select referenced in:
 addon/templates/components/ember-changeset-webforms/form-field-power-select.hbs
 
-Test: nullifyExcludedFields allows in changeset.set keys that are not in the formSchema, but still rejects those who have a related field which is hidden or castOut. Must take into accouhnt all keys in both changeset.data and changeset.changes.
+Test: nullifyExcludedFields allows in changeset.set keys that are not in the formSchema, but still rejects those who have a related field which is omitted or castOut. Must take into accouhnt all keys in both changeset.data and changeset.changes.

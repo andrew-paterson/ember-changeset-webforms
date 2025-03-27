@@ -35,16 +35,16 @@ export default function createChangesetWebform(
     formSettings: new FormSettings(formSchemaWithDefaults.formSettings),
     formSchema: { ...formSchema },
     formSchemaWithDefaults: { ...formSchemaWithDefaults },
-    showField(fieldId) {
+    includeField(fieldId) {
       const field = this.fields.find((field) => field.fieldId === fieldId);
-      field.hidden = false;
+      field.omitted = false;
     },
-    hideField(fieldId) {
+    omitField(fieldId) {
       const field = this.fields.find((field) => field.fieldId === fieldId);
       if (field.resetWhenRemoved) {
         field.reset();
       }
-      field.hidden = true;
+      field.omitted = true;
     },
     validateFields() {
       return validateFields(this);

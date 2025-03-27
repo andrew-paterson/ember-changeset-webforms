@@ -22,7 +22,7 @@ export default class ClickerExampleOneFormSchema extends Component {
         fieldId: 'advanced',
         fieldType: 'input',
         fieldLabel: 'Advanced setting',
-        hidden: true,
+        omitted: true,
         advancedSetting: true,
       },
     ],
@@ -35,7 +35,7 @@ export default class ClickerExampleOneFormSchema extends Component {
       const advancedFields = changesetWebform.fields.filter(
         (field) => field.advancedSetting,
       );
-      advancedFields.forEach((field) => (field.hidden = !field.hidden));
+      advancedFields.forEach((field) => (field.omitted = !field.omitted));
     }
   }
 }

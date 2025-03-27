@@ -94,7 +94,7 @@ These are passed into the component for you, and you only need to add them to th
 
 ### Focussing and unfocussing the field
 
-At any point your component can set `this.args.formField.focussed` equal to `true` or `false`. Unless the fields `showValidationWhenFocussed` property is true, all validation UI will be hidden on the field for as long as the fields `focussed` property is `true`.
+At any point your component can set `this.args.formField.focussed` equal to `true` or `false`. Unless the fields `showValidationWhenFocussed` property is true, all validation UI will be omitted on the field for as long as the fields `focussed` property is `true`.
 
 In the example below, we set `focussed` to true when the text input is focussed.
 

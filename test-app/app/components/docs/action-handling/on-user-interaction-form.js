@@ -33,7 +33,7 @@ export default class OnUserInteractionForm extends Component {
         fieldLabel: 'Nickname',
         fieldType: 'input',
         inputType: 'text',
-        hidden: true,
+        omitted: true,
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -51,10 +51,10 @@ export default class OnUserInteractionForm extends Component {
         const nickNameField = changesetWebform.fields.find(
           (field) => field.fieldId === 'nickName',
         );
-        nickNameField.toggleProperty('hidden');
+        nickNameField.toggleProperty('omitted');
         formField.set(
           'clickerText',
-          nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field',
+          nickNameField.omitted ? 'Show nickname field' : 'Hide nickname field',
         );
       }
     }

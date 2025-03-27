@@ -37,7 +37,7 @@ current
 describedby
 disabled
 expanded
-hidden
+omitted
 label
 labelledby
 live

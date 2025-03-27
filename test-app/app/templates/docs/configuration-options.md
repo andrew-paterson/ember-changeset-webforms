@@ -1,7 +1,6 @@
 ## App wide configuration
 
-
-### Default form settings 
+### Default form settings
 
 App wide defaults for form settings can be overridden in the `ENV.changesetWebformsDefaults.formSettings` object in `config/environment.js` in your consuming Ember app.
 
@@ -29,6 +28,6 @@ The above options can also be for all the fields in a particular form in the `fi
 
 The above options van be further overridden in the definition of any particular field.
 
-In the example below, `hideLabel` is set to `true` as a form specific default, but is overridden to `true` in the email field. Thus, the labels are hidden on all but the email field.
+In the example below, `hideLabel` is set to `true` as a form specific default, but is overridden to `true` in the email field. Thus, the labels are omitted on all but the email field.
 
 <Demos::FieldSettingsOverridden />

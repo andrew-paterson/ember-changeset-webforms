@@ -8,7 +8,7 @@ export default class FormFieldClone {
   @tracked changeset;
   @tracked validatesOn = [];
   // BEGIN-SNIPPET cloned-field-settings-tracked-props.js
-  @tracked hidden;
+  @tracked omitted;
   @tracked disabled;
   @tracked externalProps;
   // END-SNIPPET

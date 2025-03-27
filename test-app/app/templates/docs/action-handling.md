@@ -95,7 +95,7 @@ Where there are validation errors, the value of the `fieldValidationErrors` argu
 
 Provides `(changesetWebform, validationResult)` as arguments.
 
-Runs after validating all form fields which are not hidden or cast out. This occurs when the user clicks the submit button, but before submitting the form data.
+Runs after validating all form fields which are not omitted or cast out. This occurs when the user clicks the submit button, but before submitting the form data.
 
 Validation result is an array with one item for each validated field. For any fields which have validation errors, the item will be an object with the keys `value` and `validation` where validation is the validation error that resulted for that field.
 

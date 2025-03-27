@@ -11,7 +11,7 @@ export default class FormField {
   @tracked changeset;
   @tracked validatesOn = [];
   // BEGIN-SNIPPET field-settings-tracked-props.js
-  @tracked hidden;
+  @tracked omitted;
   @tracked disabled;
   @tracked hideValidation;
   // END-SNIPPET
