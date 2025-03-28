@@ -80,15 +80,14 @@ export default class FormField {
     }
   }
 
-  get dynamicallyExcluded() {
-    if (!this.dynamicIncludeExclude) {
+  get dynamicallyOmitted() {
+    if (!this.dynamicOmission) {
       return null;
     }
-    let result =
-      this.dynamicIncludeExclude.default === 'exclude' ? true : false;
+    let result = this.dynamicOmission.omittedByDefault;
     if (
       this.overrideConditionsFulfilled(
-        this.dynamicIncludeExclude.toggleDefault,
+        this.dynamicOmission.toggleDefaultOmission,
         this,
       )
     ) {

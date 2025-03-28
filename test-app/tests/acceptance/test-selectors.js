@@ -458,4 +458,56 @@ export default {
     '[data-test-id="signup-form-recovery-email-field"]',
   signupFormNameField: '[data-test-id="signup-form-name-field"]',
   dataTestCwfField: '[data-test-cwf-field]',
+
+  omittedFieldsExample1: '[data-test-id="omitted-fields-example-1"]',
+  omittedFieldsExample2: '[data-test-id="omitted-fields-example-2"]',
+  omittedFieldsExample3: '[data-test-id="omitted-fields-example-3"]',
+
+  omittingFields1FormMealRequiredField:
+    '[data-test-id="omitting-fields1-form-meal-required-field"]',
+  omittingFields2FormMealRequiredField:
+    '[data-test-id="omitting-fields2-form-meal-required-field"]',
+  omittingFields3FormMealRequiredField:
+    '[data-test-id="omitting-fields3-form-meal-required-field"]',
+
+  omittingFields1FormMealOptionField:
+    '[data-test-id="omitting-fields1-form-meal-option-field"]',
+  omittingFields2FormMealOptionField:
+    '[data-test-id="omitting-fields2-form-meal-option-field"]',
+  omittingFields3FormMealOptionField:
+    '[data-test-id="omitting-fields3-form-meal-option-field"]',
+
+  omittingFields1FormMealRequiredFieldRadioOptionYes:
+    '[data-test-id="omitting-fields1-form-meal-required-field-radio-option-yes"]',
+  omittingFields2FormMealRequiredFieldRadioOptionYes:
+    '[data-test-id="omitting-fields2-form-meal-required-field-radio-option-yes"]',
+  omittingFields3FormMealRequiredFieldRadioOptionYes:
+    '[data-test-id="omitting-fields3-form-meal-required-field-radio-option-yes"]',
+
+  omittingFields1FormMealRequiredFieldRadioOptionNo:
+    '[data-test-id="omitting-fields1-form-meal-required-field-radio-option-no"]',
+  omittingFields2FormMealRequiredFieldRadioOptionNo:
+    '[data-test-id="omitting-fields2-form-meal-required-field-radio-option-no"]',
+  omittingFields3FormMealRequiredFieldRadioOptionNo:
+    '[data-test-id="omitting-fields3-form-meal-required-field-radio-option-no"]',
+
+  omittingFields1FormMealOptionFieldRadioOptionBeef:
+    '[data-test-id="omitting-fields1-form-meal-option-field-radio-option-beef"]',
+  omittingFields2FormMealOptionFieldRadioOptionBeef:
+    '[data-test-id="omitting-fields2-form-meal-option-field-radio-option-beef"]',
+  omittingFields3FormMealOptionFieldRadioOptionBeef:
+    '[data-test-id="omitting-fields3-form-meal-option-field-radio-option-beef"]',
+  nextButton: '[data-test-id="next-button"]',
+
+  omittingFields4FormIsMemberFieldRadioOptionYes:
+    '[data-test-id="omitting-fields4-form-is-member-field-radio-option-yes"]',
+  omittingFields4FormIsMemberFieldRadioOptionNo:
+    '[data-test-id="omitting-fields4-form-is-member-field-radio-option-no"]',
+
+  omittingFields4FormMainsField:
+    '[data-test-id="omitting-fields4-form-mains-field"]',
+  omittingFields4FormSidesField:
+    '[data-test-id="omitting-fields4-form-sides-field"]',
+  omittingFields4FormFreeDrinkField:
+    '[data-test-id="omitting-fields4-form-free-drink-field"]',
 };

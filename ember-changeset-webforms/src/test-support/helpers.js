@@ -110,7 +110,9 @@ export default {
         '.form-check-input',
       ];
     opts.validationBackgroundColourElements =
-      opts.validationBackgroundColourElements || ['.form-check-input'];
+      opts.validationBackgroundColourElements || [
+        '.form-check-input.was-validated',
+      ];
     opts.validationBackgroundImageElements =
       opts.validationBackgroundImageElements || ['.form-control'];
     const firstMatchingEl = (selectors) => {

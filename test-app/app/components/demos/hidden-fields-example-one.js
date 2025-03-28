@@ -7,12 +7,12 @@ export default class FormWideClassSettingsComponent extends Component {
   // BEGIN-SNIPPET omitted-fields-example-1.js"
   formSchema = {
     formSettings: {
-      formName: 'formClassNames',
+      formName: 'omittingFields1',
       hideSubmitButton: true,
     },
     fields: [
       {
-        fieldId: 'meal',
+        fieldId: 'mealRequired',
         fieldLabel: 'Would you like to order a meal?',
         fieldType: 'radioButtonGroup',
         validatesOn: ['insert'],
@@ -46,7 +46,7 @@ export default class FormWideClassSettingsComponent extends Component {
 
   @action
   onFieldValueChange(formField, changesetWebform, snapshot) {
-    if (formField.fieldId === 'meal') {
+    if (formField.fieldId === 'mealRequired') {
       if (formField.fieldValue === 'Yes') {
         changesetWebform.includeField('mealOption');
       } else {

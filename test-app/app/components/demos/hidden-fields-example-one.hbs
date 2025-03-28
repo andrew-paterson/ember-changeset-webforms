@@ -6,7 +6,10 @@
         @onFieldValueChange={{this.onFieldValueChange}}
       />
       {{#if this.changesetIsValid}}
-        <button class="btn btn-outline-primary">Next</button>
+        <button
+          data-test-id="next-button"
+          class="btn btn-outline-primary"
+        >Next</button>
       {{/if}}
     </div>
   </demo.example>

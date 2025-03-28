@@ -51,7 +51,6 @@ module('Acceptance | Form buttons', function (hooks) {
         'test@email.com',
         'Email recovery field has value "test@email.com after being completed".',
       );
-    await this.pauseTest();
     await click(testEls.cwfDiscardChangesButton);
     assert
       .dom(`${testEls.signupFormRecoveryEmailField} input`)

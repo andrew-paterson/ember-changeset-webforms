@@ -4,11 +4,16 @@ import { tracked } from '@glimmer/tracking';
 
 export default class FormWideClassSettingsComponent extends Component {
   @tracked changesetIsValid;
+  // BEGIN-SNIPPET omitted-fields-example-3.js"
 
-  // BEGIN-SNIPPET omitted-fields-example-2.js"
+  dynamicIncludeExcludeConditions = {
+    valueDoesNotEqual: (value, condition) =>
+      value !== condition.valueDoesNotEqual,
+  };
+
   formSchema = {
     formSettings: {
-      formName: 'omittingFields2',
+      formName: 'omittingFields3',
       hideSubmitButton: true,
     },
     fields: [
@@ -47,7 +52,7 @@ export default class FormWideClassSettingsComponent extends Component {
             conditions: [
               {
                 fieldId: 'mealRequired',
-                valueEquals: 'Yes',
+                valueDoesNotEqual: 'No',
               },
             ],
           },

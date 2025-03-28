@@ -2,7 +2,7 @@ export default function validateAllowedFields(changesetWebform) {
   var allowedFields = changesetWebform.fields.filter((field) => {
     return (
       !field.omitted &&
-      !field.dynamicallyExcluded &&
+      !field.dynamicallyOmitted &&
       !field.skipValidation &&
       field.validates
     );

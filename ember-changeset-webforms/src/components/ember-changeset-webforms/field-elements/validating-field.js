@@ -52,7 +52,7 @@ export default class ValidatingField extends Component {
   @action
   willDestroyAction() {
     var formField = this.args.formField;
-    if (formField.dynamicallyExcluded) {
+    if (formField.dynamicallyOmitted) {
       if (formField.resetWhenRemoved) {
         formField.reset();
       }

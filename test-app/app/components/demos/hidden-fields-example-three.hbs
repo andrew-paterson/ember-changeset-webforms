@@ -1,10 +1,11 @@
 <DocsDemo as |demo|>
-  <demo.example @name="omitted-fields-example-2.hbs">
-    <div data-test-id="omitted-fields-example-2">
+  <demo.example @name="omitted-fields-example-3.hbs">
+    <div data-test-id="omitted-fields-example-3">
       <ChangesetWebform
         @formSchema={{this.formSchema}}
         @afterFieldRemoved={{this.afterFieldRemoved}}
         @onFieldValueChange={{this.onFieldValueChange}}
+        @dynamicIncludeExcludeConditions={{this.dynamicIncludeExcludeConditions}}
       />
       {{#if this.changesetIsValid}}
         <button
@@ -15,12 +16,12 @@
     </div>
   </demo.example>
   <demo.snippet
-    @name="omitted-fields-example-2.js"
+    @name="omitted-fields-example-3.js"
     @label="component js"
     @language="javascript"
   />
   <demo.snippet
-    @name="omitted-fields-example-2.hbs"
+    @name="omitted-fields-example-3.hbs"
     @label="template"
     @language="htmlbars"
   />
