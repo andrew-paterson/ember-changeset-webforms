@@ -16,19 +16,55 @@ export default class ShowClasses extends Component {
           this.doTheThing();
         });
       });
+      const buttons = document.querySelectorAll(
+        '[data-test-id="cwf-submit-form-button"]',
+      );
+      Array.from(buttons).forEach((el) => {
+        el.addEventListener('click', () => {
+          this.doTheThing();
+        });
+      });
       this.doTheThing();
     });
   }
   @action
   doTheThing() {
+    const ignoreEls = [
+      {
+        attr: 'data-test-id',
+        value: 'form-class-names-form-name-field-label',
+      },
+    ];
+    const showAfterEls = [
+      {
+        attr: 'data-test-id',
+        value: 'cwf-submit-form-button',
+      },
+    ];
     const labelEls = Array.from(
       document.querySelectorAll('[data-test-class="cwf-field-label"]'),
     ).concat(
       Array.from(
         document.querySelectorAll('[data-test-labelled-radio-button] label'),
       ),
+      // .concat(
+      //   Array.from(
+      //     document.querySelectorAll('[data-test-id="cwf-submit-form-button"]'),
+      //   ),
+      // ),
     );
     labelEls.forEach((labelEl) => {
+      for (var ignoreEl of ignoreEls) {
+        if (labelEl.getAttribute(ignoreEl.attr) === ignoreEl.value) {
+          return;
+        }
+      }
+      let showAfter = false;
+      for (var showAfterEl of showAfterEls) {
+        if (labelEl.getAttribute(showAfterEl.attr) === showAfterEl.value) {
+          showAfter = true;
+        }
+      }
       const newTextContent = `class="${labelEl.className}"`;
       const existing = labelEl.querySelector('.element-classlist');
       if (existing) {
@@ -44,7 +80,11 @@ export default class ShowClasses extends Component {
       newEl.classList.add('ms-1');
       newEl.classList.add('rounded');
       newEl.classList.add('box-arrow');
-      labelEl.appendChild(newEl);
+      if (showAfter) {
+        labelEl.after(newEl);
+      } else {
+        labelEl.appendChild(newEl);
+      }
       if (newEl.getBoundingClientRect().height > 35) {
         newEl.classList.add('arrow-direction-up');
       } else {

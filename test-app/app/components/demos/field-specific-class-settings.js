@@ -8,11 +8,6 @@ export default class FieldSpecificClassSettingsComponent extends Component {
       formName: 'fieldClassNames',
       hideSubmitButton: true,
     },
-    // fieldSettings: {
-    //   classNames: {
-    //     fieldLabel: ['$inherited', 'baz'],
-    //   },
-    // },
     fields: [
       {
         fieldId: 'name',

@@ -6,6 +6,7 @@ import {
   blur,
   fillIn,
   triggerKeyEvent,
+  waitFor,
 } from '@ember/test-helpers';
 import { module, test, todo } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
@@ -201,5 +202,41 @@ module('Acceptance | Configuring class names', function (hooks) {
         assertionSuffix: 'when the field is unvalidated',
       },
     );
+  });
+
+  test('Class name functions', async function (assert) {
+    await visit('/docs/configure-class-names');
+    assert
+      .dom(
+        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-primary:not(.btn-success)',
+      )
+      .exists(
+        'Submit button has class btn-primary and does not have class btn-success on load.',
+      );
+    click(
+      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"]',
+    );
+    await waitFor(
+      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-success:not(.btn-primary)',
+    );
+    assert
+      .dom(
+        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-success:not(.btn-primary)',
+      )
+      .exists(
+        'Submit button has class btn-success and does not have class btn-primary when submit is clicked.',
+      );
+    await waitFor(
+      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"]:not(.btn-success)',
+      { timeout: 5000 },
+    );
+    assert;
+    assert
+      .dom(
+        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-primary:not(.btn-success)',
+      )
+      .exists(
+        'Submit button has class btn-primary and does not have class btn-success after submit action resolves.',
+      );
   });
 });

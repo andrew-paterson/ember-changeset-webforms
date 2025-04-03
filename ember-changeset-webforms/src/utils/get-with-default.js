@@ -16,7 +16,7 @@ import AddCloneButtonComponent from '../components/ember-changeset-webforms/clon
 import PowerSelectCheckboxesTriggerComponent from '../components/background/power-select-checkboxes-trigger.js';
 
 const addonDefaults = {
-  generalClassNames: {
+  classNames: {
     // TODO form related classnames, like submit button must be configurable under formSettings.classNames?
     // BEGIN-SNIPPET configurable-classnames.js
     // Generic element classes
@@ -31,12 +31,6 @@ const addonDefaults = {
     radioButtonElement: ['form-check-input', '$validationClassNames'],
     buttonElement: ['btn', 'd-inline-flex'],
     buttonIcon: ['me-2', 'button-icon'],
-    // Request in flight
-    requestInFlight: [
-      'request-in-flight',
-      'spinner-border',
-      'spinner-border-sm',
-    ],
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
@@ -60,7 +54,17 @@ const addonDefaults = {
     formActions: ['form-actions', 'mt-4'],
     submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
     submitButtonIcon: [],
-    requestInFlightIcon(classNameSettings, changesetWebform) {
+    // Request in flight
+    requestInFlight: [
+      'request-in-flight',
+      'spinner-border',
+      'spinner-border-sm',
+    ],
+    requestInFlightIconFn(
+      classNamesArray,
+      classNameSettings,
+      changesetWebform,
+    ) {
       if (changesetWebform.formSettings.requestInFlight) {
         return ['ms-2'].concat(classNameSettings.requestInFlight);
       }
@@ -377,9 +381,9 @@ export default function getWithDefault(appDefaults = {}, formSchema = {}) {
   );
   const classNameSettings = _mergeWith(
     {},
-    addonDefaults.generalClassNames,
-    appDefaults.generalClassNames,
-    formSchema.generalClassNames,
+    addonDefaults.classNames,
+    appDefaults.classNames,
+    formSchema.classNames,
     mergeWithArrayInheritanceCustomiser,
   );
 

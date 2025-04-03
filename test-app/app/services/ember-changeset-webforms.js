@@ -5,8 +5,8 @@ import RequestInFlightIcon from '../components/button-icons/request-in-flight-ic
 export default class EmberChangesetWebforms extends Service {
   changesetWebformsDefaults = {
     // BEGIN-SNIPPET app-wide-classes.js
-    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.generalClassNames
-    generalClassNames: {
+    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.classNames
+    classNames: {
       labelElement: ['$inherited', 'app-wide-label-element-class'],
     },
     // END-SNIPPET

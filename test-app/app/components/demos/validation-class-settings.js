@@ -7,7 +7,7 @@ export default class ValidationClassSettingsComponent extends Component {
       formName: 'validationClassNames',
       hideSubmitButton: true,
     },
-    generalClassNames: {
+    classNames: {
       fieldLabel: ['$inherited', '$validationClassNames'],
     },
     fields: [

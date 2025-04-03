@@ -28,15 +28,18 @@ export default function dynamicClassNames(
       );
     }
     let classNamesArray;
-    if (typeof classNameSettings[elementType] === 'function') {
+    classNamesArray = classNameSettings[elementType] || [];
+    if (
+      classNameSettings[`${elementType}Fn`] &&
+      typeof classNameSettings[`${elementType}Fn`] === 'function'
+    ) {
       classNamesArray =
-        classNameSettings[elementType](
+        classNameSettings[`${elementType}Fn`](
+          classNamesArray,
           classNameSettings,
           changesetWebform,
           formField,
         ) || [];
-    } else {
-      classNamesArray = classNameSettings[elementType] || [];
     }
     if (formField && classNamesArray.indexOf('$validationClassNames') > -1) {
       if (formField.validationStatus === 'valid') {

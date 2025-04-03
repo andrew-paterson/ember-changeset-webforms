@@ -1,6 +1,5 @@
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
-import removeObjects from './remove-objects.js';
 import removeAll from './remove-all.js';
 
 export default class FormField {

@@ -12,7 +12,7 @@ export default function formSchemaFromQueryParams(
       clearFormAfterSubmit: false,
       submitAfterClear: true,
     },
-    generalClassNames: {
+    classNames: {
       clearFormButton: ['btn', 'btn-outline-gray-medium'],
       submitButton: ['btn', 'btn-primary', 'cwf-form-submit-button'],
     },

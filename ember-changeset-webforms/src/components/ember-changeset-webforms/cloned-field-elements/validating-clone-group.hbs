@@ -72,7 +72,6 @@
         "cloneGroupActions"
         @changesetWebform
         @formField
-        @formField.validationStatus
       }}
     >
       {{#if (eq @masterFormField.cloneCountStatus "max")}}
@@ -81,7 +80,6 @@
             "maxClonesReached"
             @changesetWebform
             @formField
-            @formField.validationStatus
           }}
           data-test-id="cwf-max-clones-reached"
         >{{@masterFormField.maxClonesReachedText}}</div>

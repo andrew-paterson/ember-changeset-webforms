@@ -7,7 +7,7 @@ export default class OverrideClassSettingsComponent extends Component {
       formName: 'overrideClassNames',
       hideSubmitButton: true,
     },
-    generalClassNames: {
+    classNames: {
       labelElement: ['form-wide-label-class'],
     },
     fields: [

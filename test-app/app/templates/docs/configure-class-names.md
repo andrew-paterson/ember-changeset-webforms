@@ -16,15 +16,15 @@ These properties can be modified at the app, form and field level, as outlined b
 
 <DocsSnippet @name="configurable-classnames.js" @title="Internal class name defaults" />
 
-## Customising class names for an element throughout your app
+## App level configuration
 
-App wide class name settings can be set in the `ENV.changesetWebformsDefaults.generalClassNames` object in `services/ember-changeset-webforms.js`.
+App wide class name settings can be set in the `ENV.changesetWebformsDefaults.classNames` object in `services/ember-changeset-webforms.js`.
 
 For example, the snippet below would add the class `label-el` to all label elements rendered by the `ChangesetWebform` component.
 
 <DocsSnippet @title="services/ember-changeset-webforms.js" @name="app-wide-classes.js" />
 
-## Customising class names for an element throughout your app, but only within in a specific type of form field
+## App level configuration - field type specific
 
 App wide class name settings for a specific type of field can be set by adding an object for the relevant field type `ENV.changesetWebformsDefaults.fieldTypes` array in `services/ember-changeset-webforms.js`. This object can then have a `classNames` array where class names can be set.
 
@@ -42,17 +42,27 @@ The two snippets from `services/ember-changeset-webforms.js` above, result in th
 
 <Demos::FieldSettingsOverridden />
 
-## Customising class names for an element throughout a single instance of the ChangesetWebform component
+## Form level configuration
 
-Class names can be customised within any particular instance of a `ChangesetWebform` object, in the `generalClassNames` property of `formSchema`. These settings will then apply throughout the particular form.
+Class names can be customised within a single instance of a `ChangesetWebform` object.
 
-## Customising class names for a type of element in all instances of a cvertain type of form field throughout a single instance of the ChangesetWebform component
+This is achived via the `classNames` property of the form schema. These settings will then apply throughout the particular form.
 
-<Demos::FieldTypeWithinFormSettings />
+This can technically also be achived using the `fieldSettings.classNames` property of the form schema, but this is not recommended.
 
 <Demos::FormWideClassSettings />
 
-## Customising class names for an element in a specific instance of a form field
+## Form level configuration - field type specific
+
+Class names can be customised within all fields of a certain type, which occur within a single instance of a `ChangesetWebform` object.
+
+This is achived via the in the `classNames` property of `fieldSettings.fieldTypes` in the form schema.
+
+These settings will then apply in every instance of the relevant field type, throughout the particular form.
+
+<Demos::FieldTypeWithinFormSettings />
+
+## Field level configuration
 
 Class names can be customised for an individual form field using the `classNames` property of the relevant `field` object in `formSchema.fields`.
 
@@ -80,18 +90,23 @@ You may wish to customise which elements within a form field receive those class
 
 ## Passing a function for dynamic class names
 
-<!-- TODO document when this runs -->
+If you would one or more class names for an element to be dynamic, you can add a method to the `classNames` object to manipulate the final array of class names for a particular class name property.
 
-If you would one or more class names for an element to be dynamic, you can pass a function instead of an array of class name strings. The function receives 2 arguments, `classNameSettings`, `changesetWebform` and `formField`.
+The name of the method should be the the property name with `Fn` appended. For example the methos at `classNames.submitButtonFn` will be applied to the classes for the `submitButton` property. It must return an array of strings.
 
-Example
+- `classNamesArray` => the final class names array for the corresponding property in the class name settings.
+- `classNameSettings` => the full final class names object
+- `changesetWebform` => the changesetWebform instance
+- `formField` => the relevant form field object, where the relevant element is within a form field.
 
-{{#docs-snippet name="class-names-function.js"}}
-submitButtonIconComponent(classNameSettings, changesetWebform, formField) {
-if (changesetWebform.formSettings.requestInFlight) {
-return classNameSettings.requestInFlight;
-}
-}
-{{/docs-snippet}}
+The example below removes the class `btn-primary` adds the class `btn-success` to the submit button if `formSettings.requestInFlight` is true. This results in a green background.
+
+Note that what you return from the method will completely override the class name settings for the property.
+
+If you would like to keep those classes, then always incldue the contents of the first argument (`classNamesArray`) in the response.
+
+The method will be run each time the `dynamic-class-names` helper is instered or updated in the relevant template. As it receives `changesetWebform` and `formField` as arguments, this will occur whenever a getter or tracked property is updated on opne of those to class instances.
+
+<Demos::ClassNamesFunction />
 
 <Docs::ShowClasses />
