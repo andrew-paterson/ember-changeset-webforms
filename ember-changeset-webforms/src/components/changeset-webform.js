@@ -9,6 +9,14 @@ export default class ChangesetWebform extends Component {
   @service emberChangesetWebforms;
   @tracked changesetWebform;
 
+  get debugMode() {
+    const config = getOwner(this).resolveRegistration('config:environment');
+    if (config && config.environment === 'production') {
+      return false;
+    }
+    return this.emberChangesetWebforms.debug || this.args.debug;
+  }
+
   get formSettings() {
     if (!this.changesetWebform) {
       return null;
@@ -55,6 +63,7 @@ export default class ChangesetWebform extends Component {
       this.args.data,
       this.args.customValidators,
       this.args.dynamicIncludeExcludeConditions,
+      this.debugMode,
     );
   }
 
@@ -64,6 +73,7 @@ export default class ChangesetWebform extends Component {
     data,
     customValidators,
     dynamicIncludeExcludeConditions,
+    debug,
   ) {
     this.changesetWebform = createChangesetWebform(
       this.emberChangesetWebforms.changesetWebformsDefaults,
@@ -71,6 +81,7 @@ export default class ChangesetWebform extends Component {
       data,
       customValidators,
       dynamicIncludeExcludeConditions,
+      debug,
     );
     if (this.args.afterGenerateChangesetWebform) {
       this.args.afterGenerateChangesetWebform(this.changesetWebform);

@@ -408,8 +408,13 @@ export default function getWithDefault(appDefaults = {}, formSchema = {}) {
       field,
       mergeWithArrayInheritanceCustomiser,
     );
+    if (!mergedField.alwaysValidateOn.includes('submit')) {
+      console.warn(
+        `[Ember Changeset Webforms] Field ${field.fieldId} does not validate on submit. This is not recommended. You can either add $inherited or submit to the alwaysValidateOn array. The current value is [${mergedField.alwaysValidateOn}]`,
+      );
+    }
     if (field.cloneFieldSchema) {
-      const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
+      const addonConfigCloneFieldTypeDefaults = addonDefaults.fieldTypes.find(
         (addonFieldType) =>
           addonFieldType.fieldType === field.cloneFieldSchema.fieldType,
       );
@@ -422,7 +427,7 @@ export default function getWithDefault(appDefaults = {}, formSchema = {}) {
       const mergedCloneField = _mergeWith(
         {},
         addonConfigFieldDefaults,
-        cloneAddonFieldTypeDefaults,
+        addonConfigCloneFieldTypeDefaults,
         appConfigFieldDefaults,
         appConfigCloneFieldTypeDefaults,
         formSchema.fieldSettings,

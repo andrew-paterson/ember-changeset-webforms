@@ -47,7 +47,7 @@ export default function dynamicClassNames(
         );
       }
     }
-    if (options.debugClassNames) {
+    if (changesetWebform.debug) {
       classNamesArray.unshift(`[$DEBUG-${elementType.replace(/,/g, '--')}]`);
     }
     classNames = classNames.concat(classNamesArray);

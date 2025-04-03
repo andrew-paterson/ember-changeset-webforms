@@ -1,4 +1,4 @@
-// BEGIN-SNIPPET custom-fields-demo.js
+// BEGIN-SNIPPET custom-fields-demo-2.js
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
@@ -20,6 +20,7 @@ export default class DemosCustomFieldUsageComponent extends Component {
         fieldId: 'phoneNumber',
         fieldType: 'phoneNumberWithCountryCode',
         fieldLabel: 'Phone number',
+        validatesOn: ['countryCodeSelected'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

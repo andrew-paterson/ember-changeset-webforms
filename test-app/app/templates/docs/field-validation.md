@@ -2,6 +2,12 @@
 
 ## Validation events
 
+### The `alwaysValidateOn` array
+
+The `alwaysValidateOn` property is set by default on all built in field types, and implement out of the box validation, without the need to include the `validatesOn` property when invoking a field in a form schema.
+
+It differs slightly from one field type to another.
+
 A field will validate:
 
 - on focus out, if the field has a `fieldType` of `input` or `textarea`.

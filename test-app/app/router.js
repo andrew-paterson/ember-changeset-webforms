@@ -33,6 +33,7 @@ Router.map(function () {
     this.route('hiding-and-showing-fields');
     this.route('form-methods');
     this.route('field-methods');
+    this.route('debug-mode');
   });
   this.route('not-found', { path: '/*path' });
 });

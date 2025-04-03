@@ -10,6 +10,7 @@ export default function createChangesetWebform(
   data,
   customValidators,
   dynamicIncludeExcludeConditions,
+  debug,
 ) {
   const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
   const parsedFields = formSchemaWithDefaults.fields.map((field) =>
@@ -29,7 +30,8 @@ export default function createChangesetWebform(
     formField.dynamicIncludeExcludeConditions = dynamicIncludeExcludeConditions;
     formField.applyDefaultValue();
   });
-  return {
+  const changesetWebform = {
+    debug: debug,
     changeset: changeset,
     fields: parsedFields,
     formSettings: new FormSettings(formSchemaWithDefaults.formSettings),
@@ -50,4 +52,11 @@ export default function createChangesetWebform(
       return validateFields(this);
     },
   };
+  if (changesetWebform.debug) {
+    console.log(
+      '[Ember Changeset Webforms] DEBUG changesetWebform object',
+      changesetWebform,
+    );
+  }
+  return changesetWebform;
 }

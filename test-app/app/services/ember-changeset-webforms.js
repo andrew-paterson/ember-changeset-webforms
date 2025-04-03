@@ -40,9 +40,14 @@ export default class EmberChangesetWebforms extends Service {
           ],
         },
       },
+      // END-SNIPPET
+      // BEGIN-SNIPPET custom-field-definition.js
+      // In the changesetWebformsDefaults object
       {
         fieldType: 'phoneNumberWithCountryCode',
+        // import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
         componentClass: PhoneNumberWithCountryCodeComponent,
+        alwaysValidateOn: ['$inherited', 'focusOutPhoneNumberInput'],
         classNames: {
           fieldControls: [
             '$validationClassNames',
@@ -64,7 +69,7 @@ export default class EmberChangesetWebforms extends Service {
           ],
         },
       },
+      // END-SNIPPET
     ],
-    // END-SNIPPET
   };
 }

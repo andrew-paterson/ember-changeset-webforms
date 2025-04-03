@@ -4,23 +4,31 @@
 
 You can create your own custom fields by simply creating a component will all the required markup and behavious, and then adding an entry to `changesetWebformsDefaults.fieldTypes` in `config/environment.js`, where you provide a namepace for the new field, and give the path to the component as `componentClass`.
 
-## Example
+## Example usage
 
 This example is going to create a custom phone number field, which allows the user to select a country code and then type in the rest of the phone number.
 
 The field emits its value is a single string, and will have a custom validator which will check that both the country code and number are present, and that the number is formatted correctly.
 
-<Demos::CustomFieldExample />
+The demo below shows the code that would be used to ad dthe fierld to a formSchema.
 
-## Config
+<Demos::CustomFieldUsage />
 
-We add an entry to the `ENV.changesetWebformsDefaults.fieldTypes` array in our config file, with a fieldType of `phoneNumberWithCountryCode`. The only other required field is `componentClass`, the path to our custom field component, but we can add any other default field options that we would like to.
+## Defining the field
+
+Create a service named `ember-changeset-webforms.js`.
+
+We add an entry to the `changesetWebformsDefaults.fieldTypes` array in our `services/ember-chnageset-webforms.js`, with a fieldType of `phoneNumberWithCountryCode`. The only other required field is `componentClass`, the imported class definition of our custom field component. We can add any other default field options that we would like to.
 
 In this case we add some default class names to the `fieldControls` element which wraps all fields. See <LinkTo @route="docs.configure-class-names">docs/configure-class-names</LinkTo>.
 
-We also add class name defaults for `phoneNumberInput` and `countryCodeTrigger`. We will tell out component which element these classnames should apply to by adding the `dynamic-class-names` helper below.
+We also add class name defaults for `phoneNumberInput` and `countryCodeTrigger`. We will tell out component which element these classnames should using the `dynamic-class-names` helper (See below).
 
-<DocsSnippet @name="app-wide-field-options.js" @title="Config" />
+The `alwaysValidatesOn` array allows us to specify events that will always trigger field validation, even if that event is not included in the `validatesOn` array where the field is onvoked in a formSchema.
+
+Note that the addon will always force field validation on `submit`, so there is no need to include it.
+
+<DocsSnippet @name="custom-field-definition.js" @title="services/ember-changeset-webforms.js" @language="javascript" />
 
 ## Creating the custom field
 
@@ -136,8 +144,27 @@ In the usage example below, we see that `focusOutPhoneNumberInput` is the only s
 - the field validates when the user focusses out of the input, whether there is any text entered or not.
 - once a fields validation is activated by a focus out event, it will revalidate whenever it's value is changed, including when a new country code is selected.
 
-## Usage
+## Validation
 
-The new field can then be used as any other field, as in the example below.
+### When `validatesOn` is not included in the field invocation
+
+We can see in the example below that the field invocation does not have a `validatesOn` array.
+
+In this case, the field will validate on:
+
+- `submit` => this is inherited from the top level addon default, due to `$inherited` being included in the `alwaysValidatesOn` array in the field definition.
+- `focusOutPhoneNumberInput` which is the only item in the `alwaysValidatesOn` array in the field definition.
 
 <Demos::CustomFieldUsage />
+
+### When `validatesOn` is included in the field invocation
+
+We can see in the example below that the field invocation does have a `validatesOn` array, with a single item `countryCode Selected`.
+
+In this case, the field will validate on:
+
+- `submit` => this is inherited from the top level addon default, due to `$inherited` being included in the `alwaysValidatesOn` array in the field definition.
+- `focusOutPhoneNumberInput` => the only other item in the `alwaysValidatesOn` array in the field definition.
+- `countryCodeSelected` => the only item in the `validatesOn` array in the field invocation.
+
+<Demos::CustomFieldUsageTwo />
