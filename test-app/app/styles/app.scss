@@ -21,6 +21,9 @@ body {
         fill: $danger;
       }
     }
+    .form-label {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -68,8 +71,12 @@ body {
 }
 
 .element-classlist {
-  background: rgb(54, 158, 54);
+  background: #999;
   color: #fff;
+  padding: 5px 5px 3px;
+  font-size: 0.8em;
+  display: inline-flex;
+  flex-wrap: wrap;
 }
 
 .width-lg {
@@ -132,4 +139,132 @@ body {
 
 .button-icon {
   width: 20px;
+}
+
+.box-arrow {
+  position: relative;
+}
+
+.box-arrow:before,
+.box-arrow:after {
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.box-arrow:after {
+  border-color: transparent;
+  border-width: 5px;
+}
+.box-arrow:before {
+  border-color: transparent;
+  border-width: 6px;
+}
+
+/*--------------------------Direction Up----------------------------*/
+
+.box-arrow.arrow-direction-up:before,
+.box-arrow.arrow-direction-up:after {
+  bottom: 100%;
+  left: 20px;
+}
+
+.box-arrow.arrow-direction-up:after {
+  border-bottom-color: #999;
+}
+.box-arrow.arrow-direction-up:before {
+  border-bottom-color: inherit;
+}
+
+/*-------------------------Direction Down---------------------------*/
+
+.box-arrow.arrow-direction-down:before,
+.box-arrow.arrow-direction-down:after {
+  top: 100%;
+}
+
+.box-arrow.arrow-direction-down:after {
+  border-top-color: #999;
+}
+
+.box-arrow.arrow-direction-down:before {
+  border-top-color: inherit;
+}
+
+/*-------------------------Direction Left---------------------------*/
+
+.box-arrow.arrow-direction-left:before,
+.box-arrow.arrow-direction-left:after {
+  right: 100%;
+  top: 8px;
+}
+
+.box-arrow.arrow-direction-left:after {
+  border-right-color: #999;
+}
+
+.box-arrow.arrow-direction-left:before {
+  border-right-color: inherit;
+}
+
+/*-------------------------Direction Right--------------------------*/
+
+.box-arrow.arrow-direction-right:before,
+.box-arrow.arrow-direction-right:after {
+  left: 100%;
+}
+
+.box-arrow.arrow-direction-right:after {
+  border-left-color: #999;
+}
+
+.box-arrow.arrow-direction-right:before {
+  border-left-color: inherit;
+}
+
+/*-------------------------Position Left--------------------------*/
+
+.box-arrow.arrow-position-left:before,
+.box-arrow.arrow-position-left:after {
+  left: 10px;
+}
+
+.box-arrow.arrow-position-left:before {
+  margin-left: -1px;
+}
+
+/*-------------------------Position Right--------------------------*/
+
+.box-arrow.arrow-position-right:before,
+.box-arrow.arrow-position-right:after {
+  right: 10px;
+}
+
+.box-arrow.arrow-position-right:before {
+  margin-right: -1px;
+}
+
+/*-------------------------Position Top--------------------------*/
+
+.box-arrow.arrow-position-top:before,
+.box-arrow.arrow-position-top:after {
+  top: 10px;
+}
+
+.box-arrow.arrow-position-top:before {
+  margin-top: -1px;
+}
+
+/*-------------------------Position Bottom--------------------------*/
+
+.box-arrow.arrow-position-bottom:before,
+.box-arrow.arrow-position-bottom:after {
+  bottom: 10px;
+}
+
+.box-arrow.arrow-position-bottom:before {
+  margin-bottom: -1px;
 }

@@ -1,5 +1,5 @@
 import _mergeWith from 'lodash.mergewith';
-import mergeWithDefaultClassNames from './merge-with-default-class-names.js';
+import mergeWithArrayInheritanceCustomiser from './merge-with-array-inheritance-customiser.js';
 import moment from 'moment';
 import InputComponent from '../components/ember-changeset-webforms/fields/input.js';
 import TextareaComponent from '../components/ember-changeset-webforms/fields/textarea.js';
@@ -14,7 +14,6 @@ import PowerSelectCheckboxesComponent from '../components/ember-changeset-webfor
 import IconTrashComponent from '../components/icons/icon-trash.js';
 import AddCloneButtonComponent from '../components/ember-changeset-webforms/cloned-field-elements/add-clone-button.js';
 import PowerSelectCheckboxesTriggerComponent from '../components/background/power-select-checkboxes-trigger.js';
-import { ensureSafeComponent } from '@embroider/util';
 
 const addonDefaults = {
   generalClassNames: {
@@ -27,7 +26,7 @@ const addonDefaults = {
       'validation-area',
       '$validationClassNames',
     ],
-    labelElement: ['form-label'],
+    labelElement: null,
     checkboxElement: ['form-check-input', '$validationClassNames'],
     radioButtonElement: ['form-check-input', '$validationClassNames'],
     buttonElement: ['btn', 'd-inline-flex'],
@@ -44,7 +43,7 @@ const addonDefaults = {
     fieldWrapper: ['cwf-field', 'mb-3'],
     cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
     fieldControls: ['field-controls', '$validationClassNames'],
-    fieldLabel: null,
+    fieldLabel: ['form-label'],
     requiredField: ['required'],
     optionsWrapper: ['cwf-field-options'],
     // Generic validation related classes - apply to all fields
@@ -187,22 +186,22 @@ const addonDefaults = {
       placeholder: null, // String - placeholder text of the input
       trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
-      alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'focusOut', 'valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentClass: ensureSafeComponent(InputComponent),
+      componentClass: InputComponent,
     },
     {
       // BEGIN-SNIPPET clone-group-field-options.js
       fieldType: 'clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: {
-        componentClass: ensureSafeComponent(IconTrashComponent),
+        componentClass: IconTrashComponent,
       }, // Object with { componentClass, props }.
       // `componentClass` is the imported class of the component to show as the remove clone icon.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@changesetWebform, @formField, and @formFieldClone are passed to the component.
       addCloneButtonComponent: {
-        componentClass: ensureSafeComponent(AddCloneButtonComponent),
+        componentClass: AddCloneButtonComponent,
       }, // Object with { componentClass, props }.
       // `componentClass` is the imported class of the component to replace add clone button.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
@@ -212,7 +211,7 @@ const addonDefaults = {
       maxClones: null, // Number - maximum number of clones allowed.
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
-      alwaysValidateOn: ['removeClone'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'removeClone'], // Array of strings
       cloneGroupActionsPosition: 'cloneGroupWrapper',
       isFieldset: true,
       // END-SNIPPET
@@ -223,10 +222,10 @@ const addonDefaults = {
       // BEGIN-SNIPPET textarea-field-options.js
       fieldType: 'textarea',
       autofocus: false, // Boolean - whether to autofocus the input on insert
-      alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'focusOut', 'valueUpdated'], // Array of strings
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
       // END-SNIPPET
-      componentClass: ensureSafeComponent(TextareaComponent),
+      componentClass: TextareaComponent,
     },
     {
       // BEGIN-SNIPPET powerSelect-field-options.js
@@ -241,9 +240,9 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@changesetWebform and @formField are passed to the component.
       selectedItemComponent: null, // The imported class of the component to pass to the Power Select component. See https://ember-power-select.com/docs/api-reference
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentClass: ensureSafeComponent(PowerSelectComponent),
+      componentClass: PowerSelectComponent,
     },
     {
       // BEGIN-SNIPPET powerDatePicker-field-options.js
@@ -266,9 +265,9 @@ const addonDefaults = {
       dateRangeSettings: null,
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
-      alwaysValidateOn: ['valueUpdated', 'blurDateTimeInput'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'valueUpdated', 'blurDateTimeInput'], // Array of strings
       // END-SNIPPET
-      componentClass: ensureSafeComponent(PowerDatepickerComponent),
+      componentClass: PowerDatepickerComponent,
       customParser(field) {
         // TODO document this
         field.dateTimeFormat = field.dateTimeFormat.replace(/S{1,}/, 'SSS');
@@ -294,9 +293,9 @@ const addonDefaults = {
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       checkboxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
       // END-SNIPPET
-      componentClass: ensureSafeComponent(CheckboxComponent),
+      componentClass: CheckboxComponent,
     },
     {
       // BEGIN-SNIPPET radioButtonGroup-field-options.js
@@ -307,10 +306,10 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
-      componentClass: ensureSafeComponent(RadioButtonGroupComponent),
+      componentClass: RadioButtonGroupComponent,
     },
     {
       // BEGIN-SNIPPET checkboxGroup-field-options.js
@@ -321,10 +320,10 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
-      componentClass: ensureSafeComponent(CheckboxGroupComponent),
+      componentClass: CheckboxGroupComponent,
     },
     {
       // BEGIN-SNIPPET clicker-field-options.js
@@ -336,7 +335,7 @@ const addonDefaults = {
       // `@onClick`, @changesetWebform and @formField are passed to the component.
       // Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works.
       // END-SNIPPET
-      componentClass: ensureSafeComponent(ClickerComponent),
+      componentClass: ClickerComponent,
     },
     {
       // BEGIN-SNIPPET staticContent-field-options.js
@@ -348,7 +347,7 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@changesetWebform and @formField are passed to the component.
       // END-SNIPPET
-      componentClass: ensureSafeComponent(StaticContentComponent),
+      componentClass: StaticContentComponent,
     },
     {
       // BEGIN-SNIPPET powerSelectCheckboxes-field-options.js
@@ -358,22 +357,18 @@ const addonDefaults = {
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
       options: [], // Array of items to show in the dropdown. Items can either all be objects, or they can all be primitives, such as strings or numbers. If an array of objects is passed, then optionDisplayProp should be passed to determine which property in the object should be shown as the label of the option in the list.
       optionDisplayProp: null, // String - which property of the object to show in the list if options is an array of objects.
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
-      triggerComponent: ensureSafeComponent(
-        PowerSelectCheckboxesTriggerComponent,
-      ), // Optional -  imported class of the component pass to the Power Select compoent as `triggerComponent`.
+      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      triggerComponent: PowerSelectCheckboxesTriggerComponent, // Optional -  imported class of the component pass to the Power Select compoent as `triggerComponent`.
       // `@extra` is passed to the component from the Power Select component
       // END-SNIPPET
-      componentClass: ensureSafeComponent(PowerSelectCheckboxesComponent),
+      componentClass: PowerSelectCheckboxesComponent,
     },
   ],
 };
 // END-SNIPPET
-
 export { addonDefaults };
 
 export default function getWithDefault(appDefaults = {}, formSchema = {}) {
-  // const appDefaults = config.changesetWebformsDefaults || {};
   const formSettings = _mergeWith(
     {},
     addonDefaults.formSettings,
@@ -385,57 +380,34 @@ export default function getWithDefault(appDefaults = {}, formSchema = {}) {
     addonDefaults.generalClassNames,
     appDefaults.generalClassNames,
     formSchema.generalClassNames,
-    mergeWithDefaultClassNames,
+    mergeWithArrayInheritanceCustomiser,
   );
-  const addonFieldDefaults = addonDefaults.fieldSettings || {};
+
+  const addonConfigFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map((field) => {
-    const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(
+    const addonConfigFieldTypeDefaults = addonDefaults.fieldTypes.find(
       (addonFieldType) => addonFieldType.fieldType === field.fieldType,
     );
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(
       (appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType,
     );
-    function concatArrayCustomizer(objValue, srcValue, key) {
-      if (key === 'alwaysValidateOn' && Array.isArray(objValue)) {
-        return objValue.concat(srcValue);
-      }
-    }
-    function replaceArrayCustomizer(objValue, srcValue, key) {
-      if (key === 'alwaysValidateOn' && Array.isArray(objValue)) {
-        return srcValue;
-      }
-    }
-
-    const mergedAddonDefaults = _mergeWith(
-      {},
-      addonFieldDefaults,
-      addonFieldTypeDefaults,
-      concatArrayCustomizer,
-    );
-
-    const mergedAppDefaults = _mergeWith(
-      {},
-      appConfigFieldDefaults,
-      appConfigFieldTypeDefaults,
-      concatArrayCustomizer,
-    );
-
-    const mergedInstanceDefaults = _mergeWith(
-      {},
-      formSchema.fieldSettings,
-      field,
-      concatArrayCustomizer,
-    );
+    const formLevelFieldTypeSettings =
+      formSchema.fieldSettings?.fieldTypes?.find(
+        (fieldType) => fieldType.fieldType === field.fieldType,
+      );
 
     const mergedField = _mergeWith(
       {},
-      mergedAddonDefaults,
-      mergedAppDefaults,
-      mergedInstanceDefaults,
-      replaceArrayCustomizer,
+      addonConfigFieldDefaults,
+      addonConfigFieldTypeDefaults,
+      appConfigFieldDefaults,
+      appConfigFieldTypeDefaults,
+      formSchema.fieldSettings,
+      formLevelFieldTypeSettings || {},
+      field,
+      mergeWithArrayInheritanceCustomiser,
     );
-
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
         (addonFieldType) =>
@@ -449,7 +421,7 @@ export default function getWithDefault(appDefaults = {}, formSchema = {}) {
       );
       const mergedCloneField = _mergeWith(
         {},
-        addonFieldDefaults,
+        addonConfigFieldDefaults,
         cloneAddonFieldTypeDefaults,
         appConfigFieldDefaults,
         appConfigCloneFieldTypeDefaults,

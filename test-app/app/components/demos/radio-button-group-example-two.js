@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import ComponentForAllRadioOptions from '../forms/component-for-all-radio-options';
 import ComponentForSingleRadioOption from '../forms/component-for-single-radio-option';
-import { ensureSafeComponent } from '@embroider/util';
 
 export default class RadioButtonGroupExampleTwoComponent extends Component {
   // BEGIN-SNIPPET radio-button-group-example-2.js
@@ -16,7 +15,7 @@ export default class RadioButtonGroupExampleTwoComponent extends Component {
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Custom label components',
         optionLabelComponent: {
-          componentClass: ensureSafeComponent(ComponentForAllRadioOptions),
+          componentClass: ComponentForAllRadioOptions,
           props: {
             infoLink: 'https://example.com',
           },
@@ -34,9 +33,7 @@ export default class RadioButtonGroupExampleTwoComponent extends Component {
             label: 'Option 3',
             value: '3',
             optionLabelComponent: {
-              componentClass: ensureSafeComponent(
-                ComponentForSingleRadioOption,
-              ),
+              componentClass: ComponentForSingleRadioOption,
               props: {
                 info: 'This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
               },

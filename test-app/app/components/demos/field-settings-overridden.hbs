@@ -1,8 +1,33 @@
-<DocsDemo as |demo|>
+{{!-- <DocsDemo as |demo|>
   <demo.example
     @title="App wide class names example"
     @name="app-wide-class-settings.hbs"
   >
     <ChangesetWebform @formSchema={{this.formSchema}} />
   </demo.example>
+</DocsDemo> --}}
+
+<DocsDemo as |demo|>
+  <demo.example @name="app-wide-class-settings.hbs">
+    <div data-test-id="app-wide-class-setting">
+      <ChangesetWebform @formSchema={{this.formSchema}} />
+    </div>
+  </demo.example>
+  <demo.snippet
+    @title="services/ember-changeset-webforms.js"
+    @name="app-wide-field-options.js"
+    @label="service.js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="app-wide-class-settings.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="app-wide-class-settings.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+
 </DocsDemo>

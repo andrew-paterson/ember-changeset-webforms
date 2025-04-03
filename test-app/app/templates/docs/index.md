@@ -23,4 +23,4 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 - The addon provides several action hooks, allowing your app to respond to user interactions in various ways.
 - Conditional fields - only allow a field to show if another field has a certain value, but updating its `omitted` setting. Fields which are omitted are not validated and they are not included in the data submitted by the form.
 - Fine grained configuration control. Configuration options can be set at the app level, form level and, where appropriate, at field level.
-- Configurable CSS class names - configure the classnames applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.
+- Configurable CSS class names - configure the class names applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.

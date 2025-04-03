@@ -1,12 +1,14 @@
 import _mergeWith from 'lodash.mergewith';
-import mergeWithDefaultClassNames from './merge-with-default-class-names.js';
+import mergeWithArrayInheritanceCustomiser from './merge-with-array-inheritance-customiser.js';
 
 export default function dynamicClassNames(
   elementTypesString,
   changesetWebform,
   formField,
+  options = {},
 ) {
   let classNames = [];
+
   if (!changesetWebform) {
     return;
   }
@@ -15,13 +17,14 @@ export default function dynamicClassNames(
     let classNameSettings =
       changesetWebform.formSchemaWithDefaults.classNameSettings;
     if (formField && (formField.classNames || {})[elementType]) {
-      const objToMerge = {};
-      objToMerge[elementType] = formField.classNames[elementType] || [];
+      const formFieldClassNames = {};
+      formFieldClassNames[elementType] =
+        formField.classNames[elementType] || [];
       classNameSettings = _mergeWith(
         {},
         classNameSettings,
-        objToMerge,
-        mergeWithDefaultClassNames,
+        formFieldClassNames,
+        mergeWithArrayInheritanceCustomiser,
       );
     }
     let classNamesArray;
@@ -44,7 +47,11 @@ export default function dynamicClassNames(
         );
       }
     }
+    if (options.debugClassNames) {
+      classNamesArray.unshift(`[$DEBUG-${elementType.replace(/,/g, '--')}]`);
+    }
     classNames = classNames.concat(classNamesArray);
   });
+
   return classNames.filter((className) => !className.startsWith('$')).join(' ');
 }

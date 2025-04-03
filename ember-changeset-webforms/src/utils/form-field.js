@@ -115,9 +115,10 @@ export default class FormField {
   }
 
   checkCondition(formField, condition) {
-    const value = formField.siblings.find(
-      (siblingField) => siblingField.fieldId === condition.fieldId,
-    )?.fieldValue;
+    const relatedSiblingField = formField.siblings.find((siblingField) => {
+      return siblingField.fieldId === condition.fieldId;
+    });
+    const value = relatedSiblingField?.fieldValue;
     if (!value) {
       return false;
     }

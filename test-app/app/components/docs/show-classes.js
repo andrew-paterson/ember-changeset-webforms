@@ -4,31 +4,32 @@ export default class ShowClasses extends Component {
   @action
   didInsert() {
     setTimeout(() => {
+      const elements = document.querySelectorAll('[data-test-cwf-field] input');
+      Array.from(elements).forEach((el) => {
+        el.addEventListener('change', () => {
+          this.doTheThing();
+        });
+        el.addEventListener('keyup', () => {
+          this.doTheThing();
+        });
+        el.addEventListener('blur', () => {
+          this.doTheThing();
+        });
+      });
       this.doTheThing();
-      document
-        .querySelector('#validationClassNames-name')
-        .addEventListener('change', () => {
-          this.doTheThing();
-        });
-      document
-        .querySelector('#validationClassNames-name')
-        .addEventListener('keyup', () => {
-          this.doTheThing();
-        });
-      document
-        .querySelector('#validationClassNames-name')
-        .addEventListener('blur', () => {
-          this.doTheThing();
-        });
     });
   }
   @action
   doTheThing() {
     const labelEls = Array.from(
       document.querySelectorAll('[data-test-class="cwf-field-label"]'),
+    ).concat(
+      Array.from(
+        document.querySelectorAll('[data-test-labelled-radio-button] label'),
+      ),
     );
     labelEls.forEach((labelEl) => {
-      const newTextContent = `Class = "${labelEl.className}"`;
+      const newTextContent = `class="${labelEl.className}"`;
       const existing = labelEl.querySelector('.element-classlist');
       if (existing) {
         existing.textContent = newTextContent;
@@ -38,13 +39,17 @@ export default class ShowClasses extends Component {
       newEl.textContent = newTextContent;
 
       newEl.classList.add('monospaced');
-      newEl.classList.add('text-grey');
       newEl.classList.add('inline-block');
       newEl.classList.add('element-classlist');
-      newEl.classList.add('ms-2');
-      newEl.classList.add('p-2');
+      newEl.classList.add('ms-1');
       newEl.classList.add('rounded');
+      newEl.classList.add('box-arrow');
       labelEl.appendChild(newEl);
+      if (newEl.getBoundingClientRect().height > 35) {
+        newEl.classList.add('arrow-direction-up');
+      } else {
+        newEl.classList.add('arrow-direction-left');
+      }
     });
   }
 }

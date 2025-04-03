@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 
-// TODO documnet that classnames does nothing on a clone-group field (Also, is this a bug?)
+// TODO document that classnames does nothing on a clone-group field (Also, is this a bug?)
 export default class FieldSpecificClassSettingsComponent extends Component {
   // BEGIN-SNIPPET field-specific-class-settings.js"
   formSchema = {
@@ -8,21 +8,27 @@ export default class FieldSpecificClassSettingsComponent extends Component {
       formName: 'fieldClassNames',
       hideSubmitButton: true,
     },
-    generalClassNames: {
-      labelElement: ['$inherited', 'form-wide-label-class'],
-    },
+    // fieldSettings: {
+    //   classNames: {
+    //     fieldLabel: ['$inherited', 'baz'],
+    //   },
+    // },
     fields: [
       {
         fieldId: 'name',
         fieldType: 'input',
         fieldLabel: 'Name',
+        classNames: {
+          fieldLabel: ['$inherited', 'class-for-the-field-label-of-this-field'],
+        },
       },
       {
         fieldId: 'radioButtons1',
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Basic usage',
         classNames: {
-          labelElement: ['$inherited', 'field-specific-class-names'],
+          labelElement: ['class-for-all-label-els-in-this-field'],
+          radioButtonLabel: [],
         },
         options: [
           {

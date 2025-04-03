@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import ComponentForSingleCheckboxOption from '../forms/component-for-single-checkbox-option';
-import { ensureSafeComponent } from '@embroider/util';
 
 export default class SingleCheckboxExampleThreeComponent extends Component {
   // BEGIN-SNIPPET single-checkbox-example-3.js
@@ -14,7 +13,7 @@ export default class SingleCheckboxExampleThreeComponent extends Component {
         fieldId: 'acceptTerms',
         fieldType: 'singleCheckbox',
         checkBoxLabelComponent: {
-          componentClass: ensureSafeComponent(ComponentForSingleCheckboxOption),
+          componentClass: ComponentForSingleCheckboxOption,
           props: {
             info: 'This text was passed to the label component dynamically for this option, via the checkBoxLabelComponent.props object.',
           },

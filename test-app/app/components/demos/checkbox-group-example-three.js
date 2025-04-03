@@ -1,7 +1,4 @@
 import Component from '@glimmer/component';
-import ComponentForAllCheckboxOptions from '../forms/component-for-all-checkbox-options';
-import ComponentForSingleCheckboxOption from '../forms/component-for-single-checkbox-option';
-import { ensureSafeComponent } from '@embroider/util';
 
 export default class CheckboxGroupExampleTwoComponent extends Component {
   // BEGIN-SNIPPET checkbox-group-example-3.js

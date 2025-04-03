@@ -4,7 +4,7 @@ The addon provides fine grained control over the class names that are applied to
 
 This allows you to fit the markup of your forms to an existing CSS library without overriding any template files.
 
-## Default classnames
+## Default class names
 
 The snippet below shows the full list of configurable class names, as well the their internal defaults.
 
@@ -18,19 +18,17 @@ These properties can be modified at the app, form and field level, as outlined b
 
 ## Customising class names for an element throughout your app
 
-App wide class name settings can be set in the `ENV.changesetWebformsDefaults.generalClassNames` object in `config/environment.js`.
+App wide class name settings can be set in the `ENV.changesetWebformsDefaults.generalClassNames` object in `services/ember-changeset-webforms.js`.
 
 For example, the snippet below would add the class `label-el` to all label elements rendered by the `ChangesetWebform` component.
 
-<DocsSnippet @title="config/environment.js" @name="app-wide-classes.js" />
+<DocsSnippet @title="services/ember-changeset-webforms.js" @name="app-wide-classes.js" />
 
 ## Customising class names for an element throughout your app, but only within in a specific type of form field
 
-App wide class name settings for a specific type of field can be set by adding an object for the relevant field type `ENV.changesetWebformsDefaults.fieldTypes` array in `config/environment.js`. This object can then have a `classNames` array where class names can be set.
+App wide class name settings for a specific type of field can be set by adding an object for the relevant field type `ENV.changesetWebformsDefaults.fieldTypes` array in `services/ember-changeset-webforms.js`. This object can then have a `classNames` array where class names can be set.
 
 For example, the snippet below would add the class `radio-button-group-label` to label elements rendered in all `radioButtonGroup` fields throughout the app.
-
-<DocsSnippet @title="config/environment.js" @name="app-wide-field-options.js" />
 
 The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 
@@ -40,13 +38,17 @@ The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 {{/each}}
 </ul>
 
-The two snippets from `config/environment.js` above, result in the following class names on the two label elements in the form below.
+The two snippets from `services/ember-changeset-webforms.js` above, result in the following class names on the two label elements in the form below.
 
 <Demos::FieldSettingsOverridden />
 
 ## Customising class names for an element throughout a single instance of the ChangesetWebform component
 
 Class names can be customised within any particular instance of a `ChangesetWebform` object, in the `generalClassNames` property of `formSchema`. These settings will then apply throughout the particular form.
+
+## Customising class names for a type of element in all instances of a cvertain type of form field throughout a single instance of the ChangesetWebform component
+
+<Demos::FieldTypeWithinFormSettings />
 
 <Demos::FormWideClassSettings />
 
@@ -63,6 +65,8 @@ Include `$inherited` in the array of class names for an element as a placeholder
 <Demos::InheritClassSettings />
 
 Alternatively, exclude `$inherited` in order to completely override the value.
+
+Note that the class `form-label` is still included. This is because it is included via the `fieldLabel` property, and it is the `labelElement` property which has been overridden.
 
 <Demos::OverrideClassSettings />
 

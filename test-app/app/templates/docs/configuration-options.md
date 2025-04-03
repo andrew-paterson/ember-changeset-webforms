@@ -2,7 +2,7 @@
 
 ### Default form settings
 
-App wide defaults for form settings can be overridden in the `ENV.changesetWebformsDefaults.formSettings` object in `config/environment.js` in your consuming Ember app.
+App wide defaults for form settings can be overridden in the `ENV.changesetWebformsDefaults.formSettings` object in `services/ember-changeset-webforms.js` in your consuming Ember app.
 
 The internal defaults are as below.
 
@@ -18,7 +18,7 @@ In the example below, `submitButtonText` is set to `Sign in` as a form specific 
 
 These options are agnostic of the field type, and apply to any field.
 
-App wide defaults for field settings can be overridden in the `ENV.changesetWebformsDefaults.fieldSettings` object in `config/environment.js` in your consuming Ember app.
+App wide defaults for field settings can be overridden in the `ENV.changesetWebformsDefaults.fieldSettings` object in `services/ember-changeset-webforms.js` in your consuming Ember app.
 
 The internal defaults are as below.
 

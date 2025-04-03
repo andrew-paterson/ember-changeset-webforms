@@ -2,39 +2,47 @@ import Service from '@ember/service';
 import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
 import IconArrowUp from '../components/svg/icons/icon-arrow-up';
 import RequestInFlightIcon from '../components/button-icons/request-in-flight-icon';
-import { ensureSafeComponent } from '@embroider/util';
 export default class EmberChangesetWebforms extends Service {
-  // BEGIN-SNIPPET app-wide-classes.js
   changesetWebformsDefaults = {
+    // BEGIN-SNIPPET app-wide-classes.js
+    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.generalClassNames
     generalClassNames: {
-      labelElement: ['$inherited', 'label-el'],
+      labelElement: ['$inherited', 'app-wide-label-element-class'],
     },
+    // END-SNIPPET
     formSettings: {
-      submitButtonIcon: { componentClass: ensureSafeComponent(IconArrowUp) },
+      submitButtonIcon: { componentClass: IconArrowUp },
       discardChangesButtonIcon: {
-        componentClass: ensureSafeComponent(IconArrowUp),
+        componentClass: IconArrowUp,
       },
-      clearFormButtonIcon: { componentClass: ensureSafeComponent(IconArrowUp) },
-      addCloneButtonIcon: { componentClass: ensureSafeComponent(IconArrowUp) },
+      clearFormButtonIcon: { componentClass: IconArrowUp },
+      addCloneButtonIcon: { componentClass: IconArrowUp },
       removeCloneButtonIcon: {
-        componentClass: ensureSafeComponent(IconArrowUp),
+        componentClass: IconArrowUp,
       },
       requestInFlightIcon: {
-        componentClass: ensureSafeComponent(RequestInFlightIcon),
+        componentClass: RequestInFlightIcon,
       },
     },
+    // BEGIN-SNIPPET app-wide-field-options.js
+    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.fieldTypes
     fieldTypes: [
       {
         fieldType: 'radioButtonGroup',
         classNames: {
-          labelElement: ['$inherited', 'radio-button-group-label'],
+          fieldLabel: [
+            '$inherited',
+            'app-wide-radio-button-group-field-label-class',
+          ],
+          labelElement: [
+            '$inherited',
+            'app-wide-radio-button-group-label-element-class',
+          ],
         },
       },
       {
         fieldType: 'phoneNumberWithCountryCode',
-        componentClass: ensureSafeComponent(
-          PhoneNumberWithCountryCodeComponent,
-        ),
+        componentClass: PhoneNumberWithCountryCodeComponent,
         classNames: {
           fieldControls: [
             '$validationClassNames',
@@ -57,5 +65,6 @@ export default class EmberChangesetWebforms extends Service {
         },
       },
     ],
+    // END-SNIPPET
   };
 }

@@ -16,7 +16,7 @@ The field emits its value is a single string, and will have a custom validator w
 
 We add an entry to the `ENV.changesetWebformsDefaults.fieldTypes` array in our config file, with a fieldType of `phoneNumberWithCountryCode`. The only other required field is `componentClass`, the path to our custom field component, but we can add any other default field options that we would like to.
 
-In this case we add some default class names to the `fieldControls` element which wraps all fields. See <LinkTo @route="docs.configure-classnames">docs/configuring-classnames</LinkTo>.
+In this case we add some default class names to the `fieldControls` element which wraps all fields. See <LinkTo @route="docs.configure-class-names">docs/configure-class-names</LinkTo>.
 
 We also add class name defaults for `phoneNumberInput` and `countryCodeTrigger`. We will tell out component which element these classnames should apply to by adding the `dynamic-class-names` helper below.
 

@@ -2,7 +2,7 @@
   <EmberChangesetWebforms::FieldElements::FieldLabelWrapper
     id={{@labelId}}
     class="{{ember-changeset-webforms/dynamic-class-names
-        'legendElement,fieldLabel'
+        'fieldLabel'
         @changesetWebform
         @formField
         @formField.validationStatus
@@ -10,6 +10,7 @@
     data-test-class="cwf-field-label"
     data-test-id="{{@formField.id}}-label"
     @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
   >
     {{#if @formField.labelComponent}}
       <@formField.labelComponent.componentClass

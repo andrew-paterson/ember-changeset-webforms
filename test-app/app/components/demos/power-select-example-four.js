@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import PowerSelectCountryDisplayComponent from '../forms/power-select-custom-trigger-component';
-import { ensureSafeComponent } from '@embroider/util';
 
 export default class PowerSelectExampleFoutComponent extends Component {
   // BEGIN-SNIPPET power-select-example-4.js
@@ -18,9 +17,7 @@ export default class PowerSelectExampleFoutComponent extends Component {
           triggerItemComponent:
             ' => Data from @formField.extra.triggerComponent',
         },
-        triggerComponent: ensureSafeComponent(
-          PowerSelectCountryDisplayComponent,
-        ),
+        triggerComponent: PowerSelectCountryDisplayComponent,
         options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],
       },
     ],

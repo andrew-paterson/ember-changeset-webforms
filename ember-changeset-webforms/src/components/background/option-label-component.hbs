@@ -10,9 +10,29 @@
     ...attributes
   />
 {{else if @optionLabelMarkdown}}
-  <label for={{@for}} id={{@labelId}} ...attributes>
+  <label
+    for={{@for}}
+    id={{@labelId}}
+    class={{ember-changeset-webforms/dynamic-class-names
+      "labelElement"
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}
+    ...attributes
+  >
     <Background::MarkdownToHtml @source={{@optionLabelMarkdown}} />
   </label>
 {{else if @label}}
-  <label for={{@for}} id={{@labelId}} ...attributes>{{@label}}</label>
+  <label
+    for={{@for}}
+    id={{@labelId}}
+    class={{ember-changeset-webforms/dynamic-class-names
+      "labelElement"
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}
+    ...attributes
+  >{{@label}}</label>
 {{/if}}

@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import ComponentForAllCheckboxOptions from '../forms/component-for-all-checkbox-options';
 import ComponentForSingleCheckboxOption from '../forms/component-for-single-checkbox-option';
-import { ensureSafeComponent } from '@embroider/util';
 
 export default class CheckboxGroupExampleTwoComponent extends Component {
   // BEGIN-SNIPPET checkbox-group-example-2.js
@@ -16,7 +15,7 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
         fieldType: 'checkboxGroup',
         fieldLabel: 'Custom label components',
         optionLabelComponent: {
-          componentClass: ensureSafeComponent(ComponentForAllCheckboxOptions),
+          componentClass: ComponentForAllCheckboxOptions,
           props: {
             infoLink: 'https://example.com',
           },
@@ -34,9 +33,7 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
             label: 'Option 3',
             key: '3',
             optionLabelComponent: {
-              componentClass: ensureSafeComponent(
-                ComponentForSingleCheckboxOption,
-              ),
+              componentClass: ComponentForSingleCheckboxOption,
               props: {
                 info: 'This text was passed to the label component dynamically for this option, via the optionLabelComponent.props object.',
               },
