@@ -1,56 +1,56 @@
 # Form submission
 
+## Default form submission
+
 When a user clicks the submit button, the `submit` action is fired the `ChangesetWebform` component.
 
 The following series of events occurs.
 
-- All fields with validation rules are validated, unless the `skipValidate` or `omitted` properties on the field are true.
-- If an action was passed to the `ChangesetWebform` component as the `afterValidateFields` prop, that action is triggered with `(changesetWebform, validationResult)` as arguments.
+### Preflighting
 
-## If validation fails
+A preflight function is run which:
 
-- If validation fails, nothing further happens.
+- Validates all fields.
+- Calls the `afterValidateFields` action.
+  - If validation fails it calls the `formValidationFailed` action.
+  - If validation passes it:
+    - Calls the `formValidationPassed` action.
+    - Calls the `beforeSubmitForm` action.
+    - For any fields that are omitted, the corresponding changeset proprties are set to null. See <LinkTo @route="docs.hiding-and-showing-fields">Hiding and showing fields</LinkTo> for more.
 
-## If validation passes
+### Activation of the tracked requestInFlight property
 
-- If an action was passed to the `ChangesetWebform` component as the `beforeSubmission` prop, that action is triggered with `(changesetWebform)` as the only argument.
+The tracked property `changesetWebform.formSettings.requestInFlight` is set to `true`. This can be used to create a UX which shows the user that a response is pending.
 
-Then the internal `nullifyExcludedFields` action is triggered. It finds all fields which are excluded, either explicity by setting `omitted` to `true`, or through `dynamicOmission` rules on the field. For each of these fields, if a changeset property exists witht he same name as `field.propertyName`, the changeset property is set to `null`.
+### The changeset is saved
 
-- The property `ChangesetWebform.formSettings.requestInFlight` is then set to `true`.
+The changeset is saved using the `changeset.save()` method. This means that if your changeset is an Ember model, the models `save` method will be triggered, which will update the record in Ember Data, but also send a `PATCH` request to the server to persist those changes.
 
-- The `save` method is run on the changeset, and returns a promise. ([See these docs](https://github.com/poteto/ember-changeset#save)).
+### Call the `submitAction` action if passed
 
-## If the `changeset.save()` promise rejects
+If `@submitAction` is passed to the `<ChangesetWebform />` component it will be called at this point.
 
-- If an action was passed to the `ChangesetWebform` component as the `submitError` prop, that action is triggered with `(error, changesetWebform)` as the arguments.
+Unless your changeset is an Ember model, you will need to use this action to trigger a network request, if that is required.
 
-## If the `changeset.save()` promise resolves
+An example would be to make a `POST` request to the sever, to persist a new record to the database.
 
-### If the `submitAction` prop is not passed
+### Deactivation of the tracked requestInFlight property
 
-- If an action was passed to the `ChangesetWebform` component as the `submitSuccess` prop, that action is triggered with `(submitActionResponse, changesetWebform)` as the arguments, where `submitActionResponse` is what is returned by `submitAction`.
+The tracked property `changesetWebform.formSettings.requestInFlight` is set to `false`. This can be used to create a UX which shows the user that a response is complete.
 
-- The property `ChangesetWebform.formSettings.requestInFlight` is then set to `false`.
+### The `submitSuccess` or `submitError` actions are called if passed
 
-- If the `changesetWebform.formSettings.clearFormAfterSubmit` prop is `true`, the form will be cleared, but and any fields with a `defaultValue` prop will be set to that value.
+If `@submitSuccess` is passed to the `<ChangesetWebform />` component it will be called if the `changeset.save()` and `submitAction` actions are successful. The response is included as the first argument.
+If `@submitError` is passed to the `<ChangesetWebform />` component it will be called if either the `changeset.save()` or `submitAction` actions are unsuccessful. The error response is included as the first argument.
 
-- If an action was passed to the `ChangesetWebform` component as the `submitAction` prop, that action is triggered with `(savedChangeset.data, changesetWebform)` as the only argument, where `savedChangeset` is the result of the resolved `changeset.save()` promise.
+<Demos::DefaultFormSubmission />
 
-  - `submitAction` can be a promise or a synchronous function.
+## Custom form submission
 
-### If `submitAction` succeeds
+If the `@onFormSubmit` action is passed to the `<ChangesetWebform />` component, it will completely iverride all default form submission behaviour.
 
-- If an action was passed to the `ChangesetWebform` component as the `submitSuccess` prop, that action is triggered with `(submitActionResponse, changesetWebform)` as the arguments, where `submitActionResponse` is what is returned by `submitAction`.
+The action receives the `changesetWebform` object, as well as the component `args` as arguments.
 
-- The property `ChangesetWebform.formSettings.requestInFlight` is then set to `false`.
+The example below also shows how the preflight utli can be invoked if needed.
 
-- If the `changesetWebform.formSettings.clearFormAfterSubmit` prop is `true`, the form will be cleared, but and any fields with a `defaultValue` prop will be set to that value.
-
-### If `submitAction` fails
-
-- The property `ChangesetWebform.formSettings.requestInFlight` is then set to `false`.
-
-- If an action was passed to the `ChangesetWebform` component as the `submitError` prop, that action is triggered with `(error, changesetWebform)` as the arguments.
-
-<Demos::ClearFormFormSchema />
+<Demos::CustomFormSubmission />

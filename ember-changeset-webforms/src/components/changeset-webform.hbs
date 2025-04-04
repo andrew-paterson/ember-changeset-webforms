@@ -10,7 +10,7 @@
   ...attributes
 >
   <form
-    {{on "submit" this.submitForm}}
+    {{on "submit" this.onFormSubmit}}
     class={{concat
       this.formValidationClass
       " "
@@ -39,16 +39,16 @@
           @afterClickAddCloneButton={{@afterClickAddCloneButton}}
           @formSettings={{this.formSettings}}
           @formFields={{this.changesetWebform.fields}}
-          @submitForm={{fn
-            this.submitForm
+          @onFormSubmit={{fn
+            this.onFormSubmit
             this.changesetWebform
             this.formSettings.modelName
           }}
-          @afterFieldValidation={{this.afterFieldValidationAction}}
-          @onFieldValueChange={{this.onFieldValueChangeAction}}
+          @afterFieldValidation={{this.afterFieldValidation}}
+          @onFieldValueChange={{this.onFieldValueChange}}
           @onUserInteraction={{this.onUserInteraction}}
-          @afterFieldInserted={{this.afterFieldInsertedAction}}
-          @afterFieldRemoved={{this.afterFieldRemovedAction}}
+          @afterFieldInserted={{this.afterFieldInserted}}
+          @afterFieldRemoved={{this.afterFieldRemoved}}
         />
       {{/each}}
     </div>
@@ -66,7 +66,9 @@
           {{on
             "click"
             (fn
-              this.submitForm this.changesetWebform this.formSettings.modelName
+              this.onFormSubmit
+              this.changesetWebform
+              this.formSettings.modelName
             )
           }}
           @value={{this.formSettings.submitButtonText}}

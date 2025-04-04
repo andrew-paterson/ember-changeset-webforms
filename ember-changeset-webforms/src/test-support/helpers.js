@@ -289,7 +289,7 @@ export default {
     await click(element.querySelector(els.cwfAddClone));
   },
 
-  async submitForm(arg) {
+  async onFormSubmit(arg) {
     const element = this.getElement(arg);
     await click(element.querySelector(els.cwfSubmitButton));
   },

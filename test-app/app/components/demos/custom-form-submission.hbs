@@ -1,0 +1,24 @@
+<DocsDemo as |demo|>
+  <demo.example @name="custom-form-submission.hbs">
+    {{#if this.alert}}
+      <div
+        data-test-id="custom-form-submission-alert"
+        class="alert alert-{{this.alert.type}}"
+      >{{this.alert.message}}</div>
+    {{/if}}
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @onFormSubmit={{this.onFormSubmit}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="custom-form-submission.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="custom-form-submission.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

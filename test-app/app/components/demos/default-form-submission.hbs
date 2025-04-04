@@ -1,0 +1,45 @@
+<DocsDemo as |demo|>
+  <div class="bg-light px-4 py-1 border-bottom">
+    <ChangesetWebform
+      @formSchema={{this.serverResponseFormSchema}}
+      @submitAction={{this.submit}}
+      @onFieldValueChange={{this.onFieldValueChange}}
+      @data={{hash serverResponseType=this.serverResponseType}}
+    />
+
+  </div>
+
+  <demo.example @name="default-form-submission.hbs">
+    {{#if this.alert}}
+      <div
+        data-test-id="default-form-submission-alert"
+        class="alert alert-{{this.alert.type}}"
+      >{{this.alert.message}}
+        <button
+          type="button"
+          data-test-id="remove-alert"
+          {{on "click" this.removeAlert}}
+        ></button></div>
+    {{/if}}
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @submitAction={{this.submitAction}}
+      @submitSuccess={{this.submitSuccess}}
+      @submitError={{this.submitError}}
+      @afterValidateFields={{this.afterValidateFields}}
+      @formValidationPassed={{this.formValidationPassed}}
+      @beforeSubmitForm={{this.beforeSubmitForm}}
+      @formValidationFailed={{this.formValidationFailed}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="default-form-submission.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="default-form-submission.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

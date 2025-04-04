@@ -198,7 +198,7 @@ module('Acceptance | Cloned fields', function (hooks) {
       ),
       'Previously un-validated clone is not revalidated after another clone is removed.',
     );
-    await cth.submitForm(testEls.clonableFieldWithData);
+    await cth.onFormSubmit(testEls.clonableFieldWithData);
     assert
       .dom(`${testEls.cloneGroupEmails} > ${els.cwfFieldErrors}`)
       .hasText(

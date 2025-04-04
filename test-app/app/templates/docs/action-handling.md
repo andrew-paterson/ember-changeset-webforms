@@ -53,7 +53,7 @@ changeset
   });
 ```
 
-## beforeSubmitAction
+## beforeSubmitForm
 
 Provides `(changesetWebform)` as the only argument. Runs after a user initiates form submission, but before `nullifyExcludedFields` and `submitAction`.
 
@@ -137,7 +137,7 @@ It provides `(formField, changesetWebform, eventName, event)` as arguments.
 
 ---
 
-## beforeSubmitAction
+## beforeSubmitForm
 
 Runs after the user clicks the submit button, but before the `submitAction` is run.
 

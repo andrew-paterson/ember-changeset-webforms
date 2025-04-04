@@ -162,7 +162,6 @@ const addonDefaults = {
     showValidationWhenFocussed: false, // Boolean - unless this is tru, validation colours, icons and messages will be omitted for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
     hideSuccessValidation: false, // Boolean - only show validation colours when field validation fails
     omitted: false, // Boolean - if true, the field is omitted and also ignored when validating or submitting the form
-    castOut: false, // Boolean - exclude the field from validation and submission
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
     fieldLabel: null, // String - the label to show on the field
     labelComponent: null, // Object with { componentClass, props }.

@@ -14,10 +14,10 @@ export default class Input extends Component {
       eventName === 'keyUp' &&
       formField.fieldType === 'input' &&
       event.keyCode === 13 &&
-      this.args.submitForm
+      this.args.onFormSubmit
     ) {
       formField.focussed = false;
-      this.args.submitForm(this.args.changesetWebform.changeset);
+      this.args.onFormSubmit(this.args.changesetWebform.changeset);
       return;
     }
     let value = event.target.value;

@@ -1,7 +1,7 @@
 export default function nullifyExcludedFields(changesetWebform) {
   var notAllowedKeys = changesetWebform.fields
     .filter((field) => {
-      return field.dynamicallyOmitted || field.omitted || field.castOut;
+      return field.dynamicallyOmitted || field.omitted;
     })
     .map((field) => field.propertyName);
   notAllowedKeys.forEach((path) => {

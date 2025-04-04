@@ -5,6 +5,7 @@ import onSubmit from '../utils/on-submit.js';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { getOwner } from '@ember/application';
+
 export default class ChangesetWebform extends Component {
   @service emberChangesetWebforms;
   @tracked changesetWebform;
@@ -89,28 +90,28 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  onFieldValueChangeAction(formField, changeset, snapshot) {
+  onFieldValueChange(formField, changeset, snapshot) {
     if (this.args.onFieldValueChange) {
       this.args.onFieldValueChange(formField, this.changesetWebform, snapshot);
     }
   }
 
   @action
-  afterFieldInsertedAction(formField) {
+  afterFieldInserted(formField) {
     if (this.args.afterFieldInserted) {
       this.args.afterFieldInserted(formField, this.changesetWebform);
     }
   }
 
   @action
-  afterFieldRemovedAction(formField) {
+  afterFieldRemoved(formField) {
     if (this.args.afterFieldRemoved) {
       this.args.afterFieldRemoved(formField, this.changesetWebform);
     }
   }
 
   @action
-  afterFieldValidationAction(formField, _changeset, fieldValidationErrors) {
+  afterFieldValidation(formField, _changeset, fieldValidationErrors) {
     if (this.args.afterFieldValidation) {
       this.args.afterFieldValidation(
         formField,
@@ -134,8 +135,12 @@ export default class ChangesetWebform extends Component {
   }
   //  TODO allow action to completely replace this action
   @action
-  submitForm(changesetWebform) {
-    onSubmit(changesetWebform, this.args);
+  onFormSubmit(changesetWebform) {
+    if (this.args.onFormSubmit) {
+      this.args.onFormSubmit(changesetWebform, this.args);
+    } else {
+      onSubmit(changesetWebform, this.args);
+    }
   }
 
   @action
@@ -159,7 +164,7 @@ export default class ChangesetWebform extends Component {
       this.args.dynamicIncludeExcludeConditions,
     );
     if (changesetWebform.formSettings.submitAfterClear) {
-      this.submitForm(this.changesetWebform);
+      this.onFormSubmit(this.changesetWebform);
     }
   }
 }

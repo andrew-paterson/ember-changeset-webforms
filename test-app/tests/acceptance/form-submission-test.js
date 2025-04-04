@@ -1,11 +1,18 @@
-// Enter to submit while in an input.
-import { visit, fillIn, blur, click } from '@ember/test-helpers';
+import {
+  visit,
+  fillIn,
+  blur,
+  click,
+  waitFor,
+  find,
+  triggerKeyEvent,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
 
-module('Acceptance | Form buttons', function (hooks) {
+module('Acceptance | Form submission', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Basics', async function (assert) {
@@ -79,7 +86,140 @@ module('Acceptance | Form buttons', function (hooks) {
 
     // await click(testEls.cwfSubmitFormButton);
   });
+  test('Default form submission results', async function (assert) {
+    const submitButton = `[data-test-id="default-form-submission"] ${testEls.cwfSubmitFormButton}`;
+    const alert = '[data-test-id="default-form-submission-alert"]';
+    const asyncSuccessRadio =
+      '[data-test-id="default-form-submission-form-server-response-type-field-radio-option-asynchronous-success-response"] input';
+    const asyncErrorRadio =
+      '[data-test-id="default-form-submission-form-server-response-type-field-radio-option-asynchronous-error-response"] input';
+    const syncSuccessRadio =
+      '[data-test-id="default-form-submission-form-server-response-type-field-radio-option-synchronous-success-response"] input';
+    const syncErrorRadio =
+      '[data-test-id="default-form-submission-form-server-response-type-field-radio-option-synchronous-error-response"] input';
+    await visit('/docs/form-submission');
+    await click(submitButton);
+    await cth.failedValidation(
+      '[data-test-id="default-form-submission-form-name-field"]',
+      assert,
+      {
+        assertionSuffix:
+          'Name field fails validation when submit clicked while the field is empty.',
+      },
+    );
+    assert
+      .dom(alert)
+      .doesNotExist(
+        'Alert does not exist when submit clicked while the field is empty.',
+      );
+    await fillIn(
+      '[data-test-id="default-form-submission-form-name-field"] input',
+      'Steve Holt',
+    );
+    await blur(
+      '[data-test-id="default-form-submission-form-name-field"] input',
+    );
+    await click(asyncSuccessRadio);
+    await click(submitButton);
+
+    await checkAlert(assert, alert, {
+      type: 'success',
+      message: 'Asynchronous success response',
+      assertionSuffix: 'after successful asynchronous submission.',
+    });
+    await click(asyncErrorRadio);
+    await click(submitButton);
+    await checkAlert(assert, alert, {
+      type: 'danger',
+      message: 'Asynchronous error response',
+      assertionSuffix: 'after failed asynchronous submission.',
+    });
+
+    await click(syncSuccessRadio);
+    await click(submitButton);
+    await checkAlert(assert, alert, {
+      type: 'success',
+      message: 'Synchronous success response',
+      assertionSuffix: 'after successful synchronous submission.',
+    });
+    await click(syncErrorRadio);
+    await click(submitButton);
+    await checkAlert(assert, alert, {
+      type: 'danger',
+      message: 'Synchronous error response',
+      assertionSuffix: 'after failed synchronous submission.',
+    });
+  });
+
+  test('Custom form submission results', async function (assert) {
+    const submitButton = `[data-test-id="custom-form-submission"] ${testEls.cwfSubmitFormButton}`;
+    const alert = '[data-test-id="custom-form-submission-alert"]';
+
+    await visit('/docs/form-submission');
+    await click(submitButton);
+    await cth.failedValidation(
+      '[data-test-id="custom-form-submission-form-name-field"]',
+      assert,
+      {
+        assertionSuffix:
+          'Name field fails validation when submit clicked while the field is empty.',
+      },
+    );
+    await fillIn(
+      '[data-test-id="custom-form-submission-form-name-field"] input',
+      'Steve Holt',
+    );
+    await blur('[data-test-id="custom-form-submission-form-name-field"] input');
+    await click(submitButton);
+
+    await checkAlert(assert, alert, {
+      type: 'success',
+      message: 'A completely custom form submission action was run.',
+      assertionSuffix: 'after successful submission.',
+    });
+  });
+
+  test('Pressing enter to submit', async function (assert) {
+    const alert = '[data-test-id="custom-form-submission-alert"]';
+
+    await visit('/docs/form-submission');
+    await fillIn(
+      '[data-test-id="custom-form-submission-form-name-field"] input',
+      'Steve Holt',
+    );
+    await triggerKeyEvent(
+      '[data-test-id="custom-form-submission-form-name-field"] input',
+      'keyup',
+      13,
+    );
+
+    await checkAlert(assert, alert, {
+      type: 'success',
+      message: 'A completely custom form submission action was run.',
+      assertionSuffix: 'after successful submission.',
+    });
+  });
 });
 
 // Icons show
 // Spinner works for submit
+
+async function checkAlert(assert, alertEl, opts) {
+  await waitFor(alertEl, { timeout: 5000 });
+
+  assert
+    .dom(alertEl)
+    .hasText(
+      opts.message,
+      `Alert has correct text content ${opts.assertionSuffix}`,
+    );
+  assert
+    .dom(alertEl)
+    .hasClass(
+      `alert-${opts.type}`,
+      `Alert has correct class ${opts.assertionSuffix}`,
+    );
+  if (find('[data-test-id="remove-alert"]')) {
+    await click('[data-test-id="remove-alert"]');
+  }
+}
