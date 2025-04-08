@@ -45,6 +45,7 @@ export default class ChangesetWebform extends Component {
   }
 
   get formValidationClass() {
+    // TODO this should be configurable
     if (!this.changeset) {
       return null;
     }
@@ -59,29 +60,24 @@ export default class ChangesetWebform extends Component {
 
   @action
   didInsert() {
-    this.generateChangesetWebform(
-      this.args.formSchema,
-      this.args.data,
-      this.args.customValidators,
-      this.args.dynamicIncludeExcludeConditions,
-      this.debugMode,
-    );
+    this.generateChangesetWebform(this.args.formSchema, this.args.data);
   }
 
   @action
-  generateChangesetWebform(
-    formSchema,
-    data,
-    customValidators,
-    dynamicIncludeExcludeConditions,
-    debug,
-  ) {
+  generateChangesetWebform(formSchema, data) {
+    const customValidators = this.args.customValidators;
+    const dynamicIncludeExcludeConditions =
+      this.args.dynamicIncludeExcludeConditions;
+    const debug = this.debugMode;
+    const onFormSubmit = this.args.onFormSubmit || onSubmit;
+
     this.changesetWebform = createChangesetWebform(
       this.emberChangesetWebforms.changesetWebformsDefaults,
       formSchema,
       data,
       customValidators,
       dynamicIncludeExcludeConditions,
+      onFormSubmit,
       debug,
     );
     if (this.args.afterGenerateChangesetWebform) {
@@ -90,9 +86,9 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  onFieldValueChange(formField, changeset, snapshot) {
+  onFieldValueChange(formField) {
     if (this.args.onFieldValueChange) {
-      this.args.onFieldValueChange(formField, this.changesetWebform, snapshot);
+      this.args.onFieldValueChange(formField, this.changesetWebform);
     }
   }
 
@@ -133,36 +129,38 @@ export default class ChangesetWebform extends Component {
       );
     }
   }
-  //  TODO allow action to completely replace this action
+
   @action
   onFormSubmit(changesetWebform) {
-    if (this.args.onFormSubmit) {
-      this.args.onFormSubmit(changesetWebform, this.args);
-    } else {
-      onSubmit(changesetWebform, this.args);
-    }
+    changesetWebform.submit(this.args);
   }
 
   @action
   discardChanges(changesetWebform) {
-    changesetWebform.changeset.rollback();
-    changesetWebform.fields.forEach((field) => {
-      field.eventLog = ['insert'];
-      field.validate();
-    });
+    if (this.args.beforeDiscardChanges) {
+      this.args.beforeDiscardChanges(changesetWebform);
+    }
+    this.generateChangesetWebform(this.args.formSchema, this.args.data);
+    if (this.args.afterDiscardChanges) {
+      this.args.afterDiscardChanges(changesetWebform);
+    }
   }
 
   @action
   clearForm(changesetWebform) {
-    if (this.args.beforeReset) {
-      this.args.beforeReset(changesetWebform);
+    if (this.args.beforeClearForm) {
+      this.args.beforeClearForm(changesetWebform);
     }
-    this.generateChangesetWebform(
-      this.args.formSchema,
-      null,
-      this.args.customValidators,
-      this.args.dynamicIncludeExcludeConditions,
-    );
+    const formSchema = { ...this.args.formSchema };
+    formSchema.fields = this.args.formSchema.fields.map((field) => {
+      const newField = { ...field };
+      delete newField.defaultValue;
+      return newField;
+    });
+    this.generateChangesetWebform(formSchema, null);
+    if (this.args.afterClearForm) {
+      this.args.afterClearForm(changesetWebform);
+    }
     if (changesetWebform.formSettings.submitAfterClear) {
       this.onFormSubmit(this.changesetWebform);
     }

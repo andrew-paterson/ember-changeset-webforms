@@ -34,6 +34,7 @@
     "ember-changeset": "^4.1.2",
     "ember-changeset-validations": "^4.1.1",
     "ember-cli-inline-content": "^0.4.1",
+    "ember-get-config": "^2.1.1",
     "ember-power-calendar": "^1.4.0",
     "ember-power-select": "^8.7.0",
     "ember-radio-button": "3.0.0-beta.1",
@@ -41,8 +42,7 @@
     "flat": "^5.0.2",
     "lodash.mergewith": "^4.6.2",
     "markdown-it": "^13.0.1",
-    "moment": "^2.29.4",
-    "ember-get-config": "^2.1.1"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

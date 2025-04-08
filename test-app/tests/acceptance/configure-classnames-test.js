@@ -8,9 +8,8 @@ import {
   triggerKeyEvent,
   waitFor,
 } from '@ember/test-helpers';
-import { module, test, todo } from 'qunit';
+import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import testEls from './test-selectors';
 
 function checkClasses(selector, expectedClasses, assert, options = {}) {
   const el = find(selector);

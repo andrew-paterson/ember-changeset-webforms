@@ -22,7 +22,7 @@ export default async function onSubmit(changesetWebform, componentArgs) {
       componentArgs.submitSuccess(submitActionResponse, changesetWebform);
     }
     if (changesetWebform.formSettings.clearFormAfterSubmit) {
-      this.clearForm(changesetWebform);
+      componentArgs.clearForm(changesetWebform);
     }
   } catch (err) {
     changesetWebform.formSettings.requestInFlight = false;

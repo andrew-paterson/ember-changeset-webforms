@@ -54,6 +54,7 @@ export default class ValidatingField extends Component {
     var formField = this.args.formField;
     if (formField.dynamicallyOmitted) {
       if (formField.resetWhenRemoved) {
+        console.log('reset');
         formField.reset();
       }
     }
@@ -95,10 +96,7 @@ export default class ValidatingField extends Component {
     formField.updateValue(value);
     this.validateField(formField);
     if (this.args.onFieldValueChange) {
-      this.args.onFieldValueChange(
-        formField,
-        this.args.changesetWebform.changeset,
-      );
+      this.args.onFieldValueChange(formField);
     }
   }
 }

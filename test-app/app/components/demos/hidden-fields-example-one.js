@@ -48,9 +48,9 @@ export default class FormWideClassSettingsComponent extends Component {
   onFieldValueChange(formField, changesetWebform, snapshot) {
     if (formField.fieldId === 'mealRequired') {
       if (formField.fieldValue === 'Yes') {
-        changesetWebform.includeField('mealOption');
+        changesetWebform.setFieldOmission('mealOption', false);
       } else {
-        changesetWebform.omitField('mealOption');
+        changesetWebform.setFieldOmission('mealOption', true);
       }
     }
     changesetWebform.validateFields().then((res) => {

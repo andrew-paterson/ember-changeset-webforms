@@ -38,6 +38,17 @@ export default function createValidations(fields, customValidators = {}) {
       return;
     }
 
+    if ((field.cloneFieldSchema || {}).validationRules) {
+      field.validationRules = field.validationRules || [];
+      field.validationRules.unshift({
+        validationMethod: 'validateClone',
+        arguments: {
+          validationRules: field.cloneFieldSchema.validationRules,
+          customValidators: customValidators,
+        },
+      });
+    }
+
     var fieldValidations = [];
     field.validationRules.forEach((rule) => {
       var validator =

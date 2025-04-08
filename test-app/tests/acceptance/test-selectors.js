@@ -510,4 +510,8 @@ export default {
     '[data-test-id="omitting-fields4-form-sides-field"]',
   omittingFields4FormFreeDrinkField:
     '[data-test-id="omitting-fields4-form-free-drink-field"]',
+  customFormSubmissionFormNameField:
+    '[data-test-id="custom-form-submission-form-name-field"]',
+  customFormSubmissionFormEmailField:
+    '[data-test-id="custom-form-submission-form-email-field"]',
 };

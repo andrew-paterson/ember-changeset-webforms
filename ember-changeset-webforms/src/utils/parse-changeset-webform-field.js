@@ -7,6 +7,7 @@ export default function parseChangesetWebformField(
   fieldSchema,
   customValidators,
   formSettings,
+  changeset,
 ) {
   if (!fieldSchema) {
     return;
@@ -16,7 +17,12 @@ export default function parseChangesetWebformField(
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
-  const parsedField = parse(fieldSchema, customValidators, formSettings);
+  const parsedField = parse(
+    fieldSchema,
+    customValidators,
+    formSettings,
+    changeset,
+  );
   return new FormField(parsedField);
 }
 
@@ -26,7 +32,7 @@ function isPrimitive(value) {
   );
 }
 
-function parse(fieldSchema, customValidators, formSettings) {
+function parse(fieldSchema, customValidators, formSettings, changeset) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
   if (field.validationRules) {
@@ -68,14 +74,14 @@ function parse(fieldSchema, customValidators, formSettings) {
   }
 
   if ((field.cloneFieldSchema || {}).validationRules) {
-    field.validationRules = field.validationRules || [];
-    field.validationRules.unshift({
-      validationMethod: 'validateClone',
-      arguments: {
-        validationRules: field.cloneFieldSchema.validationRules,
-        customValidators: customValidators,
-      },
-    });
+    // field.validationRules = field.validationRules || [];
+    // field.validationRules.unshift({
+    //   validationMethod: 'validateClone',
+    //   arguments: {
+    //     validationRules: field.cloneFieldSchema.validationRules,
+    //     customValidators: customValidators,
+    //   },
+    // });
     field.clonedFieldBlueprint.validatesOn.forEach((event) => {
       const skip = ['submit', 'removeClone'];
       if (skip.indexOf(event) > -1) {
@@ -101,7 +107,7 @@ function parse(fieldSchema, customValidators, formSettings) {
     safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
-
+  field.changeset = field.changeset || changeset;
   field = field.customParser ? field.customParser(field) : field;
   delete field.alwaysValidateOn;
   delete field.cloneFieldSchema;
