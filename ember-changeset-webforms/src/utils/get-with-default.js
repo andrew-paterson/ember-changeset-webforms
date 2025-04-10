@@ -35,7 +35,6 @@ const addonDefaults = {
     disabledField: ['disabled'],
     focussedField: ['focussed'],
     fieldWrapper: ['cwf-field', 'mb-3'],
-    cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
     fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: ['form-label'],
     requiredField: ['required'],
@@ -69,14 +68,16 @@ const addonDefaults = {
         return ['ms-2'].concat(classNameSettings.requestInFlight);
       }
     },
-    discardChangesButtonIcon: [],
+    resetFormButtonIcon: [],
     clearFormButtonIcon: [],
-    discardChangesButton: ['btn-warning', 'btn-lg'],
+    resetFormButton: ['btn-warning', 'btn-lg'],
     clearFormButton: ['btn-dark', 'btn-lg'],
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
-    clonedFormField: ['cwf-clone-field-controls'],
+    cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
+    cloneGroupItems: ['cwf-clone-group-items'],
+    cloneFieldControls: ['cwf-clone-field-controls'],
     cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
     maxClonesReached: ['cwf-max-clones-reached'],
     addCloneButton: ['btn-outline-secondary'],
@@ -144,8 +145,8 @@ const addonDefaults = {
     // `@changesetWebform, and @formField are passed to the component.
     clearFormButton: false, // Boolean - whether or not to show the button that will empty all fields.
     clearFormButtonText: 'Clear form', // String - text to show on the clear form button TODO implement
-    discardChangesButton: false, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
-    discardChangesButtonText: 'Discard changes',
+    resetFormButton: false, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
+    resetFormButtonText: 'Discard changes',
     submitAfterClear: false, // Boolean. If true submits, the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters.
     clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully.
     // END-SNIPPET
@@ -215,9 +216,9 @@ const addonDefaults = {
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
       alwaysValidateOn: ['$inherited', 'removeClone'], // Array of strings
-      cloneGroupActionsPosition: 'cloneGroupWrapper',
-      isFieldset: true,
+      cloneGroupActionsPosition: 'cloneGroupWrapper', // String. Can also be labelWrapper, If cloneGroupWrapper, the clone group action buttons and content will appear below the cloned fields. If `labelWrapper` the the field bale will be wrapper in a div, and the clone group action buttons will be rendered in the label wrapper, after the label element.
       // END-SNIPPET
+      isFieldset: true,
       componentClass:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
     },

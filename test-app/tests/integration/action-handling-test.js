@@ -15,11 +15,11 @@ import ChangesetWebformClass from 'ember-changeset-webforms/utils/changeset-webf
 import testEls from '../acceptance/test-selectors';
 const nameFieldInput = `${testEls.customFormSubmissionFormNameField} input`;
 const emailFieldInput = `${testEls.customFormSubmissionFormEmailField} input`;
-
 const actionCalls = {};
 let changesetWebform;
+let serverResponseType;
 
-function areAllItemsInArray(subset, superset) {
+function allItemsInArray(subset, superset) {
   return subset.every((item) => superset.includes(item));
 }
 
@@ -78,15 +78,49 @@ function isComponentArgs(arg) {
   const expectedArgkeys = [
     'formSchema',
     'data',
-    'beforeDiscardChanges',
-    'afterDiscardChanges',
+    'beforeResetForm',
+    'afterResetForm',
     'beforeClearForm',
     'afterClearForm',
     'onFormSubmit',
   ];
   return {
     name: 'componentArguments',
-    present: areAllItemsInArray(expectedArgkeys, Object.keys(arg)),
+    present: allItemsInArray(expectedArgkeys, Object.keys(arg)),
+  };
+}
+
+function isValidationResult(arg) {
+  const firstFieldFirstValidation = arg[0][0];
+  return {
+    name: 'validationResult',
+    present:
+      Array.isArray(arg) &&
+      (firstFieldFirstValidation ===
+        document.querySelector(nameFieldInput).value ||
+        allItemsInArray(
+          ['value', 'validation'],
+          Object.keys(firstFieldFirstValidation),
+        )),
+  };
+}
+
+function isSuccessServerResponse(arg) {
+  return {
+    name: 'successServerResponse',
+    present:
+      arg &&
+      typeof arg === 'object' &&
+      Object.keys(arg).length === 1 &&
+      arg.name === 'Steve Holt',
+  };
+}
+
+function isErrorServerResponse(arg) {
+  return {
+    name: 'errorServerResponse',
+    present:
+      arg && arg instanceof Error && arg.message === 'Server error occurred',
   };
 }
 
@@ -115,7 +149,7 @@ module('Integration | Component | Action handling', function (hooks) {
   this.formSchema2 = {
     formSettings: {
       formName: 'customFormSubmission',
-      discardChangesButton: true,
+      resetFormButton: true,
       clearFormButton: true,
     },
     fields: [
@@ -167,8 +201,12 @@ module('Integration | Component | Action handling', function (hooks) {
       onFormSubmit: [isChangesetWebformObject, isComponentArgs],
       beforeClearForm: [isChangesetWebformObject],
       afterClearForm: [isChangesetWebformObject],
-      beforeDiscardChanges: [isChangesetWebformObject],
-      afterDiscardChanges: [isChangesetWebformObject],
+      beforeResetForm: [isChangesetWebformObject],
+      afterResetForm: [isChangesetWebformObject],
+      afterValidateFields: [isChangesetWebformObject, isValidationResult],
+      beforeSubmitForm: [isChangesetWebformObject],
+      submitSuccess: [isSuccessServerResponse, isChangesetWebformObject],
+      submitError: [isErrorServerResponse, isChangesetWebformObject],
     };
     const expectedArgTypes = expectedArgsTypes[actionName];
     const actualArgs = actionCalls[actionName];
@@ -193,24 +231,39 @@ module('Integration | Component | Action handling', function (hooks) {
       changesetWebform = argsPassedByAction[0];
     }
     actionCalls[actionName] = argsPassedByAction;
+    if (actionName === 'submitAction') {
+      if (serverResponseType === 'error') {
+        throw new Error('Server error occurred');
+      } else {
+        return {
+          name: 'Steve Holt',
+        };
+      }
+    }
     return;
   };
   test('All actions', async function (assert) {
     await render(hbs`
       <ChangesetWebform
-      @formSchema={{this.formSchema}} 
-      @afterGenerateChangesetWebform={{fn this.generalAction "afterGenerateChangesetWebform"}}
-      @onFieldValueChange={{fn this.generalAction "onFieldValueChange"}}
-      @afterFieldInserted={{fn this.generalAction "afterFieldInserted"}}
-      @afterFieldRemoved={{fn this.generalAction "afterFieldRemoved"}}
-      @afterFieldValidation={{fn this.generalAction "afterFieldValidation"}}
-      @onUserInteraction={{fn this.generalAction "onUserInteraction"}}
-      @beforeDiscardChanges={{fn this.generalAction "beforeDiscardChanges"}}
-      @beforeClearForm={{fn this.generalAction "beforeClearForm"}}     
-      @submitAction={{fn this.generalAction "submitAction"}}
+        @formSchema={{this.formSchema}} 
+        @afterGenerateChangesetWebform={{fn this.generalAction "afterGenerateChangesetWebform"}}
+        @onFieldValueChange={{fn this.generalAction "onFieldValueChange"}}
+        @afterFieldInserted={{fn this.generalAction "afterFieldInserted"}}
+        @afterFieldRemoved={{fn this.generalAction "afterFieldRemoved"}}
+        @afterFieldValidation={{fn this.generalAction "afterFieldValidation"}}
+        @onUserInteraction={{fn this.generalAction "onUserInteraction"}}
+        @beforeResetForm={{fn this.generalAction "beforeResetForm"}}
+        @beforeClearForm={{fn this.generalAction "beforeClearForm"}}  
+        @afterValidateFields={{fn this.generalAction "afterValidateFields"}}
+        @beforeSubmitForm={{fn this.generalAction "beforeSubmitForm"}}
+        @submitAction={{fn this.generalAction "submitAction"}}
+        @submitSuccess={{fn this.generalAction "submitSuccess"}}
+        @submitError={{fn this.generalAction "submitError"}}
       />`);
     checkActionArgs(assert, 'afterGenerateChangesetWebform');
     checkActionArgs(assert, 'afterFieldInserted');
+    await click(testEls.cwfSubmitFormButton);
+    checkActionArgs(assert, 'afterValidateFields');
     changesetWebform.setFieldOmission('name', true);
     await waitUntil(() => actionCalls.afterFieldRemoved);
     checkActionArgs(assert, 'afterFieldRemoved');
@@ -228,23 +281,31 @@ module('Integration | Component | Action handling', function (hooks) {
     checkActionArgs(assert, 'afterFieldValidation', {
       passedValidation: true,
     });
+    serverResponseType = 'error';
 
     await click(testEls.cwfSubmitFormButton);
+    checkActionArgs(assert, 'afterValidateFields');
+    checkActionArgs(assert, 'beforeSubmitForm');
     checkActionArgs(assert, 'submitAction', {
       changeset: changesetWebform.changeset,
     });
+    checkActionArgs(assert, 'submitError');
+    serverResponseType = 'success';
+    await click(testEls.cwfSubmitFormButton);
+
+    checkActionArgs(assert, 'submitSuccess');
   });
 
   test('All actions 2', async function (assert) {
     await render(hbs`
       <ChangesetWebform
-      @formSchema={{this.formSchema2}}
-      @data={{hash name="Steve Holt"}} 
-      @beforeDiscardChanges={{fn this.generalAction "beforeDiscardChanges"}}
-      @afterDiscardChanges={{fn this.generalAction "afterDiscardChanges"}}
-      @beforeClearForm={{fn this.generalAction "beforeClearForm"}}   
-      @afterClearForm={{fn this.generalAction "afterClearForm"}}
-      @onFormSubmit={{fn this.generalAction "onFormSubmit"}}
+        @formSchema={{this.formSchema2}}
+        @data={{hash name="Steve Holt"}} 
+        @beforeResetForm={{fn this.generalAction "beforeResetForm"}}
+        @afterResetForm={{fn this.generalAction "afterResetForm"}}
+        @beforeClearForm={{fn this.generalAction "beforeClearForm"}}   
+        @afterClearForm={{fn this.generalAction "afterClearForm"}}
+        @onFormSubmit={{fn this.generalAction "onFormSubmit"}}
       />`);
     assert
       .dom(nameFieldInput)
@@ -270,7 +331,8 @@ module('Integration | Component | Action handling', function (hooks) {
         '',
         'Email field is cleared when user clicks Clear Form button.',
       );
-    await click(testEls.cwfDiscardChangesButton);
+
+    await click(testEls.cwfResetFormButton);
     assert
       .dom(nameFieldInput)
       .hasValue(

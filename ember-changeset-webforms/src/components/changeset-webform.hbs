@@ -83,27 +83,27 @@
             }}"
         />
       {{/unless}}
-      {{#if this.formSettings.discardChangesButton}}
+      {{#if this.formSettings.resetFormButton}}
         <button
           class={{ember-changeset-webforms/dynamic-class-names
-            "buttonElement,discardChangesButton"
+            "buttonElement,resetFormButton"
             this.changesetWebform
           }}
           type="button"
           data-test-id="cwf-discard-changes-button"
-          {{on "click" (fn this.discardChanges this.changesetWebform)}}
+          {{on "click" (fn this.resetForm this.changesetWebform)}}
         >
-          {{#if this.formSettings.discardChangesButtonIcon}}
-            <this.formSettings.discardChangesButtonIcon.componentClass
-              @props={{this.formSettings.discardChangesButtonIcon.props}}
+          {{#if this.formSettings.resetFormButtonIcon}}
+            <this.formSettings.resetFormButtonIcon.componentClass
+              @props={{this.formSettings.resetFormButtonIcon.props}}
               @changesetWebform={{this.changesetWebform}}
               class={{ember-changeset-webforms/dynamic-class-names
-                "buttonIcon,discardChangesButtonIcon"
+                "buttonIcon,resetFormButtonIcon"
                 this.changesetWebform
               }}
             />
           {{/if}}
-          {{this.formSettings.discardChangesButtonText}}</button>
+          {{this.formSettings.resetFormButtonText}}</button>
       {{/if}}
       {{#if this.formSettings.clearFormButton}}
         <button

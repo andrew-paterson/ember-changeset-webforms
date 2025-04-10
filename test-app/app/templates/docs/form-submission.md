@@ -47,10 +47,12 @@ If `@submitError` is passed to the `<ChangesetWebform />` component it will be c
 
 ## Custom form submission
 
-If the `@onFormSubmit` action is passed to the `<ChangesetWebform />` component, it will completely iverride all default form submission behaviour.
+If the `@onFormSubmit` action is passed to the `<ChangesetWebform />` component, it will completely override all default form submission behaviour.
 
 The action receives the `changesetWebform` object, as well as the component `args` as arguments.
 
 The example below also shows how the preflight utli can be invoked if needed.
 
 <Demos::CustomFormSubmission />
+
+<!-- TODO test for submission from outside the form, -->

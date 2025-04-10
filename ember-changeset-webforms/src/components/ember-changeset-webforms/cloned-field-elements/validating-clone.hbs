@@ -5,11 +5,6 @@
   @changesetWebform={{@changesetWebform}}
   @typeClass={{@typeClass}}
   @validationErrorsArray={{@clonedFormField.cloneValidationErrors}}
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'clonedFormField'
-      @changesetWebform
-      @formField
-    }}"
   data-test-class="{{@masterFormField.id}}-clone"
   data-test-id="{{@clonedFormField.id}}"
   {{did-insert this.didInsert}}

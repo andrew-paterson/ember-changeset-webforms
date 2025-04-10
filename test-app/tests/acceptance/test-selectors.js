@@ -452,7 +452,7 @@ export default {
   powerSelectExample4FormCountryField:
     '[data-test-id="power-select-example4-form-country-field"]',
   cwfSubmitFormButton: '[data-test-id="cwf-submit-form-button"]',
-  cwfDiscardChangesButton: '[data-test-id="cwf-discard-changes-button"]',
+  cwfResetFormButton: '[data-test-id="cwf-discard-changes-button"]',
   cwfClearFormButton: '[data-test-id="cwf-clear-form-button"]',
   signupFormRecoveryEmailField:
     '[data-test-id="signup-form-recovery-email-field"]',
@@ -514,4 +514,7 @@ export default {
     '[data-test-id="custom-form-submission-form-name-field"]',
   customFormSubmissionFormEmailField:
     '[data-test-id="custom-form-submission-form-email-field"]',
+  cwfCloneGroupItems: '[data-test-id="cwf-clone-group-items"]',
+  cwfCloneGroupActions: '[data-test-id="cwf-clone-group-actions"]',
+  cwfFieldLabelWrapper: '[data-test-class="cwf-field-label-wrapper"]',
 };

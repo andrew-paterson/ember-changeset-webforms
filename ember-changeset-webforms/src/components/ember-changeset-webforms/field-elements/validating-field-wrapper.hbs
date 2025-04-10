@@ -72,10 +72,14 @@
         @labelId={{@labelId}}
       />
       <div
-        class="{{ember-changeset-webforms/dynamic-class-names
-            'fieldControls'
-            @changesetWebform
-            @formField
+        class="{{if
+            @formField.isClone
+            (ember-changeset-webforms/dynamic-class-names
+              'cloneFieldControls' @changesetWebform @formField
+            )
+            (ember-changeset-webforms/dynamic-class-names
+              'fieldControls' @changesetWebform @formField
+            )
           }}"
         role={{if @isGroup "group"}}
         ariaLabelledBy={{if @isGroup @ariaLabelledBy}}

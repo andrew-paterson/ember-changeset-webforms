@@ -25,6 +25,7 @@
         @masterFormField
         @masterFormField.validationStatus
       }}
+      data-test-class="cwf-field-label-wrapper"
     >
       <EmberChangesetWebforms::FieldElements::FieldLabel
         @formField={{@masterFormField}}
@@ -47,7 +48,14 @@
     data-clone-group-pre-clones
     {{did-insert (fn this.registerElementContainer "preClones")}}
   ></div>
-  <div class="clone-group-items">
+  <div
+    data-test-id="cwf-clone-group-items"
+    class={{ember-changeset-webforms/dynamic-class-names
+      "cloneGroupItems"
+      @changesetWebform
+      @formField
+    }}
+  >
     {{#each @masterFormField.clonedFields as |clonedFormField|}}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone
         @cloneField={{this.cloneField}}
@@ -68,6 +76,7 @@
 {{#if this.cloneGroupActionsDestinationElement}}
   {{#in-element this.cloneGroupActionsDestinationElement insertBefore=null}}
     <div
+      data-test-id="cwf-clone-group-actions"
       class={{ember-changeset-webforms/dynamic-class-names
         "cloneGroupActions"
         @changesetWebform

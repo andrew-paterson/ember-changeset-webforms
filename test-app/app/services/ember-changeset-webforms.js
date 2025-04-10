@@ -12,7 +12,7 @@ export default class EmberChangesetWebforms extends Service {
     // END-SNIPPET
     formSettings: {
       submitButtonIcon: { componentClass: IconArrowUp },
-      discardChangesButtonIcon: {
+      resetFormButtonIcon: {
         componentClass: IconArrowUp,
       },
       clearFormButtonIcon: { componentClass: IconArrowUp },

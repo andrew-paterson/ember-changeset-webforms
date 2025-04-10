@@ -58,7 +58,7 @@ module('Acceptance | Form submission', function (hooks) {
         'test@email.com',
         'Email recovery field has value "test@email.com after being completed".',
       );
-    await click(testEls.cwfDiscardChangesButton);
+    await click(testEls.cwfResetFormButton);
     assert
       .dom(`${testEls.signupFormRecoveryEmailField} input`)
       .hasValue(

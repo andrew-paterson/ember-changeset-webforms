@@ -9,7 +9,7 @@ export default class SignupFormComponent extends Component {
       submitButtonText: 'Sign up',
       modelName: 'user', // TODO required?
       clearFormAfterSubmit: true,
-      discardChangesButton: true,
+      resetFormButton: true,
       clearFormButton: true,
     },
     fields: [

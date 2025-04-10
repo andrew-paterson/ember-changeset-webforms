@@ -5,6 +5,9 @@ export default async function onSubmit(changesetWebform, componentArgs) {
   if (!changesetWebform.changeset.isValid) {
     return;
   }
+  if (componentArgs.beforeSubmitForm) {
+    await componentArgs.beforeSubmitForm(changesetWebform);
+  }
   changesetWebform.formSettings.requestInFlight = true;
   let submitActionResponse;
   try {

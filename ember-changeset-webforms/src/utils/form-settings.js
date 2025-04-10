@@ -7,8 +7,8 @@ export default class FormSettings {
   @tracked requestInFlightIcon;
   @tracked clearFormButton;
   @tracked clearFormButtonText;
-  @tracked discardChangesButton;
-  @tracked discardChangesButtonText;
+  @tracked resetFormButton;
+  @tracked resetFormButtonText;
   @tracked requestInFlight;
   // END-SNIPPET
   constructor(args) {

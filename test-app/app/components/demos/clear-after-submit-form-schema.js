@@ -8,7 +8,7 @@ export default class ClearAfterSubmitFormComponent extends Component {
       clearFormAfterSubmit: true,
       submitButtonText: 'Create account',
       clearFormButton: true,
-      discardChangesButton: true,
+      resetFormButton: true,
     },
     fields: [
       {

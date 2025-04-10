@@ -19,6 +19,7 @@ Router.map(function () {
     this.route('field-validation');
     this.route('integrating-custom-validators');
     this.route('clonable-form-fields');
+    this.route('custom-components');
     this.route('configure-class-names');
     this.route('input');
     this.route('textarea');

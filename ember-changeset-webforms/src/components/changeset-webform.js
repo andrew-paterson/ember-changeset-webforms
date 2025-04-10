@@ -136,13 +136,13 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  discardChanges(changesetWebform) {
-    if (this.args.beforeDiscardChanges) {
-      this.args.beforeDiscardChanges(changesetWebform);
+  resetForm(changesetWebform) {
+    if (this.args.beforeResetForm) {
+      this.args.beforeResetForm(changesetWebform);
     }
     this.generateChangesetWebform(this.args.formSchema, this.args.data);
-    if (this.args.afterDiscardChanges) {
-      this.args.afterDiscardChanges(changesetWebform);
+    if (this.args.afterResetForm) {
+      this.args.afterResetForm(changesetWebform);
     }
   }
 

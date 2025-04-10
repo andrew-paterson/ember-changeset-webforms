@@ -1,4 +1,4 @@
-import nullifyExcludedFields from '../utils/nullify-excluded-fields.js';
+import nullifyOmittedFields from '../utils/nullify-omitted-fields.js';
 
 export default async function preFlightForm(changesetWebform, componentArgs) {
   try {
@@ -31,14 +31,14 @@ export default async function preFlightForm(changesetWebform, componentArgs) {
       if (componentArgs.formValidationPassed) {
         await componentArgs.formValidationPassed(changesetWebform);
       }
-      if (componentArgs.beforeSubmitForm) {
-        await componentArgs.beforeSubmitForm(changesetWebform); // TODO how to make this await or not.
-      }
-      nullifyExcludedFields(changesetWebform); // TODO test this
+
+      nullifyOmittedFields(changesetWebform); // TODO test this
     } else {
       if (componentArgs.formValidationFailed) {
         await componentArgs.formValidationFailed(changesetWebform);
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    throw new Error(err);
+  }
 }
