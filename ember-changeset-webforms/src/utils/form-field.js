@@ -86,15 +86,15 @@ export default class FormField {
     if (this.omitted === true) {
       return this.omitted;
     }
-    return this.checkConditions(this.omitted, this);
+    return this._checkConditions(this.omitted, this);
   }
 
-  checkConditions(ruleSet, formField) {
+  _checkConditions(ruleSet, formField) {
     const results = ruleSet.conditions.map((condition) => {
       if (condition.conditions) {
-        return this.checkConditions(condition, formField);
+        return this._checkConditions(condition, formField);
       }
-      return this.checkCondition(formField, condition);
+      return this._checkCondition(formField, condition);
     });
     if (ruleSet.where === 'allConditionsTrue') {
       return results.includes(false) ? !ruleSet.returns : ruleSet.returns;
@@ -103,7 +103,7 @@ export default class FormField {
     }
   }
 
-  checkCondition(formField, condition) {
+  _checkCondition(formField, condition) {
     const relatedSiblingField = formField.siblings.find((siblingField) => {
       return siblingField.fieldId === condition.fieldId;
     });
@@ -169,13 +169,6 @@ export default class FormField {
         return;
       }
       if (!this.eventLogValidated.length) {
-        return;
-      }
-      if (
-        this.eventLogValidated.length === 1 &&
-        this.eventLogValidated[0] === 'insert' &&
-        !this.fieldValue
-      ) {
         return;
       }
       changeset

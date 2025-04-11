@@ -34,7 +34,7 @@ export default class AfterFieldValidationForm extends Component {
         fieldId: 'email',
         fieldLabel: 'Email',
         fieldType: 'input',
-        validatesOn: ['insert'],
+        validatesOn: ['insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

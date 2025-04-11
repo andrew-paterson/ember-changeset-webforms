@@ -2,6 +2,16 @@
 
 ## Validation events
 
+Under the hood, each field has `eventLog` and a `validatesOn` property, both of are arrays of event name strings.
+
+Items are added to the `eventLog` array in response to various events, such as insertion of a field into the DOM, form submission, value updates, focussing out of inputs, and many others. Note that thes eare not limited the the names of actual browser events.
+
+The `validatesOn` property defines which events should enable validation for a field.
+
+If there is any intersection between the `eventLog` and `validatesOn` arrays, validation is enabled for a field and it will be revalidated whenever it's value is updated, or the form is submitted.
+
+This means that by updating the `validatesOn` property of a field, you can control which events trigger the validation of a field.
+
 ### The `alwaysValidateOn` array
 
 The `alwaysValidateOn` property is set by default on all built in field types, and implement out of the box validation, without the need to include the `validatesOn` property when invoking a field in a form schema.

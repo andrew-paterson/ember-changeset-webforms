@@ -17,7 +17,7 @@ export default class SignupFormComponent extends Component {
         fieldId: 'name',
         fieldLabel: 'Name',
         fieldType: 'input',
-        validatesOn: ['insert'],
+        validatesOn: ['insertWithValue'],
         showValidationWhenFocussed: true,
         validationRules: [
           {
@@ -31,7 +31,7 @@ export default class SignupFormComponent extends Component {
         fieldId: 'email',
         fieldLabel: 'Email',
         fieldType: 'input',
-        validatesOn: ['insert'],
+        validatesOn: ['insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -48,7 +48,7 @@ export default class SignupFormComponent extends Component {
         fieldId: 'recoveryEmail',
         fieldLabel: 'Recovery email',
         fieldType: 'input',
-        validatesOn: ['insert'],
+        validatesOn: ['insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

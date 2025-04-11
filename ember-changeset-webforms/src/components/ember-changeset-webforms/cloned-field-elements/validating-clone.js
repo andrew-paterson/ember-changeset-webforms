@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+
 export default class ValidatingClone extends Component {
   @action
   didInsert() {
@@ -12,6 +12,10 @@ export default class ValidatingClone extends Component {
     ) {
       this.args.clonedFormField.eventLog.push('insert');
       this.args.masterFormField.eventLog.push('insertClone');
+      if (this.args.clonedFormField.fieldValue) {
+        this.args.clonedFormField.eventLog.push('insertWithValue');
+        this.args.masterFormField.eventLog.push('insertWithValueClone');
+      }
       this.args.clonedFormField.updateValidationActivation();
       this.args.validateField(this.args.masterFormField);
     }

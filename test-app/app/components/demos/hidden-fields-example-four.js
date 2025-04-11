@@ -15,7 +15,7 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldId: 'isMember',
         fieldLabel: 'Are you a member?',
         fieldType: 'radioButtonGroup',
-        validatesOn: ['insert'],
+        validatesOn: ['insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

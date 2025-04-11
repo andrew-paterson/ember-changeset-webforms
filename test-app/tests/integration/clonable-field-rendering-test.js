@@ -35,7 +35,7 @@ module('Integration | Component | Clonable field rendering', function (hooks) {
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          validatesOn: ['insert'],
+          validatesOn: ['insertWithValue'],
           validationRules: [
             {
               validationMethod: 'validateFormat',

@@ -45,6 +45,9 @@ export default class ValidatingField extends Component {
   didInsert() {
     var formField = this.args.formField;
     formField.eventLog.push('insert');
+    if (formField.fieldValue) {
+      formField.eventLog.push('insertWithValue');
+    }
     this.validateField(formField);
     this.args.afterFieldInserted(formField);
   }
