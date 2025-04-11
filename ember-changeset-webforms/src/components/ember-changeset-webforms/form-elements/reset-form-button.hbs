@@ -1,0 +1,20 @@
+<button
+  class={{ember-changeset-webforms/dynamic-class-names
+    "buttonElement,resetFormButton"
+    @changesetWebform
+  }}
+  type="button"
+  data-test-id="cwf-discard-changes-button"
+  {{on "click" (fn @resetForm @changesetWebform)}}
+>
+  {{#if @formSettings.resetFormButtonIcon}}
+    <@formSettings.resetFormButtonIcon.componentClass
+      @props={{@formSettings.resetFormButtonIcon.props}}
+      @changesetWebform={{@changesetWebform}}
+      class={{ember-changeset-webforms/dynamic-class-names
+        "buttonIcon,resetFormButtonIcon"
+        @changesetWebform
+      }}
+    />
+  {{/if}}
+  {{@formSettings.resetFormButtonText}}</button>

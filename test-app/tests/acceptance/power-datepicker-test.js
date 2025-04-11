@@ -2171,7 +2171,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
       });
     });
 
-  test('Misc zzz', async function (assert) {
+  test('Misc', async function (assert) {
     // Main input (24 hour format)
     // Filling in Msec value of more than 8 digits simply chops off all but the first three
     await visit('/docs/power-datepicker');
@@ -2186,15 +2186,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
     );
     const timeSelectorHourInput = find(testEls.timeSelectorFieldInputHour);
-    const timeSelectorMinutesInput = find(
-      testEls.timeSelectorFieldInputMinutes,
-    );
-    const timeSelectorSecondsInput = find(
-      testEls.timeSelectorFieldInputSeconds,
-    );
-    const timeSelectorMillisecondsInput = find(
-      testEls.timeSelectorFieldInputMilliseconds,
-    );
     assert.notOk(
       await cth.wasValidated(
         `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,

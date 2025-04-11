@@ -149,6 +149,7 @@ const addonDefaults = {
     resetFormButtonText: 'Discard changes',
     submitAfterClear: false, // Boolean. If true submits, the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters.
     clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully.
+    submitButtonType: 'button', // String - the type of the submit button. Can be 'button' or 'submit'.
     // END-SNIPPET
   },
   fieldSettings: {

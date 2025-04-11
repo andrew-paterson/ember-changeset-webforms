@@ -5,7 +5,6 @@ export default function dynamicClassNames(
   elementTypesString,
   changesetWebform,
   formField,
-  options = {},
 ) {
   let classNames = [];
 

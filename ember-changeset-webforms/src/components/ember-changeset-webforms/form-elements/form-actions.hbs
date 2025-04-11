@@ -1,0 +1,29 @@
+<div
+  data-test-id="cwf-form-actions"
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'formActions'
+      @changesetWebform
+    }}"
+>
+  {{#unless @formSettings.hideSubmitButton}}
+    <EmberChangesetWebforms::FormElements::SubmitFormButton
+      @onFormSubmit={{@onFormSubmit}}
+      @changesetWebform={{@changesetWebform}}
+      @formSettings={{@formSettings}}
+    />
+  {{/unless}}
+  {{#if @formSettings.resetFormButton}}
+    <EmberChangesetWebforms::FormElements::ResetFormButton
+      @resetForm={{@resetForm}}
+      @changesetWebform={{@changesetWebform}}
+      @formSettings={{@formSettings}}
+    />
+  {{/if}}
+  {{#if @formSettings.clearFormButton}}
+    <EmberChangesetWebforms::FormElements::ClearFormButton
+      @clearForm={{@clearForm}}
+      @changesetWebform={{@changesetWebform}}
+      @formSettings={{@formSettings}}
+    />
+  {{/if}}
+</div>

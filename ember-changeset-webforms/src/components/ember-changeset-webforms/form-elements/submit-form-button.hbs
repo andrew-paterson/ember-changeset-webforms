@@ -1,7 +1,12 @@
 <button
-  type={{this.customType}}
-  data-test-id={{this.data-test-id}}
-  disabled={{this.disabled}}
+  type={{@formSettings.submitButtonType}}
+  data-test-id="cwf-submit-form-button"
+  disabled={{@formSettings.submitDisabled}}
+  {{on "click" (fn @onFormSubmit @changesetWebform)}}
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'buttonElement,submitButton'
+      @changesetWebform
+    }}"
   ...attributes
 >
   {{#if @formSettings.submitButtonIcon}}
@@ -25,8 +30,6 @@
           @changesetWebform
         }}
       />
-    {{else}}
-      <div></div>
     {{/if}}
   {{/if}}
 </button>
