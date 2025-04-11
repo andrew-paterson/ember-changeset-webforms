@@ -52,11 +52,8 @@ export default class ValidatingField extends Component {
   @action
   willDestroyAction() {
     var formField = this.args.formField;
-    if (formField.dynamicallyOmitted) {
-      if (formField.resetWhenRemoved) {
-        console.log('reset');
-        formField.reset();
-      }
+    if (formField.isOmitted && formField.resetWhenOmitted) {
+      formField.reset();
     }
     this.args.afterFieldRemoved(formField);
   }

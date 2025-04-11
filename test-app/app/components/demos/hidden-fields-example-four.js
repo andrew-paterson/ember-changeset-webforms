@@ -60,30 +60,29 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldType: 'radioButtonGroup',
         fieldLabel: `You've qualified for a free drink!  You can select one of the following:`,
         options: ['Orange juice', 'Water', 'Chocolate milk'],
-        dynamicOmission: {
-          omittedByDefault: true,
-          toggleDefaultOmission: {
-            ruleType: 'anyConditionsTrue',
-            conditions: [
-              {
-                fieldId: 'isMember',
-                valueEquals: 'Yes',
-              },
-              {
-                ruleType: 'allConditionsTrue',
-                conditions: [
-                  {
-                    fieldId: 'mains',
-                    valueEquals: '3',
-                  },
-                  {
-                    fieldId: 'sides',
-                    valueEquals: '3',
-                  },
-                ],
-              },
-            ],
-          },
+        omitted: {
+          returns: false,
+          where: 'anyConditionsTrue',
+          conditions: [
+            {
+              fieldId: 'isMember',
+              valueEquals: 'Yes',
+            },
+            {
+              returns: true,
+              where: 'allConditionsTrue',
+              conditions: [
+                {
+                  fieldId: 'mains',
+                  valueEquals: '3',
+                },
+                {
+                  fieldId: 'sides',
+                  valueEquals: '3',
+                },
+              ],
+            },
+          ],
         },
       },
     ],

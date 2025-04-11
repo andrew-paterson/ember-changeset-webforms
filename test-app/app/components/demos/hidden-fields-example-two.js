@@ -40,17 +40,15 @@ export default class FormWideClassSettingsComponent extends Component {
           },
         ],
         options: ['Beef', 'Chicken', 'Vegetarian', 'Vegan'],
-        dynamicOmission: {
-          omittedByDefault: true,
-          toggleDefaultOmission: {
-            ruleType: 'anyConditionsTrue',
-            conditions: [
-              {
-                fieldId: 'mealRequired',
-                valueEquals: 'Yes',
-              },
-            ],
-          },
+        omitted: {
+          returns: false,
+          where: 'anyConditionsTrue',
+          conditions: [
+            {
+              fieldId: 'mealRequired',
+              valueEquals: 'Yes',
+            },
+          ],
         },
       },
     ],

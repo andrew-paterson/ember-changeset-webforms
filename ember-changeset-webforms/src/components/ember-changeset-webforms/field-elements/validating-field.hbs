@@ -1,8 +1,7 @@
 {{#if
   (and
     @changesetWebform.changeset
-    (not @formField.omitted)
-    (not @formField.dynamicallyOmitted)
+    (not @formField.isOmitted)
     (not-eq @formField.fieldType "noDisplay")
   )
 }}

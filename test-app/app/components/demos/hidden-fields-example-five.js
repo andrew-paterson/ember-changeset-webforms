@@ -4,16 +4,10 @@ import { tracked } from '@glimmer/tracking';
 
 export default class FormWideClassSettingsComponent extends Component {
   @tracked changesetIsValid;
-  // BEGIN-SNIPPET omitted-fields-example-3.js"
-
-  dynamicIncludeExcludeConditions = {
-    valueDoesNotEqual: (value, condition) =>
-      value !== condition.valueDoesNotEqual,
-  };
-
+  // BEGIN-SNIPPET omitted-fields-example-5.js"
   formSchema = {
     formSettings: {
-      formName: 'omittingFields3',
+      formName: 'omittingFields5',
       hideSubmitButton: true,
     },
     fields: [
@@ -37,6 +31,7 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldId: 'mealOption',
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Please select a meal option',
+        omitted: true,
         validatesOn: ['insert'],
         validationRules: [
           {
@@ -45,25 +40,26 @@ export default class FormWideClassSettingsComponent extends Component {
           },
         ],
         options: ['Beef', 'Chicken', 'Vegetarian', 'Vegan'],
-        omitted: {
-          returns: false,
-          where: 'anyConditionsTrue',
-          conditions: [
-            {
-              fieldId: 'mealRequired',
-              valueDoesNotEqual: 'No',
-            },
-          ],
-        },
       },
     ],
   };
 
   @action
   onFieldValueChange(formField, changesetWebform, snapshot) {
+    const mealOptionField = changesetWebform.fields.find(
+      (field) => field.fieldId === 'mealOption',
+    );
+    if (formField.fieldId === 'mealRequired') {
+      if (formField.fieldValue === 'Yes') {
+        mealOptionField.setOmission(false);
+      } else {
+        mealOptionField.setOmission(true);
+      }
+    }
     changesetWebform.validateFields().then((res) => {
       this.changesetIsValid = changesetWebform.changeset.isValid;
     });
   }
+
   // END-SNIPPET
 }

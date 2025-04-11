@@ -9,7 +9,7 @@ import cth from 'ember-changeset-webforms/test-support/helpers';
 module('Acceptance | Field omission', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('Explicit - yes first', async function (assert) {
+  test('Explicit - changesetWebform.setFieldOmission method - yes first', async function (assert) {
     await visit('docs/hiding-and-showing-fields');
     checkStateMealRequiredNotSet(assert);
     await selectMealRequiredYes(assert);
@@ -18,13 +18,31 @@ module('Acceptance | Field omission', function (hooks) {
     await selectMealRequiredYes(assert);
   });
 
-  test('Explicit - no first', async function (assert) {
+  test('Explicit - changesetWebform.setFieldOmission method - no first', async function (assert) {
     await visit('docs/hiding-and-showing-fields');
     checkStateMealRequiredNotSet(assert);
     await selectMealRequiredNo(assert);
     await selectMealRequiredYes(assert);
     await selectMealOptionBeef(assert);
     await selectMealRequiredNo(assert);
+  });
+
+  test('Explicit - formField.setOmission method - yes first', async function (assert) {
+    await visit('docs/hiding-and-showing-fields');
+    checkStateMealRequiredNotSet(assert, { demoNumber: '5' });
+    await selectMealRequiredYes(assert, { demoNumber: '5' }, this);
+    await selectMealOptionBeef(assert, { demoNumber: '5' });
+    await selectMealRequiredNo(assert, { demoNumber: '5' });
+    await selectMealRequiredYes(assert, { demoNumber: '5' });
+  });
+
+  test('Explicit - formField.setOmission method - no first', async function (assert) {
+    await visit('docs/hiding-and-showing-fields');
+    checkStateMealRequiredNotSet(assert, { demoNumber: '5' });
+    await selectMealRequiredNo(assert, { demoNumber: '5' });
+    await selectMealRequiredYes(assert, { demoNumber: '5' });
+    await selectMealOptionBeef(assert, { demoNumber: '5' });
+    await selectMealRequiredNo(assert, { demoNumber: '5' });
   });
 
   test('Dynamic - yes first', async function (assert) {
@@ -131,7 +149,7 @@ function checkStateMealRequiredNotSet(assert, opts = {}) {
     .doesNotExist('Omitted meal option field does not exist on load.');
 }
 
-async function selectMealRequiredYes(assert, opts = {}) {
+async function selectMealRequiredYes(assert, opts = {}, env) {
   await click(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredFieldRadioOptionYes`]} input`,
   );

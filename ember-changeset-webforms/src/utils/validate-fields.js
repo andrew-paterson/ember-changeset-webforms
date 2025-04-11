@@ -1,11 +1,6 @@
 export default function validateAllowedFields(changesetWebform) {
   var allowedFields = changesetWebform.fields.filter((field) => {
-    return (
-      !field.omitted &&
-      !field.dynamicallyOmitted &&
-      !field.skipValidation &&
-      field.validates
-    );
+    return !field.isOmitted && !field.skipValidation && field.validates;
   });
   const allowedFieldPropertyNames = allowedFields.map(
     (allowedField) => allowedField.propertyName,

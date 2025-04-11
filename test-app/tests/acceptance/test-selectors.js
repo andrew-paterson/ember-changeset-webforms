@@ -463,12 +463,16 @@ export default {
   omittedFieldsExample2: '[data-test-id="omitted-fields-example-2"]',
   omittedFieldsExample3: '[data-test-id="omitted-fields-example-3"]',
 
+  omittedFieldsExample5: '[data-test-id="omitted-fields-example-5"]',
+
   omittingFields1FormMealRequiredField:
     '[data-test-id="omitting-fields1-form-meal-required-field"]',
   omittingFields2FormMealRequiredField:
     '[data-test-id="omitting-fields2-form-meal-required-field"]',
   omittingFields3FormMealRequiredField:
     '[data-test-id="omitting-fields3-form-meal-required-field"]',
+  omittingFields5FormMealRequiredField:
+    '[data-test-id="omitting-fields5-form-meal-required-field"]',
 
   omittingFields1FormMealOptionField:
     '[data-test-id="omitting-fields1-form-meal-option-field"]',
@@ -476,6 +480,8 @@ export default {
     '[data-test-id="omitting-fields2-form-meal-option-field"]',
   omittingFields3FormMealOptionField:
     '[data-test-id="omitting-fields3-form-meal-option-field"]',
+  omittingFields5FormMealOptionField:
+    '[data-test-id="omitting-fields5-form-meal-option-field"]',
 
   omittingFields1FormMealRequiredFieldRadioOptionYes:
     '[data-test-id="omitting-fields1-form-meal-required-field-radio-option-yes"]',
@@ -483,6 +489,8 @@ export default {
     '[data-test-id="omitting-fields2-form-meal-required-field-radio-option-yes"]',
   omittingFields3FormMealRequiredFieldRadioOptionYes:
     '[data-test-id="omitting-fields3-form-meal-required-field-radio-option-yes"]',
+  omittingFields5FormMealRequiredFieldRadioOptionYes:
+    '[data-test-id="omitting-fields5-form-meal-required-field-radio-option-yes"]',
 
   omittingFields1FormMealRequiredFieldRadioOptionNo:
     '[data-test-id="omitting-fields1-form-meal-required-field-radio-option-no"]',
@@ -490,6 +498,8 @@ export default {
     '[data-test-id="omitting-fields2-form-meal-required-field-radio-option-no"]',
   omittingFields3FormMealRequiredFieldRadioOptionNo:
     '[data-test-id="omitting-fields3-form-meal-required-field-radio-option-no"]',
+  omittingFields5FormMealRequiredFieldRadioOptionNo:
+    '[data-test-id="omitting-fields5-form-meal-required-field-radio-option-no"]',
 
   omittingFields1FormMealOptionFieldRadioOptionBeef:
     '[data-test-id="omitting-fields1-form-meal-option-field-radio-option-beef"]',
@@ -497,6 +507,8 @@ export default {
     '[data-test-id="omitting-fields2-form-meal-option-field-radio-option-beef"]',
   omittingFields3FormMealOptionFieldRadioOptionBeef:
     '[data-test-id="omitting-fields3-form-meal-option-field-radio-option-beef"]',
+  omittingFields5FormMealOptionFieldRadioOptionBeef:
+    '[data-test-id="omitting-fields5-form-meal-option-field-radio-option-beef"]',
   nextButton: '[data-test-id="next-button"]',
 
   omittingFields4FormIsMemberFieldRadioOptionYes:

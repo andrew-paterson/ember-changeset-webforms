@@ -79,24 +79,14 @@ export default class FormField {
     }
   }
 
-  get dynamicallyOmitted() {
-    if (!this.dynamicOmission) {
-      return null;
+  get isOmitted() {
+    if (!this.omitted) {
+      return false;
     }
-    let result = this.dynamicOmission.omittedByDefault;
-    if (
-      this.overrideConditionsFulfilled(
-        this.dynamicOmission.toggleDefaultOmission,
-        this,
-      )
-    ) {
-      result = !result;
+    if (this.omitted === true) {
+      return this.omitted;
     }
-    return result;
-  }
-
-  overrideConditionsFulfilled(ruleSet, formField) {
-    return this.checkConditions(ruleSet, formField);
+    return this.checkConditions(this.omitted, this);
   }
 
   checkConditions(ruleSet, formField) {
@@ -106,10 +96,10 @@ export default class FormField {
       }
       return this.checkCondition(formField, condition);
     });
-    if (ruleSet.ruleType === 'allConditionsTrue') {
-      return results.includes(false) ? false : true;
-    } else if (ruleSet.ruleType === 'anyConditionsTrue') {
-      return results.includes(true) ? true : false;
+    if (ruleSet.where === 'allConditionsTrue') {
+      return results.includes(false) ? !ruleSet.returns : ruleSet.returns;
+    } else if (ruleSet.where === 'anyConditionsTrue') {
+      return results.includes(true) ? ruleSet.returns : !ruleSet.returns;
     }
   }
 
@@ -154,6 +144,15 @@ export default class FormField {
     if (Object.prototype.hasOwnProperty.call(this, 'defaultValue')) {
       this.updateValue(this.defaultValue, 'defaultApplied');
     }
+  }
+
+  setOmission(omitted) {
+    if (omitted) {
+      if (this.resetWhenOmitted) {
+        this.reset();
+      }
+    }
+    this.omitted = omitted;
   }
 
   reset() {

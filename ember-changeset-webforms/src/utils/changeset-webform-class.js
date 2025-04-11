@@ -57,13 +57,10 @@ export default class ChangesetWebform {
 
   setFieldOmission(fieldId, omitted) {
     const field = this.fields.find((field) => field.fieldId === fieldId);
-    if (omitted) {
-      const field = this.fields.find((field) => field.fieldId === fieldId);
-      if (field.resetWhenRemoved) {
-        field.reset();
-      }
+    if (!field) {
+      return;
     }
-    field.omitted = omitted;
+    field.setOmission(omitted);
   }
   validateFields() {
     return validateFields(this);

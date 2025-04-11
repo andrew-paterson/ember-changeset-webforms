@@ -12,7 +12,7 @@ export default async function onSubmit(changesetWebform, componentArgs) {
   let submitActionResponse;
   try {
     const savedChangeset = await changesetWebform.changeset.save();
-    submitActionResponse = savedChangeset;
+    submitActionResponse = savedChangeset.data;
     if (componentArgs.submitAction) {
       const submitAction = componentArgs.submitAction(
         savedChangeset.data,
