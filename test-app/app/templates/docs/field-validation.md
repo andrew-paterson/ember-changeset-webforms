@@ -2,9 +2,9 @@
 
 ## Validation events
 
-Under the hood, each field has `eventLog` and a `validatesOn` property, both of are arrays of event name strings.
+Under the hood, each field has an `eventLog` and `validatesOn` property, both of which are arrays of event name strings.
 
-Items are added to the `eventLog` array in response to various events, such as insertion of a field into the DOM, form submission, value updates, focussing out of inputs, and many others. Note that thes eare not limited the the names of actual browser events.
+Items are added to the `eventLog` array in response to various events, such as insertion of a field into the DOM, form submission, value updates, focussing out of inputs, and many others. Note that these are not limited the the names of actual browser events.
 
 The `validatesOn` property defines which events should enable validation for a field.
 
@@ -12,23 +12,26 @@ If there is any intersection between the `eventLog` and `validatesOn` arrays, va
 
 This means that by updating the `validatesOn` property of a field, you can control which events trigger the validation of a field.
 
-### The `alwaysValidateOn` array
+For example, when a field is inserted into the DOM with a value, `insertWithValue` is added to the `eventLog` array of the relevant field. Thus, if you add `insertWithValue` to the `validatesOn` array, the field will validate when inserted into the DOM, provided that it is inserted with a value.
 
-The `alwaysValidateOn` property is set by default on all built in field types, and implement out of the box validation, without the need to include the `validatesOn` property when invoking a field in a form schema.
+### The `alwaysValidateOn` property
 
-It differs slightly from one field type to another.
+Most use cases will require that certain events always trigger validation on all fields, or at least all fields of a certain type. For example it is common that:
 
-A field will validate:
+- clicking the submit button triggers validation on all fields, and
+- focussing out of an input field will always trigger validation on that field.
 
-- on focus out, if the field has a `fieldType` of `input` or `textarea`.
-- whenever the value of the field is changed by user interaction, except if the field has a `fieldType` of `input` or `textarea`, and the relevant `input` or `textarea` is currently focussed.
-- on key up, if the field has a `fieldType` of `input` or `textarea`, and the field has `keyUp` included in the `validatesOn` array (See the name field in the example below).
-- on insert, where the field has `insert` included in the `validatesOn` array, and the field is not empty (See the email field in the example below).
-- when the user submits the form, either by clicking the submit button, or by hitting th enter key when focussed into the `input` or `textarea` field (All fields with validation rules are validated in this instance).
+Assuming this is the desired behaviour, it would be needlessly repetitive to have to populate the `validatesOn` array with events such as `submit` for all fields and `focusOut` for all `input` fields.
 
-**Note that to validate on insert or key up, you must include the `validatesOn` array, and pass either or both of `['keyUp', 'insert']`.**
+For this reason, the addon defines an `alwaysValidateOn` in `fieldSettings` (Applicable to all fields), as well as each type of field. These defaults are shown below.
 
-Note also that the forms submit function will not be fired if any fields fail validation.
+<InterpolatedSimpleJsSnippet @object={{this.fieldSettingsValidateOnString}} @title="Addon defaults for alwaysValidateOn" />
+
+It is important to note the use of `$inherited` in field types. This causes the relevant `validatesOn` array to inherit the values from the `validatesOn` array in `fieldSettings`. Thus, `submit` is added to the `validatesOn` array for each field type.
+
+### Overriding `alwaysValidateOn`
+
+The addon defaults outlined above can be overridden at the app level, or within a particular form schema. See [http://localhost:6200/docs/configuration-options](http://localhost:6200/docs/configuration-options).
 
 ## Defining validation rules
 
@@ -40,13 +43,13 @@ With **Ember Changeset Webforms** the importing of the validations library, cons
 
 You need only specify the validations that you'd like to apply to each field in the `validationRules` array.
 
-Each item in a fields `validationRules` array is an object that must contain a `validationMethod` property, which must correspond to a validation rule in the [Ember Changeset Validations validator api](https://github.com/poteto/ember-changeset-validations#validator-api), or any custom validators that you have written (More on custom validators below).
+Each item in a field's `validationRules` array is an object that must contain a `validationMethod` property, which must correspond to a validation rule in the [Ember Changeset Validations validator api](https://github.com/poteto/ember-changeset-validations#validator-api), or any custom validators that you have written (More on custom validators below).
 
-Each item in a fields `validationRules` array may also include an `arguments` property, where you can pass the arguments relevant to the validator specified by the `validationMethod`.
+Each item in a field's `validationRules` array may also include an `arguments` property, where you can pass the arguments relevant to the validator specified by the `validationMethod`.
 
 Thus, the code below taken from the [Ember Changeset Validations usage docs](https://github.com/poteto/ember-changeset-validations#usage) on create a validations map:
 
-```
+```javascript
   firstName: [
     validatePresence(true),
     validateLength({ min: 4 })
@@ -55,15 +58,17 @@ Thus, the code below taken from the [Ember Changeset Validations usage docs](htt
 
 would be expressed as the below when defining a formSchema for the changeset-webform component.
 
-```
-validationRules: [{
-  validationMethod: 'validatePresence',
-  arguments: true
-}, {
-  validationMethod: 'validateLength',
-  arguments: { min: 4 }
-}]
-
+```javascript
+validationRules: [
+  {
+    validationMethod: 'validatePresence',
+    arguments: true,
+  },
+  {
+    validationMethod: 'validateLength',
+    arguments: { min: 4 },
+  },
+];
 ```
 
 ## Example

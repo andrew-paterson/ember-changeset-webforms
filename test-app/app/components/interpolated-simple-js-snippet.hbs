@@ -1,1 +1,11 @@
-<DocsCodeHighlight @language="javascript">{{this.string}}</DocsCodeHighlight>
+{{#if @title}}
+  <div
+    class="docs-bg-black docs-text-grey-lighter docs-text-xs docs-font-medium docs-py-2 docs-px-4 docs-rounded-t docs-border-b docs-border-grey-darkest docs-subpixel-antialiased __web-inspector-hide-shortcut__"
+  >
+    {{@title}}
+  </div>
+{{/if}}
+<DocsCodeHighlight
+  @language="javascript"
+  @label="test"
+>{{this.string}}</DocsCodeHighlight>
