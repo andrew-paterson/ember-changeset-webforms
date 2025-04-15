@@ -18,6 +18,12 @@ The `eventName` argument is optional, and defaults to `valueUpdated`. This is on
 
 ## `applyDefaultValue`
 
+Updates a field's value to its `defaultValue` prop.
+
 ## `reset`
 
+Discards any unsaved changes to the field's value, and unvalidates the field.
+
 ## `validate`
+
+Validates the field and returns the result of the validation.

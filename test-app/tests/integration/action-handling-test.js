@@ -62,7 +62,7 @@ function isValidationError(arg, opts) {
   return {
     name: 'validationError',
     present: opts.passedValidation
-      ? arg === undefined
+      ? arg === document.querySelector(nameFieldInput).value
       : arg?.validation && Array.isArray(arg.validation),
   };
 }
@@ -90,10 +90,10 @@ function isComponentArgs(arg) {
   };
 }
 
-function isValidationResult(arg) {
-  const firstFieldFirstValidation = arg[0][0];
+function isValidateFieldsResult(arg) {
+  const firstFieldFirstValidation = arg[0];
   return {
-    name: 'validationResult',
+    name: 'validateFieldsResult',
     present:
       Array.isArray(arg) &&
       (firstFieldFirstValidation ===
@@ -203,7 +203,7 @@ module('Integration | Component | Action handling', function (hooks) {
       afterClearForm: [isChangesetWebformObject],
       beforeResetForm: [isChangesetWebformObject],
       afterResetForm: [isChangesetWebformObject],
-      afterValidateFields: [isChangesetWebformObject, isValidationResult],
+      afterValidateFields: [isChangesetWebformObject, isValidateFieldsResult],
       beforeSubmitForm: [isChangesetWebformObject],
       submitSuccess: [isSuccessServerResponse, isChangesetWebformObject],
       submitError: [isErrorServerResponse, isChangesetWebformObject],

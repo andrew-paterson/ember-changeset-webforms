@@ -25,7 +25,6 @@ export default class InterpolatedSimpleJsSnippet extends Component {
         return `${parts[0].replace(/"/g, ``)}: ${parts[1].replace(/"/g, `'`)}`;
       })
       .join('\n');
-    console.log(final);
     return final;
   }
 }

@@ -1,7 +1,6 @@
 import { action } from '@ember/object';
 // BEGIN-SNIPPET after-generate-changeset-webform-form.js
 import Component from '@glimmer/component';
-import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import { tracked } from '@glimmer/tracking';
 
 export default class AfterGenerateChangesetWebformForm extends Component {
@@ -55,7 +54,7 @@ export default class AfterGenerateChangesetWebformForm extends Component {
   next() {
     const currentStep = this.step;
     const changesetWebform = this.changesetWebform;
-    validateFields(changesetWebform).then(() => {
+    this.changesetWebform.validate().then(() => {
       if (changesetWebform.changeset.isValid) {
         this.step = currentStep + 1;
       }

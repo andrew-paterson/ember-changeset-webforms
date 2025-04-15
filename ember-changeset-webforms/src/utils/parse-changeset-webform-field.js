@@ -95,10 +95,9 @@ function parse(fieldSchema, customValidators, formSettings, changeset) {
     });
   }
   field.validates = field.validationRules.length > 0 ? true : false;
-  // TODO get rid of fieldId
-  field.validatesOn = (field.validatesOn || []).concat(
-    field.alwaysValidateOn || [],
-  );
+  field.validatesOn = ['forceValidation']
+    .concat(field.validatesOn || [])
+    .concat(field.alwaysValidateOn || []);
   field.name =
     field.name ||
     safeName(`${formSettings.formName}-form-${field.fieldId}-field`);

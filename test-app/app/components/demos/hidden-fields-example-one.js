@@ -45,7 +45,7 @@ export default class FormWideClassSettingsComponent extends Component {
   };
 
   @action
-  onFieldValueChange(formField, changesetWebform, snapshot) {
+  async onFieldValueChange(formField, changesetWebform, snapshot) {
     if (formField.fieldId === 'mealRequired') {
       if (formField.fieldValue === 'Yes') {
         changesetWebform.setFieldOmission('mealOption', false);
@@ -53,9 +53,7 @@ export default class FormWideClassSettingsComponent extends Component {
         changesetWebform.setFieldOmission('mealOption', true);
       }
     }
-    changesetWebform.validateFields().then((res) => {
-      this.changesetIsValid = changesetWebform.changeset.isValid;
-    });
+    this.changesetIsValid = await changesetWebform.isValid();
   }
 
   // END-SNIPPET

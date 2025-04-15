@@ -1,0 +1,46 @@
+<DocsDemo as |demo|>
+  <demo.example @name="form-methods-example-4.hbs" data-test-id="example-4">
+    <div class="border rounded p-2 mb-4 bg-light">
+      <b class="mb-2">These buttons are outside of the ChangesetWebform
+        component</b>
+      <div class="d-flex mt-2">
+        <button
+          data-test-id="check-if-form-is-valid"
+          class="btn btn-primary me-2"
+          type="button"
+          {{on "click" this.checkFormValidity}}
+        >Check if form is valid</button>
+
+      </div>
+      {{#if this.formValidityChecked}}
+        <div class="mt-2">
+          {{#if this.formIsValid}}
+            <div
+              class="alert alert-success mb-0"
+              data-test-id="alert-success"
+            >Form is valid</div>
+          {{else}}
+            <div
+              class="alert alert-danger mb-0"
+              data-test-id="alert-danger"
+            >Form is not valid</div>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="form-methods-example-4.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="form-methods-example-4.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

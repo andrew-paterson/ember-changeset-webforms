@@ -2,7 +2,6 @@ import { tracked } from '@glimmer/tracking';
 import createChangeset from './create-changeset.js';
 import getWithDefaultUtil from './get-with-default.js';
 import parseChangesetWebformField from './parse-changeset-webform-field.js';
-import validateFields from './validate-fields.js';
 import FormSettings from './form-settings.js';
 
 export default class ChangesetWebform {
@@ -62,7 +61,32 @@ export default class ChangesetWebform {
     }
     field.setOmission(omitted);
   }
+
+  async isValid() {
+    const fields = this.fields.filter((field) => {
+      return field.validates && !field.isOmitted;
+    });
+    for (var field of fields) {
+      await this.changeset.validate(field.propertyName);
+    }
+    return this.changeset.isValid;
+  }
+
+  async validate(opts) {
+    var validatePromises = this.fields
+      .map((field) => {
+        return field.validate(opts);
+      })
+      .filter((item) => item);
+    return await Promise.all(validatePromises);
+  }
+
   validateFields() {
-    return validateFields(this);
+    var validatePromises = this.fields
+      .map((field) => {
+        return field.validateField();
+      })
+      .filter((item) => item);
+    return Promise.all(validatePromises);
   }
 }

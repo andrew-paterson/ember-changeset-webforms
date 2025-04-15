@@ -134,7 +134,7 @@ export default class FormField {
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
     changeset.set(this.propertyName, value);
-    this.validate();
+    this.validate({ skipUnvalidated: true });
   }
 
   applyDefaultValue() {
@@ -161,25 +161,24 @@ export default class FormField {
     removeAll(this.eventLog);
   }
 
-  validate() {
-    return new Promise((resolve, reject) => {
-      const formField = this;
-      const changeset = this.changeset;
-      if (!formField.validates) {
-        return;
-      }
-      if (!this.eventLogValidated.length) {
-        return;
-      }
-      changeset
-        .validate(formField.propertyName)
-        .then(() => {
-          const fieldValidationErrors = changeset.error[formField.propertyName];
-          resolve(fieldValidationErrors);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+  async validate(opts = {}) {
+    if (!('skipUnvalidated' in opts) || opts.skipUnvalidated !== true) {
+      this.eventLog.push('forceValidation');
+    }
+    return await this.validateField();
+  }
+
+  async validateField() {
+    const formField = this;
+    const changeset = this.changeset;
+    if (
+      !formField.validates ||
+      formField.isOmitted ||
+      !this.eventLogValidated.length
+    ) {
+      return;
+    }
+    const res = await changeset.validate(formField.propertyName);
+    return res[this.index];
   }
 }

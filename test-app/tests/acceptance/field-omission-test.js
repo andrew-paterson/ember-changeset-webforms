@@ -149,7 +149,7 @@ function checkStateMealRequiredNotSet(assert, opts = {}) {
     .doesNotExist('Omitted meal option field does not exist on load.');
 }
 
-async function selectMealRequiredYes(assert, opts = {}, env) {
+async function selectMealRequiredYes(assert, opts = {}) {
   await click(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredFieldRadioOptionYes`]} input`,
   );

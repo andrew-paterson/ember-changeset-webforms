@@ -1,0 +1,30 @@
+<DocsDemo as |demo|>
+  <demo.example @name="form-methods-example-1.hbs" data-test-id="example-1">
+    <div class="border rounded p-2 mb-4 bg-light">
+      <b class="mb-2">These buttons are outside of the ChangesetWebform
+        component</b>
+      <div class="d-flex mt-2">
+        <button
+          data-test-id="validate-externally"
+          class="btn btn-primary me-2"
+          type="button"
+          {{on "click" this.externalValidation}}
+        >Validate externally</button>
+      </div>
+    </div>
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="form-methods-example-1.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="form-methods-example-1.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

@@ -1,23 +1,40 @@
-# Form methods
+# `changesetWebform` class methods
 
-The `changesetWebform` object has the following methods. It is included as an argument in all action calls. See [Action handling](docs/action-handling) for more details on action calls and their arguments.
+Every instance of the instance of the ChangesetWebform component is underpinned by an instance of the `changesetWebform` class instance. It has several methods which apply to the form as a whole, outlined below.
 
-- validateFields
-- setFieldOmission
+Note that the `changesetWebform` instance is included as an argument in all action callbacks. See [Action handling](docs/action-handling).
 
-## `validateFields`
+## `validate`
 
-An asynchronous method that returns a promise, which resolves to an array containing the validations results for each field.
+Arguments: (`opts`)
 
-Rather then simple validating the entire changeset, which is the behaviour of `changeset.validate`, the `validateFields` method validates a subset of the changeset properties, based on the state of the related field.
+Validates all fields which are not omitted (See [Hiding and showing fields](/docs/hiding-and-showing-fields)).
 
-Specifically, it will only validate those fields which:
+<Demos::FormMethodsExampleOne />
 
-- are currently included in the DOM (See [Hiding and showing fields](/docs/hiding-and-showing-fields))
-- do not have `skipValidation` set to true.
+If you would like to only revalidate fields which have already been validated, set `opts.skipUnvalidated` to `true`.
+
+<Demos::FormMethodsExampleTwo />
 
 ## `setFieldOmission`
 
-Allows you to updated whether or not a form field is omitted by passing the `fieldId` and a boolean value.
+Allows you to update whether or not a form field is omitted, by passing the `fieldId` and a boolean value.
 
 See [/docs/hiding-and-showing-fields#the-setfieldomission-method](/docs/hiding-and-showing-fields#the-setfieldomission-method).
+
+<Demos::FormMethodsExampleThree />
+
+## `isValid`
+
+Checks the validation of all fields which:
+
+- have validation rules and,
+- are not currently omitted.
+
+If all such fields are valid, it returns `true`, otherwise it returns `false`.
+
+Note that this method also checks the validation of fields which have not yet been validated, but does not trigger any validation UI on those fields.
+
+Thus, in the example below, if you click the "Check if form is valid" button while both fields are empty and unvalidated, the alert will show that the form is not valid, but the form itself will not update in any way.
+
+<Demos::FormMethodsExampleFour />
