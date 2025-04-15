@@ -1,5 +1,5 @@
 <DocsDemo as |demo|>
-  <demo.example @name="form-methods-example-2.hbs" data-test-id="example-2">
+  <demo.example @name="field-methods-example-2.hbs" data-test-id="example-2">
     <div class="border rounded p-2 mb-4 bg-light">
       <b class="mb-2">These buttons are outside of the ChangesetWebform
         component</b>
@@ -9,7 +9,7 @@
           class="btn btn-primary me-2"
           type="button"
           {{on "click" this.externalValidation}}
-        >Update email and validate externally</button>
+        >Validate externally</button>
       </div>
     </div>
     <ChangesetWebform
@@ -19,12 +19,12 @@
     />
   </demo.example>
   <demo.snippet
-    @name="form-methods-example-2.js"
+    @name="field-methods-example-2.js"
     @label="component js"
     @language="javascript"
   />
   <demo.snippet
-    @name="form-methods-example-2.hbs"
+    @name="field-methods-example-2.hbs"
     @label="template"
     @language="htmlbars"
   />

@@ -2,18 +2,18 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-1.js"
+export default class fieldMethodsExample1Component extends Component {
+  // BEGIN-SNIPPET field-methods-example-2.js"
   formSchema = {
     formSettings: {
-      formName: 'formMethods1',
+      formName: 'fieldMethods2',
       hideSubmitButton: true,
     },
     fields: [
       {
         fieldId: 'name',
         fieldType: 'input',
-        fieldLabel: 'Name',
+        fieldLabel: 'Name (Min 3 chars)',
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -21,18 +21,11 @@ export default class FormMethodsExample1Component extends Component {
               presence: true,
             },
           },
-        ],
-      },
-      {
-        fieldId: 'email',
-        fieldType: 'input',
-        inputType: 'email',
-        fieldLabel: 'Email',
-        validationRules: [
           {
-            validationMethod: 'validatePresence',
+            validationMethod: 'validateLength',
             arguments: {
-              presence: true,
+              min: 3,
+              // max: 3,
             },
           },
         ],
@@ -42,12 +35,15 @@ export default class FormMethodsExample1Component extends Component {
 
   @action
   afterGenerateChangesetWebform(changesetWebform) {
-    this.changesetWebform = changesetWebform;
+    this.nameField = changesetWebform.fields.find(
+      (field) => field.fieldId === 'name',
+    );
   }
 
   @action
   async externalValidation() {
-    await this.changesetWebform.validate();
+    this.nameField.updateValue('New Name');
+    await this.nameField.validate({ skipUnvalidated: true });
   }
   // END-SNIPPET
 }

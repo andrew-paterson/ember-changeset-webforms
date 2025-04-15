@@ -9,7 +9,7 @@
   data-test-option="radio-option-{{@option.value}}"
   data-test-labelled-radio-button
 >
-  <RadioButton
+  <Background::RadioButton
     @value={{@value}}
     @groupValue={{@groupValue}}
     @name={{@name}}
@@ -17,11 +17,12 @@
     @radioId={{this.radioId}}
     @disabled={{@disabled}}
     @ariaLabelledby={{this.labelId}}
-    @radioClass="{{ember-changeset-webforms/dynamic-class-names
-      'radioButtonElement'
-      @changesetWebform
-      @formField
-    }}"
+    data-custom-validity
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'radioButtonElement'
+        @changesetWebform
+        @formField
+      }}"
   />
   <Background::OptionLabelComponent
     @optionLabelComponent={{@optionLabelComponent}}

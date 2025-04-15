@@ -52,7 +52,7 @@ module('Acceptance | Form methods', function (hooks) {
       cth.passedValidation(
         '[data-test-id="example-1"] [data-test-id="form-methods1-form-email-field"]',
       ),
-      'Email fields passes validation with UI triggered when external validate button is clicked and field is efilled in correctly',
+      'Email fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
   });
 
@@ -91,7 +91,7 @@ module('Acceptance | Form methods', function (hooks) {
     await visit('docs/form-methods');
     assert
       .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods1-form-email-field"]',
+        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
       )
       .exists('Email field exists on load');
     await click(
@@ -99,7 +99,7 @@ module('Acceptance | Form methods', function (hooks) {
     );
     assert
       .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods1-form-email-field"]',
+        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
       )
       .doesNotExist(
         'Email field does not exist after clicking external toggle email button',
@@ -109,7 +109,7 @@ module('Acceptance | Form methods', function (hooks) {
     );
     assert
       .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods1-form-email-field"]',
+        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
       )
       .exists(
         'Email field exists after clicking external toggle email button again',

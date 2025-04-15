@@ -4,12 +4,9 @@ import { tracked } from '@glimmer/tracking';
 
 export default class FormMethodsExample1Component extends Component {
   // BEGIN-SNIPPET form-methods-example-2.js"
-  @tracked formIsValid;
-  @tracked formValidityChecked;
-
   formSchema = {
     formSettings: {
-      formName: 'formMethods1',
+      formName: 'formMethods2',
       hideSubmitButton: true,
     },
     fields: [

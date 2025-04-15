@@ -1,30 +1,30 @@
 <DocsDemo as |demo|>
-  <demo.example @name="form-methods-example-2.hbs" data-test-id="example-2">
+  <demo.example @name="field-methods-example-6.hbs" data-test-id="example-6">
     <div class="border rounded p-2 mb-4 bg-light">
       <b class="mb-2">These buttons are outside of the ChangesetWebform
         component</b>
       <div class="d-flex mt-2">
         <button
-          data-test-id="validate-externally"
+          data-test-id="reset-name-field"
           class="btn btn-primary me-2"
           type="button"
-          {{on "click" this.externalValidation}}
-        >Update email and validate externally</button>
+          {{on "click" this.resetNameField}}
+        >Reset name field</button>
+
       </div>
     </div>
     <ChangesetWebform
       @formSchema={{this.formSchema}}
-      @data={{hash email="not-a-valid-email"}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
     />
   </demo.example>
   <demo.snippet
-    @name="form-methods-example-2.js"
+    @name="field-methods-example-6.js"
     @label="component js"
     @language="javascript"
   />
   <demo.snippet
-    @name="form-methods-example-2.hbs"
+    @name="field-methods-example-6.hbs"
     @label="template"
     @language="htmlbars"
   />

@@ -81,6 +81,8 @@
       "./components/background/power-select-checkboxes-trigger.js": "./dist/_app_/components/background/power-select-checkboxes-trigger.js",
       "./components/background/power-select-option-checkbox.js": "./dist/_app_/components/background/power-select-option-checkbox.js",
       "./components/background/power-select-option.js": "./dist/_app_/components/background/power-select-option.js",
+      "./components/background/radio-button-input.js": "./dist/_app_/components/background/radio-button-input.js",
+      "./components/background/radio-button.js": "./dist/_app_/components/background/radio-button.js",
       "./components/background/time-part-input.js": "./dist/_app_/components/background/time-part-input.js",
       "./components/changeset-webform.js": "./dist/_app_/components/changeset-webform.js",
       "./components/ember-changeset-webforms/cloned-field-elements/add-clone-button.js": "./dist/_app_/components/ember-changeset-webforms/cloned-field-elements/add-clone-button.js",

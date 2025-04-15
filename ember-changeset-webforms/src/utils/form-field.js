@@ -128,8 +128,12 @@ export default class FormField {
     return true;
   }
 
-  updateValue(value, eventName = 'valueUpdated') {
+  updateValue(value, eventName) {
+    console.log(this.fieldId);
+    console.log('updateValue');
+    console.log(eventName);
     this.snapshots.push(this.changeset.snapshot());
+    // this.eventLog.push('valueUpdated');
     this.eventLog.push(eventName);
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
@@ -137,14 +141,14 @@ export default class FormField {
     this.validate({ skipUnvalidated: true });
   }
 
-  applyDefaultValue() {
-    if (this.fieldValue !== undefined) {
-      return;
-    }
-    if (Object.prototype.hasOwnProperty.call(this, 'defaultValue')) {
-      this.updateValue(this.defaultValue, 'defaultApplied');
-    }
-  }
+  // applyDefaultValue() {
+  //   if (this.fieldValue !== undefined) {
+  //     return;
+  //   }
+  //   if (Object.prototype.hasOwnProperty.call(this, 'defaultValue')) {
+  //     this.updateValue(this.defaultValue, 'defaultApplied');
+  //   }
+  // }
 
   setOmission(omitted) {
     if (omitted) {
@@ -179,6 +183,9 @@ export default class FormField {
       return;
     }
     const res = await changeset.validate(formField.propertyName);
+    (formField.customValidityEls || []).forEach((el) => {
+      el.setCustomValidity((this.validationErrors || []).join());
+    });
     return res[this.index];
   }
 }

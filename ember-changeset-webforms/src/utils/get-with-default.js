@@ -191,7 +191,7 @@ const addonDefaults = {
       placeholder: null, // String - placeholder text of the input
       trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
-      alwaysValidateOn: ['$inherited', 'focusOut', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'focusOut'], // Array of strings
       // END-SNIPPET
       componentClass: InputComponent,
     },
@@ -227,7 +227,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET textarea-field-options.js
       fieldType: 'textarea',
       autofocus: false, // Boolean - whether to autofocus the input on insert
-      alwaysValidateOn: ['$inherited', 'focusOut', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'focusOut'], // Array of strings
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
       // END-SNIPPET
       componentClass: TextareaComponent,

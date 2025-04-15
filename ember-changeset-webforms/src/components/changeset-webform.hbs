@@ -39,11 +39,7 @@
           @afterClickAddCloneButton={{@afterClickAddCloneButton}}
           @formSettings={{this.formSettings}}
           @formFields={{this.changesetWebform.fields}}
-          @onFormSubmit={{fn
-            this.onFormSubmit
-            this.changesetWebform
-            this.formSettings.modelName
-          }}
+          @onFormSubmit={{fn this.onFormSubmit this.changesetWebform}}
           @afterFieldValidation={{this.afterFieldValidation}}
           @onFieldValueChange={{this.onFieldValueChange}}
           @onUserInteraction={{this.onUserInteraction}}

@@ -4,12 +4,9 @@ import { tracked } from '@glimmer/tracking';
 
 export default class FormMethodsExample1Component extends Component {
   // BEGIN-SNIPPET form-methods-example-3.js"
-  @tracked formIsValid;
-  @tracked formValidityChecked;
-
   formSchema = {
     formSettings: {
-      formName: 'formMethods1',
+      formName: 'formMethods3',
       hideSubmitButton: true,
     },
     fields: [
@@ -49,22 +46,11 @@ export default class FormMethodsExample1Component extends Component {
   }
 
   @action
-  async externalValidation() {
-    await this.changesetWebform.validate();
-  }
-
-  @action
   toggleEmailField() {
     const emailField = this.changesetWebform.fields.find(
       (field) => field.fieldId === 'email',
     );
     this.changesetWebform.setFieldOmission('email', !emailField.isOmitted);
-  }
-
-  @action
-  async checkFormValidity() {
-    this.formValidityChecked = true;
-    this.formIsValid = await this.changesetWebform.isValid();
   }
   // END-SNIPPET
 }

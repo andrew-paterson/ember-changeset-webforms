@@ -42,14 +42,19 @@ export default class ValidatingField extends Component {
   }
 
   @action
-  didInsert() {
+  didInsert(element) {
     var formField = this.args.formField;
     formField.eventLog.push('insert');
     if (formField.fieldValue) {
       formField.eventLog.push('insertWithValue');
     }
-    this.validateField(formField);
-    this.args.afterFieldInserted(formField);
+    setTimeout(() => {
+      formField.customValidityEls = element.querySelectorAll(
+        '[data-custom-validity]',
+      );
+      this.validateField(formField);
+      this.args.afterFieldInserted(formField);
+    });
   }
 
   @action

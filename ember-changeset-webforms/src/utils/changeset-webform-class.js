@@ -40,7 +40,7 @@ export default class ChangesetWebform {
       formField.dynamicIncludeExcludeConditions =
         dynamicIncludeExcludeConditions;
       formField.snapshots = snapshots;
-      formField.applyDefaultValue();
+      // formField.applyDefaultValue();
     });
     this.debug = debug;
     this.changeset = changeset;

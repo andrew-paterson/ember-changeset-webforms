@@ -2,14 +2,14 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-4.js"
+export default class fieldMethodsExample1Component extends Component {
+  // BEGIN-SNIPPET field-methods-example-1.js"
   @tracked formIsValid;
   @tracked formValidityChecked;
 
   formSchema = {
     formSettings: {
-      formName: 'formMethods4',
+      formName: 'fieldMethods1',
       hideSubmitButton: true,
     },
     fields: [
@@ -26,32 +26,19 @@ export default class FormMethodsExample1Component extends Component {
           },
         ],
       },
-      {
-        fieldId: 'email',
-        fieldType: 'input',
-        inputType: 'email',
-        fieldLabel: 'Email',
-        validationRules: [
-          {
-            validationMethod: 'validatePresence',
-            arguments: {
-              presence: true,
-            },
-          },
-        ],
-      },
     ],
   };
 
   @action
   afterGenerateChangesetWebform(changesetWebform) {
-    this.changesetWebform = changesetWebform;
+    this.nameField = changesetWebform.fields.find(
+      (field) => field.fieldId === 'name',
+    );
   }
 
   @action
-  async checkFormValidity() {
-    this.formValidityChecked = true;
-    this.formIsValid = await this.changesetWebform.isValid();
+  async externalValidation() {
+    await this.nameField.validate();
   }
   // END-SNIPPET
 }

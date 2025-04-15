@@ -2,11 +2,11 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-1.js"
+export default class fieldMethodsExample1Component extends Component {
+  // BEGIN-SNIPPET field-methods-example-6.js"
   formSchema = {
     formSettings: {
-      formName: 'formMethods1',
+      formName: 'fieldMethods6',
       hideSubmitButton: true,
     },
     fields: [
@@ -14,20 +14,7 @@ export default class FormMethodsExample1Component extends Component {
         fieldId: 'name',
         fieldType: 'input',
         fieldLabel: 'Name',
-        validationRules: [
-          {
-            validationMethod: 'validatePresence',
-            arguments: {
-              presence: true,
-            },
-          },
-        ],
-      },
-      {
-        fieldId: 'email',
-        fieldType: 'input',
-        inputType: 'email',
-        fieldLabel: 'Email',
+        defaultValue: 'Default Name',
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -42,12 +29,14 @@ export default class FormMethodsExample1Component extends Component {
 
   @action
   afterGenerateChangesetWebform(changesetWebform) {
-    this.changesetWebform = changesetWebform;
+    this.nameField = changesetWebform.fields.find(
+      (field) => field.fieldId === 'name',
+    );
   }
 
-  @action
-  async externalValidation() {
-    await this.changesetWebform.validate();
+  @action resetNameField() {
+    this.nameField.reset();
   }
+
   // END-SNIPPET
 }

@@ -5,9 +5,7 @@ export default class SignupFormComponent extends Component {
   formSchema = {
     formSettings: {
       formName: 'Signup',
-      submitSuccessMessage: 'Thank you for signing up.',
       submitButtonText: 'Sign up',
-      modelName: 'user', // TODO required?
       clearFormAfterSubmit: true,
       resetFormButton: true,
       clearFormButton: true,
@@ -17,8 +15,8 @@ export default class SignupFormComponent extends Component {
         fieldId: 'name',
         fieldLabel: 'Name',
         fieldType: 'input',
-        validatesOn: ['insertWithValue'],
         showValidationWhenFocussed: true,
+        defaultValue: 'Steve Holt',
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -163,7 +161,7 @@ export default class SignupFormComponent extends Component {
             arguments: {
               min: 2,
               allowNone: false,
-              message: 'You must select at least one cookie consent option.',
+              message: 'You must select at least two cookie consent options.',
             },
           },
         ],

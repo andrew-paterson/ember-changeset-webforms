@@ -5,6 +5,7 @@
       @formField
     }}"
   value={{@formField.fieldValue}}
+  data-custom-validity
   {{did-insert this.didInsert}}
   {{on "keyup" (fn this.onUserInteraction "keyUp")}}
   {{on "keydown" (fn this.onUserInteraction "keyDown")}}
