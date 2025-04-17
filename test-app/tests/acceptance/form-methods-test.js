@@ -13,45 +13,37 @@ module('Acceptance | Form methods', function (hooks) {
       '[data-test-id="example-1"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      cth.failedValidation(
-        '[data-test-id="example-1"] [data-test-id="form-methods1-form-name-field"]',
-      ),
+      cth.failedValidation('[data-test-id="form-methods1-form-name-field"]'),
       'Name fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     assert.ok(
-      cth.failedValidation(
-        '[data-test-id="example-1"] [data-test-id="form-methods1-form-email-field"]',
-      ),
+      cth.failedValidation('[data-test-id="form-methods1-form-email-field"]'),
       'Email fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     await fillIn(
-      '[data-test-id="example-1"] [data-test-id="form-methods1-form-name-field"] input',
+      '[data-test-id="form-methods1-form-name-field"] input',
       'Steve Holt',
     );
     await triggerKeyEvent(
-      '[data-test-id="example-1"] [data-test-id="form-methods1-form-name-field"] input',
+      '[data-test-id="form-methods1-form-name-field"] input',
       'keyup',
       13,
     );
     await fillIn(
-      '[data-test-id="example-1"] [data-test-id="form-methods1-form-email-field"] input',
+      '[data-test-id="form-methods1-form-email-field"] input',
       'steveholt@bluthcompany.com',
     );
     await triggerKeyEvent(
-      '[data-test-id="example-1"] [data-test-id="form-methods1-form-email-field"] input',
+      '[data-test-id="form-methods1-form-email-field"] input',
       'keyup',
       13,
     );
     assert.ok(
-      cth.passedValidation(
-        '[data-test-id="example-1"] [data-test-id="form-methods1-form-name-field"]',
-      ),
+      cth.passedValidation('[data-test-id="form-methods1-form-name-field"]'),
       'Name fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
     assert.ok(
-      cth.passedValidation(
-        '[data-test-id="example-1"] [data-test-id="form-methods1-form-email-field"]',
-      ),
+      cth.passedValidation('[data-test-id="form-methods1-form-email-field"]'),
       'Email fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
   });
@@ -59,30 +51,22 @@ module('Acceptance | Form methods', function (hooks) {
   test('validate method with skipUnvalidated', async function (assert) {
     await visit('docs/form-methods');
     assert.notOk(
-      await cth.wasValidated(
-        '[data-test-id="example-2"] [data-test-id="form-methods1-form-name-field"]',
-      ),
+      await cth.wasValidated('[data-test-id="form-methods2-form-name-field"]'),
       'Name is not validated on insert.',
     );
     assert.ok(
-      cth.failedValidation(
-        '[data-test-id="example-2"] [data-test-id="form-methods1-form-email-field"]',
-      ),
+      cth.failedValidation('[data-test-id="form-methods2-form-email-field"]'),
       'Email fields fails validation with UI triggered when inserted with invalid value',
     );
     await click(
       '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     );
     assert.notOk(
-      await cth.wasValidated(
-        '[data-test-id="example-2"] [data-test-id="form-methods1-form-name-field"]',
-      ),
+      await cth.wasValidated('[data-test-id="form-methods2-form-name-field"]'),
       'Name is not validated when external validate button is clicked',
     );
     assert.ok(
-      cth.passedValidation(
-        '[data-test-id="example-2"] [data-test-id="form-methods1-form-email-field"]',
-      ),
+      cth.passedValidation('[data-test-id="form-methods2-form-email-field"]'),
       'Email fields is revalidated with with UI triggered when external validate button is clicked',
     );
   });
@@ -90,17 +74,13 @@ module('Acceptance | Form methods', function (hooks) {
   test('setFieldOmission method', async function (assert) {
     await visit('docs/form-methods');
     assert
-      .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
-      )
+      .dom('[data-test-id="form-methods3-form-email-field"]')
       .exists('Email field exists on load');
     await click(
       '[data-test-id="example-3"] [data-test-id="toggle-email-field"]',
     );
     assert
-      .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
-      )
+      .dom('[data-test-id="form-methods3-form-email-field"]')
       .doesNotExist(
         'Email field does not exist after clicking external toggle email button',
       );
@@ -108,9 +88,7 @@ module('Acceptance | Form methods', function (hooks) {
       '[data-test-id="example-3"] [data-test-id="toggle-email-field"]',
     );
     assert
-      .dom(
-        '[data-test-id="example-3"] [data-test-id="form-methods3-form-email-field"]',
-      )
+      .dom('[data-test-id="form-methods3-form-email-field"]')
       .exists(
         'Email field exists after clicking external toggle email button again',
       );
@@ -125,20 +103,20 @@ module('Acceptance | Form methods', function (hooks) {
       .dom('[data-test-id="example-4"] [data-test-id="alert-danger"]')
       .hasText('Form is not valid', 'Alert shows correct danger message');
     await fillIn(
-      '[data-test-id="example-4"] [data-test-id="form-methods1-form-name-field"] input',
+      '[data-test-id="form-methods4-form-name-field"] input',
       'Steve Holt',
     );
     await triggerKeyEvent(
-      '[data-test-id="example-4"] [data-test-id="form-methods1-form-name-field"] input',
+      '[data-test-id="form-methods4-form-name-field"] input',
       'keyup',
       13,
     );
     await fillIn(
-      '[data-test-id="example-4"] [data-test-id="form-methods1-form-email-field"] input',
+      '[data-test-id="form-methods4-form-email-field"] input',
       'steveholt@bluthcompany.com',
     );
     await triggerKeyEvent(
-      '[data-test-id="example-4"] [data-test-id="form-methods1-form-email-field"] input',
+      '[data-test-id="form-methods4-form-email-field"] input',
       'keyup',
       13,
     );

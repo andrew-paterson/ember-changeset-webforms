@@ -1,0 +1,28 @@
+<DocsDemo as |demo|>
+  <demo.example @name="field-settings-custom-parser.hbs">
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @onFieldValueChange={{this.updatePhoneNumber}}
+      @customValidators={{this.customValidators}}
+    />
+    {{#if this.phoneNumber}}
+      The phone number entered is
+      {{this.phoneNumber}}
+    {{/if}}
+  </demo.example>
+  <demo.snippet
+    @name="custom-parser-in-service.js"
+    @label="services/ember-changeset-webforms.js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="field-settings-custom-parser.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="field-settings-custom-parser.hbs"
+    @label="component hbs"
+    @language="htmlbars"
+  />
+</DocsDemo>

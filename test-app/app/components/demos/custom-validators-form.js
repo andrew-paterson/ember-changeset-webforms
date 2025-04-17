@@ -16,38 +16,38 @@ export default class IntegratingCustomValidators extends Component {
     },
     fields: [
       {
-        fieldId: 'primaryEmail',
-        fieldLabel: 'Primary Email',
+        fieldId: 'primaryNumber',
+        fieldLabel: 'Primary Number',
         fieldType: 'input',
+        inputType: 'text',
         validationRules: [
           {
             validationMethod: 'validateUniqueness',
             arguments: {
               descriptionsMap: {
-                primaryEmail: 'primary email',
-                recoveryEmail: 'recovery email',
+                primaryNumber: 'primary number',
+                recoveryNumber: 'recovery number',
               },
             },
           },
         ],
-        inputType: 'email',
       },
       {
-        fieldId: 'recoveryEmail',
-        fieldLabel: 'Recovery Email',
+        fieldId: 'recoveryNumber',
+        fieldLabel: 'Recovery Number',
         fieldType: 'input',
+        inputType: 'text',
         validationRules: [
           {
             validationMethod: 'validateUniqueness',
             arguments: {
               descriptionsMap: {
-                primaryEmail: 'primary email',
-                recoveryEmail: 'recovery email',
+                primaryNumber: 'primary number',
+                recoveryNumber: 'recovery number',
               },
             },
           },
         ],
-        inputType: 'email',
       },
     ],
   };

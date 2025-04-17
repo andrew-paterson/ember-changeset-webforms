@@ -16,7 +16,6 @@ export default class SignupFormComponent extends Component {
         fieldLabel: 'Name',
         fieldType: 'input',
         showValidationWhenFocussed: true,
-        defaultValue: 'Steve Holt',
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -188,7 +187,7 @@ export default class SignupFormComponent extends Component {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 2000);
+      }, 500);
     });
   }
 }

@@ -12,20 +12,16 @@ export default async function onSubmit(changesetWebform, componentArgs) {
   let submitActionResponse;
   try {
     const savedChangeset = await changesetWebform.changeset.save();
-    submitActionResponse = savedChangeset.data;
+    submitActionResponse = savedChangeset;
     if (componentArgs.submitAction) {
-      const submitAction = componentArgs.submitAction(
+      submitActionResponse = await componentArgs.submitAction(
         savedChangeset.data,
         changesetWebform,
       );
-      submitActionResponse = await submitAction;
     }
     changesetWebform.formSettings.requestInFlight = false;
     if (componentArgs.submitSuccess) {
       componentArgs.submitSuccess(submitActionResponse, changesetWebform);
-    }
-    if (changesetWebform.formSettings.clearFormAfterSubmit) {
-      componentArgs.clearForm(changesetWebform);
     }
   } catch (err) {
     changesetWebform.formSettings.requestInFlight = false;

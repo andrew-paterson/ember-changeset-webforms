@@ -1,9 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { TrackedArray } from 'tracked-built-ins';
-import FormFieldClone from '../../../utils/form-field-clone.js';
-import removeObject from '../../../utils/remove-object.js';
 import './validating-clone-group.css';
 
 class destinationElementClass {
@@ -72,8 +69,7 @@ export default class ValidatingCloneGroup extends Component {
   @action
   didInsertWrapper(namespace, element) {
     var masterFormField = this.args.masterFormField;
-    const changeset = this.args.changesetWebform.changeset;
-    var groupValue = changeset.get(masterFormField.propertyName) || [];
+    var groupValue = masterFormField.fieldValue || [];
     groupValue.forEach(() => {
       this.cloneField({ fromData: true });
     });
@@ -95,68 +91,15 @@ export default class ValidatingCloneGroup extends Component {
   @action
   cloneField(opts = {}) {
     var masterFormField = this.args.masterFormField;
-    var newField = { ...masterFormField.clonedFieldBlueprint };
-    newField.id = `${masterFormField.id}-clone-${this.cloneId(masterFormField)}`;
-    newField.isClone = true;
-    newField.cloneId = this.cloneId(masterFormField);
-    newField.eventLog = TrackedArray.from([]); // BD must recreate this, otherwise all clones share the same instance of eventLog array.
-    const clone = new FormFieldClone(newField);
-    clone.changeset = this.args.changesetWebform.changeset;
-    clone.masterFormField = masterFormField;
-    masterFormField.clonedFields.push(clone);
-    clone.index = masterFormField.clonedFields.indexOf(clone);
-    var lastIndex = masterFormField.clonedFields.length - 1;
-    masterFormField.lastUpdatedClone = {
-      // Useful for something like swapping field values between clones.
-      index: lastIndex,
-      previousValue: null,
-    };
-    if (!opts.fromData) {
-      var fieldValue =
-        this.args.changesetWebform.changeset.get(
-          masterFormField.propertyName,
-        ) || [];
-      fieldValue.push(opts.newCloneValue || newField.defaultValue);
-      this.args.updateFieldValue(fieldValue, masterFormField);
-    }
-    this.checkMinMaxClones(masterFormField);
+    masterFormField.cloneField(opts);
   }
 
   @action
   removeClone(clone) {
     var masterFormField = this.args.masterFormField;
-    var index = masterFormField.clonedFields.indexOf(clone);
-    removeObject(masterFormField.clonedFields, clone);
-    this.checkMinMaxClones(masterFormField);
-    var groupValue =
-      this.args.changesetWebform.changeset.get(masterFormField.propertyName) ||
-      []; //TODO check this.
-    groupValue.splice(index, 1);
-    masterFormField.eventLog.push('removeClone');
-    this.args.updateFieldValue(groupValue, masterFormField);
-
-    masterFormField.clonedFields.forEach((clone, index) => {
-      clone.index = index;
-    });
+    masterFormField.removeClone(clone);
     if (this.args.onUserInteraction) {
       this.args.onUserInteraction('removeClone');
-    }
-  }
-
-  @action
-  checkMinMaxClones(masterFormField) {
-    if (
-      masterFormField.maxClones &&
-      masterFormField.clonedFields.length >= masterFormField.maxClones
-    ) {
-      masterFormField.cloneCountStatus = 'max';
-    } else if (
-      masterFormField.minClones &&
-      masterFormField.clonedFields.length === masterFormField.minClones
-    ) {
-      masterFormField.cloneCountStatus = 'min';
-    } else {
-      masterFormField.cloneCountStatus = null;
     }
   }
 

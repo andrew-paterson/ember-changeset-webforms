@@ -52,9 +52,9 @@ export default class ValidatingField extends Component {
       formField.customValidityEls = element.querySelectorAll(
         '[data-custom-validity]',
       );
-      this.validateField(formField);
-      this.args.afterFieldInserted(formField);
     });
+    this.validateField(formField, element);
+    this.args.afterFieldInserted(formField);
   }
 
   @action
@@ -68,14 +68,14 @@ export default class ValidatingField extends Component {
 
   @action
   async validateField(formField) {
-    const fieldValidationResult = await formField.validate({
+    await formField.validate({
       skipUnvalidated: true,
     });
-    this.args.afterFieldValidation(
-      formField,
-      formField.changeset,
-      fieldValidationResult,
-    );
+    // this.args.afterFieldValidation(
+    //   formField,
+    //   formField.changeset,
+    //   fieldValidationResult,
+    // );
   }
 
   @action
@@ -95,11 +95,9 @@ export default class ValidatingField extends Component {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
-    const formField = this.args.formField;
-    formField.updateValue(value);
-    this.validateField(formField);
-    if (this.args.onFieldValueChange) {
-      this.args.onFieldValueChange(formField);
-    }
+    this.args.formField.updateValue(value);
+    // if (this.args.onFieldValueChange) {
+    //   this.args.onFieldValueChange(formField);
+    // }
   }
 }

@@ -1,6 +1,8 @@
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
 import removeAll from './remove-all.js';
+import FormFieldClone from './form-field-clone.js';
+import removeObject from './remove-object.js';
 
 export default class FormField {
   @tracked cloneCountStatus;
@@ -43,6 +45,10 @@ export default class FormField {
     return this.validatesOn.filter((eventName) =>
       this.eventLog.includes(eventName),
     );
+  }
+
+  get validates() {
+    return this.validationRules.length > 0;
   }
 
   get wasValidated() {
@@ -129,26 +135,17 @@ export default class FormField {
   }
 
   updateValue(value, eventName) {
-    console.log(this.fieldId);
-    console.log('updateValue');
-    console.log(eventName);
     this.snapshots.push(this.changeset.snapshot());
-    // this.eventLog.push('valueUpdated');
+    this.eventLog.push('valueUpdated');
     this.eventLog.push(eventName);
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
     changeset.set(this.propertyName, value);
     this.validate({ skipUnvalidated: true });
+    if (this.callbacks.onFieldValueChange) {
+      this.callbacks.onFieldValueChange(this, this.changesetWebform);
+    }
   }
-
-  // applyDefaultValue() {
-  //   if (this.fieldValue !== undefined) {
-  //     return;
-  //   }
-  //   if (Object.prototype.hasOwnProperty.call(this, 'defaultValue')) {
-  //     this.updateValue(this.defaultValue, 'defaultApplied');
-  //   }
-  // }
 
   setOmission(omitted) {
     if (omitted) {
@@ -169,10 +166,10 @@ export default class FormField {
     if (!('skipUnvalidated' in opts) || opts.skipUnvalidated !== true) {
       this.eventLog.push('forceValidation');
     }
-    return await this.validateField();
+    return await this.validateField(opts);
   }
 
-  async validateField() {
+  async validateField(opts = {}) {
     const formField = this;
     const changeset = this.changeset;
     if (
@@ -186,6 +183,86 @@ export default class FormField {
     (formField.customValidityEls || []).forEach((el) => {
       el.setCustomValidity((this.validationErrors || []).join());
     });
+    this.clonedFields.forEach((clonedField) => {
+      (clonedField.customValidityEls || []).forEach((el) => {
+        el.setCustomValidity((clonedField.cloneValidationErrors || []).join());
+      });
+    });
+    // TODO document and improve opts.callbacks !== false
+    if (opts.callbacks !== false && this.callbacks.afterFieldValidation)
+      this.callbacks.afterFieldValidation(
+        this,
+        this.changesetWebform,
+        res[this.index],
+      );
     return res[this.index];
+  }
+
+  cloneField(opts = {}) {
+    var masterFormField = this;
+    var newField = { ...masterFormField.clonedFieldBlueprint };
+    newField.id = `${masterFormField.id}-clone-${this.cloneId(masterFormField)}`;
+    newField.isClone = true;
+    newField.cloneId = this.cloneId(masterFormField);
+    newField.eventLog = TrackedArray.from([]); // BD must recreate this, otherwise all clones share the same instance of eventLog array.
+    const clone = new FormFieldClone(newField);
+    clone.changeset = this.changeset;
+    clone.masterFormField = masterFormField;
+    masterFormField.clonedFields.push(clone);
+    clone.index = masterFormField.clonedFields.indexOf(clone);
+    var lastIndex = masterFormField.clonedFields.length - 1;
+    masterFormField.lastUpdatedClone = {
+      // Useful for something like swapping field values between clones.
+      index: lastIndex,
+      previousValue: null,
+    };
+    if (!opts.fromData) {
+      var fieldValue = this.fieldValue || [];
+      fieldValue.push(opts.newCloneValue || newField.defaultValue);
+      this.updateValue(fieldValue); // TODO by not calling updateﬃeldValue int eh component, we don't have the action callback. Attach it to the formField instance.
+    }
+    this.checkMinMaxClones(masterFormField);
+  }
+
+  checkMinMaxClones(masterFormField) {
+    if (
+      masterFormField.maxClones &&
+      masterFormField.clonedFields.length >= masterFormField.maxClones
+    ) {
+      masterFormField.cloneCountStatus = 'max';
+    } else if (
+      masterFormField.minClones &&
+      masterFormField.clonedFields.length === masterFormField.minClones
+    ) {
+      masterFormField.cloneCountStatus = 'min';
+    } else {
+      masterFormField.cloneCountStatus = null;
+    }
+  }
+
+  cloneId(masterFormField) {
+    const clonedFields = masterFormField.clonedFields;
+    if (!(clonedFields || []).length) {
+      return 0;
+    }
+    const sortedClones = [...clonedFields].sort((a, b) => {
+      return b.cloneId - a.cloneId;
+    });
+    return sortedClones[0].cloneId + 1;
+  }
+
+  removeClone(clone) {
+    var masterFormField = this;
+    var index = masterFormField.clonedFields.indexOf(clone);
+    removeObject(masterFormField.clonedFields, clone);
+    this.checkMinMaxClones(masterFormField);
+    var groupValue = this.fieldValue || [];
+    groupValue.splice(index, 1);
+    masterFormField.eventLog.push('removeClone');
+    // this.args.updateFieldValue(groupValue);
+    this.updateValue(groupValue); // TODO by not calling updateﬃeldValue int eh component, we don't have the action callback. Attach it to the formField instance.
+    masterFormField.clonedFields.forEach((clone, index) => {
+      clone.index = index;
+    });
   }
 }

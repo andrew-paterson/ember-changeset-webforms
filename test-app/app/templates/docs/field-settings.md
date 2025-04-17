@@ -14,7 +14,7 @@ Note that any of these settings can be overridden in one of the field objects in
 
 ## Tracked field settings
 
-The following field settings are tracked, and so updating them in an action will result in a template update. 
+The following field settings are tracked, and so updating them in an action will result in a template update.
 
 <DocsSnippet @name="field-settings-tracked-props.js" @title="Tracked field settings" />
 
@@ -32,4 +32,14 @@ In the case we've created a class definition called `customProps` with a tracked
 
 <Forms::ClickerExampleTwoFormSchema />
 
+### The `customParser` method
 
+Custom parsers can be used to manipulate field definitions that are passed to the `fields` array in a `formSchema`. The `customParser` method is run at the very end of generating the form field instance, after all defaults have been applied.
+
+It receives a single argument, `field` and must also return the `field`.
+
+You can define a `customParser` method for all fields by adding it to the `changesetWebformsDefaults.fieldSettings` in `services/ember-changeset-webforms.js`.
+
+You can also define `customParser` for a specific field type, in the relevant object in `changesetWebformsDefaults.fieldTypes` in `services/ember-changeset-webforms`.
+
+<Demos::FieldSettingsCustomParser />

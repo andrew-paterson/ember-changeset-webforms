@@ -623,7 +623,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
     assert
       .dom(testEls.powerDatepickerAmPmInput)
       .exists('AM/PM input shown when h passed as the hour input format.');
-
     const timeSelectorHourInput = find(testEls.timeSelectorFieldInputHour);
     const timeSelectorMinutesInput = find(
       testEls.timeSelectorFieldInputMinutes,

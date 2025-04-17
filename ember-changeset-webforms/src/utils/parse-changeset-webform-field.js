@@ -7,7 +7,6 @@ export default function parseChangesetWebformField(
   fieldSchema,
   customValidators,
   formSettings,
-  changeset,
 ) {
   if (!fieldSchema) {
     return;
@@ -17,12 +16,7 @@ export default function parseChangesetWebformField(
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
-  const parsedField = parse(
-    fieldSchema,
-    customValidators,
-    formSettings,
-    changeset,
-  );
+  const parsedField = parse(fieldSchema, customValidators, formSettings);
   return new FormField(parsedField);
 }
 
@@ -32,7 +26,7 @@ function isPrimitive(value) {
   );
 }
 
-function parse(fieldSchema, customValidators, formSettings, changeset) {
+function parse(fieldSchema, customValidators, formSettings) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
   if (field.validationRules) {
@@ -94,10 +88,7 @@ function parse(fieldSchema, customValidators, formSettings, changeset) {
       }
     });
   }
-  field.validates = field.validationRules.length > 0 ? true : false;
-  field.validatesOn = ['forceValidation']
-    .concat(field.validatesOn || [])
-    .concat(field.alwaysValidateOn || []);
+
   field.name =
     field.name ||
     safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
@@ -106,8 +97,15 @@ function parse(fieldSchema, customValidators, formSettings, changeset) {
     safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
-  field.changeset = field.changeset || changeset;
-  field = field.customParser ? field.customParser(field) : field;
+  // field.customParsers constrcuted in mergeWithArrayInheritanceCustomiser function for lodash.mergeWith
+  if (field.customParsers) {
+    field.customParsers.forEach((customParser) => {
+      field = customParser(field);
+    });
+  }
+  field.validatesOn = ['forceValidation']
+    .concat(field.validatesOn || [])
+    .concat(field.alwaysValidateOn || []);
   delete field.alwaysValidateOn;
   delete field.cloneFieldSchema;
   return field;

@@ -8,6 +8,7 @@ export default function createChangesetWebform(
   dynamicIncludeExcludeConditions,
   onFormSubmit,
   debug,
+  callbacks,
 ) {
   const changesetWebform = new ChangesetWebform(
     appDefaults,
@@ -17,6 +18,7 @@ export default function createChangesetWebform(
     dynamicIncludeExcludeConditions,
     onFormSubmit,
     debug,
+    callbacks,
   );
   if (changesetWebform.debug) {
     console.log(

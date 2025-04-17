@@ -6,4 +6,16 @@ module('Acceptance | TODO', function (hooks) {
 
   todo('Form schema from query params', async function (assert) {});
   todo('Input trimmed by default', async function (assert) {});
+  todo(
+    'data value or defaultValue of false does not become null',
+    async function (assert) {},
+  );
+  todo(
+    'No submit action with ember model, and with ember model. submitActionResponse = savedChangeset.data became submitActionResponse = savedChangeset;;',
+    async function (assert) {},
+  );
+  todo(
+    'Find a viable pattern for clearForm happening after the class submit method is called',
+    async function (assert) {},
+  );
 });

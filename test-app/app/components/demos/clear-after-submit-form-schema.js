@@ -27,7 +27,6 @@ export default class ClearAfterSubmitFormComponent extends Component {
   // END-SNIPPET
   @action
   submit() {
-    console.log('submit');
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();

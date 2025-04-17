@@ -37,13 +37,12 @@ export default function createValidations(fields, customValidators = {}) {
     if (!field.validationRules) {
       return;
     }
-
-    if ((field.cloneFieldSchema || {}).validationRules) {
+    if ((field.clonedFieldBlueprint || {}).validationRules) {
       field.validationRules = field.validationRules || [];
       field.validationRules.unshift({
         validationMethod: 'validateClone',
         arguments: {
-          validationRules: field.cloneFieldSchema.validationRules,
+          validationRules: field.clonedFieldBlueprint.validationRules,
           customValidators: customValidators,
         },
       });

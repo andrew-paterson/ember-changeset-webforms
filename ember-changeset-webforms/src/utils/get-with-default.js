@@ -77,7 +77,7 @@ const addonDefaults = {
     // fieldType === 'clonable'
     cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
     cloneGroupItems: ['cwf-clone-group-items'],
-    cloneFieldControls: ['cwf-clone-field-controls'],
+    cloneFieldControls: ['cwf-clone-field-controls', '$validationClassNames'],
     cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
     maxClonesReached: ['cwf-max-clones-reached'],
     addCloneButton: ['btn-outline-secondary'],
@@ -274,7 +274,6 @@ const addonDefaults = {
       // END-SNIPPET
       componentClass: PowerDatepickerComponent,
       customParser(field) {
-        // TODO document this
         field.dateTimeFormat = field.dateTimeFormat.replace(/S{1,}/, 'SSS');
         field.dateTimeDisplayFormat = field.dateTimeDisplayFormat
           ? field.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')

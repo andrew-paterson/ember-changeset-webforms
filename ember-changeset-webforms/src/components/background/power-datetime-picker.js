@@ -137,7 +137,7 @@ export default class PowerDatetimePicker extends Component {
     const strictDateFormat = parsedDateTimeDisplayFormat.replace(
       /S{1,}/,
       'SSSS',
-    ); // Using SSSS for the milisecond part of the format means that the input will be a valid moment object if the user enters more than 3 digits. The field will all but the first three.
+    ); // Using SSSS for the milisecond part of the format means that the input will be a valid moment object if the user enters more than 3 digits. The field will remove all but the first three.
     if (!moment(value, strictDateFormat, true).isValid()) {
       return null;
     }
@@ -266,9 +266,9 @@ export default class PowerDatetimePicker extends Component {
       this.calendarStartDate = calendarStartDate;
     }
 
-    if (moment.isDate(this.args.value)) {
+    if (this.args.value && moment.isDate(this.args.value)) {
       this.insertWithValue(this.args.value);
-    } else if (moment(this.args.value).isValid()) {
+    } else if (this.args.value && moment(this.args.value).isValid()) {
       this.insertWithValue(
         moment(this.args.value, this.args.dateTimeFormat).toDate(),
       );
@@ -547,6 +547,7 @@ export default class PowerDatetimePicker extends Component {
     ) {
       startDate = this.args.minDate;
     }
+
     this.center = startDate;
   }
 
@@ -581,6 +582,7 @@ export default class PowerDatetimePicker extends Component {
       targetDay = this.args.minDate;
     }
     this.selectedDate = targetDay;
+
     this.center = this.selectedDate;
   }
 

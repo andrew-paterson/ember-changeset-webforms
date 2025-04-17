@@ -16,21 +16,19 @@ export default class ChangesetWebform {
     dynamicIncludeExcludeConditions,
     onFormSubmit,
     debug,
+    callbacks,
   ) {
     const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
-    const changeset = createChangeset(
-      formSchemaWithDefaults.fields,
-      data,
-      customValidators,
-    );
     const parsedFields = formSchemaWithDefaults.fields.map((field) =>
       parseChangesetWebformField(
         field,
         customValidators,
         formSchemaWithDefaults.formSettings,
-        changeset,
       ),
     );
+
+    const changeset = createChangeset(parsedFields, data, customValidators);
+
     const snapshots = [];
     parsedFields.forEach((formField, index) => {
       formField.index = index;
@@ -40,7 +38,13 @@ export default class ChangesetWebform {
       formField.dynamicIncludeExcludeConditions =
         dynamicIncludeExcludeConditions;
       formField.snapshots = snapshots;
-      // formField.applyDefaultValue();
+      formField.changeset = changeset;
+      formField.changesetWebform = this;
+      formField.callbacks = {
+        onFieldValueChange: callbacks.onFieldValueChange,
+        afterFieldValidation: callbacks.afterFieldValidation,
+      };
+      // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
     });
     this.debug = debug;
     this.changeset = changeset;
@@ -49,8 +53,8 @@ export default class ChangesetWebform {
     this.formSettings = new FormSettings(formSchemaWithDefaults.formSettings);
     this.formSchema = { ...formSchema };
     this.formSchemaWithDefaults = { ...formSchemaWithDefaults };
-    this.submit = (componentArgs) => {
-      return onFormSubmit(this, componentArgs);
+    this.submit = (componentArgs, callbacks) => {
+      return onFormSubmit(this, componentArgs, callbacks);
     };
   }
 

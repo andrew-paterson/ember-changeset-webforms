@@ -42,7 +42,6 @@ module('Acceptance | Cloned fields', function (hooks) {
       .doesNotExist(
         'None of the clones has a remove clone button when the number of clones is equal to the the minClones setting.',
       );
-
     await focus(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"] input`,
     );

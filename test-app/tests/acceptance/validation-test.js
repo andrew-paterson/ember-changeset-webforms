@@ -146,7 +146,7 @@ module('Acceptance | Field validation', function (hooks) {
         .fieldErrorText(fields[0])
         .concat(cth.fieldErrorText(fields[1]))
         .join('|'),
-      'Each field must be unique- primary email is the same as recovery email.|Each field must be unique- recovery email is the same as primary email.',
+      'The primary number field must be unique, but it is the same as recovery number.|The recovery number field must be unique, but it is the same as primary number.',
       'Custom validator is applied correctly.',
     );
   });

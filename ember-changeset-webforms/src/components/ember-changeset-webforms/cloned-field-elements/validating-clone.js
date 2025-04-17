@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 
 export default class ValidatingClone extends Component {
   @action
-  didInsert() {
+  didInsert(element) {
     var changeset = this.args.changesetWebform.changeset;
     if (
       changeset.get(this.args.masterFormField.propertyName)[
@@ -17,7 +17,15 @@ export default class ValidatingClone extends Component {
         this.args.masterFormField.eventLog.push('insertWithValueClone');
       }
       this.args.clonedFormField.updateValidationActivation();
-      this.args.validateField(this.args.masterFormField);
+      setTimeout(() => {
+        this.args.clonedFormField.customValidityEls = element.querySelectorAll(
+          '[data-custom-validity]',
+        );
+        // (this.args.clonedFormField.customValidityEls || []).forEach((el) => {
+        //   // el.setCustomValidity((clonedField.cloneValidationErrors || []).join());
+        // });
+        this.args.validateField(this.args.masterFormField);
+      });
     }
   }
 

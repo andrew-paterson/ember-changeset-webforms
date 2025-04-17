@@ -70,7 +70,10 @@ export default class ChangesetWebform extends Component {
       this.args.dynamicIncludeExcludeConditions;
     const debug = this.debugMode;
     const onFormSubmit = this.args.onFormSubmit || onSubmit;
-
+    const callbacks = {
+      onFieldValueChange: this.args.onFieldValueChange,
+      afterFieldValidation: this.args.afterFieldValidation,
+    };
     this.changesetWebform = createChangesetWebform(
       this.emberChangesetWebforms.changesetWebformsDefaults,
       formSchema,
@@ -79,6 +82,7 @@ export default class ChangesetWebform extends Component {
       dynamicIncludeExcludeConditions,
       onFormSubmit,
       debug,
+      callbacks,
     );
     if (this.args.afterGenerateChangesetWebform) {
       this.args.afterGenerateChangesetWebform(this.changesetWebform);
@@ -131,8 +135,11 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  onFormSubmit(changesetWebform) {
-    changesetWebform.submit(this.args);
+  async onFormSubmit(changesetWebform) {
+    await changesetWebform.submit(this.args);
+    if (changesetWebform.formSettings.clearFormAfterSubmit) {
+      this.clearForm(changesetWebform);
+    }
   }
 
   @action

@@ -37,7 +37,6 @@
     "ember-get-config": "^2.1.1",
     "ember-power-calendar": "^1.4.0",
     "ember-power-select": "^8.7.0",
-    "ember-radio-button": "3.0.0-beta.1",
     "ember-test-selectors": "^7.0.0",
     "flat": "^5.0.2",
     "lodash.mergewith": "^4.6.2",
