@@ -35,7 +35,8 @@ export default class fieldMethodsExample1Component extends Component {
   }
 
   @action updateNameField() {
-    this.nameField.updateValue('New Name', 'valueExternallyUpdated');
+    this.nameField.eventLog.push('valueExternallyUpdated');
+    this.nameField.updateValue('New Name');
   }
 
   // END-SNIPPET

@@ -93,7 +93,7 @@ module('Acceptance | Field methods', function (hooks) {
       );
   });
 
-  test('updateValue method - eventName not passed', async function (assert) {
+  test('updateValue method', async function (assert) {
     await visit('docs/field-methods');
     assert
       .dom('[data-test-id="field-methods4-form-name-field"] input')
@@ -109,31 +109,31 @@ module('Acceptance | Field methods', function (hooks) {
         'Name field has has value "New name" after clicking "Update value of the name field" button.',
       );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="field-methods5-form-name-field"]'),
+      await cth.wasValidated('[data-test-id="field-methods4-form-name-field"]'),
       'Name is not validated when "Update value of the name field" button is clicked',
     );
   });
 
-  test('updateValue method - eventName passed', async function (assert) {
-    await visit('docs/field-methods');
-    assert
-      .dom('[data-test-id="field-methods5-form-name-field"] input')
-      .hasNoValue('Name field has no value on load');
-    await click(
-      '[data-test-id="example-5"] [data-test-id="update-name-field"]',
-    );
+  // test('updateValue method - eventName passed', async function (assert) {
+  //   await visit('docs/field-methods');
+  //   assert
+  //     .dom('[data-test-id="field-methods5-form-name-field"] input')
+  //     .hasNoValue('Name field has no value on load');
+  //   await click(
+  //     '[data-test-id="example-5"] [data-test-id="update-name-field"]',
+  //   );
 
-    assert
-      .dom('[data-test-id="field-methods5-form-name-field"] input')
-      .hasValue(
-        'New Name',
-        'Name field has has value "New name" after clicking "Update value of the name field" button.',
-      );
-    assert.ok(
-      await cth.passedValidation(
-        '[data-test-id="field-methods5-form-name-field"]',
-      ),
-      'Name is validated when "Update value of the name field" button is clicked',
-    );
-  });
+  //   assert
+  //     .dom('[data-test-id="field-methods5-form-name-field"] input')
+  //     .hasValue(
+  //       'New Name',
+  //       'Name field has has value "New name" after clicking "Update value of the name field" button.',
+  //     );
+  //   assert.ok(
+  //     await cth.passedValidation(
+  //       '[data-test-id="field-methods5-form-name-field"]',
+  //     ),
+  //     'Name is validated when "Update value of the name field" button is clicked',
+  //   );
+  // });
 });

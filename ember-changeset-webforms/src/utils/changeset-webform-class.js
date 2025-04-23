@@ -44,6 +44,7 @@ export default class ChangesetWebform {
         onFieldValueChange: callbacks.onFieldValueChange,
         afterFieldValidation: callbacks.afterFieldValidation,
       };
+      formField._checkOmitted();
       // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
     });
     this.debug = debug;
@@ -56,6 +57,12 @@ export default class ChangesetWebform {
     this.submit = (componentArgs, callbacks) => {
       return onFormSubmit(this, componentArgs, callbacks);
     };
+  }
+
+  _checkOmitted() {
+    this.fields.forEach((field) => {
+      field._checkOmitted();
+    });
   }
 
   setFieldOmission(fieldId, omitted) {

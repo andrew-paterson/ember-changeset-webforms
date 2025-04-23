@@ -21,6 +21,5 @@ export default function createChangeset(formFields, data, customValidators) {
       field.defaultValue === undefined ? null : field.defaultValue;
     changeset.set(field.propertyName, initialValue);
   });
-
   return changeset;
 }

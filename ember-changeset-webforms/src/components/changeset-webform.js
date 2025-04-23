@@ -49,10 +49,10 @@ export default class ChangesetWebform extends Component {
     if (!this.changeset) {
       return null;
     }
-    if (this.changeset.get('isInvalid')) {
+    if (this.changeset.isInvalid) {
       return 'validation-failed';
     }
-    if (this.changeset.get('isValid')) {
+    if (this.changeset.isValid) {
       return 'validation-passed';
     }
     return null;
@@ -136,9 +136,13 @@ export default class ChangesetWebform extends Component {
 
   @action
   async onFormSubmit(changesetWebform) {
-    await changesetWebform.submit(this.args);
-    if (changesetWebform.formSettings.clearFormAfterSubmit) {
-      this.clearForm(changesetWebform);
+    try {
+      await changesetWebform.submit(this.args);
+      if (changesetWebform.formSettings.clearFormAfterSubmit) {
+        this.clearForm(changesetWebform);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 

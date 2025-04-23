@@ -3,7 +3,7 @@ import preFlightForm from '../utils/preflight-form.js';
 export default async function onSubmit(changesetWebform, componentArgs) {
   await preFlightForm(changesetWebform, componentArgs);
   if (!changesetWebform.changeset.isValid) {
-    return;
+    throw new Error('Validation failed');
   }
   if (componentArgs.beforeSubmitForm) {
     await componentArgs.beforeSubmitForm(changesetWebform);
@@ -21,12 +21,13 @@ export default async function onSubmit(changesetWebform, componentArgs) {
     }
     changesetWebform.formSettings.requestInFlight = false;
     if (componentArgs.submitSuccess) {
-      componentArgs.submitSuccess(submitActionResponse, changesetWebform);
+      await componentArgs.submitSuccess(submitActionResponse, changesetWebform);
     }
   } catch (err) {
     changesetWebform.formSettings.requestInFlight = false;
     if (componentArgs.submitError) {
-      componentArgs.submitError(err, changesetWebform);
+      await componentArgs.submitError(err, changesetWebform);
     }
+    throw new Error(err);
   }
 }

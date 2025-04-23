@@ -11,11 +11,23 @@ module('Acceptance | TODO', function (hooks) {
     async function (assert) {},
   );
   todo(
-    'No submit action with ember model, and with ember model. submitActionResponse = savedChangeset.data became submitActionResponse = savedChangeset;;',
+    'No submit action with ember model, and with ember model. submitActionResponse = savedChangeset.data became submitActionResponse = savedChangeset',
     async function (assert) {},
   );
   todo(
     'Find a viable pattern for clearForm happening after the class submit method is called',
+    async function (assert) {},
+  );
+  todo(
+    'Form not cleared if clearFormAfterSubmit is false',
+    async function (assert) {},
+  );
+  todo(
+    'Form not cleared if clearFormAfterSubmit is true and validation fails',
+    async function (assert) {},
+  );
+  todo(
+    'Updating field value explicitly after it is set to omitted works, after omitting exlicitly or dynamically',
     async function (assert) {},
   );
 });

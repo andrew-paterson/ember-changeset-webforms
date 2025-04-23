@@ -297,7 +297,7 @@ const addonDefaults = {
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       checkboxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
-      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'checkboxToggled'], // Array of strings
       // END-SNIPPET
       componentClass: CheckboxComponent,
     },
@@ -310,7 +310,7 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'radioOptionChanged'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
       componentClass: RadioButtonGroupComponent,
@@ -324,7 +324,7 @@ const addonDefaults = {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      alwaysValidateOn: ['$inherited', 'checkboxToggled'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
       componentClass: CheckboxGroupComponent,

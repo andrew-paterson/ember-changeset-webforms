@@ -14,6 +14,12 @@ This means that by updating the `validatesOn` property of a field, you can contr
 
 For example, when a field is inserted into the DOM with a value, `insertWithValue` is added to the `eventLog` array of the relevant field. Thus, if you add `insertWithValue` to the `validatesOn` array, the field will validate when inserted into the DOM, provided that it is inserted with a value.
 
+The example below shows how you can trigger validation in customised ways by adding an event string to the `validatesOn` array of a field, and then pushing the same string into the `eventLog` array of the field when it should be validated.
+
+Cliking the "Update value of name field" button updates the value of the name field, and validates the field.
+
+<Demos::FieldMethodsExampleFive />
+
 ### The `alwaysValidateOn` property
 
 Most use cases will require that certain events always trigger validation on all fields, or at least all fields of a certain type. For example it is common that:

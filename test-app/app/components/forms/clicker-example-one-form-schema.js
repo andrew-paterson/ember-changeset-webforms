@@ -35,7 +35,7 @@ export default class ClickerExampleOneFormSchema extends Component {
       const advancedFields = changesetWebform.fields.filter(
         (field) => field.advancedSetting,
       );
-      advancedFields.forEach((field) => (field.omitted = !field.omitted));
+      advancedFields.forEach((field) => field.setOmission(!field.omitted));
     }
   }
 }

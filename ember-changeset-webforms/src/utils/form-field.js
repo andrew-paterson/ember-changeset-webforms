@@ -11,6 +11,7 @@ export default class FormField {
   @tracked focussed;
   @tracked changeset;
   @tracked validatesOn = [];
+  @tracked isOmitted = false;
   // BEGIN-SNIPPET field-settings-tracked-props.js
   @tracked omitted;
   @tracked disabled;
@@ -85,15 +86,19 @@ export default class FormField {
     }
   }
 
-  get isOmitted() {
-    if (!this.omitted) {
-      return false;
-    }
-    if (this.omitted === true) {
-      return this.omitted;
-    }
-    return this._checkConditions(this.omitted, this);
-  }
+  // get isOmitted() {
+  //   if (!this.omitted) {
+  //     return false;
+  //   }
+  //   if (this.omitted === true) {
+  //     return this.omitted;
+  //   }
+  //   const dynamicallyOmitted = this._checkConditions(this.omitted, this);
+  //   if (dynamicallyOmitted) {
+  //     this.reset();
+  //   }
+  //   return dynamicallyOmitted;
+  // }
 
   _checkConditions(ruleSet, formField) {
     const results = ruleSet.conditions.map((condition) => {
@@ -134,26 +139,42 @@ export default class FormField {
     return true;
   }
 
-  updateValue(value, eventName) {
+  updateValue(value) {
     this.snapshots.push(this.changeset.snapshot());
     this.eventLog.push('valueUpdated');
-    this.eventLog.push(eventName);
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
     changeset.set(this.propertyName, value);
     this.validate({ skipUnvalidated: true });
+    this.changesetWebform._checkOmitted();
     if (this.callbacks.onFieldValueChange) {
       this.callbacks.onFieldValueChange(this, this.changesetWebform);
     }
   }
 
   setOmission(omitted) {
-    if (omitted) {
-      if (this.resetWhenOmitted) {
+    this.omitted = omitted;
+    this._checkOmitted();
+  }
+
+  _checkOmitted() {
+    const initiallyOmitted = this.isOmitted;
+    if (!this.omitted) {
+      this.isOmitted = false;
+      return;
+    }
+    if (this.omitted === true || this._checkConditions(this.omitted, this)) {
+      this.isOmitted = true;
+      if (
+        this.eventLog.includes('insert') &&
+        !initiallyOmitted &&
+        this.resetWhenOmitted
+      ) {
         this.reset();
       }
+    } else {
+      this.isOmitted = false;
     }
-    this.omitted = omitted;
   }
 
   reset() {
@@ -189,13 +210,10 @@ export default class FormField {
       });
     });
     // TODO document and improve opts.callbacks !== false
-    if (opts.callbacks !== false && this.callbacks.afterFieldValidation)
-      this.callbacks.afterFieldValidation(
-        this,
-        this.changesetWebform,
-        res[this.index],
-      );
-    return res[this.index];
+    if (opts.callbacks !== false && this.callbacks.afterFieldValidation) {
+      this.callbacks.afterFieldValidation(this, this.changesetWebform, res[0]);
+    }
+    return res[0];
   }
 
   cloneField(opts = {}) {
