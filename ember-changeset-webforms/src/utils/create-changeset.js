@@ -16,10 +16,11 @@ export default function createChangeset(formFields, data, customValidators) {
     if (changeset.get(field.propertyName) !== undefined) {
       return;
     }
-    // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
+    // We set changeset props to null if they have no initial values. This ensures that validators such as uniqueness work, and that all keys are sent in the payload.
     const initialValue =
       field.defaultValue === undefined ? null : field.defaultValue;
     changeset.set(field.propertyName, initialValue);
   });
+  changeset.save();
   return changeset;
 }

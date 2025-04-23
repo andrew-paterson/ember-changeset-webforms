@@ -129,8 +129,9 @@ module('Acceptance | Form methods', function (hooks) {
       .hasText('Form is valid', 'Alert shows correct success message');
   });
 
-  test('isValid method', async function (assert) {
+  test('clear method', async function (assert) {
     await visit('docs/field-validation');
+
     await click(testEls.cwfClearFormButton);
   });
 });

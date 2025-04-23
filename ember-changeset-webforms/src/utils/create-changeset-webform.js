@@ -26,6 +26,5 @@ export default function createChangesetWebform(
       changesetWebform,
     );
   }
-
   return changesetWebform;
 }

@@ -30,4 +30,5 @@ module('Acceptance | TODO', function (hooks) {
     'Updating field value explicitly after it is set to omitted works, after omitting exlicitly or dynamically',
     async function (assert) {},
   );
+  todo('Stop using submitAfterClear', async function (assert) {});
 });

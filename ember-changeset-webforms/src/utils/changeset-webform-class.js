@@ -1,52 +1,14 @@
 import { tracked } from '@glimmer/tracking';
-import createChangeset from './create-changeset.js';
 import getWithDefaultUtil from './get-with-default.js';
-import parseChangesetWebformField from './parse-changeset-webform-field.js';
-import FormSettings from './form-settings.js';
+import createCwfProps from './create-changeset-webform-props.js';
 
-function createThings(data, env) {
-  const parsedFields = env.formSchemaWithDefaults.fields.map((field) =>
-    parseChangesetWebformField(
-      field,
-      env.customValidators,
-      env.formSchemaWithDefaults.formSettings,
-    ),
-  );
-
-  const changeset = createChangeset(parsedFields, data, env.customValidators);
-
-  const snapshots = [];
-  parsedFields.forEach((formField, index) => {
-    formField.index = index;
-    formField.siblings = parsedFields.filter(
-      (field) => field.fieldId !== formField.fieldId,
-    );
-    formField.dynamicIncludeExcludeConditions =
-      env.dynamicIncludeExcludeConditions;
-    formField.snapshots = snapshots;
-    formField.changeset = changeset;
-    formField.changesetWebform = env;
-    formField.callbacks = {
-      onFieldValueChange: env.callbacks.onFieldValueChange,
-      afterFieldValidation: env.callbacks.afterFieldValidation,
-    };
-    formField._checkOmitted();
-    // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
-  });
-  return {
-    changeset: changeset,
-    parsedFields: parsedFields,
-    snapshots: snapshots,
-    formSettings: new FormSettings(env.formSchemaWithDefaults.formSettings),
-  };
-}
-
-function updateTheThings(data, env) {
-  const things = createThings(data, env);
-  env.changeset = things.changeset;
-  env.fields = things.parsedFields;
-  env.snapshots = things.snapshots;
-  env.formSettings = things.formSettings;
+function setCwfProps(instance, data, opts = {}) {
+  const props = createCwfProps(instance, data, opts);
+  if (!instance.changeset) {
+    instance.changeset = props.changeset;
+  }
+  instance.fields = props.parsedFields;
+  instance.formSettings = props.formSettings;
 }
 
 export default class ChangesetWebform {
@@ -70,7 +32,7 @@ export default class ChangesetWebform {
     this.customValidators = customValidators;
     this.dynamicIncludeExcludeConditions = dynamicIncludeExcludeConditions;
     this.callbacks = callbacks;
-    updateTheThings(data, this);
+    setCwfProps(this, data);
     this.submit = (componentArgs, callbacks) => {
       return onFormSubmit(this, componentArgs, callbacks);
     };
@@ -119,6 +81,27 @@ export default class ChangesetWebform {
   }
 
   clear() {
-    updateTheThings(null, this);
+    if (this.callbacks.beforeClearForm) {
+      this.callbacks.beforeClearForm(this);
+    }
+    this.changeset.rollback();
+    setCwfProps(this);
+    this.fields.forEach((field) => {
+      this.changeset.set(field.propertyName, null);
+    });
+    if (this.callbacks.afterClearForm) {
+      this.callbacks.afterClearForm(this);
+    }
+  }
+
+  reset() {
+    if (this.callbacks.beforeResetForm) {
+      this.callbacks.beforeResetForm(this);
+    }
+    this.changeset.rollback();
+    setCwfProps(this);
+    if (this.callbacks.afterResetForm) {
+      this.callbacks.afterResetForm(this);
+    }
   }
 }

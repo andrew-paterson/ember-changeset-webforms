@@ -333,6 +333,8 @@ module('Integration | Component | Action handling', function (hooks) {
       );
 
     await click(testEls.cwfResetFormButton);
+    checkActionArgs(assert, 'beforeResetForm');
+    checkActionArgs(assert, 'afterResetForm');
     assert
       .dom(nameFieldInput)
       .hasValue(

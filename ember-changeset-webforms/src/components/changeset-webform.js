@@ -73,6 +73,10 @@ export default class ChangesetWebform extends Component {
     const callbacks = {
       onFieldValueChange: this.args.onFieldValueChange,
       afterFieldValidation: this.args.afterFieldValidation,
+      beforeResetForm: this.args.beforeResetForm,
+      afterResetForm: this.args.afterResetForm,
+      beforeClearForm: this.args.beforeClearForm,
+      afterClearForm: this.args.afterClearForm,
     };
     this.changesetWebform = createChangesetWebform(
       this.emberChangesetWebforms.changesetWebformsDefaults,
@@ -135,44 +139,32 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  async onFormSubmit(changesetWebform) {
-    try {
-      await changesetWebform.submit(this.args);
-      if (changesetWebform.formSettings.clearFormAfterSubmit) {
-        this.clearForm(changesetWebform);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  onFormSubmit(changesetWebform) {
+    return changesetWebform.submit(this.args);
   }
 
   @action
-  resetForm(changesetWebform) {
-    if (this.args.beforeResetForm) {
-      this.args.beforeResetForm(changesetWebform);
-    }
-    this.generateChangesetWebform(this.args.formSchema, this.args.data);
-    if (this.args.afterResetForm) {
-      this.args.afterResetForm(changesetWebform);
-    }
+  resetForm() {
+    // if (this.args.beforeResetForm) {
+    //   this.args.beforeResetForm(changesetWebform);
+    // }
+    // this.generateChangesetWebform(this.args.formSchema, this.args.data);
+    this.changesetWebform.reset();
+    // if (this.args.afterResetForm) {
+    //   this.args.afterResetForm(changesetWebform);
+    // }
   }
 
   @action
-  clearForm(changesetWebform) {
-    if (this.args.beforeClearForm) {
-      this.args.beforeClearForm(changesetWebform);
-    }
-    const formSchema = { ...this.args.formSchema };
-    formSchema.fields = this.args.formSchema.fields.map((field) => {
-      const newField = { ...field };
-      delete newField.defaultValue;
-      return newField;
-    });
-    this.generateChangesetWebform(formSchema, null);
-    if (this.args.afterClearForm) {
-      this.args.afterClearForm(changesetWebform);
-    }
-    if (changesetWebform.formSettings.submitAfterClear) {
+  clearForm() {
+    // if (this.args.beforeClearForm) {
+    //   this.args.beforeClearForm(changesetWebform);
+    // }
+    this.changesetWebform.clear();
+    // if (this.args.afterClearForm) {
+    //   this.args.afterClearForm(changesetWebform);
+    // }
+    if (this.changesetWebform.formSettings.submitAfterClear) {
       this.onFormSubmit(this.changesetWebform);
     }
   }
