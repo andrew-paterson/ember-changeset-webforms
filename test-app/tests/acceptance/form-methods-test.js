@@ -128,4 +128,9 @@ module('Acceptance | Form methods', function (hooks) {
       .dom('[data-test-id="example-4"] [data-test-id="alert-success"]')
       .hasText('Form is valid', 'Alert shows correct success message');
   });
+
+  test('isValid method', async function (assert) {
+    await visit('docs/field-validation');
+    await click(testEls.cwfClearFormButton);
+  });
 });
