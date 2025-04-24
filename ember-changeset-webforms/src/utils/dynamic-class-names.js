@@ -7,7 +7,6 @@ export default function dynamicClassNames(
   formField,
 ) {
   let classNames = [];
-
   if (!changesetWebform) {
     return;
   }
@@ -40,13 +39,27 @@ export default function dynamicClassNames(
           formField,
         ) || [];
     }
-    if (formField && classNamesArray.indexOf('$validationClassNames') > -1) {
-      if (formField.validationStatus === 'valid') {
-        classNames = classNames.concat(classNameSettings.validClassNames || []);
-      } else if (formField.validationStatus === 'invalid') {
-        classNames = classNames.concat(
-          classNameSettings.invalidClassNames || [],
-        );
+    if (classNamesArray.includes('$validationClassNames')) {
+      if (formField) {
+        if (formField.validationStatus === 'valid') {
+          classNames = classNames.concat(
+            classNameSettings.validClassNames || [],
+          );
+        } else if (formField.validationStatus === 'invalid') {
+          classNames = classNames.concat(
+            classNameSettings.invalidClassNames || [],
+          );
+        }
+      } else {
+        if (changesetWebform.changeset.isValid) {
+          classNames = classNames.concat(
+            classNameSettings.validClassNames || [],
+          );
+        } else if (changesetWebform.changeset.isInvalid) {
+          classNames = classNames.concat(
+            classNameSettings.invalidClassNames || [],
+          );
+        }
       }
     }
     if (changesetWebform.debug) {

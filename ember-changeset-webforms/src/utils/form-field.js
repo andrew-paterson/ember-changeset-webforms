@@ -147,8 +147,11 @@ export default class FormField {
     changeset.set(this.propertyName, value);
     this.validate({ skipUnvalidated: true });
     this.changesetWebform._checkOmitted();
-    if (this.callbacks.onFieldValueChange) {
-      this.callbacks.onFieldValueChange(this, this.changesetWebform);
+    if (this.changesetWebform.callbacks.onFieldValueChange) {
+      this.changesetWebform.callbacks.onFieldValueChange(
+        this,
+        this.changesetWebform,
+      );
     }
   }
 
@@ -210,8 +213,15 @@ export default class FormField {
       });
     });
     // TODO document and improve opts.callbacks !== false
-    if (opts.callbacks !== false && this.callbacks.afterFieldValidation) {
-      this.callbacks.afterFieldValidation(this, this.changesetWebform, res[0]);
+    if (
+      opts.callbacks !== false &&
+      this.changesetWebform.callbacks.afterFieldValidation
+    ) {
+      this.changesetWebform.callbacks.afterFieldValidation(
+        this,
+        this.changesetWebform,
+        res[0],
+      );
     }
     return res[0];
   }

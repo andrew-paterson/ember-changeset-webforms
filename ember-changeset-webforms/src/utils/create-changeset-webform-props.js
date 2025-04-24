@@ -29,12 +29,8 @@ export default function createChangesetWebformProps(instance, data, opts) {
     formField.dynamicIncludeExcludeConditions =
       instance.dynamicIncludeExcludeConditions;
     formField.snapshots = snapshots;
-    formField.changeset = changeset;
+    formField.changeset = changeset; // TODO remove this
     formField.changesetWebform = instance;
-    formField.callbacks = {
-      onFieldValueChange: instance.callbacks.onFieldValueChange,
-      afterFieldValidation: instance.callbacks.afterFieldValidation,
-    };
     formField._checkOmitted();
     // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
   });

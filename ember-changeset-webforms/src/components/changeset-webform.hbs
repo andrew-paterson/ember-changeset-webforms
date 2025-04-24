@@ -11,16 +11,13 @@
 >
   <form
     {{on "submit" this.onFormSubmit}}
-    class={{concat
-      this.formValidationClass
-      " "
-      (ember-changeset-webforms/dynamic-class-names
-        "formElement" this.changesetWebform
-      )
+    class={{ember-changeset-webforms/dynamic-class-names
+      "formElement"
+      this.changesetWebform
     }}
-    novalidate={{this.formSettings.novalidate}}
+    novalidate={{this.changesetWebform.formSettings.novalidate}}
     data-test-id={{ember-changeset-webforms/safe-name
-      this.formSettings.formName
+      this.changesetWebform.formSettings.formName
     }}
   >
     <div
@@ -35,13 +32,11 @@
         <EmberChangesetWebforms::FieldElements::ValidatingField
           @formField={{formField}}
           @changesetWebform={{this.changesetWebform}}
-          @dataTestFormName={{this.formSettings.dataTestFormName}}
+          @dataTestFormName={{this.changesetWebform.formSettings.dataTestFormName}}
           @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-          @formSettings={{this.formSettings}}
+          @formSettings={{this.changesetWebform.formSettings}}
           @formFields={{this.changesetWebform.fields}}
           @onFormSubmit={{fn this.onFormSubmit this.changesetWebform}}
-          {{!-- @afterFieldValidation={{this.afterFieldValidation}} --}}
-          {{!-- @onFieldValueChange={{this.onFieldValueChange}} --}}
           @onUserInteraction={{this.onUserInteraction}}
           @afterFieldInserted={{this.afterFieldInserted}}
           @afterFieldRemoved={{this.afterFieldRemoved}}
@@ -51,7 +46,7 @@
     {{yield}}
     <EmberChangesetWebforms::FormElements::FormActions
       @changesetWebform={{this.changesetWebform}}
-      @formSettings={{this.formSettings}}
+      @formSettings={{this.changesetWebform.formSettings}}
       @onFormSubmit={{this.onFormSubmit}}
       @resetForm={{this.resetForm}}
       @clearForm={{this.clearForm}}

@@ -31,4 +31,8 @@ module('Acceptance | TODO', function (hooks) {
     async function (assert) {},
   );
   todo('Stop using submitAfterClear', async function (assert) {});
+  todo(
+    'Form validation classes work, is-invalid if sonme valid and some not, nothing if not validated',
+    async function (assert) {},
+  );
 });
