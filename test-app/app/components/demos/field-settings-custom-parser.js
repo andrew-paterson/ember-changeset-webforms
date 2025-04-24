@@ -4,7 +4,7 @@ import Component from '@glimmer/component';
 export default class DemosCustomFieldUsageComponent extends Component {
   formSchema = {
     formSettings: {
-      formName: 'Emai',
+      formName: 'Email',
     },
     fields: [
       {

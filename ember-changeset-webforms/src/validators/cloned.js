@@ -1,30 +1,3 @@
-// import defaultValidators from 'ember-changeset-validations/validators';
-// TODO custom validators must be added here and integrated
-
-import {
-  validateDate,
-  validatePresence,
-  validateLength,
-  validateNumber,
-  validateFormat,
-  validateInclusion,
-  validateExclusion,
-  validateConfirmation,
-} from 'ember-changeset-validations/validators';
-
-import uniqueClone from './unique-clone.js';
-
-const defaultValidators = {
-  validateDate,
-  validatePresence,
-  validateLength,
-  validateNumber,
-  validateFormat,
-  validateInclusion,
-  validateExclusion,
-  validateConfirmation,
-  uniqueClone,
-};
 export default function validateClone(options = {}) {
   return (key, newValue, oldValue, changes, content) => {
     var allCloneValidations = [];
@@ -43,16 +16,9 @@ export default function validateClone(options = {}) {
       }
       var thisCloneValidations = [];
       options.validationRules.forEach((cloneValidation) => {
-        var func;
-        if (defaultValidators[cloneValidation.validationMethod]) {
-          func = defaultValidators[cloneValidation.validationMethod](
-            cloneValidation.arguments,
-          );
-        } else {
-          func = options.customValidators[cloneValidation.validationMethod](
-            cloneValidation.arguments,
-          );
-        }
+        const func = options.validators[cloneValidation.validationMethod](
+          cloneValidation.arguments,
+        );
         var validationResult = func(key, item, oldValue, changes, content);
         if (validationResult !== true) {
           thisCloneValidations.push(validationResult);

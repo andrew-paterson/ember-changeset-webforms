@@ -36,7 +36,6 @@ export default class ChangesetWebformComponent extends Component {
       [addonDefaults, this.emberChangesetWebforms.changesetWebformsDefaults],
       this.args.formSchema,
       this.args.data,
-      this.args.customValidators,
       this.args.dynamicIncludeExcludeConditions,
       onFormSubmit,
       debug,

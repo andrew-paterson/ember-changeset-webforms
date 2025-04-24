@@ -2,16 +2,15 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { validateUniqueness, validatePhoneNumber } from '../../validators';
-const customValidators = {
-  validateUniqueness,
-  validatePhoneNumber,
-};
+import validatePhoneNumber from '../../validators/phone-number';
 
 export default class DemosCustomFieldUsageComponent extends Component {
-  customValidators = customValidators;
   @tracked phoneNumber;
+
   formSchema = {
+    validators: {
+      validatePhoneNumber,
+    },
     formSettings: {
       formName: 'Phone number with country code',
     },

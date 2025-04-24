@@ -110,7 +110,7 @@ module('Acceptance | Field validation', function (hooks) {
 
   test('Validation messages', async function (assert) {
     await visit('/docs/field-validation');
-    await click(els.cwfSubmitButton);
+    await click(`[data-test-id="signup"] ${els.cwfSubmitButton}`);
     assert.strictEqual(
       findAll(els.cwfFieldErrors).length,
       8,

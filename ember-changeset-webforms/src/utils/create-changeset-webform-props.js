@@ -6,8 +6,7 @@ export default function createChangesetWebformProps(instance, data, opts) {
   const parsedFields = instance.formSchemaWithDefaults.fields.map((field) =>
     parseChangesetWebformField(
       field,
-      instance.customValidators,
-      instance.formSchemaWithDefaults.formSettings,
+      instance.formSchemaWithDefaults.formSettings.formName,
     ),
   );
 
@@ -16,7 +15,7 @@ export default function createChangesetWebformProps(instance, data, opts) {
     createChangeset(
       parsedFields,
       data,
-      instance.customValidators,
+      instance.formSchemaWithDefaults.validators,
       opts.ignoreDefaultValues,
     );
 

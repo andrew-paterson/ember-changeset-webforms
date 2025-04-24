@@ -5,6 +5,7 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
   const fieldSettingsDefaults = defaults.map((item) => item.fieldSettings);
   const formSettingsDefaults = defaults.map((item) => item.formSettings);
   const classNamesDefaults = defaults.map((item) => item.classNames);
+  const validatorsDefaults = defaults.map((item) => item.validators);
 
   const formSettings = _mergeWith(
     {},
@@ -16,6 +17,12 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
     ...classNamesDefaults,
     formSchema.classNames,
     mergeWithArrayInheritanceCustomiser,
+  );
+
+  const validators = _mergeWith(
+    {},
+    ...validatorsDefaults,
+    formSchema.validators,
   );
 
   const mergedFields = (formSchema.fields || []).map((field) => {
@@ -65,6 +72,7 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
     return mergedField;
   });
   return {
+    validators: validators,
     classNameSettings: classNameSettings,
     formSettings: formSettings,
     fields: mergedFields,

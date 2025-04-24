@@ -3,11 +3,7 @@ import { typeOf as emberTypeOf } from '@ember/utils';
 import Option from './option-class.js';
 import safeName from './safe-name.js';
 
-export default function parseChangesetWebformField(
-  fieldSchema,
-  customValidators,
-  formSettings,
-) {
+export default function parseChangesetWebformField(fieldSchema, formName) {
   if (!fieldSchema) {
     return;
   }
@@ -16,7 +12,7 @@ export default function parseChangesetWebformField(
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
-  const parsedField = parse(fieldSchema, customValidators, formSettings);
+  const parsedField = parse(fieldSchema, formName);
   return new FormField(parsedField);
 }
 
@@ -26,7 +22,7 @@ function isPrimitive(value) {
   );
 }
 
-function parse(fieldSchema, customValidators, formSettings) {
+function parse(fieldSchema, formName) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
   if (field.validationRules) {
@@ -45,11 +41,7 @@ function parse(fieldSchema, customValidators, formSettings) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;
     field.cloneFieldSchema.fieldId = field.fieldId;
-    field.clonedFieldBlueprint = parse(
-      field.cloneFieldSchema,
-      customValidators,
-      formSettings,
-    );
+    field.clonedFieldBlueprint = parse(field.cloneFieldSchema, formName);
   }
 
   if (field.options) {
@@ -68,14 +60,6 @@ function parse(fieldSchema, customValidators, formSettings) {
   }
 
   if ((field.cloneFieldSchema || {}).validationRules) {
-    // field.validationRules = field.validationRules || [];
-    // field.validationRules.unshift({
-    //   validationMethod: 'validateClone',
-    //   arguments: {
-    //     validationRules: field.cloneFieldSchema.validationRules,
-    //     customValidators: customValidators,
-    //   },
-    // });
     field.clonedFieldBlueprint.validatesOn.forEach((event) => {
       const skip = ['submit', 'removeClone'];
       if (skip.indexOf(event) > -1) {
@@ -90,14 +74,11 @@ function parse(fieldSchema, customValidators, formSettings) {
   }
 
   field.name =
-    field.name ||
-    safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
-  field.id =
-    field.id ||
-    safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
+    field.name || safeName(`${formName}-form-${field.fieldId}-field`);
+  field.id = field.id || safeName(`${formName}-form-${field.fieldId}-field`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
-  // field.customParsers constrcuted in mergeWithArrayInheritanceCustomiser function for lodash.mergeWith
+  // field.customParsers array is created in mergeWithArrayInheritanceCustomiser function for lodash.mergeWith. It simply stascks each customParser function in order.
   if (field.customParsers) {
     field.customParsers.forEach((customParser) => {
       field = customParser(field);

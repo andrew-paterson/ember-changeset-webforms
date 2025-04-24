@@ -1,33 +1,10 @@
-// import defaultValidators from 'ember-changeset-validations/validators';
 import clonedValidator from '../validators/cloned.js';
 import uniqueCloneValidator from '../validators/unique-clone.js';
 import { unflatten } from 'flat';
 
-import {
-  validateDate,
-  validatePresence,
-  validateLength,
-  validateNumber,
-  validateFormat,
-  validateInclusion,
-  validateExclusion,
-  validateConfirmation,
-} from 'ember-changeset-validations/validators';
-
-const defaultValidators = {
-  validateDate,
-  validatePresence,
-  validateLength,
-  validateNumber,
-  validateFormat,
-  validateInclusion,
-  validateExclusion,
-  validateConfirmation,
-};
-
-export default function createValidations(fields, customValidators = {}) {
-  defaultValidators.validateClone = clonedValidator;
-  defaultValidators.uniqueClone = uniqueCloneValidator;
+export default function createValidations(fields, validators = {}) {
+  validators.validateClone = clonedValidator;
+  validators.uniqueClone = uniqueCloneValidator;
   var validations = {};
   if (!fields) {
     return validations;
@@ -43,16 +20,14 @@ export default function createValidations(fields, customValidators = {}) {
         validationMethod: 'validateClone',
         arguments: {
           validationRules: field.clonedFieldBlueprint.validationRules,
-          customValidators: customValidators,
+          validators: validators, // We add validators as an option here so that they can be accessed from within the cloned validator
         },
       });
     }
 
     var fieldValidations = [];
     field.validationRules.forEach((rule) => {
-      var validator =
-        customValidators[rule.validationMethod] ||
-        defaultValidators[rule.validationMethod];
+      var validator = validators[rule.validationMethod];
       if (!validator) {
         return;
       }

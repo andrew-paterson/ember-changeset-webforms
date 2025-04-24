@@ -1,15 +1,12 @@
 // BEGIN-SNIPPET custom-validators-form.js
 import Component from '@glimmer/component';
-import { validateUniqueness, validatePhoneNumber } from '../../validators';
-const customValidators = {
-  validateUniqueness,
-  validatePhoneNumber,
-};
+import validateUniqueness from '../../validators/uniqueness';
 
 export default class IntegratingCustomValidators extends Component {
-  customValidators = customValidators;
-
   formSchema = {
+    validators: {
+      validateUniqueness,
+    },
     formSettings: {
       formName: 'unique',
       submitButtonText: 'Submit',

@@ -1,5 +1,44 @@
 # Field validation
 
+## Integrating validator functions
+
+Validator functions need to be included in an instance of a changesetWebform before the corresponding validation rule will work.
+
+### Importing all of the default validators
+
+The full set of default validators shipped by [Ember Changeset Validations](https://github.com/adopted-ember-addons/ember-changeset-validations) can be imported as below.
+
+<DocsSnippet @name="import-default-validators.js" @title="Importing the default validator functions" />
+
+### Importing a subset of default validators
+
+Note that we can also import a subset of validations, if we don't intend on using all of the default ones, and we'd prefer to avoid importing validators that we don't need.
+
+The snippet below shows the full set of default validators imported in `ember-changeset-webforms/utils/default-validators` (Used above).
+Rather than importing the default validators, we could import a subset of those shown below, directly from `ember-changeset-webforms`.
+
+<DocsSnippet @name="ember-changeset-validations-default-validators.js" @title="The full set of default validators" />
+
+### Importing custom validators
+
+Custom validators can be imported from anywhere. See <LinkTo @route="docs.integrating-custom-validators">Integrating custom validators</LinkTo>
+
+### Integrating validator functions app wide
+
+Validators can be added at the app wide level in `services/ember-changeset-webfornms.js` as below. We first import the validators in the service as above and then add them to the `changesetWebformsDefaults` object as below.
+
+<DocsSnippet @name="app-wide-validators.js" @title="Including validators app wide" />
+
+This would result in all of the default validators being available in all `changesetWebform` instances throughout our app.
+
+### Integrating validator functions in an individual form
+
+The example component below shows how the custom `phoneNumber` validator can be imported and then made available to the `changesetWebform` instance, by including it in `formSchema.validations`.
+
+Note that if you've specified app wide validators, as in the above example, those will still be available to this `changesetWebform` instance. This is why `validatePresence` still works, even though it is not included in `formSchema.validations`.
+
+<Demos::CustomFieldUsage />
+
 ## Validation events
 
 Under the hood, each field has an `eventLog` and `validatesOn` property, both of which are arrays of event name strings.

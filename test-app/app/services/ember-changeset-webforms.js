@@ -2,8 +2,16 @@ import Service from '@ember/service';
 import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
 import IconArrowUp from '../components/svg/icons/icon-arrow-up';
 import RequestInFlightIcon from '../components/button-icons/request-in-flight-icon';
+// BEGIN-SNIPPET import-default-validators.js
+import defaultValidators from 'ember-changeset-webforms/utils/default-validators';
+// END-SNIPPET
+
 export default class EmberChangesetWebforms extends Service {
   changesetWebformsDefaults = {
+    // BEGIN-SNIPPET app-wide-validators.js
+    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.validators
+    validators: defaultValidators,
+    // END-SNIPPET
     // BEGIN-SNIPPET app-wide-classes.js
     // In services/ember-changeset-webforms.js at changesetWebformsDefaults.classNames
     classNames: {

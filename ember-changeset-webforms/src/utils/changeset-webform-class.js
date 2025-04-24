@@ -19,7 +19,6 @@ export default class ChangesetWebform {
     appDefaults,
     formSchema,
     data,
-    customValidators,
     dynamicIncludeExcludeConditions,
     onFormSubmit,
     debug,
@@ -29,7 +28,6 @@ export default class ChangesetWebform {
     this.formSchema = { ...formSchema };
     this.formSchemaWithDefaults = { ...formSchemaWithDefaults };
     this.debug = debug;
-    this.customValidators = customValidators;
     this.dynamicIncludeExcludeConditions = dynamicIncludeExcludeConditions;
     this.callbacks = callbacks;
     setCwfProps(this, data);

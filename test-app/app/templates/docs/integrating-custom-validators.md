@@ -11,21 +11,15 @@ The format of the `@customValidators` property should be a javascript object wit
 The example below shows how to:
 
 1. Define a custom validator named `uniqueness.js` in the `validators` directory of your app.
-2. Create a file which exports all of your validators at `validators/index.js`.
-3. Import your validators into a controller as `customValidators`, and declare them as a controller property, so that they can be used in the corresponding template. Use the `validateUniqueness` custom validator when defining form fields.
-4. Pass the `@customValidators` property to the 
+2. Import your validator into a component and include it in `formSettings.validators`.
 
 <Demos::CustomValidatorsForm />
 
-## Additional notes
+## Arguments
 
-You can save your validators anywhere, provided that your import statement knows where they are.
+When defining your custom validator, the single argument to the main function will receive everything in the `arguments` property of the relevant validation rule, defined in the `validationRules` array for the field.
 
-You don't have to import all of your custom validators in any component or controller. Importing only those you want to use in that controller or component is fine.
-
-When defining your custom validator, the single argument to the main function will receive everything in the `arguments` object passed to `validationMethod` when defining the field.
-
-In the examples above, the field definitions have an object called `descriptionsMap` passed to the `arguments` property.
+In the example above, the field definitions have an object called `descriptionsMap` passed to the `arguments` property.
 
 ```
 validationRules: [{
@@ -33,15 +27,20 @@ validationRules: [{
   arguments: {
     descriptionsMap: {
       primaryEmail: 'primary email',
-      recoveryEmail: 'recovery email' 
+      recoveryEmail: 'recovery email'
     }
   }
 }],
 ```
-The corresponding validator function can then access the `directionsMap` object via `opts.descriptionsMap`.
 
-```
-export default function validateUniqueness(opts) {
-  console.log(opts.descriptionsMap)
+The corresponding validator function can now access `descriptionsMap` object via `opts.descriptionsMap`.
+
+```javascript
+export default function validateUniqueness(opts = {}) {
+  console.log(opts)
+  // descriptionsMap: {
+  //    primaryEmail: 'primary email',
+  //    recoveryEmail: 'recovery email'
+  // }
   ...
 ```
