@@ -1,3 +1,24 @@
+[ ] Docs for custom fields
+[ ] default styles for remove clone button
+[ ] Docs for power date picker must show defaultDate outside the input on load.
+
+## Power selct
+
+All actions emitted as userInteraction and onChnage
+All options integrated
+
+[x] containerName for checkbox group and radio button group
+
+Do labelComponent, checkboxLabelComponent, optionLabelComponent, contentComponent allow strings?
+
+All IDs must use formName as namespace
+
+Tech debt
+
+All classes and data attrs with ember-changeset-webforms replaced by cwf
+
+change defaultValue to autoFill
+
 Aria:
 checked
 controls
@@ -15,7 +36,7 @@ current
 describedby
 disabled
 expanded
-omitted
+hidden
 label
 labelledby
 live
@@ -31,7 +52,9 @@ aria described by for error messages
 
 icons for next/prev month and year.
 define app wide icons for cross etc.
+Use svg for "ember-power-select-status-icon" (Override component)
 
+TODO - exclude fields from changeset altogether, bot just castOut on submit. Set this is form when using field, or on field definition as a default.
 TODO - disable single option where things have options.
 
 TODO Document and test for <EmberChangesetWebforms::FieldElements::FieldDescription
@@ -39,4 +62,13 @@ TODO Document and test for <EmberChangesetWebforms::FieldElements::FieldDescript
 @descriptionMarkdown={{@formField.descriptionMarkdown}}
 />
 
-Update the README
+`fieldType: 'clone-group',` => `fieldType: 'cloneGroup',`
+
+Chnagelog
+
+default field names
+No longer force save even when submit action is provided
+
+Check if ember try
+
+Add input event to all input and textarea elements

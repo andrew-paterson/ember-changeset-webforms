@@ -1,0 +1,43 @@
+<div
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'labelledCheckbox'
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}
+    {{if @disabled 'disabled'}}"
+  data-test-id={{this.checkboxId}}
+  data-test-option="checkbox-option-{{@option.key}}"
+  data-test-labelled-checkbox
+>
+  <input
+    type="checkbox"
+    checked={{readonly @value}}
+    {{on "click" this.checkboxClicked}}
+    disabled={{@disabled}}
+    id={{this.checkboxId}}
+    aria-labelledby={{this.labelId}}
+    name={{@name}}
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'checkboxElement'
+        @changesetWebform
+        @formField
+        @formField.validationStatus
+      }}"
+  />
+  <Background::LabelComponent
+    @labelComponent={{@labelComponent}}
+    @option={{@option}}
+    @markdownLabel={{@markdownLabel}}
+    @label={{@label}}
+    @for={{this.checkboxId}}
+    @labelId={{this.labelId}}
+    @checked={{@value}}
+    class={{ember-changeset-webforms/dynamic-class-names
+      "checkboxLabel"
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}
+  />
+</div>

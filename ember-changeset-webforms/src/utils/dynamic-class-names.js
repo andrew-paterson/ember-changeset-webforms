@@ -63,7 +63,10 @@ export default function dynamicClassNames(
       }
     }
     if (changesetWebform.debug) {
-      classNamesArray.unshift(`[$DEBUG-${elementType.replace(/,/g, '--')}]`);
+      const debugClass = `[$DEBUG-${elementType.replace(/,/g, '--')}]`;
+      if (!classNamesArray.includes(debugClass)) {
+        classNamesArray.unshift(debugClass);
+      }
     }
     classNames = classNames.concat(classNamesArray);
   });

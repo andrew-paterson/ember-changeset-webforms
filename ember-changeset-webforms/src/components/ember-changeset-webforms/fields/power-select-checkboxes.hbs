@@ -14,6 +14,13 @@
   @extra={{hash fieldValue=@formField.fieldValue}}
   @triggerComponent={{@formField.triggerComponent}}
   @triggerId={{@fieldId}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @ariaLabelledBy={{@formField.ariaLabelledBy}}
+  @triggerClass={{ember-changeset-webforms/dynamic-class-names
+    "powerSelectCheckboxesTrigger"
+    @changesetWebform
+    @formField
+  }}
   as |option|
 >
   <Background::PowerSelectOptionCheckbox

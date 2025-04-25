@@ -1,0 +1,30 @@
+<EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
+  @formField={{@clonedFormField}}
+  @masterFormField={{@masterFormField}}
+  @removeClone={{@removeClone}}
+  @changesetWebform={{@changesetWebform}}
+  @typeClass={{@typeClass}}
+  @validationErrorsArray={{@clonedFormField.cloneValidationErrors}}
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'clonedFormField'
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}"
+  data-test-class="{{@masterFormField.id}}-clone"
+  data-test-id="{{@clonedFormField.id}}"
+  {{did-insert this.didInsert}}
+>
+  {{#let (component @clonedFormField.componentPath) as |FieldComponent|}}
+    <FieldComponent
+      @formField={{@clonedFormField}}
+      @clonedFormField={{@clonedFormField}}
+      @masterFormField={{@masterFormField}}
+      @onUserInteraction={{this.onUserInteractionClone}}
+      @updateFieldValue={{this.updateCloneValue}}
+      @cloneField={{@cloneField}}
+      @removeClone={{@removeClone}}
+      @changesetWebform={{@changesetWebform}}
+    />
+  {{/let}}
+</EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

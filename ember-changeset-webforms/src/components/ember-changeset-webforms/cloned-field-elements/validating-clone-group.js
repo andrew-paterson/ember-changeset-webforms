@@ -23,7 +23,7 @@ export default class ValidatingCloneGroup extends Component {
   }
 
   get dataTestId() {
-    return `clone-group-${this.args.masterFormField.id}`;
+    return this.args.masterFormField.id;
   }
 
   get validationStatus() {

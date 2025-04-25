@@ -1,0 +1,20 @@
+{{! BEGIN-SNIPPET component-for-single-checkbox-option.hbs }}
+<div class="inline-flex flex-align-center">
+  <label id={{@labelId}} for={{@for}}><b>
+      <a
+        href="{{@props.infoLink}}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >{{@option.label}}</a>
+    </b>
+    This is a custom component for the label of one specific option.</label>
+  <BasicDropdown @renderInPlace={{true}} as |Dropdown|>
+    <Dropdown.Trigger>
+      <button class="btn btn-primary btn-sm ms-2" type="button">More info</button>
+    </Dropdown.Trigger>
+    <Dropdown.Content class="p-2 rounded border border-primary card-box-shadow">
+      {{@props.info}}
+    </Dropdown.Content>
+  </BasicDropdown>
+</div>
+{{! END-SNIPPET}}

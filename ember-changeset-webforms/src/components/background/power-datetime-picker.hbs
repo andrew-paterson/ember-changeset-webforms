@@ -1,17 +1,18 @@
 <div class="power-datetime-picker" {{did-insert this.didInsert}} ...attributes>
+  {{log @ariaDescribedBy}}
   <BasicDropdown
     @renderInPlace={{true}}
     @onClose={{this.checkDateInputFocus}}
     as |dropdown|
   >
     <dropdown.Trigger
-      @eventName="mousedown"
       onmousedown={{this.onTriggerFocus}}
       class={{@triggerWrapperClass}}
-      ariaLabelledBy={{@ariaLabelledBy}}
+      aria-labelledby={{@ariaLabelledBy}}
+      aria-describedby={{@ariaDescribedBy}}
       aria-label={{@ariaLabel}}
     >
-
+      {{@ariaDescribedBy}}
       {{#if @value}}
         <button
           type="button"

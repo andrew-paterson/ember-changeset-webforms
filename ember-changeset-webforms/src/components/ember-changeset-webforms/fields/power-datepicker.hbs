@@ -1,5 +1,4 @@
 <Background::PowerDatetimePicker
-  @trash={{false}}
   @formField={{@formField}}
   @value={{@formField.fieldValue}}
   @dateButtonComponent={{@formField.dateButtonComponent}}
@@ -24,6 +23,8 @@
   @timeSelectorFields={{this.timeSelectorFields}}
   @timeInputLabels={{@formField.timeInputLabels}}
   @calendarTitleFormat={{@formField.calendarTitleFormat}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @ariaLabelledBy={{@formField.ariaLabelledBy}}
   @clearDateTimeButtonClass="{{ember-changeset-webforms/dynamic-class-names
     'powerDatePickerClearButton'
     @changesetWebform

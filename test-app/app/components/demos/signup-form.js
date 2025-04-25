@@ -181,7 +181,7 @@ export default class SignupFormComponent extends Component {
       },
     ],
   };
-  // END-SNIPPET
+  // END-SNIPPET;
   @action
   submit() {
     return new Promise((resolve) => {

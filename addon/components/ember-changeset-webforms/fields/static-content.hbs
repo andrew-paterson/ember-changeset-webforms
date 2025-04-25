@@ -1,0 +1,8 @@
+{{#if @formField.contentComponent}}
+  {{component
+    @formField.contentComponent.path
+    props=@formField.contentComponent.props
+  }}
+{{else}}
+  {{this.textElement}}
+{{/if}}

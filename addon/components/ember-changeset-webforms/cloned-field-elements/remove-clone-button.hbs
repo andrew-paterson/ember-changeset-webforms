@@ -1,0 +1,28 @@
+{{#if
+  (and @formField.isClone (not-eq @masterFormField.cloneCountStatus "min"))
+}}
+  <div
+    role="button"
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'removeCloneButton'
+        @changesetWebform
+        @formField
+      }}"
+    type="button"
+    {{on "click" (fn @removeClone @formField)}}
+    data-test-class="cwf-remove-clone-button"
+    title="Remove {{@formField.fieldId}}"
+  >
+    {{#let
+      (component @masterFormField.removeCloneComponent)
+      as |RemoveCloneIcon|
+    }}
+      <RemoveCloneIcon
+        class="{{ember-changeset-webforms/dynamic-class-names
+            'removeCloneButtonIcon'
+            @changesetWebform
+            @formField
+          }}"
+      />
+    {{/let}}</div>
+{{/if}}

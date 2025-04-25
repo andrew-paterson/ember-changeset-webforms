@@ -1,0 +1,60 @@
+{{#if
+  (and
+    @changesetWebform.changeset
+    (not @formField.hidden)
+    (not @formField.dynamicallyExcluded)
+    (not-eq @formField.fieldType "noDisplay")
+  )
+}}
+  {{#if @formField.cloneGroupName}}
+    <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
+      @masterFormField={{@formField}}
+      @updateFieldValue={{this.updateFieldValue}}
+      @validateField={{this.validateField}}
+      @afterClickAddCloneButton={{@afterClickAddCloneButton}}
+      @onUserInteraction={{this.onUserInteraction}}
+      @dataTestFieldId={{this.dataTestFieldId}}
+      @changesetWebform={{@changesetWebform}}
+      {{did-insert this.didInsert}}
+    />
+  {{else}}
+    <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
+      @formField={{@formField}}
+      @typeClass={{this.typeClass}}
+      @dataTestFormName={{@dataTestFormName}}
+      @dataTestFieldId={{or @dataTestId @formField.id}}
+      @changesetWebform={{@changesetWebform}}
+      @labelId={{this.labelId}}
+      @ariaLabelledBy={{this.ariaLabelledBy}}
+      @ariaLabel={{this.ariaLabel}}
+      @validationErrorsArray={{@formField.validationErrors}}
+      data-test-cwf-field
+      {{did-insert this.didInsert}}
+    >
+      {{#let (component @formField.componentPath) as |FieldComponent|}}
+        <FieldComponent
+          @formField={{@formField}}
+          @formFields={{@formFields}}
+          @formSettings={{@formSettings}}
+          @updateFieldValue={{this.updateFieldValue}}
+          @onUserInteraction={{this.onUserInteraction}}
+          @changesetWebform={{@changesetWebform}}
+          @dataTestFieldId={{this.dataTestFieldId}}
+          @labelId={{this.labelId}}
+          @ariaLabelledBy={{this.ariaLabelledBy}}
+          @ariaLabel={{this.ariaLabel}}
+          @ariaErrorMessage={{this.ariaErrorMessage}}
+          @ariaDescribedBy={{this.ariaDescribedBy}}
+          @isGroup={{this.isGroup}}
+          @submitForm={{@submitForm}}
+        />
+      {{/let}}
+      {{#if @formField.description}}
+        <EmberChangesetWebforms::FieldElements::FieldDescription
+          @description={{@formField.description}}
+          @descriptionMarkdown={{@formField.descriptionMarkdown}}
+        />
+      {{/if}}
+    </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
+  {{/if}}
+{{/if}}

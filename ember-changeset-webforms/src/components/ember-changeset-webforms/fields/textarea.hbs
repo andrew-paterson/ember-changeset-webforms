@@ -1,6 +1,5 @@
 <textarea
-  class="validation-area
-    {{ember-changeset-webforms/dynamic-class-names
+  class="{{ember-changeset-webforms/dynamic-class-names
       'textareaElement'
       @changesetWebform
       @formField
@@ -21,6 +20,6 @@
   id={{@formField.id}}
   ariaLabelledBy={{@ariaLabelledBy}}
   aria-label={{@ariaLabel}}
-  aria-errormessage="{{@formField.id}}-errors"
-  aria-describedby="{{@formField.id-description}}"
+  aria-errormessage={{@formField.ariaErrorMessage}}
+  aria-describedby={{@formField.ariaDescribedBy}}
 />

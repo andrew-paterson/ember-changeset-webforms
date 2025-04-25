@@ -35,4 +35,8 @@ module('Acceptance | TODO', function (hooks) {
     'Form validation classes work, is-invalid if sonme valid and some not, nothing if not validated',
     async function (assert) {},
   );
+  todo('ARIA label on all SVGs', async function (assert) {});
+
+  // clone-group => cloneGroup
+  // Error message description must always include the field label
 });

@@ -4,6 +4,9 @@ import safeName from '../../utils/safe-name.js';
 
 export default class LabelledCheckbox extends Component {
   get checkboxId() {
+    if (this.args.checkboxId) {
+      return this.args.checkboxId;
+    }
     if (this.args.formField.fieldId === this.args.option.key) {
       return `${safeName(this.args.formField.id)}-checkbox`;
     }

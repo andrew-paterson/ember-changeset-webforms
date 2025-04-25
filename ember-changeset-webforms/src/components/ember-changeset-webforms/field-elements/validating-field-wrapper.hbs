@@ -20,6 +20,12 @@
       )
     }}
     {{if
+      (and @formField.isClone this.hasFieldActions)
+      (ember-changeset-webforms/dynamic-class-names
+        'cloneWrapperWithRemoveButton' @changesetWebform @formField
+      )
+    }}
+    {{if
       @formField.focussed
       (ember-changeset-webforms/dynamic-class-names
         'focussedField' @changesetWebform @formField
@@ -59,6 +65,8 @@
       data-field-actions
       {{did-insert (fn this.registerElementContainer "fieldActions")}}
     ></div>
+  {{/if}}
+  {{#if @formField.isClone}}
     <div
       data-field-content
       {{did-insert (fn this.registerElementContainer "fieldContents")}}
@@ -71,6 +79,10 @@
         @changesetWebform={{@changesetWebform}}
         @labelId={{@labelId}}
       />
+      <EmberChangesetWebforms::FieldElements::FieldDescription
+        @formField={{@formField}}
+        @changesetWebform={{@changesetWebform}}
+      />
       <div
         class="{{if
             @formField.isClone
@@ -81,16 +93,14 @@
               'fieldControls' @changesetWebform @formField
             )
           }}"
-        role={{if @isGroup "group"}}
-        ariaLabelledBy={{if @isGroup @ariaLabelledBy}}
-        aria-label={{if @isGroup @ariaLabel}}
+        role={{if @formField.isGroup "group"}}
+        aria-labelledby={{if @formField.isGroup @ariaLabelledBy}}
+        aria-label={{@ariaLabel}}
+        data-test-id="field-controls"
       >
         {{yield}}
       </div>
-      <EmberChangesetWebforms::FieldElements::FieldDescription
-        @formField={{@formField}}
-        @changesetWebform={{@changesetWebform}}
-      />
+
       <EmberChangesetWebforms::FieldElements::FieldErrors
         @formField={{@formField}}
         @changesetWebform={{@changesetWebform}}

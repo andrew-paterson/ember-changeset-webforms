@@ -10,7 +10,6 @@
     <Background::LabelledRadioButton
       @value={{option.value}}
       @groupValue={{@formField.fieldValue}}
-      @required={{false}}
       @name={{or @formField.name @formField.id}}
       @disabled={{if @formField.disabled true option.disabled}}
       @label={{option.label}}
@@ -23,6 +22,7 @@
       @changedAction={{this.onRadioChange}}
       @option={{option}}
       @changesetWebform={{@changesetWebform}}
+      @required={{@formField.required}}
       @formField={{@formField}}
     />
   {{/each}}

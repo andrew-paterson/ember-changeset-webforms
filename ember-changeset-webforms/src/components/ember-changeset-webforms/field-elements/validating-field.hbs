@@ -20,13 +20,13 @@
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
       @formField={{@formField}}
-      @typeClass={{this.typeClass}}
+      @typeClass={{@formField.typeClass}}
       @dataTestFormName={{@dataTestFormName}}
       @dataTestFieldId={{or @dataTestId @formField.id}}
       @changesetWebform={{@changesetWebform}}
-      @labelId={{this.labelId}}
-      @ariaLabelledBy={{this.ariaLabelledBy}}
-      @ariaLabel={{this.ariaLabel}}
+      @labelId={{@formField.labelId}}
+      @ariaLabelledBy={{@formField.ariaLabelledBy}}
+      @ariaLabel={{@formField.ariaLabel}}
       @validationErrorsArray={{@formField.validationErrors}}
       data-test-cwf-field
       {{did-insert this.didInsert}}
@@ -40,12 +40,10 @@
         @onUserInteraction={{this.onUserInteraction}}
         @changesetWebform={{@changesetWebform}}
         @dataTestFieldId={{or @dataTestId @formField.id}}
-        @labelId={{this.labelId}}
-        @ariaLabelledBy={{this.ariaLabelledBy}}
-        @ariaLabel={{this.ariaLabel}}
-        @ariaErrorMessage={{this.ariaErrorMessage}}
-        @ariaDescribedBy={{this.ariaDescribedBy}}
-        @isGroup={{this.isGroup}}
+        @labelId={{@formField.labelId}}
+        @ariaLabelledBy={{@formField.ariaLabelledBy}}
+        @ariaErrorMessage={{@formField.ariaErrorMessage}}
+        @ariaDescribedBy={{@formField.ariaDescribedBy}}
         @onFormSubmit={{@onFormSubmit}}
       />
       {{#if @formField.description}}

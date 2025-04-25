@@ -1,5 +1,6 @@
 <Background::LabelledCheckbox
   @dataTestId={{concat @dataTestFieldId "-checkbox-option-" @option.value}}
+  @optionLabelDataTestClass="cwf-field-label"
   @value={{readonly @formField.fieldValue}}
   @label={{@formField.checkBoxLabel}}
   @optionLabelComponent={{@formField.checkBoxLabelComponent}}
@@ -11,4 +12,8 @@
   @containerName={{@formSettings.formName}}
   @disabled={{@formField.disabled}}
   @option={{hash key=@formField.fieldId}}
+  @checkboxId={{@formField.id}}
+  @ariaErrorMessage={{@formField.ariaErrorMessage}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @required={{@formField.required}}
 />

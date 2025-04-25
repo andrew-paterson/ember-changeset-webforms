@@ -1,0 +1,37 @@
+<div
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'optionsWrapper'
+      @changesetWebform
+      @formField
+      @formField.validationStatus
+    }}"
+  ...attributes
+>
+  {{#each this.options as |option|}}
+    <Background::LabelledCheckbox
+      @dataTestId={{concat
+        @dataTestFieldId
+        "-checkbox-option-"
+        (ember-changeset-webforms/safe-name option.key)
+      }}
+      @value={{readonly option.value}}
+      @label={{option.label}}
+      @labelComponent={{or
+        option.labelComponent
+        @formField.optionLabelComponent
+      }}
+      @markdownLabel={{option.optionLabelMarkdown}}
+      @containerName={{@formSettings.formName}}
+      @changedAction={{fn this.checkboxToggled option}}
+      @name={{@formField.name}}
+      @disabled={{or
+        option.disabled
+        @formField.disabled
+        (and @formField.preventEmpty option.onlyCheckedOption)
+      }}
+      @option={{option}}
+      @changesetWebform={{@changesetWebform}}
+      @formField={{@formField}}
+    />
+  {{/each}}
+</div>

@@ -19,12 +19,10 @@
   disabled={{@formField.disabled}}
   name={{@formField.name}}
   id={{@formField.id}}
-  ariaLabelledBy={{@ariaLabelledBy}}
+  aria-labelledby={{@ariaLabelledBy}}
   aria-label={{@ariaLabel}}
-  aria-errormessage="{{@formField.id}}-errors"
-  aria-describedby={{if
-    @formField.description
-    (concat @formField.id "-description")
-  }}
+  aria-errormessage={{@formField.ariaErrorMessage}}
+  aria-describedby={{@formField.ariaDescribedBy}}
   required={{@formField.required}}
+  title={{@formField.title}}
 />

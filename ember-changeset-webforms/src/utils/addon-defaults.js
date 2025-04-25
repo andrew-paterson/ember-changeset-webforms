@@ -35,6 +35,7 @@ export default {
     fieldWrapper: ['cwf-field', 'mb-3'],
     fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: ['form-label'],
+    fieldDescription: ['cwf-field-description'],
     requiredField: ['required'],
     optionsWrapper: ['cwf-field-options'],
     // Generic validation related classes - apply to all fields
@@ -73,7 +74,7 @@ export default {
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
-    cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
+    cloneWrapper: ['cwf-clone', 'mb-3'],
     cloneGroupItems: ['cwf-clone-group-items'],
     cloneFieldControls: ['cwf-clone-field-controls', '$validationClassNames'],
     cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
@@ -90,8 +91,18 @@ export default {
     addCloneButtonIcon: [],
     removeCloneButtonIcon: ['fill-gray-medium', 'remove-clone-icon'],
     // fieldType === 'powerSelect'
-    powerSelectTrigger: ['form-control', '$validationClassNames'],
+    powerSelectTrigger: [
+      'form-control',
+      '$validationClassNames',
+      'validation-area',
+    ],
     powerSelectDropdown: [],
+    // fieldType === 'powerSelectCheckboxes'
+    powerSelectCheckboxesTrigger: [
+      'form-control',
+      '$validationClassNames',
+      'validation-area',
+    ],
     // fieldType === powerDatePicker
     powerDatePickerTriggerWrapper: [
       'form-control',
@@ -217,7 +228,6 @@ export default {
       alwaysValidateOn: ['$inherited', 'removeClone'], // Array of strings
       cloneGroupActionsPosition: 'cloneGroupWrapper', // String. Can also be labelWrapper, If cloneGroupWrapper, the clone group action buttons and content will appear below the cloned fields. If `labelWrapper` the the field bale will be wrapper in a div, and the clone group action buttons will be rendered in the label wrapper, after the label element.
       // END-SNIPPET
-      isFieldset: true,
       componentClass:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
     },

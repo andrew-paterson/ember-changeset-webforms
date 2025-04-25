@@ -86,19 +86,41 @@ export default class FormField {
     }
   }
 
-  // get isOmitted() {
-  //   if (!this.omitted) {
-  //     return false;
-  //   }
-  //   if (this.omitted === true) {
-  //     return this.omitted;
-  //   }
-  //   const dynamicallyOmitted = this._checkConditions(this.omitted, this);
-  //   if (dynamicallyOmitted) {
-  //     this.reset();
-  //   }
-  //   return dynamicallyOmitted;
-  // }
+  get isGroup() {
+    return this.options ? true : null;
+  }
+
+  get typeClass() {
+    var myStr = this.fieldType;
+    myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return `field-type-${myStr}`;
+  }
+
+  get labelId() {
+    return `${this.name}-label`;
+  }
+
+  get ariaLabelledBy() {
+    if (!this.hideLabel) {
+      return this.labelId;
+    }
+    return null;
+  }
+
+  get ariaLabel() {
+    if (this.hideLabel) {
+      return this.fieldLabel;
+    }
+    return null;
+  }
+
+  get ariaErrorMessage() {
+    return (this.validationErrors || []).length ? `${this.id}-errors` : null;
+  }
+
+  get ariaDescribedBy() {
+    return this.fieldDescription ? `${this.id}-description` : null;
+  }
 
   _checkConditions(ruleSet, formField) {
     const results = ruleSet.conditions.map((condition) => {

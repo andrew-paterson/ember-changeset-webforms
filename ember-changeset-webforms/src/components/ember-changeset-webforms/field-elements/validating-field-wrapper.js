@@ -18,10 +18,6 @@ export default class ValidatingFieldWrapper extends Component {
     return `cwf-${this.args.typeClass}`;
   }
 
-  get isGroup() {
-    return this.args.formField.options ? true : null;
-  }
-
   get hasFieldActions() {
     return (
       this.args.formField.isClone &&
@@ -30,7 +26,7 @@ export default class ValidatingFieldWrapper extends Component {
   }
 
   get fieldContentsDestinationElement() {
-    return this.hasFieldActions
+    return this.args.formField.isClone
       ? this.destinationElement.fieldContents
       : this.destinationElement.fieldWrapperEl;
   }

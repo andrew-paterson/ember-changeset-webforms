@@ -17,12 +17,15 @@
     id={{this.checkboxId}}
     data-custom-validity
     aria-labelledby={{this.labelId}}
+    aria-errormessage={{@ariaErrorMessage}}
+    aria-describedby={{@ariaDescribedBy}}
     name={{@name}}
     class="{{ember-changeset-webforms/dynamic-class-names
         'checkboxElement'
         @changesetWebform
         @formField
       }}"
+    required={{@required}}
   />
   <Background::OptionLabelComponent
     @optionLabelComponent={{@optionLabelComponent}}
@@ -34,6 +37,7 @@
     @checked={{@value}}
     @changesetWebform={{@changesetWebform}}
     @formField={{@formField}}
+    data-test-class={{@optionLabelDataTestClass}}
     class={{ember-changeset-webforms/dynamic-class-names
       "checkboxLabel"
       @changesetWebform

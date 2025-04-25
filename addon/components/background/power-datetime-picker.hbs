@@ -1,0 +1,142 @@
+<div class="power-datetime-picker" {{did-insert this.didInsert}} ...attributes>
+  <BasicDropdown
+    @renderInPlace={{true}}
+    @onClose={{this.checkDateInputFocus}}
+    as |dropdown|
+  >
+    <dropdown.Trigger
+      @eventName="mousedown"
+      onmousedown={{this.onTriggerFocus}}
+      class={{@triggerWrapperClass}}
+      ariaLabelledBy={{@ariaLabelledBy}}
+      aria-label={{@ariaLabel}}
+    >
+
+      {{#if @value}}
+        <button
+          type="button"
+          class="{{@clearDateTimeButtonClass}}"
+          data-test-id="datetime-picker-clear-datetime"
+          {{on "click" this.clearDateTime}}
+        >×</button>
+      {{else}}
+        <div class="{{@calendarIconClass}}"></div>
+      {{/if}}
+      <input
+        type="text"
+        value={{this.dateInputValue}}
+        placeholder={{this.parsedDatepickerPlaceholder}}
+        {{on "change" this.onDateInputChange}}
+        {{on "keyup" this.onDateInputKeyUp}}
+        {{on "focus" this.onDateInputFocus}}
+        {{on "blur" this.onDateInputBlur}}
+        class={{@triggerInputClass}}
+        id={{@triggerInputId}}
+        data-test-id="power-datepicker-input"
+      />
+    </dropdown.Trigger>
+    <dropdown.Content
+      data-test-id="ecw-power-datepicker-dropdown"
+      class={{@dropdownClass}}
+    >
+      <div class={{@dropdownInnerClass}}>
+        <PowerCalendar
+          @minDate={{@minDate}}
+          @maxDate={{@maxDate}}
+          @selected={{this.selectedDate}}
+          @onSelect={{fn this.dateClicked dropdown}}
+          @onCenterChange={{this.onCenterChange}}
+          @center={{this.center}}
+          class={{@calendarClass}}
+          as |calendar|
+        >
+          <Background::PowerCalendarNav
+            @calendar={{calendar}}
+            @calendarTitleFormat={{@calendarTitleFormat}}
+            @moveCenter={{calendar.actions.moveCenter}}
+            class={{@calendarNavClass}}
+          />
+          <calendar.Days
+            @minDate={{@minDate}}
+            @maxDate={{@maxDate}}
+            class={{@calendarDaysClass}}
+          />
+        </PowerCalendar>
+        {{#if (and @showTimeSelector @value (not @fixedTime))}}
+          <div
+            data-test-id="time-selector"
+            class="time-select
+              {{unless @value 'disabled'}}
+              {{@timeSelectorContainerClass}}"
+          >
+            <Background::TimePartInput
+              @value={{@value}}
+              @dateTimeFormat={{@dateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
+              @timeFormatPart={{get this.timeFormatParts 0}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @dateTimeFormat={{@dateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
+              @timeFormatPart={{get this.timeFormatParts 1}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @dateTimeFormat={{@dateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
+              @timeFormatPart={{get this.timeFormatParts 2}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @dateTimeFormat={{@dateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
+              @timeFormatPart={{get this.timeFormatParts 3}}
+            />
+            {{#if this.showAmPmInput}}
+              <div>
+                <label
+                  for="time-selector-am-pm"
+                  data-test-class="time-selector-field-label"
+                  data-test-id="time-selector-field-label-am-pm"
+                  class={{@timeInputLabelClass}}
+                >{{@timeInputLabels.amPm}}</label>
+                <input
+                  type="text"
+                  id="time-selector-am-pm"
+                  value={{if
+                    @value
+                    (ember-changeset-webforms/moment-format
+                      (ember-changeset-webforms/moment
+                        @value this.parsedDateTimeFormat
+                      )
+                      "a"
+                    )
+                  }}
+                  {{on "change" this.onChangeAmPm}}
+                  {{on "focus" this.onFocusInAmPm}}
+                  {{on "blur" this.onChangeAmPm}}
+                  {{on "keyup" this.onKeyUpAmPm}}
+                  data-test-id="power-datepicker-am-pm-input"
+                  class={{@timeInputClass}}
+                />
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
+      </div>
+    </dropdown.Content>
+  </BasicDropdown>
+</div>

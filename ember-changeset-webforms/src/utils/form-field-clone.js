@@ -78,6 +78,10 @@ export default class FormFieldClone {
     }
   }
 
+  get title() {
+    return `${this.masterFormField.fieldTitle || this.masterFormField.fieldLabel} ${this.index + 1}`;
+  }
+
   updateValidationActivation() {
     if (this.eventLogValidated.length && this.validationRules[0]) {
       const validationRules = this.validationRules[0];

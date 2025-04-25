@@ -1,5 +1,10 @@
 {{#if @formField.isFieldset}}
-  <fieldset ...attributes class="options-length-{{@formField.options.length}}">
+  <fieldset
+    ...attributes
+    data-options-length={{@formField.options.length}}
+    aria-errormessage={{@formField.ariaErrorMessage}}
+    aria-describedby={{@formField.ariaDescribedBy}}
+  >
     {{yield}}
   </fieldset>
 {{else}}

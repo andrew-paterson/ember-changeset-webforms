@@ -1,0 +1,11 @@
+{{! TOIDO doc and test this, with aria attrs }}
+
+{{#if @formField.fieldDescription}}
+  <div
+    id="{{@formField.id}}-description"
+    class="field-description"
+    ...attributes
+  >
+    {{@formField.fieldDescription}}
+  </div>
+{{/if}}

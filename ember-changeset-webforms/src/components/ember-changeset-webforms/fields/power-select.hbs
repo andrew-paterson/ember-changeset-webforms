@@ -4,7 +4,7 @@
   @ariaDescribedBy={{@formField.ariaDescribedBy}}
   @ariaInvalid={{@formField.ariaInvalid}}
   @ariaLabel={{@formField.ariaLabel}}
-  @ariaLabelledBy={{@ariaLabelledBy}}
+  @ariaLabelledBy={{@formField.ariaLabelledBy}}
   @beforeOptionsComponent={{@formField.beforeOptionsComponent}}
   @buildSelection={{@formField.buildSelection}}
   @calculatePosition={{@formField.calculatePosition}}
@@ -54,11 +54,10 @@
   @selected={{@formField.fieldValue}}
   @selectedItemComponent={{@formField.selectedItemComponent}}
   @tabindex={{@formField.tabindex}}
-  @triggerClass={{concat
-    "validation-area "
-    (ember-changeset-webforms/dynamic-class-names
-      "powerSelectTrigger" @changesetWebform @formField
-    )
+  @triggerClass={{ember-changeset-webforms/dynamic-class-names
+    "powerSelectTrigger"
+    @changesetWebform
+    @formField
   }}
   @afterOptionsComponent={{@formField.afterOptionsComponent}}
   @triggerComponent={{@formField.triggerComponent}}
