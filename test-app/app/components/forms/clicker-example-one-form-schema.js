@@ -10,6 +10,8 @@ export default class ClickerExampleOneFormSchema extends Component {
     },
     fields: [
       {
+        fieldLabel: 'Toggle advanced options',
+        hidelabel: true,
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
         classNames: {

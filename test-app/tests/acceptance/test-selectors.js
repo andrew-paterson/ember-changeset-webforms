@@ -32,7 +32,7 @@ export default {
   cwfClickerElement: '[data-test-class="cwf-clicker-element"]',
   cwfFieldCloneWrapper: '[data-test-class="cwf-field-clone-wrapper"]',
   addEmailsForm: '[data-test-id="add-emails-form"]',
-  cloneGroupEmails: '[data-test-id="clone-group-add-emails-form-emails-field"]',
+  cloneGroupEmails: '[data-test-id="add-emails-form-emails-field"]',
   addEmailsFormFormEmailsFieldLabel:
     '[data-test-id="add-emails-form-form-emails-field-label"]',
   'addEmailsFormEmailsFieldClone-0':
@@ -113,7 +113,7 @@ export default {
   afterFieldValidationFeedback:
     '[data-test-id="after-field-validation-feedback"]',
   clonableFieldCountries:
-    '[data-test-id="clone-group-country-iso-codes-form-country-codes-field"]',
+    '[data-test-id="country-iso-codes-form-country-codes-field"]',
   powerDatepicker24HourTimeSelect:
     '[data-test-id="power-datepicker-24-hour-time-select"]',
   powerDatepicker12HourTimeSelect:
@@ -189,7 +189,7 @@ export default {
   ____clickerExample1: '[data-test-id="clicker-example1"]',
   ____clickerExample2: '[data-test-id="clicker-example2"]',
   ____clonableFieldBasics: '[data-test-id="clonable-field-basics"]',
-  ____cloneGroupEmails: '[data-test-id="clone-group-emails"]',
+  ____cloneGroupEmails: '[data-test-id="emails"]',
   ____clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
   ____cwfFieldTypePhoneNumberWithCountryCode:
     '[data-test-class="cwf-field-type-phone-number-with-country-code"]',

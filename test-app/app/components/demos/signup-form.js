@@ -139,6 +139,7 @@ export default class SignupFormComponent extends Component {
       {
         fieldId: 'confirmHuman',
         fieldType: 'singleCheckbox',
+        fieldLabel: 'Are you a human?',
         checkBoxLabel: 'Are you human',
         validationRules: [
           {

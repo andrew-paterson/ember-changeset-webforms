@@ -52,7 +52,6 @@ module('Acceptance | Configuring class names', function (hooks) {
 
   test('Form wide config', async function (assert) {
     await visit('/docs/configure-class-names');
-    // await this.pauseTest();
     checkClasses(
       '[data-test-id="form-class-names-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-wide-label-class', 'form-label'],

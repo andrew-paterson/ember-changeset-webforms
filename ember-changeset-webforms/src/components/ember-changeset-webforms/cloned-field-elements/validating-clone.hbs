@@ -5,6 +5,7 @@
   @changesetWebform={{@changesetWebform}}
   @typeClass={{@typeClass}}
   @validationErrorsArray={{@clonedFormField.cloneValidationErrors}}
+  @labelId={{@clonedFormField.labelId}}
   data-test-class="{{@masterFormField.id}}-clone"
   data-test-id="{{@clonedFormField.id}}"
   {{did-insert this.didInsert}}
@@ -18,5 +19,6 @@
     @cloneField={{@cloneField}}
     @removeClone={{@removeClone}}
     @changesetWebform={{@changesetWebform}}
+    @labelId={{@clonedFormField.labelId}}
   />
 </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

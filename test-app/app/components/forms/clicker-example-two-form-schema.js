@@ -15,6 +15,8 @@ export default class ClickerExampleTwoFormSchema extends Component {
     },
     fields: [
       {
+        fieldLabel: 'Toggle advanced options',
+        hidelabel: true,
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
         classNames: {

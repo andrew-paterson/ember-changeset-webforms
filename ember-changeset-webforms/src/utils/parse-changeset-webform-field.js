@@ -12,6 +12,11 @@ export default function parseChangesetWebformField(fieldSchema, formName) {
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
+  if (!fieldSchema.fieldLabel) {
+    console.warn(
+      `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel is a required field for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
+    );
+  }
   const parsedField = parse(fieldSchema, formName);
   return new FormField(parsedField);
 }

@@ -6,20 +6,19 @@
     }}"
   value={{@formField.fieldValue}}
   data-custom-validity
-  {{did-insert this.didInsert}}
   {{on "keyup" (fn this.onUserInteraction "keyUp")}}
   {{on "keyup" (fn this.onUserInteraction "keyDown")}}
   {{on "blur" (fn this.onUserInteraction "focusOut")}}
   {{on "focus" (fn this.onUserInteraction "focusIn")}}
   {{on "change" this.onChange}}
   placeholder={{@formField.placeholder}}
-  autofocus={{@formField.autofocus}}
   readonly={{@formField.readonly}}
   disabled={{@formField.disabled}}
   name={{@formField.name}}
   id={{@formField.id}}
-  ariaLabelledBy={{@ariaLabelledBy}}
-  aria-label={{@ariaLabel}}
+  ariaLabelledBy={{@formField.ariaLabelledBy}}
+  aria-label={{@formField.ariaLabel}}
   aria-errormessage={{@formField.ariaErrorMessage}}
   aria-describedby={{@formField.ariaDescribedBy}}
+  required={{@formField.required}}
 />

@@ -4,6 +4,8 @@
       @changesetWebform
       @formField
     }}"
+  aria-label={{@formField.ariaLabel}}
+  data-test-id="options-wrapper"
   ...attributes
 >
   {{#each @formField.options as |option|}}

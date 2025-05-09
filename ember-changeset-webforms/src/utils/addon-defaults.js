@@ -188,6 +188,8 @@ export default {
     cloneActionsPosition: 'fieldActions', // String - where to place the remove clone button in relation to the cloned field. Can be [TODO]
     includeLabelForAttr: false, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
     isFieldset: false, // Boolean - if true, the field options are wrapped in a fieldset element, and the field label is wrapped in a legend element.
+    requiresAriaLabelledBy: false, // Boolean - if true, the field will have an aria-labelledby attribute that points to the field label. This is not required if the field uses semantic element/s such as inputs or textareas, and the "for" attribute of the label correctly points to the semantic element/s.
+
     // END-SNIPPET
     // eventLog: [],
   },
@@ -227,6 +229,7 @@ export default {
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
       alwaysValidateOn: ['$inherited', 'removeClone'], // Array of strings
       cloneGroupActionsPosition: 'cloneGroupWrapper', // String. Can also be labelWrapper, If cloneGroupWrapper, the clone group action buttons and content will appear below the cloned fields. If `labelWrapper` the the field bale will be wrapper in a div, and the clone group action buttons will be rendered in the label wrapper, after the label element.
+      requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
@@ -254,6 +257,7 @@ export default {
       // `@changesetWebform and @formField are passed to the component.
       selectedItemComponent: null, // The imported class of the component to pass to the Power Select component. See https://ember-power-select.com/docs/api-reference
       alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass: PowerSelectComponent,
     },
@@ -279,6 +283,7 @@ export default {
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       alwaysValidateOn: ['$inherited', 'valueUpdated', 'blurDateTimeInput'], // Array of strings
+      requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass: PowerDatepickerComponent,
       customParser(field) {
@@ -372,6 +377,7 @@ export default {
       alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
       triggerComponent: PowerSelectCheckboxesTriggerComponent, // Optional -  imported class of the component pass to the Power Select compoent as `triggerComponent`.
       // `@extra` is passed to the component from the Power Select component
+      requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass: PowerSelectCheckboxesComponent,
     },

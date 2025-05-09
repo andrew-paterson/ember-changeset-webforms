@@ -23,8 +23,6 @@
   @timeSelectorFields={{this.timeSelectorFields}}
   @timeInputLabels={{@formField.timeInputLabels}}
   @calendarTitleFormat={{@formField.calendarTitleFormat}}
-  @ariaDescribedBy={{@formField.ariaDescribedBy}}
-  @ariaLabelledBy={{@formField.ariaLabelledBy}}
   @clearDateTimeButtonClass="{{ember-changeset-webforms/dynamic-class-names
     'powerDatePickerClearButton'
     @changesetWebform
@@ -87,6 +85,10 @@
     @formField
   }}"
   @triggerInputId={{@formField.id}}
-  @ariaLabelledBy={{@ariaLabelledBy}}
-  @ariaLabel={{@ariaLabel}}
+  @ariaInvalid={{@formField.ariaInvalid}}
+  @ariaLabel={{@formField.ariaLabel}}
+  @ariaLabelledBy={{@formField.ariaLabelledBy}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @ariaErrorMessage={{@formField.ariaErrorMessage}}
+  @required={{@formField.required}}
 />

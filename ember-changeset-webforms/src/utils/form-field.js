@@ -97,11 +97,11 @@ export default class FormField {
   }
 
   get labelId() {
-    return `${this.name}-label`;
+    return `${this.id}-label`;
   }
 
   get ariaLabelledBy() {
-    if (!this.hideLabel) {
+    if (!this.hideLabel && this.requiresAriaLabelledBy) {
       return this.labelId;
     }
     return null;
@@ -112,6 +112,10 @@ export default class FormField {
       return this.fieldLabel;
     }
     return null;
+  }
+
+  get ariaInvalid() {
+    return (this.validationErrors || []).length ? true : false;
   }
 
   get ariaErrorMessage() {
@@ -260,6 +264,8 @@ export default class FormField {
     clone.masterFormField = masterFormField;
     masterFormField.clonedFields.push(clone);
     clone.index = masterFormField.clonedFields.indexOf(clone);
+    clone.fieldLabel = this._cloneFieldLabel(clone, masterFormField);
+    clone.placeholder = this._clonePlaceholder(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
     masterFormField.lastUpdatedClone = {
       // Useful for something like swapping field values between clones.
@@ -269,7 +275,7 @@ export default class FormField {
     if (!opts.fromData) {
       var fieldValue = this.fieldValue || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
-      this.updateValue(fieldValue); // TODO by not calling updateﬃeldValue int eh component, we don't have the action callback. Attach it to the formField instance.
+      this.updateValue(fieldValue); // TODO by not calling updatFieldValue int eh component, we don't have the action callback. Attach it to the formField instance.
     }
     this.checkMinMaxClones(masterFormField);
   }
@@ -314,5 +320,23 @@ export default class FormField {
     masterFormField.clonedFields.forEach((clone, index) => {
       clone.index = index;
     });
+  }
+
+  _cloneFieldLabel(clone, masterFormField) {
+    if (clone.fieldLabel) {
+      return typeof clone.fieldLabel === 'function'
+        ? clone.fieldLabel(clone)
+        : `${clone.fieldLabel} ${(clone.index + 1).toString()}`;
+    }
+    return `${masterFormField.fieldLabel} ${(clone.index + 1).toString()}`;
+  }
+
+  _clonePlaceholder(clone) {
+    if (clone.placeholder) {
+      return typeof clone.placeholder === 'function'
+        ? clone.placeholder(clone)
+        : `${clone.placeholder} ${(clone.index + 1).toString()}`;
+    }
+    return clone.fieldLabel;
   }
 }

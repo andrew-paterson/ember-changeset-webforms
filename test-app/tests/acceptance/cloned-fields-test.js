@@ -247,7 +247,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     assert
       .dom(`${testEls.clonableFieldCountries} ${els.cwfAddClone}`)
       .hasText(
-        'Add Country code field',
+        'New Country ISO codes field',
         'Add clone button is present and has correct default text when minClones is specified, but maxClones is not.',
       );
   });

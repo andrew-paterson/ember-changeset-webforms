@@ -94,8 +94,6 @@
             )
           }}"
         role={{if @formField.isGroup "group"}}
-        aria-labelledby={{if @formField.isGroup @ariaLabelledBy}}
-        aria-label={{@ariaLabel}}
         data-test-id="field-controls"
       >
         {{yield}}

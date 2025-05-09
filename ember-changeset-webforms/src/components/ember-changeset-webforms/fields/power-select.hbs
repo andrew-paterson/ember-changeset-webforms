@@ -1,10 +1,6 @@
 <this.componentClass
   @allowClear={{@formField.allowClear}}
   @animationEnabled={{@formField.animationEnabled}}
-  @ariaDescribedBy={{@formField.ariaDescribedBy}}
-  @ariaInvalid={{@formField.ariaInvalid}}
-  @ariaLabel={{@formField.ariaLabel}}
-  @ariaLabelledBy={{@formField.ariaLabelledBy}}
   @beforeOptionsComponent={{@formField.beforeOptionsComponent}}
   @buildSelection={{@formField.buildSelection}}
   @calculatePosition={{@formField.calculatePosition}}
@@ -65,6 +61,12 @@
   @triggerRole={{@formField.triggerRole}}
   @typeAheadMatcher={{@formField.typeAheadMatcher}}
   @verticalPosition={{@formField.verticalPosition}}
+  @ariaDescribedBy={{@formField.ariaDescribedBy}}
+  @ariaLabelledBy={{@formField.ariaLabelledBy}}
+  @ariaInvalid={{@formField.ariaInvalid}}
+  @ariaLabel={{@formField.ariaLabel}}
+  aria-errormessage={{@formField.ariaErrorMessage}}
+  @required={{@formField.required}}
   as |option|
 >
   {{#if @formField.optionComponent}}

@@ -11,6 +11,7 @@ export default class SingleCheckboxExampleOneComponent extends Component {
       {
         fieldId: 'acceptTerms',
         fieldType: 'singleCheckbox',
+        fieldLabel: 'I agree to the terms and conditions',
         checkBoxLabel: 'I agree to the terms and conditions',
       },
     ],

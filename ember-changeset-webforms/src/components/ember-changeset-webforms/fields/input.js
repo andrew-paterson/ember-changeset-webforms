@@ -38,9 +38,4 @@ export default class Input extends Component {
       formField.focussed = true;
     }
   }
-
-  @action
-  didInsert(element) {
-    this.element = element;
-  }
 }

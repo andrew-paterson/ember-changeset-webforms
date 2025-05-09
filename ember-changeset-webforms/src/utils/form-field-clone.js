@@ -7,6 +7,8 @@ export default class FormFieldClone {
   @tracked focussed;
   @tracked changeset;
   @tracked validatesOn = [];
+  @tracked fieldLabel;
+
   // BEGIN-SNIPPET cloned-field-settings-tracked-props.js
   @tracked omittedExplicitly;
   @tracked disabled;
@@ -78,8 +80,35 @@ export default class FormFieldClone {
     }
   }
 
-  get title() {
-    return `${this.masterFormField.fieldTitle || this.masterFormField.fieldLabel} ${this.index + 1}`;
+  get labelId() {
+    return `${this.id}-label`;
+  }
+
+  get ariaErrorMessage() {
+    return (this.cloneValidationErrors || []).length
+      ? `${this.id}-errors`
+      : null;
+  }
+
+  get ariaLabel() {
+    if (this.fieldLabel && this.hideLabel) {
+      return this.fieldLabel;
+    }
+    if (!this.fieldLabel && this.masterFormField.fieldLabel) {
+      return `${this.masterFormField.fieldLabel} ${this.index + 1}`;
+    }
+    return null;
+  }
+
+  get ariaLabelledBy() {
+    if (!this.hideLabel && this.requiresAriaLabelledBy) {
+      return this.labelId;
+    }
+    return null;
+  }
+
+  get ariaDescribedBy() {
+    return this.fieldDescription ? `${this.id}-description` : null;
   }
 
   updateValidationActivation() {

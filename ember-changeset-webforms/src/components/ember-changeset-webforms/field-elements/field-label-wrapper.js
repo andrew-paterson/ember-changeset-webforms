@@ -3,14 +3,7 @@ import Component from '@glimmer/component';
 export default class FieldLabel extends Component {
   get labelType() {
     const formField = this.args.formField;
-    const nonFormElementFieldTypes = [
-      'staticContent',
-      'powerSelect',
-      'powerSelectCheckboxes',
-      'powerDatePicker',
-      'clone-group',
-    ];
-    if (nonFormElementFieldTypes.includes(formField.fieldType)) {
+    if (formField.requiresAriaLabelledBy) {
       return 'div';
     }
     if (this.args.formField.isFieldset) {
