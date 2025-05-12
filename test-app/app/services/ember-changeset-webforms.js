@@ -36,7 +36,7 @@ export default class EmberChangesetWebforms extends Service {
     // In services/ember-changeset-webforms.js at changesetWebformsDefaults.fieldTypes
     fieldSettings: {
       customParser(field) {
-        if (field.fieldLabel) {
+        if (field.fieldLabel && typeof field.fieldLabel === 'string') {
           field.fieldLabel = field.fieldLabel.replace(
             'bluthcompany.com',
             'sitwell.com',

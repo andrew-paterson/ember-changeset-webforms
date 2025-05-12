@@ -28,6 +28,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
         ],
       },
       {
+        fieldLabel: 'Email toggler',
         fieldId: 'emailToggler',
         fieldType: 'clicker',
         clickerText: 'Toggle email field',
@@ -135,6 +136,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       (field) => field.fieldId === 'email',
     );
     this.formSchema3.fields[1] = {
+      fieldLabel: 'Has email',
       fieldId: 'hasEmail',
       fieldType: 'radioButtonGroup',
       options: ['Yes', 'No'],
@@ -156,6 +158,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       @submitAction={{this.submitAction}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       />`);
+    await this.pauseTest();
     assert.strictEqual(
       changesetEmailProp,
       'steveholt@bluthcompany.com',

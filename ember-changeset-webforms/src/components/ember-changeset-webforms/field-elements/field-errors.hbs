@@ -11,7 +11,11 @@
   >
     {{#each @validationErrorsArray as |error|}}
       <div
-        class="ember-changeset-webforms-field-error"
+        class="{{ember-changeset-webforms/dynamic-class-names
+            'validationError'
+            @changesetWebform
+            @formField
+          }}"
         data-test-class="cwf-field-error"
       >{{error}}</div>
     {{/each}}

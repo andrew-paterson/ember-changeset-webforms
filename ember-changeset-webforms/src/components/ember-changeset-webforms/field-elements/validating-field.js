@@ -2,35 +2,6 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 
 export default class ValidatingField extends Component {
-  // get typeClass() {
-  //   var myStr = this.args.formField.fieldType;
-  //   myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  //   return `field-type-${myStr}`;
-  // }
-
-  // get labelId() {
-  //   return `${this.args.formField.name}-label`;
-  // }
-
-  // get ariaLabelledBy() {
-  //   if (!this.args.formField.hideLabel) {
-  //     return this.labelId;
-  //   }
-  //   return null;
-  // }
-
-  // get ariaErrorMessage() {
-  //   return (this.args.formField.validationErrors || []).length
-  //     ? `${this.args.formField.id}-errors`
-  //     : null;
-  // }
-
-  // get ariaDescribedBy() {
-  //   return this.args.formField.fieldDescription
-  //     ? `${this.args.formField.id}-description`
-  //     : null;
-  // }
-
   @action
   didInsert(element) {
     var formField = this.args.formField;

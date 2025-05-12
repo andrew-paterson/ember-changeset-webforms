@@ -3,6 +3,7 @@ import { TrackedArray } from 'tracked-built-ins';
 import removeAll from './remove-all.js';
 import FormFieldClone from './form-field-clone.js';
 import removeObject from './remove-object.js';
+import safeName from './safe-name.js';
 
 export default class FormField {
   @tracked cloneCountStatus;
@@ -75,6 +76,17 @@ export default class FormField {
     return true;
   }
 
+  get required() {
+    return this.validationRules.find(function (rule) {
+      return (
+        rule.validationMethod === 'validatePresence' &&
+        (rule.arguments === true || rule.arguments.presence === true)
+      );
+    })
+      ? true
+      : false;
+  }
+
   get validationStatus() {
     if (!this.wasValidated) {
       return null;
@@ -91,9 +103,7 @@ export default class FormField {
   }
 
   get typeClass() {
-    var myStr = this.fieldType;
-    myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-    return `field-type-${myStr}`;
+    return `cwf-field-type-${safeName(this.fieldType)}`;
   }
 
   get labelId() {
@@ -297,9 +307,10 @@ export default class FormField {
   }
 
   cloneId(masterFormField) {
+    const startFrom = 1;
     const clonedFields = masterFormField.clonedFields;
     if (!(clonedFields || []).length) {
-      return 0;
+      return startFrom;
     }
     const sortedClones = [...clonedFields].sort((a, b) => {
       return b.cloneId - a.cloneId;

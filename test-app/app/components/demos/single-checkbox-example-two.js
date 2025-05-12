@@ -9,6 +9,7 @@ export default class SingleCheckboxExampleTwoComponent extends Component {
     },
     fields: [
       {
+        fieldLabel: 'Terms and conditions',
         fieldId: 'acceptTerms',
         fieldType: 'singleCheckbox',
         checkboxLabelMarkdown:

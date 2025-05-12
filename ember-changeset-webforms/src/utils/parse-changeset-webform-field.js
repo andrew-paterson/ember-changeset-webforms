@@ -14,7 +14,7 @@ export default function parseChangesetWebformField(fieldSchema, formName) {
   }
   if (!fieldSchema.fieldLabel) {
     console.warn(
-      `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel is a required field for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
+      `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel should be included for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
     );
   }
   const parsedField = parse(fieldSchema, formName);
@@ -30,18 +30,6 @@ function isPrimitive(value) {
 function parse(fieldSchema, formName) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
-  if (field.validationRules) {
-    var requiredRule = field.validationRules.find(function (rule) {
-      return (
-        rule.validationMethod === 'validatePresence' &&
-        (rule.arguments === true || rule.arguments.presence === true)
-      );
-    });
-    if (requiredRule) {
-      field.required = true;
-    }
-  }
-
   if (field.cloneFieldSchema) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;

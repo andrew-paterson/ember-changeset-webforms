@@ -11,13 +11,6 @@ class destinationElementClass {
 export default class ValidatingFieldWrapper extends Component {
   @tracked destinationElement = new destinationElementClass();
 
-  get dataTestClass() {
-    if (!this.args.typeClass) {
-      return null;
-    }
-    return `cwf-${this.args.typeClass}`;
-  }
-
   get hasFieldActions() {
     return (
       this.args.formField.isClone &&

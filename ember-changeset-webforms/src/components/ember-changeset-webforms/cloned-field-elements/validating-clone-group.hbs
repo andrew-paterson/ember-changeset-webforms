@@ -1,18 +1,30 @@
 <div
-  data-test-id={{this.dataTestId}}
+  data-test-id={{@dataTestFieldId}}
   data-test-cwf-field-validates={{this.dataTestCwfFieldValidates}}
   data-test-cwf-field-required={{this.dataTestCwfFieldRequired}}
-  class="clone-group cwf-clone-group
-    {{this.cloneGroupNameClass}}
-    {{this.validationStatus}}
-    {{this.masterFormField.fieldClassNames}}
-    {{this.typeClass}}
-    {{if this.masterFormField.required 'required'}}
-    {{if this.disabled 'disabled'}}
-    {{if this.readonly 'readonly'}}
-    {{if this.masterFormField.hideSuccessValidation 'hide-success-validation'}}
-    {{if this.masterFormField.validates 'validates'}}
-    {{if this.masterFormField.focussed 'focussed'}}"
+  data-test-class="cwf-field-type-{{ember-changeset-webforms/safe-name
+    @masterFormField.fieldType
+  }}"
+  class="{{@masterFormField.typeClass}}
+    {{if
+      @masterFormField.validates
+      (ember-changeset-webforms/dynamic-class-names
+        'fieldValidates' @changesetWebform @masterFormField
+      )
+    }}
+    {{if
+      @masterFormField.validates
+      (ember-changeset-webforms/dynamic-class-names
+        'cloneGroupWrapper' @changesetWebform @masterFormField
+      )
+    }}
+    {{if
+      @masterFormField.required
+      (ember-changeset-webforms/dynamic-class-names
+        'requiredField' @changesetWebform @masterFormField
+      )
+    }}
+    "
   {{did-insert (fn this.didInsertWrapper "cloneGroupWrapper")}}
   ...attributes
 >
@@ -23,7 +35,6 @@
         "labelWrapper"
         @changesetWebform
         @masterFormField
-        @masterFormField.validationStatus
       }}
       data-test-class="cwf-field-label-wrapper"
     >
@@ -38,12 +49,6 @@
       @changesetWebform={{@changesetWebform}}
     />
   {{/if}}
-
-  <EmberChangesetWebforms::FieldElements::FieldErrors
-    @formField={{@masterFormField}}
-    @validationErrorsArray={{@masterFormField.masterFormFieldValidationErrors}}
-    class="clone-group-field-errors"
-  />
   <div
     data-clone-group-pre-clones
     {{did-insert (fn this.registerElementContainer "preClones")}}
@@ -71,6 +76,11 @@
     {{/each}}
   </div>
 
+  <EmberChangesetWebforms::FieldElements::FieldErrors
+    @formField={{@masterFormField}}
+    @validationErrorsArray={{@masterFormField.masterFormFieldValidationErrors}}
+    @changesetWebform={{@changesetWebform}}
+  />
 </div>
 
 {{#if this.cloneGroupActionsDestinationElement}}

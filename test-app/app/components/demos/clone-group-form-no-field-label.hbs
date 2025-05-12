@@ -1,0 +1,20 @@
+<DocsDemo as |demo|>
+  <demo.example @name="clone-group-form-no-field-label.hbs">
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @submitAction={{this.submit}}
+      @debug={{true}}
+      data-test-id="clonable-field-no-field-label"
+    />
+  </demo.example>
+  <demo.snippet
+    @name="clone-group-form-no-field-label.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="clone-group-form-no-field-label.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

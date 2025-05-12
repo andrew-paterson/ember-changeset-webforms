@@ -36,11 +36,11 @@ export default {
   addEmailsFormFormEmailsFieldLabel:
     '[data-test-id="add-emails-form-form-emails-field-label"]',
   'addEmailsFormEmailsFieldClone-0':
-    '[data-test-id="add-emails-form-emails-field-clone-0"]',
+    '[data-test-id="add-emails-form-emails-field-clone-1"]',
   cwfFieldErrors: '[data-test-class="cwf-field-errors"]',
   cwfFieldError: '[data-test-class="cwf-field-error"]',
   'addEmailsFormEmailsFieldClone-1':
-    '[data-test-id="add-emails-form-emails-field-clone-1"]',
+    '[data-test-id="add-emails-form-emails-field-clone-2"]',
   cwfRemoveCloneButton: '[data-test-class="cwf-remove-clone-button"]',
   iconTrash: '[data-test-icon="icon-trash"]',
   phoneNumberWithCountryCode: '[data-test-id="phone-number-with-country-code"]',
@@ -404,13 +404,13 @@ export default {
   cwfAddCloneButton: '[data-test-id="cwf-add-clone-button"]',
   clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
   'addEmailsFormEmailsFieldClone-2':
-    '[data-test-id="add-emails-form-emails-field-clone-2"]',
-  'addEmailsFormEmailsFieldClone-3':
     '[data-test-id="add-emails-form-emails-field-clone-3"]',
-  'addEmailsFormEmailsFieldClone-4':
+  'addEmailsFormEmailsFieldClone-3':
     '[data-test-id="add-emails-form-emails-field-clone-4"]',
-  'addEmailsFormEmailsFieldClone-5':
+  'addEmailsFormEmailsFieldClone-4':
     '[data-test-id="add-emails-form-emails-field-clone-5"]',
+  'addEmailsFormEmailsFieldClone-5':
+    '[data-test-id="add-emails-form-emails-field-clone-6"]',
   cwfMaxClonesReached: '[data-test-id="cwf-max-clones-reached"]',
   // creating-custom-fields.html,
   // field-settings.html,

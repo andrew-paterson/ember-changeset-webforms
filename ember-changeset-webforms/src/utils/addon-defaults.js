@@ -42,6 +42,7 @@ export default {
     validClassNames: ['is-valid'],
     invalidClassNames: ['is-invalid'],
     validationErrors: ['cwf-field-errors', 'invalid-feedback', 'form-text'],
+    validationError: ['cwf-field-error'],
     fieldValidates: ['validates'],
     validatedField: ['was-validated'],
     // Form wrapper
@@ -74,8 +75,9 @@ export default {
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
+    cloneGroupWrapper: ['cwf-clone-group'],
     cloneWrapper: ['cwf-clone', 'mb-3'],
-    cloneGroupItems: ['cwf-clone-group-items'],
+    cloneGroupItems: ['cwf-clone-group-items', '$validationClassNames'],
     cloneFieldControls: ['cwf-clone-field-controls', '$validationClassNames'],
     cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
     maxClonesReached: ['cwf-max-clones-reached'],
@@ -163,7 +165,8 @@ export default {
   },
   fieldSettings: {
     // TODO document that these can all be included in a form in "fieldSettings"
-    fieldId: null,
+    fieldId: null, // String (required) - the id of the field. If not set, an error will be thrown.
+    fieldLabel: null, // String (required) - the label of the field as a whole. If not set, an error will be thrown. Use hidelabel in order to hide the label. Even if the label is hidden, this value is used to populate accesibility attributes, such as aria-label.
     propertyName: null, // Optional, defaults to the value oif fieldId if not set.
     name: null, // String - defaults to the fieldId
     // BEGIN-SNIPPET generic-field-settings.js
@@ -171,10 +174,8 @@ export default {
     validatesOn: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
     alwaysValidateOn: ['submit'], // Array of strings
     showValidationWhenFocussed: false, // Boolean - unless this is tru, validation colours, icons and messages will be omitted for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
-    hideSuccessValidation: false, // Boolean - only show validation colours when field validation fails
     omitted: false, // Boolean - or object - if true, the field is omitted and also ignored when validating or submitting the form. Can also be an object which defines rules for dynamic omission/inclusion. See /docs/hiding-and-showing-fields.
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
-    fieldLabel: null, // String - the label to show on the field
     labelComponent: null, // Object with { componentClass, props }.
     // If set, fieldLabel becomes null.
     // `componentClass` is the imported class of the component to show inside the field label element.
@@ -222,7 +223,6 @@ export default {
       // `componentClass` is the imported class of the component to replace add clone button.
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@changesetWebform and @formField are passed to the component.
-      hideSuccessValidation: true,
       minClones: 1, // Number - minimum number of clones allowed.
       maxClones: null, // Number - maximum number of clones allowed.
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`

@@ -1,5 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
+import safeName from './safe-name.js';
+
 export default class FormFieldClone {
   @tracked index;
   @tracked id;
@@ -18,6 +20,10 @@ export default class FormFieldClone {
     for (const key in args) {
       this[key] = args[key];
     }
+  }
+
+  get typeClass() {
+    return `cwf-clone-type-${safeName(this.fieldType)}`;
   }
 
   get fieldValue() {
@@ -42,6 +48,17 @@ export default class FormFieldClone {
     );
   }
 
+  get required() {
+    return this.validationRules.find(function (rule) {
+      return (
+        rule.validationMethod === 'validatePresence' &&
+        (rule.arguments === true || rule.arguments.presence === true)
+      );
+    })
+      ? true
+      : false;
+  }
+
   get cloneValidationErrors() {
     var index = this.index;
     const changeset = this.changeset;
@@ -54,6 +71,10 @@ export default class FormFieldClone {
       return null;
     }
     return cloneValidationErrors.clones[index];
+  }
+
+  get validates() {
+    return this.validationRules.length > 0;
   }
 
   get validationStatus() {

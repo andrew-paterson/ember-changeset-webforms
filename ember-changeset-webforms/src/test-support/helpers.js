@@ -351,7 +351,6 @@ export default {
       });
       if (obj.fieldType === 'single-checkbox') {
         obj[camelize(obj.fieldType)] = {
-          label: el.querySelector('label').textContent.trim(), // TODO better selector for this.
           checked: el.querySelector('input[type="checkbox"]').checked,
         };
       }

@@ -14,56 +14,10 @@ export default class ValidatingCloneGroup extends Component {
   @tracked masterFormField;
   @tracked destinationElement = new destinationElementClass();
 
-  get dataTestCwfFieldValidates() {
-    return this.args.masterFormField.validates;
-  }
-
-  get dataTestCwfFieldRequired() {
-    return this.args.masterFormField.required;
-  }
-
-  get dataTestId() {
-    return this.args.masterFormField.id;
-  }
-
-  get validationStatus() {
-    var formField = this.args.masterFormField;
-    if (!formField) {
-      return null;
-    }
-    if (
-      !formField.eventLogValidated.filter((item) => !item.endsWith('Clone'))
-        .length
-    ) {
-      return null;
-    }
-    var validationErrors = this.args.masterFormFieldValidationErrors || [];
-    if (validationErrors.length === 0) {
-      return 'valid';
-    } else {
-      return 'invalid';
-    }
-  }
-
-  get cloneGroupNameClass() {
-    return `clone-group-${this.args.masterFormField.cloneGroupName}`;
-  }
-
   get cloneGroupActionsDestinationElement() {
     return this.destinationElement[
       this.args.masterFormField.cloneGroupActionsPosition
     ];
-  }
-
-  cloneId(masterFormField) {
-    const clonedFields = masterFormField.clonedFields;
-    if (!(clonedFields || []).length) {
-      return 0;
-    }
-    const sortedClones = [...clonedFields].sort((a, b) => {
-      return b.cloneId - a.cloneId;
-    });
-    return sortedClones[0].cloneId + 1;
   }
 
   @action

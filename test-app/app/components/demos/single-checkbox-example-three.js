@@ -10,6 +10,7 @@ export default class SingleCheckboxExampleThreeComponent extends Component {
     },
     fields: [
       {
+        fieldLabel: 'Terms and conditions',
         fieldId: 'acceptTerms',
         fieldType: 'singleCheckbox',
         checkBoxLabelComponent: {

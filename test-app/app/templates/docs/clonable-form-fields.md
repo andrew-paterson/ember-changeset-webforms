@@ -55,3 +55,31 @@ Note that there is an additional built in validator specifically for use in a cl
 <!-- TODO move to more appropriate docs. -->
 
 See [https://github.com/poteto/ember-changeset-validations#overriding-validation-messages](https://github.com/poteto/ember-changeset-validations#overriding-validation-messages) on how to override validation messages, while retaining dynamic values.
+
+## Clone field labels
+
+### Defaults (where not set)
+
+The `fieldLabel` property is not required for a `cloneFieldSchema`. If not set, it will default tot he `fieldLabel` of the parent form field, witht beh index of the clone appended.
+
+Note that when not set, the `placeholder` property be the same as `fieldLabel`.
+
+Set `hideLabel` to true on the `cloneFieldSchema` if you don't want the label to show.
+
+<Demos::CloneGroupFormNoFieldLabel />
+
+### `fieldLabel` and `placeholder` strings
+
+If a string is passed for `cloneFieldSchema.fieldLabel`, each clone will have a `fieldLabel` which begins with that string and than has its current index appended. The same applies to `placeholder`.
+
+<Demos::CloneGroupFormStringFieldLabel />
+
+### `fieldLabel` and `placeholder` functions
+
+If a function is passed for `cloneFieldSchema.fieldLabel`, each clone will have a `fieldLabel` is the string returned from that function.
+
+The function receives a single argument, whiich is the the class instance of the relevant clone.
+
+The same applies to `placeholder`.
+
+<Demos::CloneGroupFormCustomLabelsAndPlaceholders />
