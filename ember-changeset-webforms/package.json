@@ -137,7 +137,6 @@
     "./*": "./dist/*.js",
     "./addon-main.js": "./addon-main.cjs"
   },
-  "packageManager": "pnpm@9.12.2",
   "files": [
     "addon-main.cjs",
     "dist"
