@@ -54,7 +54,7 @@ export default {
     submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
     submitButtonIcon: [],
     // Request in flight
-    requestInFlight: [
+    requestInFlightIcon: [
       'request-in-flight',
       'spinner-border',
       'spinner-border-sm',
@@ -64,8 +64,8 @@ export default {
       classNameSettings,
       changesetWebform,
     ) {
-      if (changesetWebform.formSettings.requestInFlight) {
-        return ['ms-2'].concat(classNameSettings.requestInFlight);
+      if (changesetWebform.formSettings.requestInFlightIcon) {
+        return ['ms-2'].concat(classNameSettings.requestInFlightIcon);
       }
     },
     resetFormButtonIcon: [],

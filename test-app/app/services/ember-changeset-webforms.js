@@ -16,6 +16,7 @@ export default class EmberChangesetWebforms extends Service {
     // In services/ember-changeset-webforms.js at changesetWebformsDefaults.classNames
     classNames: {
       labelElement: ['$inherited', 'app-wide-label-element-class'],
+      powerSelectCheckboxesOption: ['form-check'],
     },
     // END-SNIPPET
     formSettings: {

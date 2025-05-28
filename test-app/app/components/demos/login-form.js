@@ -7,7 +7,6 @@ export default class LoginFormComponent extends Component {
     formSettings: {
       formName: 'login',
       submitButtonText: 'Log in',
-      hideSuccessValidation: true,
       hideLabels: true,
       clearFormAfterSubmit: true,
     },

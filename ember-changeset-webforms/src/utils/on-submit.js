@@ -23,14 +23,25 @@ export default async function onSubmit(changesetWebform, componentArgs) {
     if (changesetWebform.formSettings.clearFormAfterSubmit) {
       changesetWebform.clear();
     }
+
     if (componentArgs.submitSuccess) {
       componentArgs.submitSuccess(submitActionResponse, changesetWebform);
+    }
+    if (componentArgs.submitComplete) {
+      componentArgs.submitComplete(
+        'success',
+        submitActionResponse,
+        changesetWebform,
+      );
     }
     return submitActionResponse;
   } catch (err) {
     changesetWebform.formSettings.requestInFlight = false;
     if (componentArgs.submitError) {
       componentArgs.submitError(err, changesetWebform);
+    }
+    if (componentArgs.submitComplete) {
+      componentArgs.submitComplete('error', err, changesetWebform);
     }
     return err;
   }

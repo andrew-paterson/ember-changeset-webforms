@@ -1,5 +1,8 @@
 <div
-  class="form-check"
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'powerSelectCheckboxesOption'
+      @changesetWebform
+    }}"
   {{did-insert this.didInsert}}
   {{did-update this.selectionChanged @selected}}
 >

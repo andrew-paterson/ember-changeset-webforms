@@ -50,6 +50,10 @@ export default class ChangesetWebform {
     field.setOmission(omitted);
   }
 
+  pushErrors(opts) {
+    this.changeset.pushErrors(opts.fieldId, ...opts.errors);
+  }
+
   async isValid() {
     const fields = this.fields.filter((field) => {
       return field.validates && !field.isOmitted;

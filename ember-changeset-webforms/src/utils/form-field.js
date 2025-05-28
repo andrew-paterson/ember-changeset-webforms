@@ -262,6 +262,10 @@ export default class FormField {
     return res[0];
   }
 
+  pushErrors(errors) {
+    this.changeset.pushErrors(this.fieldId, ...errors);
+  }
+
   cloneField(opts = {}) {
     var masterFormField = this;
     var newField = { ...masterFormField.clonedFieldBlueprint };

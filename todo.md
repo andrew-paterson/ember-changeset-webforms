@@ -1,6 +1,8 @@
 [ ] Docs for custom fields
 [ ] default styles for remove clone button
 [ ] Docs for power date picker must show defaultDate outside the input on load.
+[ ] Does it work without render-modifers installed?
+[ ] Document pushErrors for form-field and changesetWebform
 
 ## Power selct
 
