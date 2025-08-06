@@ -60,6 +60,7 @@ export default {
     opts.presentValidationClass = opts.validClass || 'is-valid';
     opts.absentValidationClass = opts.invalidClass || 'is-invalid';
     opts.assertionPrefix = opts.assertionPrefix || 'Field passsed validation';
+    opts.validationResult = 'valid';
 
     await this.waitForMs(200);
     if (assert) {
@@ -88,6 +89,7 @@ export default {
     opts.presentValidationClass = opts.invalidClass || 'is-invalid';
     opts.absentValidationClass = opts.validClass || 'is-valid';
     opts.assertionPrefix = opts.assertionPrefix || 'Field failed validation';
+    opts.validationResult = 'invalid';
 
     await this.waitForMs(200);
     if (assert) {
@@ -165,7 +167,7 @@ export default {
         assert.strictEqual(
           validationBorderColourElementsCss.getPropertyValue('border-color'),
           opts.validationBorderColour,
-          `[${opts.assertionPrefix}] The appropriate element has valid border colour ${opts.validationBorderColour} => ${opts.assertionSuffix}`,
+          `[${opts.assertionPrefix}] The appropriate element has ${opts.validationResult} border colour ${opts.validationBorderColour} => ${opts.assertionSuffix}`,
         );
       }
 
@@ -175,7 +177,7 @@ export default {
             'background-image',
           ),
           opts.validationBackgroundImage,
-          `[${opts.assertionPrefix}] The appropriate element has valid background image => ${opts.assertionSuffix}`,
+          `[${opts.assertionPrefix}] The appropriate element has ${opts.validationResult} background image => ${opts.assertionSuffix}`,
         );
       }
 
@@ -185,7 +187,7 @@ export default {
             'background-color',
           ),
           opts.validationBackgroundColour,
-          `[${opts.assertionPrefix}] The appropriate element has valid background colour ${opts.validationBackgroundColour} => ${opts.assertionSuffix}`,
+          `[${opts.assertionPrefix}] The appropriate element has ${opts.validationResult} background colour ${opts.validationBackgroundColour} => ${opts.assertionSuffix}`,
         );
       }
     }

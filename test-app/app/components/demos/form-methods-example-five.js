@@ -3,13 +3,12 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-4.js"
-  @tracked formIsValid;
-  @tracked formValidityChecked;
+  // BEGIN-SNIPPET form-methods-example-5.js"
+  @tracked data;
 
   formSchema = {
     formSettings: {
-      formName: 'formMethods4',
+      formName: 'formMethods5',
       hideSubmitButton: true,
     },
     fields: [
@@ -44,14 +43,9 @@ export default class FormMethodsExample1Component extends Component {
   };
 
   @action
-  afterGenerateChangesetWebform(changesetWebform) {
-    this.changesetWebform = changesetWebform;
+  async onFieldValueChange(_formField, changesetWebform) {
+    this.data = await changesetWebform.getData();
   }
 
-  @action
-  async checkFormValidity() {
-    this.formValidityChecked = true;
-    this.formIsValid = await this.changesetWebform.isValid;
-  }
   // END-SNIPPET
 }

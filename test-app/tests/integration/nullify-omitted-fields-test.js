@@ -158,7 +158,6 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       @submitAction={{this.submitAction}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       />`);
-    await this.pauseTest();
     assert.strictEqual(
       changesetEmailProp,
       'steveholt@bluthcompany.com',

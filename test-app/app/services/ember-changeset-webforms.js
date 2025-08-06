@@ -102,7 +102,6 @@ export default class EmberChangesetWebforms extends Service {
         fieldType: 'input',
         customParser(field) {
           if (field.inputType === 'email') {
-            field.validatesOn = ['insertWithValue'];
             field.validationRules = field.validationRules || [];
             const existing = field.validationRules.find(
               (rule) =>

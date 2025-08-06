@@ -74,3 +74,39 @@ No longer force save even when submit action is provided
 Check if ember try
 
 Add input event to all input and textarea elements
+
+[ ] ECW - submitCompete v submitError and submitSuccess
+[ ] Test for data as class instance and ember object (Should fail then saving chamgeset asfter setting defaults)
+[ ] clearFormAfterSubmit is documented
+[ ] classList.contains('valid') becomes ecwTestHelpers.passedvalidation
+
+[ ] ECW Add icon options to all buttons
+showRollbackChangesetButton
+showClearFormButton
+submitButton => submitButtonIconComponent but also spinner
+addCloneButton => addCloneButtonIconComponent
+removeCloneButton => removeCloneComponent
+
+[x] ECW add docs for these `options: [], // Array of objects.`
+
+[x] ECW check that classes for radio and check option labels work- md, text and compoennt
+
+[x] ECW check if selectedItem component received `@extra` prop from Power select, as triggerComponent does
+
+[x] ECW ensure all possible options from Ember Power Select can be passed to both power select and power select checkboxes component is passed correctly.
+
+[ ] ECW document Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works in main docs for clicker
+
+[ECW] afterFieldInsertedAction => remove "Action" amd same for other instances (Note required since @ and this.)
+
+[ ] ECW must require explict import of validators
+
+[ ] ECW- prefix all classes, make power-datetime-picker its own component with tests, document that ember-test-selectors is suggested
+
+[x] ECW - Split built in fields docs
+
+[ ] - Understand ehy there is noth validateField/s and validate for field and chnagesetWebform
+
+[ ] - document test helpers
+
+[ ] - Document data-custom-validity

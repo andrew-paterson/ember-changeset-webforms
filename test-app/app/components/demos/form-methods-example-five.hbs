@@ -1,0 +1,24 @@
+<DocsDemo as |demo|>
+  <demo.example @name="form-methods-example-5.hbs" data-test-id="example-5">
+    <div class="border rounded p-2 mb-4 bg-light">
+      <ul>
+        <li>Name: {{this.data.name}}</li>
+        <li>Email: {{this.data.email}}</li>
+      </ul>
+    </div>
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @onFieldValueChange={{this.onFieldValueChange}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="form-methods-example-5.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="form-methods-example-5.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

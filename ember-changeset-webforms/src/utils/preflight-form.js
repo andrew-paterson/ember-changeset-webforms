@@ -20,7 +20,7 @@ export default async function preFlightForm(changesetWebform, componentArgs) {
         // TODO test for cloned fields without any validation rules
       }
     });
-    const validationResult = await changesetWebform.validateFields();
+    const validationResult = await changesetWebform._validateFields();
     if (componentArgs.afterValidateFields) {
       await componentArgs.afterValidateFields(
         changesetWebform,

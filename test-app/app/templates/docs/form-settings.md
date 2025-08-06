@@ -14,8 +14,6 @@ The only required setting is `formName` which must be unique from that of any ot
 
 ## Tracked form settings
 
-The following form settings are tracked, and so updating them in an action will result in a template update. 
+The following form settings are tracked, and so updating them in an action will result in a template update.
 
 <DocsSnippet @name="form-settings-tracked-props.js" @title="Tracked form settings" />
-
-

@@ -36,14 +36,39 @@ export default class ChangesetWebform {
     };
   }
 
+  get isValid() {
+    if (
+      !this.changeset.isValid ||
+      this.fields.filter(
+        (field) => field.validates && !field.wasValidated && !field.isOmitted,
+      ).length > 0
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   _checkOmitted() {
     this.fields.forEach((field) => {
       field._checkOmitted();
     });
   }
 
-  setFieldOmission(fieldId, omitted) {
+  getField(fieldId) {
     const field = this.fields.find((field) => field.fieldId === fieldId);
+    if (!field) {
+      return null;
+    }
+    return field;
+  }
+
+  async getData() {
+    const savedChangeset = await this.changeset.save();
+    return savedChangeset.data;
+  }
+
+  setFieldOmission(fieldId, omitted) {
+    const field = this.getField(fieldId);
     if (!field) {
       return;
     }
@@ -52,16 +77,8 @@ export default class ChangesetWebform {
 
   pushErrors(opts) {
     this.changeset.pushErrors(opts.fieldId, ...opts.errors);
-  }
-
-  async isValid() {
-    const fields = this.fields.filter((field) => {
-      return field.validates && !field.isOmitted;
-    });
-    for (var field of fields) {
-      await this.changeset.validate(field.propertyName);
-    }
-    return this.changeset.isValid;
+    const formField = this.getField(opts.fieldId);
+    formField._setCustomValidity();
   }
 
   async validate(opts) {
@@ -73,10 +90,10 @@ export default class ChangesetWebform {
     return await Promise.all(validatePromises);
   }
 
-  validateFields() {
+  _validateFields() {
     var validatePromises = this.fields
       .map((field) => {
-        return field.validateField();
+        return field._validateField();
       })
       .filter((item) => item);
     return Promise.all(validatePromises);

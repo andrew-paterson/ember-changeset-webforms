@@ -1,16 +1,20 @@
 import Component from '@glimmer/component';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
+import { action } from '@ember/object';
 
 export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-4.js"
-  @tracked formIsValid;
-  @tracked formValidityChecked;
+  // BEGIN-SNIPPET form-methods-example-7.js"
+  @tracked actionsLog = TrackedArray.from([]);
 
+  data = {
+    name: 'Steve Holt',
+    email: 'steveholt@bluthcompany.com',
+  };
   formSchema = {
     formSettings: {
-      formName: 'formMethods4',
-      hideSubmitButton: true,
+      formName: 'formMethods7',
+      clearFormButton: true,
     },
     fields: [
       {
@@ -38,20 +42,22 @@ export default class FormMethodsExample1Component extends Component {
               presence: true,
             },
           },
+          {
+            validationMethod: 'validateFormat',
+            arguments: { type: 'email' },
+          },
         ],
       },
     ],
   };
 
   @action
-  afterGenerateChangesetWebform(changesetWebform) {
-    this.changesetWebform = changesetWebform;
+  beforeClearForm() {
+    this.actionsLog.push('The beforeClearForm action was called');
   }
-
   @action
-  async checkFormValidity() {
-    this.formValidityChecked = true;
-    this.formIsValid = await this.changesetWebform.isValid;
+  afterClearForm() {
+    this.actionsLog.push('The afterClearForm action was called');
   }
   // END-SNIPPET
 }

@@ -136,6 +136,10 @@ export default class FormField {
     return this.fieldDescription ? `${this.id}-description` : null;
   }
 
+  get isValid() {
+    return this.validationStatus === 'valid';
+  }
+
   _checkConditions(ruleSet, formField) {
     const results = ruleSet.conditions.map((condition) => {
       if (condition.conditions) {
@@ -176,10 +180,13 @@ export default class FormField {
   }
 
   updateValue(value) {
+    var changeset = this.changeset;
     this.snapshots.push(this.changeset.snapshot());
     this.eventLog.push('valueUpdated');
-    var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
+    if (this.valueFilter && value) {
+      value = this.valueFilter(value, this);
+    }
     changeset.set(this.propertyName, value);
     this.validate({ skipUnvalidated: true });
     this.changesetWebform._checkOmitted();
@@ -226,10 +233,19 @@ export default class FormField {
     if (!('skipUnvalidated' in opts) || opts.skipUnvalidated !== true) {
       this.eventLog.push('forceValidation');
     }
-    return await this.validateField(opts);
+    return await this._validateField(opts);
   }
 
-  async validateField(opts = {}) {
+  _setCustomValidity() {
+    (this.customValidityEls || []).forEach((el) => {
+      el.setCustomValidity((this.validationErrors || []).join());
+    });
+    this.clonedFields.forEach((clonedField) => {
+      clonedField._setCustomValidity();
+    });
+  }
+
+  async _validateField(opts = {}) {
     const formField = this;
     const changeset = this.changeset;
     if (
@@ -240,14 +256,7 @@ export default class FormField {
       return;
     }
     const res = await changeset.validate(formField.propertyName);
-    (formField.customValidityEls || []).forEach((el) => {
-      el.setCustomValidity((this.validationErrors || []).join());
-    });
-    this.clonedFields.forEach((clonedField) => {
-      (clonedField.customValidityEls || []).forEach((el) => {
-        el.setCustomValidity((clonedField.cloneValidationErrors || []).join());
-      });
-    });
+    this._setCustomValidity();
     // TODO document and improve opts.callbacks !== false
     if (
       opts.callbacks !== false &&

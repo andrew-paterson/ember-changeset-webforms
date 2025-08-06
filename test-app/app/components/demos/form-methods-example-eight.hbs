@@ -1,0 +1,29 @@
+<DocsDemo as |demo|>
+  <demo.example @name="form-methods-example-8.hbs" data-test-id="example-8">
+    {{#if this.actionsLog.length}}
+      <div class="border rounded p-2 mb-4 bg-light" data-test-id="actions-log">
+        {{#each this.actionsLog as |logEntry|}}
+          <ul>
+            <li>{{logEntry}}</li>
+          </ul>
+        {{/each}}
+      </div>
+    {{/if}}
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @data={{this.data}}
+      @beforeResetForm={{this.beforeResetForm}}
+      @afterResetForm={{this.afterResetForm}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="form-methods-example-8.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="form-methods-example-8.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

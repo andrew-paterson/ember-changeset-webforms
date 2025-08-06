@@ -140,4 +140,10 @@ export default class FormFieldClone {
       validationRules.activateValidation.push(this.index);
     }
   }
+
+  _setCustomValidity() {
+    (this.customValidityEls || []).forEach((el) => {
+      el.setCustomValidity((this.cloneValidationErrors || []).join());
+    });
+  }
 }
