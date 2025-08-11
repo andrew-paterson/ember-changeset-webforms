@@ -16,11 +16,13 @@ export default class ClickerExampleTwoFormSchema extends Component {
     fields: [
       {
         fieldLabel: 'Toggle advanced options',
-        hidelabel: true,
+        hideLabel: true,
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
-        classNames: {
-          clickerElement: ['$inherited', 'btn'],
+        attrsFromConfig: {
+          classNames: {
+            clickerElement: ['$inherited', 'btn'],
+          },
         },
         clickerText: 'Advanced options',
         displayComponent: {

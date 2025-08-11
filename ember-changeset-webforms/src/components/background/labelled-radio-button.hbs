@@ -1,10 +1,6 @@
 <div
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'labelledRadioButton'
-      @changesetWebform
-      @formField
-    }}
-    {{if @disabled 'disabled'}}"
+  {{attrs-from-config "labelledRadioButton" @changesetWebform @formField}}
+  class="{{if @disabled 'disabled'}}"
   data-test-id={{this.radioId}}
   data-test-option="radio-option-{{@option.value}}"
   data-test-labelled-radio-button
@@ -18,12 +14,8 @@
     @disabled={{@disabled}}
     @ariaLabelledby={{this.labelId}}
     @required={{@required}}
-    data-custom-validity
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'radioButtonElement'
-        @changesetWebform
-        @formField
-      }}"
+    data-set-custom-validity
+    {{attrs-from-config "radioButtonElement" @changesetWebform @formField}}
   />
   <Background::OptionLabelComponent
     @optionLabelComponent={{@optionLabelComponent}}
@@ -35,10 +27,6 @@
     @checked={{this.checked}}
     @changesetWebform={{@changesetWebform}}
     @formField={{@formField}}
-    class={{ember-changeset-webforms/dynamic-class-names
-      "radioButtonLabel"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "radioButtonLabel" @changesetWebform @formField}}
   />
 </div>

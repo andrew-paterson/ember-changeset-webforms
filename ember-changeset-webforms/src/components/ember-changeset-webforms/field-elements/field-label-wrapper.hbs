@@ -1,10 +1,6 @@
 {{#if (eq this.labelType "legend")}}
   <legend
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'legendElement'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "legendElement" @changesetWebform @formField}}
     ...attributes
   >
     {{yield}}
@@ -15,11 +11,7 @@
   </div>
 {{else}}
   <label
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'labelElement'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "labelElement" @changesetWebform @formField}}
     for={{@formField.id}}
     ...attributes
   >

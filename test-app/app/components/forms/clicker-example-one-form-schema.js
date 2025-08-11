@@ -11,11 +11,13 @@ export default class ClickerExampleOneFormSchema extends Component {
     fields: [
       {
         fieldLabel: 'Toggle advanced options',
-        hidelabel: true,
+        hideLabel: true,
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
-        classNames: {
-          clickerElement: ['$inherited', 'btn', 'btn-primary'],
+        attrsFromConfig: {
+          classNames: {
+            clickerElement: ['$inherited', 'btn', 'btn-primary'],
+          },
         },
         clickerText: 'Advanced options',
         showAdvanced: false,

@@ -2,7 +2,7 @@
 {{! components/custom-fields/phone-number-with-country-code.hbs }}
 <div class="input-group padding-0">
   <PowerSelect
-    @triggerClass="{{ember-changeset-webforms/dynamic-class-names
+    @triggerClass="{{ember-changeset-webforms/class-names-from-config
       'countryCodeTrigger'
       @changesetWebform
       @formField
@@ -26,11 +26,7 @@
   </PowerSelect>
   <input
     id={{@formField.id}}
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'phoneNumberInput'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "phoneNumberInput" @changesetWebform @formField}}
     {{on "focusout" this.inputFocusOut}}
     {{on "focusin" this.inputFocusIn}}
     {{on "keyup" this.inputKeyUp}}

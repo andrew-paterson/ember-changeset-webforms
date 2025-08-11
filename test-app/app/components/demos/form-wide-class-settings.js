@@ -7,8 +7,10 @@ export default class FormWideClassSettingsComponent extends Component {
       formName: 'formClassNames',
       hideSubmitButton: true,
     },
-    classNames: {
-      labelElement: ['$inherited', 'form-wide-label-class'],
+    attrsFromConfig: {
+      classNames: {
+        labelElement: ['$inherited', 'form-wide-label-class'],
+      },
     },
     fields: [
       {

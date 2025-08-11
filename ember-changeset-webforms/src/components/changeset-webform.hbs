@@ -1,55 +1,50 @@
-<div
-  class="changeset-webform
-    {{ember-changeset-webforms/dynamic-class-names
-      'formWrapper'
-      this.changesetWebform
-      null
-      @requestInFlight
-    }}"
-  {{did-insert this.didInsert}}
-  ...attributes
->
-  <form
-    {{on "submit" this.onFormSubmit}}
-    class={{ember-changeset-webforms/dynamic-class-names
-      "formElement"
-      this.changesetWebform
-    }}
-    novalidate={{this.changesetWebform.formSettings.novalidate}}
-    data-test-id={{ember-changeset-webforms/safe-name
-      this.changesetWebform.formSettings.formName
-    }}
+{{#if this.changesetWebform}}
+  <div
+    class="changeset-webform"
+    {{attrs-from-config "formWrapper" this.changesetWebform}}
+    ...attributes
   >
-    <div
-      class="{{ember-changeset-webforms/dynamic-class-names
-          'formFields'
+    <form
+      {{on "submit" this.onFormSubmit}}
+      {{attrs-from-config "formElement" this.changesetWebform}}
+      novalidate={{this.changesetWebform.formSettings.novalidate}}
+      data-test-id={{ember-changeset-webforms/safe-name
+        this.changesetWebform.formSettings.formName
+      }}
+    >
+      <div
+        {{attrs-from-config
+          "formFields"
           this.changesetWebform
           null
           @requestInFlight
-        }}"
-    >
-      {{#each this.changesetWebform.fields as |formField|}}
-        <EmberChangesetWebforms::FieldElements::ValidatingField
-          @formField={{formField}}
-          @changesetWebform={{this.changesetWebform}}
-          @dataTestFormName={{this.changesetWebform.formSettings.dataTestFormName}}
-          @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-          @formSettings={{this.changesetWebform.formSettings}}
-          @formFields={{this.changesetWebform.fields}}
-          @onFormSubmit={{fn this.onFormSubmit this.changesetWebform}}
-          @onUserInteraction={{this.onUserInteraction}}
-          @afterFieldInserted={{this.afterFieldInserted}}
-          @afterFieldRemoved={{this.afterFieldRemoved}}
-        />
-      {{/each}}
-    </div>
-    {{yield}}
-    <EmberChangesetWebforms::FormElements::FormActions
-      @changesetWebform={{this.changesetWebform}}
-      @formSettings={{this.changesetWebform.formSettings}}
-      @onFormSubmit={{this.onFormSubmit}}
-      @resetForm={{this.resetForm}}
-      @clearForm={{this.clearForm}}
-    />
-  </form>
-</div>
+        }}
+      >
+        {{#each this.changesetWebform.fields as |formField|}}
+          <EmberChangesetWebforms::FieldElements::ValidatingField
+            @formField={{formField}}
+            @changesetWebform={{this.changesetWebform}}
+            @dataTestFormName={{this.changesetWebform.formSettings.dataTestFormName}}
+            @afterClickAddCloneButton={{@afterClickAddCloneButton}}
+            @formSettings={{this.changesetWebform.formSettings}}
+            @formFields={{this.changesetWebform.fields}}
+            @onFormSubmit={{fn this.onFormSubmit this.changesetWebform}}
+            @onUserInteraction={{this.onUserInteraction}}
+            @afterFieldInserted={{this.afterFieldInserted}}
+            @afterFieldRemoved={{this.afterFieldRemoved}}
+          />
+        {{/each}}
+      </div>
+      {{yield}}
+      <EmberChangesetWebforms::FormElements::FormActions
+        @changesetWebform={{this.changesetWebform}}
+        @formSettings={{this.changesetWebform.formSettings}}
+        @onFormSubmit={{this.onFormSubmit}}
+        @resetForm={{this.resetForm}}
+        @clearForm={{this.clearForm}}
+      />
+    </form>
+  </div>
+{{else}}
+  <div {{did-insert this.didInsert}}></div>
+{{/if}}

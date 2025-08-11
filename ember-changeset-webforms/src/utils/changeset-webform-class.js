@@ -76,9 +76,8 @@ export default class ChangesetWebform {
   }
 
   pushErrors(opts) {
-    this.changeset.pushErrors(opts.fieldId, ...opts.errors);
     const formField = this.getField(opts.fieldId);
-    formField._setCustomValidity();
+    formField.pushErrors(opts.errors);
   }
 
   async validate(opts) {

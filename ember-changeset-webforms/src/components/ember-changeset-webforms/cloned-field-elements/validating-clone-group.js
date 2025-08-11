@@ -20,6 +20,18 @@ export default class ValidatingCloneGroup extends Component {
     ];
   }
 
+  get dynamicClassNameNameSpaces() {
+    const final = ['cloneGroupWrapper'];
+    const masterFormField = this.args.masterFormField;
+    if (masterFormField.validates) {
+      final.push('fieldValidates');
+    }
+    if (masterFormField.required) {
+      final.push('requiredField');
+    }
+    return final.join(',');
+  }
+
   @action
   didInsertWrapper(namespace, element) {
     var masterFormField = this.args.masterFormField;

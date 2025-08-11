@@ -11,7 +11,7 @@ export default class ValidatingField extends Component {
     }
     setTimeout(() => {
       formField.customValidityEls = element.querySelectorAll(
-        '[data-custom-validity]',
+        '[data-set-custom-validity]',
       );
     });
     this.validateField(formField, element);

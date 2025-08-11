@@ -12,15 +12,19 @@ export default class FieldSpecificClassSettingsComponent extends Component {
       fieldTypes: [
         {
           fieldType: 'input',
-          classNames: {
-            labelElement: ['$inherited', 'form-wide-label-class'],
+          attrsFromConfig: {
+            classNames: {
+              labelElement: ['$inherited', 'form-wide-label-class'],
+            },
           },
         },
         {
           fieldType: 'radioButtonGroup',
-          classNames: {
-            labelElement: ['form-wide-radio-button-label-el-class'],
-            radioButtonLabel: [],
+          attrsFromConfig: {
+            classNames: {
+              labelElement: ['form-wide-radio-button-label-el-class'],
+              radioButtonLabel: [],
+            },
           },
         },
       ],

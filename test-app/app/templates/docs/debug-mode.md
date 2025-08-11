@@ -14,7 +14,7 @@ This object contains all of the data that underpins the relevant webform.
 
 ### `$DEBUG-` classes are added to all elements with configurable class names
 
-Thse debugging classes assist with configuring class names of the various elements in your webforms. See <LinkTo @route="docs.configure-class-names">docs/configure-class-names</LinkTo> for more.
+Thse debugging classes assist with configuring class names of the various elements in your webforms. See <LinkTo @route="docs.manipulating-element-class-names-and-attrs">docs.manipulating-element-class-names-and-attrs</LinkTo> for more.
 
 Here is a quick overview. In various places, you can configure class names via the `classNames` object.
 
@@ -30,11 +30,11 @@ For example, at the lowest level this can be added to a formField invocation in 
   }
 ```
 
-With debug mode on, you will see `[$DEBUG-***]` classes added to various elements. The value of \*\*\* indicates the name of the property in the `classNames` that was used to invoke the class names which follow it.
+With debug mode on, you will see `[$DEBUG=>configNameSpace===***]` classes added to various elements. The value of \*\*\* indicates the name of the property in the `classNames` that was used to invoke the class names which follow it.
 
 ```html
 <label
-  class="[$DEBUG-labelElement] field-label-element-class [$DEBUG-fieldLabel] form-label"
+  class="[$DEBUG=>configNameSpace===labelElement] field-label-element-class [$DEBUG=>configNameSpace===fieldLabel] form-label"
   ...
 >
   Phone number

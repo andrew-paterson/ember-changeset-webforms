@@ -272,7 +272,9 @@ export default class FormField {
   }
 
   pushErrors(errors) {
-    this.changeset.pushErrors(this.fieldId, ...errors);
+    this.changeset.pushErrors(this.propertyName, ...errors);
+    this.eventLog.push('pushErrors');
+    this._setCustomValidity();
   }
 
   cloneField(opts = {}) {

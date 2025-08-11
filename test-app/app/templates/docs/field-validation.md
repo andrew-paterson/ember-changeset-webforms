@@ -116,6 +116,16 @@ validationRules: [
 ];
 ```
 
+## Setting custom validity on DOM elements
+
+Browsers will automatically apply the `valid` and `invalid` pseudo classes to form elements where appropriate. For example, if an input field with `type=email` is updated with an invalid email address, the input will then have the `invalid` pseudo class, and will be selectable with `:invalid`.
+
+DOM elements have a built in `setCustomValidity` method
+
+See [https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity)
+
+`data-set-custom-validity`
+
 ## Example
 
 <Demos::SignupForm />

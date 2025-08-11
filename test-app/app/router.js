@@ -20,7 +20,7 @@ Router.map(function () {
     this.route('integrating-custom-validators');
     this.route('clonable-form-fields');
     this.route('custom-components');
-    this.route('configure-class-names');
+    this.route('manipulating-element-class-names-and-attrs');
     this.route('input');
     this.route('textarea');
     this.route('single-checkbox');

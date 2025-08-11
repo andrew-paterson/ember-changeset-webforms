@@ -1,10 +1,6 @@
 <div
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'labelledCheckbox'
-      @changesetWebform
-      @formField
-    }}
-    {{if @disabled 'disabled'}}"
+  {{attrs-from-config "labelledCheckbox" @changesetWebform @formField}}
+  class="{{if @disabled 'disabled'}}"
   data-test-id={{this.checkboxId}}
   data-test-option="checkbox-option-{{@option.key}}"
   data-test-labelled-checkbox
@@ -15,15 +11,11 @@
     {{on "click" this.checkboxClicked}}
     disabled={{@disabled}}
     id={{this.checkboxId}}
-    data-custom-validity
+    data-set-custom-validity
     aria-errormessage={{@ariaErrorMessage}}
     aria-describedby={{@ariaDescribedBy}}
     name={{@name}}
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'checkboxElement'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "checkboxElement" @changesetWebform @formField}}
     required={{@required}}
   />
   <Background::OptionLabelComponent
@@ -37,10 +29,6 @@
     @changesetWebform={{@changesetWebform}}
     @formField={{@formField}}
     data-test-class={{@optionLabelDataTestClass}}
-    class={{ember-changeset-webforms/dynamic-class-names
-      "checkboxLabel"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "checkboxLabel" @changesetWebform @formField}}
   />
 </div>

@@ -1,24 +1,17 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 export default class FormWideClassSettingsComponent extends Component {
-  // BEGIN-SNIPPET class-names-function.js"
+  // BEGIN-SNIPPET attr-functions.js"
   formSchema = {
     formSettings: {
-      formName: 'classNamesFunction',
+      formName: 'attrFunctions',
     },
-    classNames: {
-      submitButtonFn(
-        classNamesArray,
-        _classNameSettings,
-        changesetWebform,
-        _formField,
-      ) {
+    attrFunctions: {
+      submitButton(element, changesetWebform, _formField, _classNameSettings) {
         if (changesetWebform.formSettings.requestInFlight) {
-          return classNamesArray
-            .filter((item) => item !== 'btn-primary')
-            .concat('btn-success');
+          element.classList.replace('btn-primary', 'btn-success');
         } else {
-          return classNamesArray;
+          element.classList.replace('btn-success', 'btn-primary');
         }
       },
     },
@@ -30,7 +23,9 @@ export default class FormWideClassSettingsComponent extends Component {
       },
     ],
   };
-  @action submit() {
+
+  @action
+  submit() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();

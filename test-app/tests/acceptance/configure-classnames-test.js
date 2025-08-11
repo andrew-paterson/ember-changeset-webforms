@@ -15,8 +15,8 @@ function checkClasses(selector, expectedClasses, assert, options = {}) {
   const el = find(selector);
   const classes = Array.from(el.classList);
   assert.deepEqual(
-    classes,
-    expectedClasses,
+    classes.sort(),
+    expectedClasses.sort(),
     `${options.assertionPrefix ? `[${options.assertionPrefix}] ` : ''}Classes for ${selector} are correct ${options.assertionSuffix ? options.assertionSuffix : ''}`,
   );
 }
@@ -25,7 +25,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   setupApplicationTest(hooks);
 
   test('App wide config', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="app-class-names-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-label'],
@@ -51,7 +51,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   });
 
   test('Form wide config', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="form-class-names-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-wide-label-class', 'form-label'],
@@ -78,7 +78,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   });
 
   test('Field level config', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="field-class-names-form-name-field-label"]',
       [
@@ -104,7 +104,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   });
 
   test('All instances of a field type within a form', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="field-type-within-form-classnames-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-wide-label-class', 'form-label'],
@@ -136,7 +136,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   });
 
   test('Inheritance', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="inherit-class-names-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-wide-label-class', 'form-label'],
@@ -159,7 +159,7 @@ module('Acceptance | Configuring class names', function (hooks) {
   });
 
   test('Dynamically added validation classes', async function (assert) {
-    await visit('/docs/configure-class-names');
+    await visit('/docs/manipulating-element-class-names-and-attrs');
     checkClasses(
       '[data-test-id="validation-class-names-form-name-field-label"]',
       ['app-wide-label-element-class', 'form-label'],
@@ -200,41 +200,5 @@ module('Acceptance | Configuring class names', function (hooks) {
         assertionSuffix: 'when the field is unvalidated',
       },
     );
-  });
-
-  test('Class name functions', async function (assert) {
-    await visit('/docs/configure-class-names');
-    assert
-      .dom(
-        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-primary:not(.btn-success)',
-      )
-      .exists(
-        'Submit button has class btn-primary and does not have class btn-success on load.',
-      );
-    click(
-      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"]',
-    );
-    await waitFor(
-      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-success:not(.btn-primary)',
-    );
-    assert
-      .dom(
-        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-success:not(.btn-primary)',
-      )
-      .exists(
-        'Submit button has class btn-success and does not have class btn-primary when submit is clicked.',
-      );
-    await waitFor(
-      '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"]:not(.btn-success)',
-      { timeout: 5000 },
-    );
-    assert;
-    assert
-      .dom(
-        '[data-test-id="class-names-function"] [data-test-id="cwf-submit-form-button"].btn-primary:not(.btn-success)',
-      )
-      .exists(
-        'Submit button has class btn-primary and does not have class btn-success after submit action resolves.',
-      );
   });
 });

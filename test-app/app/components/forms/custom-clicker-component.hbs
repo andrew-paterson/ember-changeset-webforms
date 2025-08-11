@@ -2,7 +2,8 @@
   data-test-class="cwf-clicker-element"
   type="button"
   onclick={{@onClick}}
-  class={{concat @clickerElementClass " btn-" @props.buttonType " d-flex"}}
+  class="btn-{{@props.buttonType}} d-flex"
+  ...attributes
 >{{@formField.clickerText}}
   <this.icon class="width-lg ms-2" />
 </button>

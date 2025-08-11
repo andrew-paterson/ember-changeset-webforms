@@ -352,14 +352,9 @@ module('Acceptance | Form methods', function (hooks) {
       cth.passedValidation('[data-test-id="form-methods6-form-email-field"]'),
       'Email field passes validation before pushErrors is called',
     );
-
     await click(
       '[data-test-id="example-6"] [data-test-id="cwf-submit-form-button"]',
     );
-    // assert.ok(
-    //   cth.failedValidation('[data-test-id="form-methods6-form-email-field"]'),
-    //   'Email field fails validation after form is submitted and pushErrors is called',
-    // );
     await cth.failedValidation(
       '[data-test-id="form-methods6-form-email-field"]',
       assert,
@@ -368,7 +363,5 @@ module('Acceptance | Form methods', function (hooks) {
           'Email field fails validation after form is submitted and pushErrors is called',
       },
     );
-
-    // await this.pauseTest();
   });
 });

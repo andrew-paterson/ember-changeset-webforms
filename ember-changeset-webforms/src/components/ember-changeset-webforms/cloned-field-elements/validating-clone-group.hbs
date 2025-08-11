@@ -5,37 +5,19 @@
   data-test-class="cwf-field-type-{{ember-changeset-webforms/safe-name
     @masterFormField.fieldType
   }}"
-  class="{{@masterFormField.typeClass}}
-    {{if
-      @masterFormField.validates
-      (ember-changeset-webforms/dynamic-class-names
-        'fieldValidates' @changesetWebform @masterFormField
-      )
-    }}
-    {{if
-      @masterFormField.validates
-      (ember-changeset-webforms/dynamic-class-names
-        'cloneGroupWrapper' @changesetWebform @masterFormField
-      )
-    }}
-    {{if
-      @masterFormField.required
-      (ember-changeset-webforms/dynamic-class-names
-        'requiredField' @changesetWebform @masterFormField
-      )
-    }}
-    "
+  class="{{@masterFormField.typeClass}} "
+  {{attrs-from-config
+    this.dynamicClassNameNameSpaces
+    @changesetWebform
+    @masterFormField
+  }}
   {{did-insert (fn this.didInsertWrapper "cloneGroupWrapper")}}
   ...attributes
 >
   {{#if (eq @masterFormField.cloneGroupActionsPosition "labelWrapper")}}
     <div
       {{did-insert (fn this.registerElementContainer "labelWrapper")}}
-      class={{ember-changeset-webforms/dynamic-class-names
-        "labelWrapper"
-        @changesetWebform
-        @masterFormField
-      }}
+      {{attrs-from-config "labelWrapper" @changesetWebform @masterFormField}}
       data-test-class="cwf-field-label-wrapper"
     >
       <EmberChangesetWebforms::FieldElements::FieldLabel
@@ -55,11 +37,7 @@
   ></div>
   <div
     data-test-id="cwf-clone-group-items"
-    class={{ember-changeset-webforms/dynamic-class-names
-      "cloneGroupItems"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "cloneGroupItems" @changesetWebform @formField}}
   >
     {{#each @masterFormField.clonedFields as |clonedFormField|}}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone
@@ -87,19 +65,11 @@
   {{#in-element this.cloneGroupActionsDestinationElement insertBefore=null}}
     <div
       data-test-id="cwf-clone-group-actions"
-      class={{ember-changeset-webforms/dynamic-class-names
-        "cloneGroupActions"
-        @changesetWebform
-        @formField
-      }}
+      {{attrs-from-config "cloneGroupActions" @changesetWebform @formField}}
     >
       {{#if (eq @masterFormField.cloneCountStatus "max")}}
         <div
-          class={{ember-changeset-webforms/dynamic-class-names
-            "maxClonesReached"
-            @changesetWebform
-            @formField
-          }}
+          {{attrs-from-config "maxClonesReached" @changesetWebform @formField}}
           data-test-id="cwf-max-clones-reached"
         >{{@masterFormField.maxClonesReachedText}}</div>
       {{else}}

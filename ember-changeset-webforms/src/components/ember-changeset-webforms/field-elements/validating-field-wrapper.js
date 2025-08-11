@@ -11,6 +11,31 @@ class destinationElementClass {
 export default class ValidatingFieldWrapper extends Component {
   @tracked destinationElement = new destinationElementClass();
 
+  get dynamicClassNameNameSpaces() {
+    const formField = this.args.formField;
+    const final = [];
+    final.push(formField.isClone ? 'cloneWrapper' : 'fieldWrapper');
+    if (formField.isClone && this.hasFieldActions) {
+      final.push('cloneWrapperWithRemoveButton');
+    }
+    if (formField.focussed) {
+      final.push('focussedField');
+    }
+    if (formField.disabled) {
+      final.push('disabledField');
+    }
+    if (formField.validates) {
+      final.push('validatingField');
+    }
+    if (formField.wasValidated) {
+      final.push('validatedField');
+    }
+    if (formField.required) {
+      final.push('requiredField');
+    }
+    return final.join(',');
+  }
+
   get hasFieldActions() {
     return (
       this.args.formField.isClone &&

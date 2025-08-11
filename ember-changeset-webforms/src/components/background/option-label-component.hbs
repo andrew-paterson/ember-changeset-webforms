@@ -13,11 +13,7 @@
   <label
     for={{@for}}
     id={{@labelId}}
-    class={{ember-changeset-webforms/dynamic-class-names
-      "labelElement"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "labelElement" @changesetWebform @formField}}
     ...attributes
   >
     <Background::MarkdownToHtml @source={{@optionLabelMarkdown}} />
@@ -26,11 +22,7 @@
   <label
     for={{@for}}
     id={{@labelId}}
-    class={{ember-changeset-webforms/dynamic-class-names
-      "labelElement"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "labelElement" @changesetWebform @formField}}
     ...attributes
   >{{@label}}</label>
 {{/if}}

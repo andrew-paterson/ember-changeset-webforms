@@ -1,8 +1,5 @@
 <div
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'powerSelectCheckboxesOption'
-      @changesetWebform
-    }}"
+  {{attrs-from-config "powerSelectCheckboxesOption" @changesetWebform}}
   {{did-insert this.didInsert}}
   {{did-update this.selectionChanged @selected}}
 >
@@ -10,14 +7,10 @@
     id={{this.checkboxId}}
     type="checkbox"
     aria-labelledby={{this.labelId}}
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'checkboxElement'
-        @changesetWebform
-      }}
-      {{ember-changeset-webforms/dynamic-class-names
-        'powerSelectOptionCheckbox'
-        @changesetWebform
-      }}"
+    {{attrs-from-config
+      "checkboxElement,powerSelectOptionCheckbox"
+      @changesetWebform
+    }}
   />
   <label
     id={{this.labelId}}

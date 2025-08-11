@@ -6,7 +6,11 @@
   >
     <dropdown.Trigger
       onmousedown={{this.onTriggerFocus}}
-      class={{@triggerWrapperClass}}
+      {{attrs-from-config
+        "powerDatePickerTriggerWrapper"
+        @changesetWebform
+        @formField
+      }}
       aria-labelledby={{@ariaLabelledBy}}
       aria-describedby={{@ariaDescribedBy}}
       aria-label={{@ariaLabel}}
@@ -18,12 +22,22 @@
       {{#if @value}}
         <button
           type="button"
-          class="{{@clearDateTimeButtonClass}}"
+          {{attrs-from-config
+            "powerDatePickerClearButton"
+            @changesetWebform
+            @formField
+          }}
           data-test-id="datetime-picker-clear-datetime"
           {{on "click" this.clearDateTime}}
         >×</button>
       {{else}}
-        <div class="{{@calendarIconClass}}"></div>
+        <div
+          {{attrs-from-config
+            "powerDatePickerCalendarIcon"
+            @changesetWebform
+            @formField
+          }}
+        ></div>
       {{/if}}
       <input
         type="text"
@@ -33,16 +47,30 @@
         {{on "keyup" this.onDateInputKeyUp}}
         {{on "focus" this.onDateInputFocus}}
         {{on "blur" this.onDateInputBlur}}
-        class={{@triggerInputClass}}
+        {{attrs-from-config
+          "powerDatePickerTriggerInput"
+          @changesetWebform
+          @formField
+        }}
         id={{@triggerInputId}}
         data-test-id="power-datepicker-input"
       />
     </dropdown.Trigger>
     <dropdown.Content
       data-test-id="ecw-power-datepicker-dropdown"
-      class={{@dropdownClass}}
+      {{attrs-from-config
+        "powerDatePickerDropdown"
+        @changesetWebform
+        @formField
+      }}
     >
-      <div class={{@dropdownInnerClass}}>
+      <div
+        {{attrs-from-config
+          "powerDatePickerDropdownInner"
+          @changesetWebform
+          @formField
+        }}
+      >
         <PowerCalendar
           @minDate={{@minDate}}
           @maxDate={{@maxDate}}
@@ -50,63 +78,78 @@
           @onSelect={{fn this.dateClicked dropdown}}
           @onCenterChange={{this.onCenterChange}}
           @center={{this.center}}
-          class={{@calendarClass}}
+          {{attrs-from-config
+            "powerDatePickerCalendar"
+            @changesetWebform
+            @formField
+          }}
           as |calendar|
         >
           <Background::PowerCalendarNav
             @calendar={{calendar}}
             @calendarTitleFormat={{@calendarTitleFormat}}
             @moveCenter={{calendar.actions.moveCenter}}
-            class={{@calendarNavClass}}
+            {{attrs-from-config
+              "powerDatePickerCalendarNav"
+              @changesetWebform
+              @formField
+            }}
           />
           <calendar.Days
             @minDate={{@minDate}}
             @maxDate={{@maxDate}}
-            class={{@calendarDaysClass}}
+            {{attrs-from-config
+              "powerDatePickerCalendarDays"
+              @changesetWebform
+              @formField
+            }}
           />
         </PowerCalendar>
         {{#if (and @showTimeSelector @value (not @fixedTime))}}
           <div
             data-test-id="time-selector"
-            class="time-select
-              {{unless @value 'disabled'}}
-              {{@timeSelectorContainerClass}}"
+            class="time-select {{unless @value 'disabled'}} "
+            {{attrs-from-config
+              "powerDatePickerTimeSelectorContainer"
+              @changesetWebform
+              @formField
+            }}
           >
             <Background::TimePartInput
               @value={{@value}}
               @dateTimeFormat={{@dateTimeFormat}}
-              @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
               @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 0}}
+              @changesetWebform={{@changesetWebform}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @dateTimeFormat={{@dateTimeFormat}}
-              @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
               @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 1}}
+              @changesetWebform={{@changesetWebform}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @dateTimeFormat={{@dateTimeFormat}}
-              @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
               @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 2}}
+              @changesetWebform={{@changesetWebform}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @dateTimeFormat={{@dateTimeFormat}}
-              @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
               @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 3}}
+              @changesetWebform={{@changesetWebform}}
             />
             {{#if this.showAmPmInput}}
               <div>
@@ -114,9 +157,14 @@
                   for="time-selector-am-pm"
                   data-test-class="time-selector-field-label"
                   data-test-id="time-selector-field-label-am-pm"
-                  class={{@timeInputLabelClass}}
+                  {{attrs-from-config "label" @changesetWebform @formField}}
                 >{{@timeInputLabels.amPm}}</label>
                 <input
+                  {{attrs-from-config
+                    "inputElement,powerDatePickerTimeSelectorInput"
+                    @changesetWebform
+                    @formField
+                  }}
                   type="text"
                   id="time-selector-am-pm"
                   value={{if
@@ -133,7 +181,6 @@
                   {{on "blur" this.onChangeAmPm}}
                   {{on "keyup" this.onKeyUpAmPm}}
                   data-test-id="power-datepicker-am-pm-input"
-                  class={{@timeInputClass}}
                 />
               </div>
             {{/if}}

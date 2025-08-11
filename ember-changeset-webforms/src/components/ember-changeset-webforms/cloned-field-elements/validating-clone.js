@@ -19,7 +19,7 @@ export default class ValidatingClone extends Component {
       this.args.clonedFormField.updateValidationActivation();
       setTimeout(() => {
         this.args.clonedFormField.customValidityEls = element.querySelectorAll(
-          '[data-custom-validity]',
+          '[data-set-custom-validity]',
         );
         // (this.args.clonedFormField.customValidityEls || []).forEach((el) => {
         //   // el.setCustomValidity((clonedField.cloneValidationErrors || []).join());

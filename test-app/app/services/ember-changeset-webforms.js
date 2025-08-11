@@ -13,10 +13,12 @@ export default class EmberChangesetWebforms extends Service {
     validators: defaultValidators,
     // END-SNIPPET
     // BEGIN-SNIPPET app-wide-classes.js
-    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.classNames
-    classNames: {
-      labelElement: ['$inherited', 'app-wide-label-element-class'],
-      powerSelectCheckboxesOption: ['form-check'],
+    // In services/ember-changeset-webforms.js at changesetWebformsDefaults.attrsFromConfig
+    attrsFromConfig: {
+      classNames: {
+        labelElement: ['$inherited', 'app-wide-label-element-class'],
+        powerSelectCheckboxesOption: ['form-check'],
+      },
     },
     // END-SNIPPET
     formSettings: {
@@ -55,15 +57,17 @@ export default class EmberChangesetWebforms extends Service {
     fieldTypes: [
       {
         fieldType: 'radioButtonGroup',
-        classNames: {
-          fieldLabel: [
-            '$inherited',
-            'app-wide-radio-button-group-field-label-class',
-          ],
-          labelElement: [
-            '$inherited',
-            'app-wide-radio-button-group-label-element-class',
-          ],
+        attrsFromConfig: {
+          classNames: {
+            fieldLabel: [
+              '$inherited',
+              'app-wide-radio-button-group-field-label-class',
+            ],
+            labelElement: [
+              '$inherited',
+              'app-wide-radio-button-group-label-element-class',
+            ],
+          },
         },
       },
       // END-SNIPPET
@@ -74,25 +78,28 @@ export default class EmberChangesetWebforms extends Service {
         // import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
         componentClass: PhoneNumberWithCountryCodeComponent,
         alwaysValidateOn: ['$inherited', 'focusOutPhoneNumberInput'],
-        classNames: {
-          fieldControls: [
-            '$validationClassNames',
-            'form-control',
-            'p-0',
-            'bg-white',
-          ],
-          phoneNumberInput: [
-            'form-control ',
-            'border ',
-            'border-0 ',
-            'border-start',
-          ],
-          countryCodeTrigger: [
-            'input-group-text ',
-            'pe-5 ',
-            'border ',
-            'border-0',
-          ],
+        attrsFromConfig: {
+          classNames: {
+            fieldControls: [
+              '$validationClassNames',
+              'form-control',
+              'p-0',
+              'bg-white',
+            ],
+            phoneNumberInput: [
+              'form-control ',
+              'border',
+              'border-0',
+              'border-start',
+              '$validationPseudoClasses',
+            ],
+            countryCodeTrigger: [
+              'input-group-text ',
+              'pe-5 ',
+              'border ',
+              'border-0',
+            ],
+          },
         },
       },
       // END-SNIPPET

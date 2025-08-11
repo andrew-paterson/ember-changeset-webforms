@@ -109,4 +109,15 @@ removeCloneButton => removeCloneComponent
 
 [ ] - document test helpers
 
-[ ] - Document data-custom-validity
+[ ] - Document data-set-custom-validity
+
+[x] - fix issue with button role on <@masterFormField.removeCloneComponent.componentClass in ember-changeset-webforms/src/components/ember-changeset-webforms/cloned-field-elements/remove-clone-button.hbs
+
+[x] check {{attrs-from-config
+        "formFields"
+        this.changesetWebform
+        null
+        @requestInFlight
+      }} in ember-changeset-webforms/src/components/changeset-webform.hbs
+
+[x] test that attrs-from-config works on trigger for power select checkboxes

@@ -7,8 +7,10 @@ export default class InheritClassSettingsComponent extends Component {
       formName: 'inheritClassNames',
       hideSubmitButton: true,
     },
-    classNames: {
-      labelElement: ['$inherited', 'form-wide-label-class'],
+    attrsFromConfig: {
+      classNames: {
+        labelElement: ['$inherited', 'form-wide-label-class'],
+      },
     },
     fields: [
       {

@@ -1,9 +1,5 @@
 <div
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'optionsWrapper'
-      @changesetWebform
-      @formField
-    }}"
+  {{attrs-from-config "optionsWrapper" @changesetWebform @formField}}
   data-test-id="options-wrapper"
   aria-label={{@formField.ariaLabel}}
   ...attributes

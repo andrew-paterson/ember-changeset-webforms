@@ -1,9 +1,6 @@
 <div
   data-test-id="cwf-form-actions"
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'formActions'
-      @changesetWebform
-    }}"
+  {{attrs-from-config "formActions" @changesetWebform}}
 >
   {{#unless @formSettings.hideSubmitButton}}
     <EmberChangesetWebforms::FormElements::SubmitFormButton

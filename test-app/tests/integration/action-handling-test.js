@@ -167,7 +167,7 @@ module('Integration | Component | Action handling', function (hooks) {
       {
         fieldId: 'email',
         fieldType: 'input',
-        fieldLabel: 'Name',
+        fieldLabel: 'Email',
         defaultValue: 'steveholt@bluthcompany.com',
         validationRules: [
           {
@@ -339,13 +339,13 @@ module('Integration | Component | Action handling', function (hooks) {
       .dom(nameFieldInput)
       .hasValue(
         'Steve Holt',
-        'Name field returns to inital proloaded value when user clicks Discard Chnages button.',
+        'Name field returns to inital proloaded value from data hash when user clicks Reset form button.',
       );
     assert
       .dom(emailFieldInput)
       .hasValue(
-        'steveholt@bluthcompany.com',
-        'Email field returns to inital proloaded value when user clicks Discard Chnages button.)',
+        '',
+        'Email field is cleared of preloaded value from defaultValue when user clicks Reset form button.',
       );
     await fillIn(nameFieldInput, 'Tobias Funke');
     await blur(nameFieldInput);

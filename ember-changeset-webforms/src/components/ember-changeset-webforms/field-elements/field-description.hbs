@@ -1,11 +1,7 @@
 {{#if @formField.fieldDescription}}
   <div
     id="{{@formField.id}}-description"
-    class={{ember-changeset-webforms/dynamic-class-names
-      "fieldDescription"
-      @changesetWebform
-      @formField
-    }}
+    {{attrs-from-config "fieldDescription" @changesetWebform @formField}}
     data-test-class="cwf-field-description"
     ...attributes
   >

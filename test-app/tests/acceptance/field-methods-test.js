@@ -114,26 +114,73 @@ module('Acceptance | Field methods', function (hooks) {
     );
   });
 
-  // test('updateValue method - eventName passed', async function (assert) {
-  //   await visit('docs/field-methods');
-  //   assert
-  //     .dom('[data-test-id="field-methods5-form-name-field"] input')
-  //     .hasNoValue('Name field has no value on load');
-  //   await click(
-  //     '[data-test-id="example-5"] [data-test-id="update-name-field"]',
-  //   );
+  test('pushErrors method - field unvalidated when called', async function (assert) {
+    await visit('docs/field-methods');
+    assert.notOk(
+      await cth.wasValidated('[data-test-id="field-methods7-form-name-field"]'),
+      'Field is not validated on insert.',
+    );
+    await checkPushErrors(assert);
+  });
 
-  //   assert
-  //     .dom('[data-test-id="field-methods5-form-name-field"] input')
-  //     .hasValue(
-  //       'New Name',
-  //       'Name field has has value "New name" after clicking "Update value of the name field" button.',
-  //     );
-  //   assert.ok(
-  //     await cth.passedValidation(
-  //       '[data-test-id="field-methods5-form-name-field"]',
-  //     ),
-  //     'Name is validated when "Update value of the name field" button is clicked',
-  //   );
-  // });
+  test('pushErrors method - field passed validated when called', async function (assert) {
+    await visit('docs/field-methods');
+    await focus('[data-test-id="field-methods7-form-name-field"] input');
+    await blur('[data-test-id="field-methods7-form-name-field"] input');
+
+    await cth.passedValidation(
+      '[data-test-id="field-methods7-form-name-field"]',
+      assert,
+      {
+        assertionSuffix: 'Field passed validation before pushError is called.',
+      },
+    ),
+      await checkPushErrors(assert);
+  });
+
+  test('pushErrors method - field failed validated when called', async function (assert) {
+    await visit('docs/field-methods');
+    await fillIn('[data-test-id="field-methods7-form-name-field"] input', '');
+    await blur('[data-test-id="field-methods7-form-name-field"] input');
+
+    await cth.failedValidation(
+      '[data-test-id="field-methods7-form-name-field"]',
+      assert,
+      {
+        assertionSuffix: 'Field failed validation before pushError is called.',
+      },
+    ),
+      await checkPushErrors(assert, {
+        existingErrors: [`Name can't be blank`],
+      });
+  });
 });
+
+async function checkPushErrors(assert, opts = {}) {
+  await fillIn(
+    '[data-test-id="example-7"] [data-test-id="error-message-input"]',
+    'One pushed error message',
+  );
+  await blur('[data-test-id="example-7"] [data-test-id="error-message-input"]');
+  await cth.failedValidation(
+    `[data-test-id="field-methods7-form-name-field"]`,
+    assert,
+    {
+      assertionSuffix:
+        'The pushErrors field method works when field has not yet been validated when it is called.',
+    },
+  );
+  await fillIn(
+    '[data-test-id="example-7"] [data-test-id="error-message-input"]',
+    'Another pushed error message',
+  );
+  await blur('[data-test-id="example-7"] [data-test-id="error-message-input"]');
+  assert
+    .dom(
+      '[data-test-id="field-methods7-form-name-field"] [data-test-class="cwf-field-errors"]',
+    )
+    .hasText(
+      `${opts.existingErrors ? opts.existingErrors.join(' ') + ' ' : ''}One pushed error message Another pushed error message`,
+      'Calling pushErrors again adds to the existing errors.',
+    );
+}

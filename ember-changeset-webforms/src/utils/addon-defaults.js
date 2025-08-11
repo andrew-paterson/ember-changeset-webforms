@@ -14,131 +14,140 @@ import PowerSelectCheckboxesTriggerComponent from '../components/background/powe
 import moment from 'moment';
 
 export default {
-  classNames: {
-    // TODO form related classnames, like submit button must be configurable under formSettings.classNames?
-    // BEGIN-SNIPPET configurable-classnames.js
-    // Generic element classes
-    inputElement: ['form-control', 'validation-area', '$validationClassNames'],
-    textareaElement: [
-      'form-control',
-      'validation-area',
-      '$validationClassNames',
-    ],
-    labelElement: null,
-    checkboxElement: ['form-check-input', '$validationClassNames'],
-    radioButtonElement: ['form-check-input', '$validationClassNames'],
-    buttonElement: ['btn', 'd-inline-flex'],
-    buttonIcon: ['me-2', 'button-icon'],
-    // Generic field classes- apply to all fields
-    disabledField: ['disabled'],
-    focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field', 'mb-3'],
-    fieldControls: ['field-controls', '$validationClassNames'],
-    fieldLabel: ['form-label'],
-    fieldDescription: ['cwf-field-description'],
-    requiredField: ['required'],
-    optionsWrapper: ['cwf-field-options'],
-    // Generic validation related classes - apply to all fields
-    validClassNames: ['is-valid'],
-    invalidClassNames: ['is-invalid'],
-    validationErrors: ['cwf-field-errors', 'invalid-feedback', 'form-text'],
-    validationError: ['cwf-field-error'],
-    fieldValidates: ['validates'],
-    validatedField: ['was-validated'],
-    // Form wrapper
-    formWrapper: ['cwf-form-wrapper'],
-    formElement: ['cwf-form', '$validationClassNames'],
-    // Form action element element classes
-    formFields: ['form-fields'],
-    formActions: ['form-actions', 'mt-4'],
-    submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
-    submitButtonIcon: [],
-    // Request in flight
-    requestInFlightIcon: [
-      'request-in-flight',
-      'spinner-border',
-      'spinner-border-sm',
-    ],
-    requestInFlightIconFn(
-      classNamesArray,
-      classNameSettings,
-      changesetWebform,
-    ) {
-      if (changesetWebform.formSettings.requestInFlightIcon) {
-        return ['ms-2'].concat(classNameSettings.requestInFlightIcon);
-      }
+  // BEGIN-SNIPPET default-attrs-from-config.js
+  attrsFromConfig: {
+    classNames: {
+      // Generic element classes
+      inputElement: ['input'],
+      textareaElement: [
+        'form-control',
+        'validation-area',
+        '$validationClassNames',
+        '$validationPseudoClasses',
+      ],
+      labelElement: null,
+      checkboxElement: [
+        'form-check-input',
+        '$validationClassNames',
+        '$validationPseudoClasses',
+      ],
+      radioButtonElement: [
+        'form-check-input',
+        '$validationClassNames',
+        '$validationPseudoClasses',
+      ],
+      buttonElement: ['btn', 'd-inline-flex'],
+      buttonIcon: ['me-2', 'button-icon'],
+      // Generic field classes- apply to all fields
+      disabledField: ['disabled'],
+      focussedField: ['focussed'],
+      fieldWrapper: ['cwf-field', 'mb-3'],
+      fieldControls: ['field-controls', '$validationClassNames'],
+      fieldLabel: ['form-label'],
+      fieldDescription: ['cwf-field-description'],
+      requiredField: ['required'],
+      optionsWrapper: ['cwf-field-options'],
+      // Generic validation related classes - apply to all fields
+      validClassNames: ['is-valid'],
+      invalidClassNames: ['is-invalid'],
+      validationErrors: ['cwf-field-errors', 'invalid-feedback', 'form-text'],
+      validationError: ['cwf-field-error'],
+      fieldValidates: ['validates'],
+      validatedField: ['was-validated'],
+      // Form wrapper
+      formWrapper: ['cwf-form-wrapper'],
+      formElement: ['cwf-form', '$validationClassNames'],
+      // Form action element element classes
+      formFields: ['form-fields'],
+      formActions: ['form-actions', 'mt-4'],
+      submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
+      submitButtonIcon: [],
+      // Request in flight
+      requestInFlightIcon: [
+        'request-in-flight',
+        'spinner-border',
+        'spinner-border-sm',
+        'ms-2',
+      ],
+      resetFormButtonIcon: [],
+      clearFormButtonIcon: [],
+      resetFormButton: ['btn-warning', 'btn-lg'],
+      clearFormButton: ['btn-dark', 'btn-lg'],
+      // fieldType === 'input
+      fieldWrapperInput: ['cwf-field-input'],
+      inputField: [
+        'form-control',
+        'validation-area',
+        '$validationClassNames',
+        '$validationPseudoClasses',
+      ],
+      // fieldType === 'clonable'
+      cloneGroupWrapper: ['cwf-clone-group'],
+      cloneWrapper: ['cwf-clone', 'mb-3'],
+      cloneGroupItems: ['cwf-clone-group-items', '$validationClassNames'],
+      cloneFieldControls: ['cwf-clone-field-controls', '$validationClassNames'],
+      cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
+      maxClonesReached: ['cwf-max-clones-reached'],
+      addCloneButton: ['btn-outline-secondary'],
+      removeCloneButton: [
+        'hover-pointer',
+        'remove-clone',
+        'clone-actions',
+        'width-xl',
+        'p-2',
+        'pb-0',
+      ],
+      addCloneButtonIcon: [],
+      removeCloneButtonIcon: ['fill-gray-medium', 'remove-clone-icon'],
+      // fieldType === 'powerSelect'
+      powerSelectTrigger: [
+        'form-control',
+        '$validationClassNames',
+        'validation-area',
+      ],
+      powerSelectDropdown: [],
+      // fieldType === 'powerSelectCheckboxes'
+      powerSelectCheckboxesTrigger: [
+        'form-control',
+        '$validationClassNames',
+        'validation-area',
+      ],
+      // fieldType === powerDatePicker
+      powerDatePickerTriggerWrapper: [
+        'form-control',
+        'input',
+        '$validationClassNames',
+      ],
+      powerDatePickerTriggerInput: null,
+      powerDatePickerDropdown: ['bg-transparent'],
+      powerDatePickerDropdownInner: [
+        'bg-white',
+        'p-2',
+        'border',
+        'rounded',
+        'd-flex',
+        'flex-column',
+        'align-items-center',
+      ],
+      powerDatePickerCalendar: null,
+      powerDatePickerTimeSelectorContainer: ['cwf-time-selector', 'mt-2'],
+      powerDatePickerTimeSelectorInput: ['inline'],
+      powerDatePickerClearButton: ['clear-date-time-button', 'icon'],
+      powerDatePickerCalendarIcon: ['calendar-icon', 'icon'],
+      powerDatePickerCalendarNav: ['d-flex', 'align-items-center'],
+      powerDatePickerCalendarDays: null,
+      // fieldType === 'clicker';
+      clickerElement: ['cwf-clicker'],
+      // fieldType === ('singleCheckBox' || 'checkBoxGroup)
+      checkboxLabel: ['form-check-label'],
+      labelledCheckbox: ['form-check', 'labelled-checkbox'],
+      // fieldType === 'radioButtonGroup
+      labelledRadioButton: ['form-check', 'labelled-radio-button'],
+      radioButtonLabel: ['form-check-label'],
     },
-    resetFormButtonIcon: [],
-    clearFormButtonIcon: [],
-    resetFormButton: ['btn-warning', 'btn-lg'],
-    clearFormButton: ['btn-dark', 'btn-lg'],
-    // fieldType === 'input
-    fieldWrapperInput: ['cwf-field-input'],
-    // fieldType === 'clonable'
-    cloneGroupWrapper: ['cwf-clone-group'],
-    cloneWrapper: ['cwf-clone', 'mb-3'],
-    cloneGroupItems: ['cwf-clone-group-items', '$validationClassNames'],
-    cloneFieldControls: ['cwf-clone-field-controls', '$validationClassNames'],
-    cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
-    maxClonesReached: ['cwf-max-clones-reached'],
-    addCloneButton: ['btn-outline-secondary'],
-    removeCloneButton: [
-      'hover-pointer',
-      'remove-clone',
-      'clone-actions',
-      'width-xl',
-      'p-2',
-      'pb-0',
-    ],
-    addCloneButtonIcon: [],
-    removeCloneButtonIcon: ['fill-gray-medium', 'remove-clone-icon'],
-    // fieldType === 'powerSelect'
-    powerSelectTrigger: [
-      'form-control',
-      '$validationClassNames',
-      'validation-area',
-    ],
-    powerSelectDropdown: [],
-    // fieldType === 'powerSelectCheckboxes'
-    powerSelectCheckboxesTrigger: [
-      'form-control',
-      '$validationClassNames',
-      'validation-area',
-    ],
-    // fieldType === powerDatePicker
-    powerDatePickerTriggerWrapper: [
-      'form-control',
-      'input',
-      '$validationClassNames',
-    ],
-    powerDatePickerTriggerInput: null,
-    powerDatePickerDropdown: ['bg-transparent'],
-    powerDatePickerDropdownInner: [
-      'bg-white',
-      'p-2',
-      'border',
-      'rounded',
-      'd-flex',
-      'flex-column',
-      'align-items-center',
-    ],
-    powerDatePickerCalendar: null,
-    powerDatePickerTimeSelectorContainer: ['cwf-time-selector', 'mt-2'],
-    powerDatePickerTimeSelectorInput: ['inline'],
-    powerDatePickerClearButton: ['clear-date-time-button', 'icon'],
-    powerDatePickerCalendarIcon: ['calendar-icon', 'icon'],
-    powerDatePickerCalendarNav: ['d-flex', 'align-items-center'],
-    powerDatePickerCalendarDays: null,
-    // fieldType === 'clicker';
-    clickerElement: ['cwf-clicker'],
-    // fieldType === ('singleCheckBox' || 'checkBoxGroup)
-    checkboxLabel: ['form-check-label'],
-    labelledCheckbox: ['form-check', 'labelled-checkbox'],
-    // fieldType === 'radioButtonGroup
-    labelledRadioButton: ['form-check', 'labelled-radio-button'],
-    radioButtonLabel: ['form-check-label'],
-    // END-SNIPPET
   },
+  // END-SNIPPET
+
   formSettings: {
     // BEGIN-SNIPPET form-settings-options.js
     formName: null, // String. Must be unique. Used as a namespace for things like input ID and 'for' attributes..
@@ -161,6 +170,9 @@ export default {
     submitAfterClear: false, // Boolean. If true submits, the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters.
     clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully.
     submitButtonType: 'button', // String - the type of the submit button. Can be 'button' or 'submit'.
+    attrsFromConfig: {
+      classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
+    },
     // END-SNIPPET
   },
   fieldSettings: {
@@ -172,7 +184,7 @@ export default {
     // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
     validatesOn: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: ['submit'], // Array of strings
+    alwaysValidateOn: ['submit', 'pushErrors'], // Array of strings
     showValidationWhenFocussed: false, // Boolean - unless this is tru, validation colours, icons and messages will be omitted for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
     omitted: false, // Boolean - or object - if true, the field is omitted and also ignored when validating or submitting the form. Can also be an object which defines rules for dynamic omission/inclusion. See /docs/hiding-and-showing-fields.
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
@@ -185,7 +197,9 @@ export default {
     hideLabel: null, // Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     resetWhenOmitted: true, // Boolean - reset the field value and validation when the field is omitted from the form.
-    classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
+    attrsFromConfig: {
+      classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
+    },
     cloneActionsPosition: 'fieldActions', // String - where to place the remove clone button in relation to the cloned field. Can be [TODO]
     includeLabelForAttr: false, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
     isFieldset: false, // Boolean - if true, the field options are wrapped in a fieldset element, and the field label is wrapped in a legend element.

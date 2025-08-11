@@ -1,0 +1,34 @@
+<DocsDemo as |demo|>
+  <demo.example @name="field-methods-example-7.hbs" data-test-id="example-7">
+    <div class="border rounded p-2 mb-4 bg-light">
+      <b class="mb-2">This input is outside of the ChangesetWebform component</b>
+      <div class="d-flex mt-2">
+        <input
+          type="text"
+          placeholder="Error message"
+          class="form-control me-2"
+          style="max-width: 300px;"
+          data-test-id="error-message-input"
+          {{on "change" this.updateErrorMessage}}
+        />
+        <button class="btn btn-primary me-2" type="button">Push error to name
+          field</button>
+
+      </div>
+    </div>
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="field-methods-example-7.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="field-methods-example-7.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+</DocsDemo>

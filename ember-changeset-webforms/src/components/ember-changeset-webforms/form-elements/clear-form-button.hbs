@@ -2,19 +2,13 @@
   type="button"
   data-test-id="cwf-clear-form-button"
   {{on "click" (fn @clearForm @changesetWebform)}}
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'buttonElement,clearFormButton'
-      @changesetWebform
-    }}"
+  {{attrs-from-config "buttonElement,clearFormButton" @changesetWebform}}
 >
   {{#if @formSettings.clearFormButtonIcon}}
     <@formSettings.clearFormButtonIcon.componentClass
       @props={{@formSettings.clearFormButtonIcon.props}}
       @changesetWebform={{@changesetWebform}}
-      class={{ember-changeset-webforms/dynamic-class-names
-        "buttonIcon,clearFormButtonIcon"
-        @changesetWebform
-      }}
+      {{attrs-from-config "buttonIcon,clearFormButtonIcon" @changesetWebform}}
     />
   {{/if}}
   {{@formSettings.clearFormButtonText}}</button>

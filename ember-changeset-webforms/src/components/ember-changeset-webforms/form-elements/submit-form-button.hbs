@@ -3,20 +3,14 @@
   data-test-id="cwf-submit-form-button"
   disabled={{@formSettings.submitDisabled}}
   {{on "click" (fn @onFormSubmit @changesetWebform)}}
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'buttonElement,submitButton'
-      @changesetWebform
-    }}"
+  {{attrs-from-config "buttonElement,submitButton" @changesetWebform}}
   ...attributes
 >
   {{#if @formSettings.submitButtonIcon}}
     <@formSettings.submitButtonIcon.componentClass
       @props={{@formSettings.submitButtonIcon.props}}
       @changesetWebform={{@changesetWebform}}
-      class={{ember-changeset-webforms/dynamic-class-names
-        "buttonIcon,submitButtonIcon"
-        @changesetWebform
-      }}
+      {{attrs-from-config "buttonIcon,submitButtonIcon" @changesetWebform}}
     />
   {{/if}}
   {{@formSettings.submitButtonText}}
@@ -25,10 +19,7 @@
       <@formSettings.requestInFlightIcon.componentClass
         @props={{@formSettings.requestInFlightIcon.props}}
         @changesetWebform={{@changesetWebform}}
-        class={{ember-changeset-webforms/dynamic-class-names
-          "requestInFlightIcon"
-          @changesetWebform
-        }}
+        {{attrs-from-config "requestInFlightIcon" @changesetWebform}}
       />
     {{/if}}
   {{/if}}

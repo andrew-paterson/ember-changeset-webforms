@@ -20,9 +20,9 @@ Create a service named `ember-changeset-webforms.js`.
 
 We add an entry to the `changesetWebformsDefaults.fieldTypes` array in our `services/ember-chnageset-webforms.js`, with a fieldType of `phoneNumberWithCountryCode`. The only other required field is `componentClass`, the imported class definition of our custom field component. We can add any other default field options that we would like to.
 
-In this case we add some default class names to the `fieldControls` element which wraps all fields. See <LinkTo @route="docs.configure-class-names">docs/configure-class-names</LinkTo>.
+In this case we add some default class names to the `fieldControls` element which wraps all fields. See <LinkTo @route="docs.manipulating-element-class-names-and-attrs">docs.manipulating-element-class-names-and-attrs</LinkTo>.
 
-We also add class name defaults for `phoneNumberInput` and `countryCodeTrigger`. We will tell out component which element these classnames should using the `dynamic-class-names` helper (See below).
+We also add class name defaults for `phoneNumberInput` and `countryCodeTrigger`. We will tell out component which element these classnames should using the `class-names-from-config` helper (See below).
 
 The `alwaysValidatesOn` array allows us to specify events that will always trigger field validation, even if that event is not included in the `validatesOn` array where the field is onvoked in a formSchema.
 
@@ -58,12 +58,43 @@ In response to the relevant browser events, the two power select and input call 
 - `inputKeyUp`
 - `inputChange`
 
-### Inserting dynamic class names
-
-Notice the use of the `ember-changeset-webforms/dynamic-class-names`, both as `@triggerClass` on the power select, and `class` on the input. The example below would output the classnames found in `classNames.countryCodeTrigger` in the fields options, because `countryCodeTrigger` is the first argument passed to the helper.
+### Using the `attrs-from-config` modifier to add attributes from config
 
 ```handlebars
-@triggerClass="{{ember-changeset-webforms/dynamic-class-names
+{{attrs-from-config 'phoneNumberInput' @changesetWebform @formField}}
+/>
+```
+
+The `attrs-from-config` receives three arguments:
+
+- `propName` (required) - the property of the classNames config object to get element class names from (See <LinkTo @route="docs.manipulating-element-class-names-and-attrs">docs.manipulating-element-class-names-and-attrs</LinkTo>)
+- `changesetWebform` (required) - the changeset webform instance. Accessible in the template via the `@changesetWebform` prop.
+- @formField (required) - the formField instance. Accessible in the template via the `@formField` prop.
+
+The `attrs-from-config` does the following:
+
+- finds the array of class names from config which are assigned to the namespace passed in the first argument, and adds those to the element.
+- if `$validationClassNames` is one of the items in the array of class names, it also updates the element classes to include or exclude the validation classes, in accordance with the validation status of the field. The validation classes are defined in the the `validClassNames` and `invalidClassNames` props of the class names config.
+- if `$validationPseudoClasses` is one of the items in the array of class names, _and_ the element in question is a form element, the modifier will add `data-set-custom-validity=true` to the element. Then, whenever the field is validated, all elements within that field with `data-set-custom-validity=true` will have their [`setCustomValidity`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity) method called with any validation errors. This allows the broweser to add the `:valid` or `:invalid` pseudo classes to the elements as appropriate.
+
+See the example in the input field in the example below.
+
+<Demos::CustomField />
+
+### Invoking class names from config where a modifier can't work
+
+It might not always be appropriate or possible to use the `attr-from-config` modifier to add classes to an element. This is especially true when you don't have access to the elements within a component.
+
+The `@triggerClass` property of the `PowerSelect` component is a good example. We're not able to invoke the `attrs-from-config` modifier on the trigger component, because it's inside the PowerSelect component, which we don't have access to.
+
+In the case, we can invoke class names from config by using the `ember-changeset-webforms/class-names-from-config` helper. See the `@triggerClass` prop in the example below. This helper simply returns the class names as a space separated string.
+
+<DocsSnippet @name="custom-field-component.hbs" />
+
+Notice the use of the `ember-changeset-webforms/class-names-from-config`, both as `@triggerClass` on the power select, and `class` on the input. The example below would output the classnames found in `classNames.countryCodeTrigger` in the fields options, because `countryCodeTrigger` is the first argument passed to the helper.
+
+```handlebars
+@triggerClass="{{ember-changeset-webforms/class-names-from-config
   'countryCodeTrigger'
   @changesetWebform
   @formField

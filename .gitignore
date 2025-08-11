@@ -24,4 +24,6 @@
 bower.json.ember-try
 package.json.ember-try
 
+deploy-test-app
+
 .DS_Store

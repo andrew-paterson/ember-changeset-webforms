@@ -9,52 +9,12 @@
   data-test-validates={{@formField.validates}}
   data-test-was-validated={{@formField.wasValidated}}
   data-test-validation-status={{@formField.validationStatus}}
-  class="{{@formField.typeClass}}
-    {{if
-      @formField.isClone
-      (ember-changeset-webforms/dynamic-class-names
-        'cloneWrapper' @changesetWebform @formField
-      )
-      (ember-changeset-webforms/dynamic-class-names
-        'fieldWrapper' @changesetWebform @formField
-      )
-    }}
-    {{if
-      (and @formField.isClone this.hasFieldActions)
-      (ember-changeset-webforms/dynamic-class-names
-        'cloneWrapperWithRemoveButton' @changesetWebform @formField
-      )
-    }}
-    {{if
-      @formField.focussed
-      (ember-changeset-webforms/dynamic-class-names
-        'focussedField' @changesetWebform @formField
-      )
-    }}
-    {{if
-      @formField.disabled
-      (ember-changeset-webforms/dynamic-class-names
-        'disabledField' @changesetWebform @formField
-      )
-    }}
-    {{if
-      @formField.validates
-      (ember-changeset-webforms/dynamic-class-names
-        'fieldValidates' @changesetWebform @formField
-      )
-    }}
-    {{if
-      @formField.wasValidated
-      (ember-changeset-webforms/dynamic-class-names
-        'validatedField' @changesetWebform @formField
-      )
-    }}
-    {{if
-      @formField.required
-      (ember-changeset-webforms/dynamic-class-names
-        'requiredField' @changesetWebform @formField
-      )
-    }}"
+  {{attrs-from-config
+    this.dynamicClassNameNameSpaces
+    @changesetWebform
+    @formField
+  }}
+  class="{{@formField.typeClass}}"
   {{did-insert (fn this.registerElementContainer "fieldWrapperEl")}}
   ...attributes
 >
@@ -82,15 +42,11 @@
         @changesetWebform={{@changesetWebform}}
       />
       <div
-        class="{{if
-            @formField.isClone
-            (ember-changeset-webforms/dynamic-class-names
-              'cloneFieldControls' @changesetWebform @formField
-            )
-            (ember-changeset-webforms/dynamic-class-names
-              'fieldControls' @changesetWebform @formField
-            )
-          }}"
+        {{attrs-from-config
+          (if @formField.isClone "cloneFieldControls" "fieldControls")
+          @changesetWebform
+          @formField
+        }}
         role={{if @formField.isGroup "group"}}
         data-test-id="field-controls"
       >

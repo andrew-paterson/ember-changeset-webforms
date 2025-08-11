@@ -8,7 +8,7 @@
   @defaultHighlighted={{@formField.defaultHighlighted}}
   @destination={{@formField.destination}}
   @disabled={{@formField.disabled}}
-  @dropdownClass={{ember-changeset-webforms/dynamic-class-names
+  @dropdownClass={{ember-changeset-webforms/class-names-from-config
     "powerSelectDropdown"
     @changesetWebform
     @formField
@@ -50,11 +50,6 @@
   @selected={{@formField.fieldValue}}
   @selectedItemComponent={{@formField.selectedItemComponent}}
   @tabindex={{@formField.tabindex}}
-  @triggerClass={{ember-changeset-webforms/dynamic-class-names
-    "powerSelectTrigger"
-    @changesetWebform
-    @formField
-  }}
   @afterOptionsComponent={{@formField.afterOptionsComponent}}
   @triggerComponent={{@formField.triggerComponent}}
   @triggerId={{@formField.id}}
@@ -67,6 +62,11 @@
   @ariaLabel={{@formField.ariaLabel}}
   aria-errormessage={{@formField.ariaErrorMessage}}
   @required={{@formField.required}}
+  @triggerClass={{ember-changeset-webforms/class-names-from-config
+    "powerSelectTrigger"
+    @changesetWebform
+    @formField
+  }}
   as |option|
 >
   {{#if @formField.optionComponent}}

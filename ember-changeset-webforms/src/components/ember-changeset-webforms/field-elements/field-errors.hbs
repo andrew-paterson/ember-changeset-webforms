@@ -2,20 +2,12 @@
   <div
     id="{{@formField.id}}-errors"
     role="alert"
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'validationErrors'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "validationErrors" @changesetWebform @formField}}
     data-test-class="cwf-field-errors"
   >
     {{#each @validationErrorsArray as |error|}}
       <div
-        class="{{ember-changeset-webforms/dynamic-class-names
-            'validationError'
-            @changesetWebform
-            @formField
-          }}"
+        {{attrs-from-config "validationError" @changesetWebform @formField}}
         data-test-class="cwf-field-error"
       >{{error}}</div>
     {{/each}}

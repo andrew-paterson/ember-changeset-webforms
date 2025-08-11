@@ -1,11 +1,7 @@
 {{#unless this.noLabel}}
   <EmberChangesetWebforms::FieldElements::FieldLabelWrapper
     id={{@labelId}}
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'fieldLabel'
-        @changesetWebform
-        @formField
-      }}"
+    {{attrs-from-config "fieldLabel" @changesetWebform @formField}}
     data-test-class="cwf-field-label"
     data-test-id="{{@formField.id}}-label"
     @formField={{@formField}}

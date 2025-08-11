@@ -35,3 +35,9 @@ The `value` argument is the value to update the field to.
 Discards any unsaved changes to the field's value, and unvalidates the field.
 
 <Demos::FieldMethodsExampleSix />
+
+## `pushErrors`
+
+Allows you to push errors onto a field. This will force the field to show the error and display as invalid in the UI.
+
+<Demos::FieldMethodsExampleSeven />

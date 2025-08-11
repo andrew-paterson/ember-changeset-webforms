@@ -1,11 +1,6 @@
 <input
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'inputElement'
-      @changesetWebform
-      @formField
-    }}"
+  {{attrs-from-config "inputElement,inputField" @changesetWebform @formField}}
   value={{@formField.fieldValue}}
-  data-custom-validity
   {{on "keyup" (fn this.onUserInteraction "keyUp")}}
   {{on "keydown" (fn this.onUserInteraction "keyDown")}}
   {{on "blur" (fn this.onUserInteraction "focusOut")}}

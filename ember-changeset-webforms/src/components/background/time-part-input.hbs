@@ -8,7 +8,7 @@
       for="time-selector-{{@timeFormatPart.type}}"
       data-test-class="time-selector-field-label"
       data-test-id="time-selector-field-label-{{@timeFormatPart.type}}"
-      class={{@timeInputLabelClass}}
+      {{attrs-from-config "label" @changesetWebform @formField}}
     >{{@timeFormatPart.label}}</label>
     <input
       id="time-selector-{{@timeFormatPart.type}}"
@@ -29,8 +29,12 @@
       {{on "keyup" (fn @keyupAction @timeFormatPart.formatChar)}}
       {{on "keydown" (fn @keydownAction @timeFormatPart.formatChar)}}
       {{on "change" (fn @changeAction @timeFormatPart.formatChar)}}
-      class="time-selector-field-input-{{@timeFormatPart.type}}
-        {{@timeInputClass}}"
+      class="time-selector-field-input-{{@timeFormatPart.type}}"
+      {{attrs-from-config
+        "inputElement,powerDatePickerTimeSelectorInput"
+        @changesetWebform
+        @formField
+      }}
     />
   </div>
 {{/if}}

@@ -1,11 +1,7 @@
 <textarea
-  class="{{ember-changeset-webforms/dynamic-class-names
-      'textareaElement'
-      @changesetWebform
-      @formField
-    }}"
+  {{attrs-from-config "textareaElement" @changesetWebform @formField}}
   value={{@formField.fieldValue}}
-  data-custom-validity
+  data-set-custom-validity
   {{on "keyup" (fn this.onUserInteraction "keyUp")}}
   {{on "keyup" (fn this.onUserInteraction "keyDown")}}
   {{on "blur" (fn this.onUserInteraction "focusOut")}}
