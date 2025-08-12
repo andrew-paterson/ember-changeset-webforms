@@ -3,12 +3,12 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class FormMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET form-methods-example-4.js"
+  // BEGIN-SNIPPET form-methods-example-10.js"
   @tracked nextStepEnabled;
 
   formSchema = {
     formSettings: {
-      formName: 'formMethods4',
+      formName: 'formMethods10',
       hideSubmitButton: true,
     },
     fields: [
@@ -43,10 +43,17 @@ export default class FormMethodsExample1Component extends Component {
   };
 
   @action
+  afterGenerateChangesetWebform(changesetWebform) {
+    this.setNextStepEnabled(changesetWebform);
+  }
+
+  @action
   afterFieldValidation(formField, changesetWebform) {
-    this.nextStepEnabled =
-      !changesetWebform.hasValidationErrors &&
-      !changesetWebform.hasUnvalidatedFields;
+    this.setNextStepEnabled(changesetWebform);
+  }
+
+  @action setNextStepEnabled(changesetWebform) {
+    this.nextStepEnabled = !changesetWebform.hasValidationErrors;
   }
   // END-SNIPPET
 }

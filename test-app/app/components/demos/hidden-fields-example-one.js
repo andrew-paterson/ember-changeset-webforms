@@ -53,7 +53,9 @@ export default class FormWideClassSettingsComponent extends Component {
         changesetWebform.setFieldOmission('mealOption', true);
       }
     }
-    this.changesetIsValid = await changesetWebform.isValid;
+    this.changesetIsValid =
+      !changesetWebform.hasValidationErrors &&
+      !changesetWebform.hasUnvalidatedFields;
   }
 
   // END-SNIPPET

@@ -36,16 +36,16 @@ export default class ChangesetWebform {
     };
   }
 
-  get isValid() {
-    if (
-      !this.changeset.isValid ||
+  get hasUnvalidatedFields() {
+    return (
       this.fields.filter(
         (field) => field.validates && !field.wasValidated && !field.isOmitted,
       ).length > 0
-    ) {
-      return false;
-    }
-    return true;
+    );
+  }
+
+  get hasValidationErrors() {
+    return this.changeset.errors.length > 0;
   }
 
   _checkOmitted() {
@@ -87,15 +87,6 @@ export default class ChangesetWebform {
       })
       .filter((item) => item);
     return await Promise.all(validatePromises);
-  }
-
-  _validateFields() {
-    var validatePromises = this.fields
-      .map((field) => {
-        return field._validateField();
-      })
-      .filter((item) => item);
-    return Promise.all(validatePromises);
   }
 
   clear() {

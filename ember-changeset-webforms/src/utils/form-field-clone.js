@@ -77,20 +77,27 @@ export default class FormFieldClone {
     return this.validationRules.length > 0;
   }
 
-  get validationStatus() {
-    var clonedFormField = this;
-    if (!clonedFormField) {
-      return null;
-    }
-
-    if (
-      !clonedFormField.showValidationWhenFocussed &&
-      clonedFormField.focussed
-    ) {
-      return null;
-    }
-
+  get wasValidated() {
     if (!this.eventLogValidated.length) {
+      return null;
+    }
+    return true;
+  }
+
+  get validationStatus() {
+    // var clonedFormField = this;
+
+    // if (
+    //   !clonedFormField.showValidationWhenFocussed &&
+    //   clonedFormField.focussed
+    // ) {
+    //   return null;
+    // }
+
+    // if (!this.eventLogValidated.length) {
+    //   return null;
+    // }
+    if (!this.wasValidated) {
       return null;
     }
     var clonedFieldValidationErrors = this.cloneValidationErrors || [];
@@ -99,6 +106,16 @@ export default class FormFieldClone {
     } else {
       return 'invalid';
     }
+  }
+
+  get showValidation() {
+    if (!this.wasValidated) {
+      return false;
+    }
+    if (!this.showValidationWhenFocussed && this.focussed) {
+      return false;
+    }
+    return true;
   }
 
   get labelId() {

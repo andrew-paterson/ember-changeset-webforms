@@ -14,26 +14,38 @@ export default class ValidatingFieldWrapper extends Component {
   get dynamicClassNameNameSpaces() {
     const formField = this.args.formField;
     const final = [];
+
+    return final.join(',');
+  }
+
+  get attrsFromConfigNameSpaces() {
+    const final = [];
+    const formField = this.args.formField;
     final.push(formField.isClone ? 'cloneWrapper' : 'fieldWrapper');
-    if (formField.isClone && this.hasFieldActions) {
-      final.push('cloneWrapperWithRemoveButton');
-    }
     if (formField.focussed) {
       final.push('focussedField');
     }
     if (formField.disabled) {
       final.push('disabledField');
     }
-    if (formField.validates) {
-      final.push('validatingField');
-    }
-    if (formField.wasValidated) {
+    if (formField.showValidation) {
       final.push('validatedField');
     }
     if (formField.required) {
       final.push('requiredField');
     }
-    return final.join(',');
+    if (formField.validates) {
+      final.push('validatingField');
+    }
+    if (formField.required) {
+      final.push('requiredField');
+    }
+    if (formField.isClone && this.hasFieldActions) {
+      final.push('cloneWrapperWithRemoveButton');
+    }
+    return final
+      .filter((item, index) => final.indexOf(item) === index)
+      .join(',');
   }
 
   get hasFieldActions() {

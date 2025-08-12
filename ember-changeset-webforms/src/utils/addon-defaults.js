@@ -145,6 +145,26 @@ export default {
       labelledRadioButton: ['form-check', 'labelled-radio-button'],
       radioButtonLabel: ['form-check-label'],
     },
+    attrFunctions: {
+      fieldWrapper(element, changesetWebform, formField) {
+        const classNameSettings =
+          changesetWebform.formSchemaWithDefaults.classNameSettings;
+        if (formField.focussed) {
+          element.classList.add(...classNameSettings.focussedField);
+        } else {
+          element.classList.remove(...classNameSettings.focussedField);
+        }
+      },
+      validatedField(element, changesetWebform, formField) {
+        const classNameSettings =
+          changesetWebform.formSchemaWithDefaults.classNameSettings;
+        if (formField.showValidation) {
+          element.classList.add(...classNameSettings.validatedField);
+        } else {
+          element.classList.remove(...classNameSettings.validatedField);
+        }
+      },
+    },
   },
   // END-SNIPPET
 

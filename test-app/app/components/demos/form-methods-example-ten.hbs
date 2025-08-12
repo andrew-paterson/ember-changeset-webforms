@@ -1,7 +1,7 @@
 <DocsDemo as |demo|>
   <demo.example
-    @name="form-methods-example-4.hbs"
-    data-test-id="form-methods-example-4"
+    @name="form-methods-example-10.hbs"
+    data-test-id="form-methods-example-10"
   >
     <div class="border rounded p-2 mb-4 bg-light">
       <div class="mt-2">
@@ -11,8 +11,8 @@
             class="btn btn-primary me-2"
             type="button"
           >Go to next step</button>
-          <div class="alert alert-success mb-0" data-test-id="alert-success">All
-            validating fields have successfully validated.</div>
+          <div class="alert alert-success mb-0" data-test-id="alert-success">No
+            fields have failed validation.</div>
         {{else}}
           <button
             data-test-id="next-step-disabled"
@@ -21,23 +21,23 @@
             disabled={{true}}
           >Next step disabled</button>
           <div class="alert alert-danger mb-0" data-test-id="alert-danger">One
-            or more validating fields has either failed validation, or not yet
-            been validated.</div>
+            or more validating fields has failed validation.</div>
         {{/if}}
       </div>
     </div>
     <ChangesetWebform
       @formSchema={{this.formSchema}}
+      @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       @afterFieldValidation={{this.afterFieldValidation}}
     />
   </demo.example>
   <demo.snippet
-    @name="form-methods-example-4.js"
+    @name="form-methods-example-10.js"
     @label="component js"
     @language="javascript"
   />
   <demo.snippet
-    @name="form-methods-example-4.hbs"
+    @name="form-methods-example-10.hbs"
     @label="template"
     @language="htmlbars"
   />

@@ -4,29 +4,19 @@ import Component from '@glimmer/component';
 export default class ValidatingClone extends Component {
   @action
   didInsert(element) {
-    var changeset = this.args.changesetWebform.changeset;
-    if (
-      changeset.get(this.args.masterFormField.propertyName)[
-        this.args.clonedFormField.index
-      ]
-    ) {
-      this.args.clonedFormField.eventLog.push('insert');
-      this.args.masterFormField.eventLog.push('insertClone');
-      if (this.args.clonedFormField.fieldValue) {
-        this.args.clonedFormField.eventLog.push('insertWithValue');
-        this.args.masterFormField.eventLog.push('insertWithValueClone');
-      }
-      this.args.clonedFormField.updateValidationActivation();
-      setTimeout(() => {
-        this.args.clonedFormField.customValidityEls = element.querySelectorAll(
-          '[data-set-custom-validity]',
-        );
-        // (this.args.clonedFormField.customValidityEls || []).forEach((el) => {
-        //   // el.setCustomValidity((clonedField.cloneValidationErrors || []).join());
-        // });
-        this.args.validateField(this.args.masterFormField);
-      });
+    this.args.clonedFormField.eventLog.push('insert');
+    this.args.masterFormField.eventLog.push('insertClone');
+    if (this.args.clonedFormField.fieldValue) {
+      this.args.clonedFormField.eventLog.push('insertWithValue');
+      this.args.masterFormField.eventLog.push('insertWithValueClone');
     }
+    this.args.clonedFormField.updateValidationActivation();
+    setTimeout(() => {
+      this.args.clonedFormField.customValidityEls = element.querySelectorAll(
+        '[data-set-custom-validity]',
+      );
+      this.args.validateField(this.args.masterFormField);
+    });
   }
 
   @action

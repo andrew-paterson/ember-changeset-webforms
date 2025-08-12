@@ -60,18 +60,28 @@ export default class FormField {
     if (this.hideValidation) {
       return null;
     }
-    if (!this.showValidationWhenFocussed && this.focussed) {
-      return null;
-    }
+    // if (!this.showValidationWhenFocussed && this.focussed) {
+    //   return null;
+    // }
     if (!this.eventLogValidated.length) {
       return null;
     }
-    if (
-      this.eventLogValidated.length === 1 &&
-      this.eventLogValidated[0] === 'insert' &&
-      !this.fieldValue
-    ) {
-      return null;
+    // if (
+    //   this.eventLogValidated.length === 1 &&
+    //   this.eventLogValidated[0] === 'insert' &&
+    //   !this.fieldValue
+    // ) {
+    //   return null;
+    // }
+    return true;
+  }
+
+  get showValidation() {
+    if (!this.wasValidated) {
+      return false;
+    }
+    if (!this.showValidationWhenFocussed && this.focussed) {
+      return false;
     }
     return true;
   }
@@ -233,19 +243,6 @@ export default class FormField {
     if (!('skipUnvalidated' in opts) || opts.skipUnvalidated !== true) {
       this.eventLog.push('forceValidation');
     }
-    return await this._validateField(opts);
-  }
-
-  _setCustomValidity() {
-    (this.customValidityEls || []).forEach((el) => {
-      el.setCustomValidity((this.validationErrors || []).join());
-    });
-    this.clonedFields.forEach((clonedField) => {
-      clonedField._setCustomValidity();
-    });
-  }
-
-  async _validateField(opts = {}) {
     const formField = this;
     const changeset = this.changeset;
     if (
@@ -269,6 +266,15 @@ export default class FormField {
       );
     }
     return res[0];
+  }
+
+  _setCustomValidity() {
+    (this.customValidityEls || []).forEach((el) => {
+      el.setCustomValidity((this.validationErrors || []).join());
+    });
+    this.clonedFields.forEach((clonedField) => {
+      clonedField._setCustomValidity();
+    });
   }
 
   pushErrors(errors) {

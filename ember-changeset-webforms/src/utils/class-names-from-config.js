@@ -47,14 +47,16 @@ function applyValidationClassNames(
       (classNameSettings.invalidClassNames || []).map((item) => `!${item}`),
     );
     if (formField) {
-      if (formField.validationStatus === 'valid') {
-        classNamesArray = classNamesArray.concat(
-          classNameSettings.validClassNames || [],
-        );
-      } else if (formField.validationStatus === 'invalid') {
-        classNamesArray = classNamesArray.concat(
-          classNameSettings.invalidClassNames || [],
-        );
+      if (formField.showValidation) {
+        if (formField.validationStatus === 'valid') {
+          classNamesArray = classNamesArray.concat(
+            classNameSettings.validClassNames || [],
+          );
+        } else if (formField.validationStatus === 'invalid') {
+          classNamesArray = classNamesArray.concat(
+            classNameSettings.invalidClassNames || [],
+          );
+        }
       }
     } else {
       if (changesetWebform.changeset.isValid) {

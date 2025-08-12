@@ -61,7 +61,9 @@ export default class FormWideClassSettingsComponent extends Component {
 
   @action
   async onFieldValueChange(formField, changesetWebform, snapshot) {
-    this.changesetIsValid = await changesetWebform.isValid;
+    this.changesetIsValid =
+      !changesetWebform.hasValidationErrors &&
+      !changesetWebform.hasUnvalidatedFields;
   }
   // END-SNIPPET
 }

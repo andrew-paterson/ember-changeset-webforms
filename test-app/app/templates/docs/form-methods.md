@@ -85,17 +85,20 @@ Similarly, if an action is passed to the `ChangesetWebform` component as `@after
 
 ## Properties
 
-### `isValid`
+### hasValidationErrors
 
-Checks the validation of all fields which:
+Returns `true` if one or more fields have validation errors.
 
-- have validation rules and,
-- are not currently omitted.
+This allows us to ignore fields which have not yet been validated, and check if any of those that have been validated failed validation.
 
-If all such fields are valid, it returns `true`, otherwise it returns `false`.
+<Demos::FormMethodsExampleTen />
 
-Note that this method also checks the validation of fields which have not yet been validated, but does not trigger any validation UI on those fields.
+### hasUnvalidatedFields
 
-Thus, in the example below, if you click the "Check if form is valid" button while both fields are empty and unvalidated, the alert will show that the form is not valid, but the form itself will not update in any way.
+Returns `true` if there are any fields which have validation rules, but have not yet been validated.
+
+Using `hasUnvalidatedFields` with `hasValidationErrors` allows us to check that all fields with validation rules have validated successfully.
+
+Thus, in the example below, if you click the "Check if all fields have successfully validated" button, while both fields are empty and unvalidated, the alert will show that the form is not valid, but the form itself will not update in any way.
 
 <Demos::FormMethodsExampleFour />

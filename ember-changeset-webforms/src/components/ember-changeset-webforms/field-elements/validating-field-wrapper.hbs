@@ -9,12 +9,12 @@
   data-test-validates={{@formField.validates}}
   data-test-was-validated={{@formField.wasValidated}}
   data-test-validation-status={{@formField.validationStatus}}
+  class="{{@formField.typeClass}}"
   {{attrs-from-config
-    this.dynamicClassNameNameSpaces
+    this.attrsFromConfigNameSpaces
     @changesetWebform
     @formField
   }}
-  class="{{@formField.typeClass}}"
   {{did-insert (fn this.registerElementContainer "fieldWrapperEl")}}
   ...attributes
 >

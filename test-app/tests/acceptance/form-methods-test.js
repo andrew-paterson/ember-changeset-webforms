@@ -1,4 +1,10 @@
-import { visit, click, fillIn, triggerKeyEvent } from '@ember/test-helpers';
+import {
+  visit,
+  click,
+  fillIn,
+  triggerKeyEvent,
+  blur,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import cth from 'ember-changeset-webforms/test-support/helpers';
@@ -91,41 +97,6 @@ module('Acceptance | Form methods', function (hooks) {
       .exists(
         'Email field exists after clicking external toggle email button again',
       );
-  });
-
-  test('isValid property', async function (assert) {
-    await visit('docs/form-methods');
-    await click(
-      '[data-test-id="example-4"] [data-test-id="check-if-form-is-valid"]',
-    );
-    assert
-      .dom('[data-test-id="example-4"] [data-test-id="alert-danger"]')
-      .hasText('Form is not valid', 'Alert shows correct danger message');
-    await fillIn(
-      '[data-test-id="form-methods4-form-name-field"] input',
-      'Steve Holt',
-    );
-    await triggerKeyEvent(
-      '[data-test-id="form-methods4-form-name-field"] input',
-      'keyup',
-      13,
-    );
-    await fillIn(
-      '[data-test-id="form-methods4-form-email-field"] input',
-      'steveholt@bluthcompany.com',
-    );
-    await triggerKeyEvent(
-      '[data-test-id="form-methods4-form-email-field"] input',
-      'keyup',
-      13,
-    );
-    await click(
-      '[data-test-id="example-4"] [data-test-id="check-if-form-is-valid"]',
-    );
-
-    await assert
-      .dom('[data-test-id="example-4"] [data-test-id="alert-success"]')
-      .hasText('Form is valid', 'Alert shows correct success message');
   });
 
   test('clear method', async function (assert) {
@@ -364,4 +335,101 @@ module('Acceptance | Form methods', function (hooks) {
       },
     );
   });
+
+  test('hasValidationErrors method', async function (assert) {
+    await visit('docs/form-methods');
+    checkNextStepEnabled(assert, 10, {
+      assertionSuffix: 'when no fields have been validated.',
+    });
+    await fillIn(
+      '[data-test-id="form-methods10-form-email-field"] input',
+      'Steve Holt',
+    );
+    await blur('[data-test-id="form-methods10-form-email-field"] input');
+    checkNextStepDisabled(assert, 10, {
+      assertionSuffix: 'when one field has failed validation.',
+    });
+  });
+
+  test('hasUnvalidatedFields method', async function (assert) {
+    await visit('docs/form-methods');
+
+    checkNextStepDisabled(assert, 4, {
+      assertionSuffix: 'when no fields have been validated.',
+    });
+    await fillIn(
+      '[data-test-id="form-methods4-form-name-field"] input',
+      'Steve Holt',
+    );
+    await blur('[data-test-id="form-methods4-form-name-field"] input');
+    checkNextStepDisabled(assert, 4, {
+      assertionSuffix:
+        'when one field has passed validation, but the other has not been validated.',
+    });
+    await fillIn(
+      '[data-test-id="form-methods4-form-email-field"] input',
+      'notavalidemail',
+    );
+    await blur('[data-test-id="form-methods4-form-email-field"] input');
+    checkNextStepDisabled(assert, 4, {
+      assertionSuffix:
+        'when one field has passed validation, but the other failed validation.',
+    });
+    await fillIn(
+      '[data-test-id="form-methods4-form-email-field"] input',
+      'steveholt@bluthcompany.com',
+    );
+    await blur('[data-test-id="form-methods4-form-email-field"] input');
+    checkNextStepEnabled(assert, 4, {
+      assertionSuffix: 'when both fields have passed validation.',
+    });
+  });
 });
+
+function checkNextStepDisabled(assert, exampleNumber, opts = {}) {
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="next-step-disabled"]`,
+    )
+    .exists(`Next step disabled button exists ${opts.assertionSuffix}.`);
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="alert-danger"]`,
+    )
+    .exists(`Danger alert has exists ${opts.assertionSuffix}'`);
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="next-step-enabled"]`,
+    )
+    .doesNotExist(`Go to next step does not exist ${opts.assertionSuffix}.`);
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="alert-success"]`,
+    )
+    .doesNotExist(`Success alert does not exist ${opts.assertionSuffix}.`);
+}
+
+function checkNextStepEnabled(assert, exampleNumber, opts = {}) {
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="next-step-enabled"]`,
+    )
+    .exists(`Go to next step button exists ${opts.assertionSuffix}.`);
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="alert-success"]`,
+    )
+    .exists(`Success alert has exists ${opts.assertionSuffix}'`);
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="next-step-disabled"]`,
+    )
+    .doesNotExist(
+      `Next step disabled button does not exist ${opts.assertionSuffix}.`,
+    );
+  assert
+    .dom(
+      `[data-test-id="form-methods-example-${exampleNumber}"] [data-test-id="alert-danger"]`,
+    )
+    .doesNotExist(`Danger alert does not exist ${opts.assertionSuffix}.`);
+}
