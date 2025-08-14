@@ -10,7 +10,12 @@ import {
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  failedValidation,
+  wasValidated,
+  noneValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 module('Acceptance | Form submission', function (hooks) {
   setupApplicationTest(hooks);
@@ -18,7 +23,7 @@ module('Acceptance | Form submission', function (hooks) {
   test('Basics', async function (assert) {
     await visit('/docs/form-settings');
     assert.notOk(
-      await cth.wasValidated(testEls.signupFormNameField),
+      await wasValidated(testEls.signupFormNameField),
       'Name field is not validated on insert.',
     );
     assert
@@ -32,14 +37,14 @@ module('Acceptance | Form submission', function (hooks) {
         'Steve Holt',
         'Name field has value after filling in focussing out.',
       );
-    await cth.passedValidation(testEls.signupFormNameField, assert, {
+    await passedValidation(testEls.signupFormNameField, assert, {
       assertionSuffix:
         'Name field passes validation after  filling in focussing out.',
     });
     assert
       .dom(`${testEls.signupFormRecoveryEmailField} input`)
       .hasValue('test', 'Email recovery field has initial value "test".');
-    await cth.failedValidation(testEls.signupFormRecoveryEmailField, assert, {
+    await failedValidation(testEls.signupFormRecoveryEmailField, assert, {
       assertionSuffix: 'Email recovery field has failed validation on insert.',
     });
     await fillIn(
@@ -48,7 +53,7 @@ module('Acceptance | Form submission', function (hooks) {
     );
     await blur(`${testEls.signupFormRecoveryEmailField} input`);
 
-    await cth.passedValidation(testEls.signupFormRecoveryEmailField, assert, {
+    await passedValidation(testEls.signupFormRecoveryEmailField, assert, {
       assertionSuffix:
         'Email recovery field passes validation after completing the email and focussing out.',
     });
@@ -65,12 +70,12 @@ module('Acceptance | Form submission', function (hooks) {
         'test',
         'Email recovery field has value "test" after clicking "Discard changes".',
       );
-    await cth.failedValidation(testEls.signupFormRecoveryEmailField, assert, {
+    await failedValidation(testEls.signupFormRecoveryEmailField, assert, {
       assertionSuffix:
         'Email recovery field fails validation after clicking "Discard changes".',
     });
     assert.notOk(
-      await cth.wasValidated(testEls.signupFormNameField),
+      await wasValidated(testEls.signupFormNameField),
       'Name field is not validated after clicking "Discard changes".',
     );
     assert
@@ -78,9 +83,7 @@ module('Acceptance | Form submission', function (hooks) {
       .hasValue('', 'Name field is empty after clicking "Discard changes".');
     await click(testEls.cwfClearFormButton);
     assert.ok(
-      await cth.noneValidated(
-        `${testEls.signupForm} ${testEls.dataTestCwfField}`,
-      ),
+      await noneValidated(`${testEls.signupForm} ${testEls.dataTestCwfField}`),
       'All fields are not validated after clicking "Clear form".',
     );
 
@@ -99,7 +102,7 @@ module('Acceptance | Form submission', function (hooks) {
       '[data-test-id="default-form-submission-form-server-response-type-field-radio-option-synchronous-error-response"] input';
     await visit('/docs/form-submission');
     await click(submitButton);
-    await cth.failedValidation(
+    await failedValidation(
       '[data-test-id="default-form-submission-form-name-field"]',
       assert,
       {
@@ -157,7 +160,7 @@ module('Acceptance | Form submission', function (hooks) {
 
     await visit('/docs/form-submission');
     await click(submitButton);
-    await cth.failedValidation(
+    await failedValidation(
       '[data-test-id="custom-form-submission-form-name-field"]',
       assert,
       {

@@ -75,8 +75,8 @@ Check if ember try
 
 Add input event to all input and textarea elements
 
-[ ] ECW - submitCompete v submitError and submitSuccess
-[ ] Test for data as class instance and ember object (Should fail then saving chamgeset asfter setting defaults)
+[ ] ECW - submitComplete v submitError and submitSuccess
+[ ] Test for data as class instance and ember object (Should fail when saving chamgeset after setting defaults)
 [ ] clearFormAfterSubmit is documented
 [ ] classList.contains('valid') becomes ecwTestHelpers.passedvalidation
 
@@ -95,21 +95,21 @@ removeCloneButton => removeCloneComponent
 
 [x] ECW ensure all possible options from Ember Power Select can be passed to both power select and power select checkboxes component is passed correctly.
 
-[ ] ECW document Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works in main docs for clicker
+[x] ECW document Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works in main docs for clicker
 
 [ECW] afterFieldInsertedAction => remove "Action" amd same for other instances (Note required since @ and this.)
 
-[ ] ECW must require explict import of validators
+[x] ECW must require explict import of validators
 
 [ ] ECW- prefix all classes, make power-datetime-picker its own component with tests, document that ember-test-selectors is suggested
 
 [x] ECW - Split built in fields docs
 
-[ ] - Understand ehy there is noth validateField/s and validate for field and chnagesetWebform
+[x] - Understand ehy there is noth validateField/s and validate for field and chnagesetWebform
 
 [ ] - document test helpers
 
-[ ] - Document data-set-custom-validity
+[x] - Document data-set-custom-validity
 
 [x] - fix issue with button role on <@masterFormField.removeCloneComponent.componentClass in ember-changeset-webforms/src/components/ember-changeset-webforms/cloned-field-elements/remove-clone-button.hbs
 

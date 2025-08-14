@@ -10,7 +10,6 @@ export default {
     '[data-test-id="name-and-email-form-email-field"]',
   nameAndEmailFormEmailFieldLabel:
     '[data-test-id="name-and-email-form-email-field-label"]',
-  cwfSubmitFormButton: '[data-test-id="cwf-submit-form-button"]',
   names: '[data-test-id="names"]',
   cwfFieldTypeSingleCheckbox:
     '[data-test-class="cwf-field-type-single-checkbox"]',

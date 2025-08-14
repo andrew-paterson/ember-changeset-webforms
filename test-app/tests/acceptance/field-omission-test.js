@@ -2,7 +2,10 @@ import { visit, click, fillIn, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 // TODO test and document if the data prop of an omitted field is sent with the data payload to submitAction
 
@@ -153,7 +156,7 @@ async function selectMealRequiredYes(assert, opts = {}) {
   await click(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredFieldRadioOptionYes`]} input`,
   );
-  await cth.passedValidation(
+  await passedValidation(
     testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredField`],
     assert,
     {
@@ -167,7 +170,7 @@ async function selectMealRequiredYes(assert, opts = {}) {
       'Meal option field exists after "Yes" is clicked in meal required field.',
     );
   await assert.notOk(
-    await cth.wasValidated(
+    await wasValidated(
       testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`],
     ),
     'Meal option field is not validated on insert.',
@@ -185,7 +188,7 @@ async function selectMealRequiredNo(assert, opts = {}) {
   await click(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredFieldRadioOptionNo`]} input`,
   );
-  await cth.passedValidation(
+  await passedValidation(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredField`]}`,
     assert,
     {
@@ -209,7 +212,7 @@ async function selectMealOptionBeef(assert, opts = {}) {
   await click(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionFieldRadioOptionBeef`]} input`,
   );
-  await cth.passedValidation(
+  await passedValidation(
     testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`],
     assert,
     {

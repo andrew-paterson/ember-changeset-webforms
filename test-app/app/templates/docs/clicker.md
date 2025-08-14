@@ -16,6 +16,8 @@ Renders a `div` element with `role="button"` the classNames provided. The inner 
 
 You can use a custom component for the checkbox label by passing `displayComponent` to the field. The component passed will then be rendered in place of the standard clicker component.
 
+The clickable elemnt must call the `@onClick` action, which is passed to it by the `changesetWebform` component. See `Custom clicker component template` int he example below.
+
 The object passed must take the following form.
 
 ```
@@ -26,7 +28,7 @@ The object passed must take the following form.
 ```
 
 - The component will also have access to an `formField` prop, with the formField object.
-- The component can also apply `...attributes` to the element that should receive the clas names configured for the `clickerElement` name space.
+- The component can also apply `...attributes` to the element that should receive the class names configured for the `clickerElement` name space.
 - The component will also have access to the `changesetWebform` object, which is contains the form settings, form fields and underlying changeset.
 
 Pass `displayComponent` as an object containing:
@@ -35,9 +37,5 @@ Pass `displayComponent` as an object containing:
 - `props`
 
 If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
-
-{{#docs-snippet name="custom-clicker-component.hbs"}}
-<button data-test-class="cwf-clicker-element" type="button" {{on "click" this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
-{{/docs-snippet}}
 
 <Forms::ClickerExampleTwoFormSchema />

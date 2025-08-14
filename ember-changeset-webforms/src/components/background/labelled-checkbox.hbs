@@ -1,9 +1,14 @@
 <div
-  {{attrs-from-config "labelledCheckbox" @changesetWebform @formField}}
+  {{attrs-from-config
+    "labelledCheckbox,optionWrapper"
+    @changesetWebform
+    @formField
+  }}
   class="{{if @disabled 'disabled'}}"
   data-test-id={{this.checkboxId}}
   data-test-option="checkbox-option-{{@option.key}}"
   data-test-labelled-checkbox
+  ...attributes
 >
   <input
     type="checkbox"

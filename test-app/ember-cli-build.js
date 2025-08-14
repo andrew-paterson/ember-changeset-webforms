@@ -8,6 +8,7 @@ module.exports = function (defaults) {
       'app',
       '../ember-changeset-webforms/src/utils',
       'config',
+      'tests',
     ],
     'ember-cli-addon-docs': {
       documentingAddonAt: '../ember-changeset-webforms',

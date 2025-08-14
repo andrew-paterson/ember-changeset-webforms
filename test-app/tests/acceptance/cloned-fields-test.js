@@ -12,7 +12,16 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  failedValidation,
+  allPassedValidation,
+  allFailedValidation,
+  wasValidated,
+  removeClone,
+  addClone,
+  clickSubmitButton,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 module('Acceptance | Cloned fields', function (hooks) {
   setupApplicationTest(hooks);
@@ -20,7 +29,7 @@ module('Acceptance | Cloned fields', function (hooks) {
   test('Basics', async function (assert) {
     await visit('/docs/clonable-form-fields');
     assert.notOk(
-      await cth.wasValidated(
+      await wasValidated(
         '[data-test-id="add-emails-form-emails-field-clone-1"]',
       ),
       'Clone is not validated on insert, when insert is a validationEvent, but the clone is empty.',
@@ -48,7 +57,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     await blur(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"] input`,
     );
-    await cth.failedValidation(
+    await failedValidation(
       `[data-test-id="add-emails-form-emails-field-clone-1"]`,
       assert,
       {
@@ -57,7 +66,7 @@ module('Acceptance | Cloned fields', function (hooks) {
       },
     );
     assert.notOk(
-      await cth.wasValidated(
+      await wasValidated(
         `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       ),
       'Second clone is not validated on focus out of first clone.',
@@ -68,7 +77,7 @@ module('Acceptance | Cloned fields', function (hooks) {
         'Add email address',
         'Add clone button reflects custom cloneButtonText when passed to the field definition.',
       );
-    await cth.addClone(testEls.clonableFieldBasics);
+    await addClone(testEls.clonableFieldBasics);
     assert
       .dom(`${testEls.clonableFieldBasics} ${els.cwfCloneWrapper}`)
       .exists(
@@ -81,7 +90,7 @@ module('Acceptance | Cloned fields', function (hooks) {
         { count: 3 },
         'Each clone gets a remove clone button when the number of clones becomes greater than the minClones setting.',
       );
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       assert,
       {
@@ -112,7 +121,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     await blur(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"] input`,
     );
-    await cth.passedValidation(
+    await passedValidation(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       assert,
       {
@@ -127,7 +136,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     await blur(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-3"] input`,
     );
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-3"]`,
       assert,
       {
@@ -135,7 +144,7 @@ module('Acceptance | Cloned fields', function (hooks) {
           'Third clone gets correct validation error messages when user focusses out and clone has invalid emailin the input.',
       },
     );
-    await cth.removeClone(
+    await removeClone(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
     );
     assert.strictEqual(
@@ -159,20 +168,20 @@ module('Acceptance | Cloned fields', function (hooks) {
         'Where number of items in the data array exceeds max clones, one cloned field is still generated for each item in the data array.',
       );
     assert.ok(
-      await cth.allFailedValidation(
+      await allFailedValidation(
         `${testEls.clonableFieldWithData} ${els.cwfCloneWrapper}`,
         [0, 1],
       ),
       '1) Invalid clones fail validation on insert, where [insert] is a clone validation method. 2) The uniqueClone validation method works.',
     );
     assert.notOk(
-      await cth.wasValidated(
+      await wasValidated(
         `${testEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-3"]`,
       ),
       'Empty clone is not validated on insert, where [insert] is a clone validation method.',
     );
     assert.ok(
-      await cth.allPassedValidation(
+      await allPassedValidation(
         `${testEls.clonableFieldWithData} ${els.cwfCloneWrapper}`,
         [3, 4, 5],
       ),
@@ -181,8 +190,8 @@ module('Acceptance | Cloned fields', function (hooks) {
     assert
       .dom(els.cwfMaxClonesReached)
       .exists('Max clones reached text shows on insert.');
-    await cth.removeClone(testEls.clonableFieldWithData);
-    await cth.passedValidation(
+    await removeClone(testEls.clonableFieldWithData);
+    await passedValidation(
       `${testEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       assert,
       {
@@ -191,19 +200,19 @@ module('Acceptance | Cloned fields', function (hooks) {
       },
     );
     assert.notOk(
-      await cth.wasValidated(
+      await wasValidated(
         `${testEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-3"]`,
       ),
       'Previously un-validated clone is not revalidated after another clone is removed.',
     );
-    await cth.onFormSubmit(testEls.clonableFieldWithData);
+    await clickSubmitButton(testEls.clonableFieldWithData);
     assert
       .dom(`${testEls.cloneGroupEmails} > ${els.cwfFieldErrors}`)
       .hasText(
         'Too many emails (maximum is 4).',
         'Correct error message for the clone group on submit.',
       );
-    await cth.removeClone(testEls.clonableFieldWithData);
+    await removeClone(testEls.clonableFieldWithData);
     assert
       .dom(`${testEls.cloneGroupEmails} > ${els.cwfFieldErrors}`)
       .doesNotExist('Clone group is re-validated after clone is removed');
@@ -212,7 +221,7 @@ module('Acceptance | Cloned fields', function (hooks) {
       .exists(
         'Max clones reached text persists after multiple clone removals, where the existing number of clones is equal to the max allowed.',
       );
-    await cth.removeClone(testEls.clonableFieldWithData);
+    await removeClone(testEls.clonableFieldWithData);
     assert
       .dom(`${testEls.clonableFieldWithData} ${els.cwfAddClone}`)
       .exists(
@@ -235,12 +244,12 @@ module('Acceptance | Cloned fields', function (hooks) {
     const firstCloneInputSelector = `${firstCloneSelector} input`;
     const secondCloneSelector = `${testEls.clonableFieldCountries} [data-test-id="country-iso-codes-form-country-codes-field-clone-2"]`;
     await typeIn(firstCloneInputSelector, 'ZAFs');
-    await cth.failedValidation(firstCloneSelector, assert, {
+    await failedValidation(firstCloneSelector, assert, {
       assertionSuffix:
         'First clone fails validation when user types a fourth character.',
     });
     assert.notOk(
-      await cth.wasValidated(secondCloneSelector),
+      await wasValidated(secondCloneSelector),
       'Second clone is not validated on keyUp in the input of the first clone.',
     );
     assert

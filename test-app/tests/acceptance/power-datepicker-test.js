@@ -14,7 +14,11 @@ import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  failedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import moment from 'moment';
@@ -2186,7 +2190,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     );
     const timeSelectorHourInput = find(testEls.timeSelectorFieldInputHour);
     assert.notOk(
-      await cth.wasValidated(
+      await wasValidated(
         `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
       ),
       'Field is not validated on insert.',
@@ -2222,14 +2226,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
       },
       this,
     );
-    await cth.passedValidation(
+    await passedValidation(
       `${testEls.powerDatapickerExample3FormStartDateField}`,
       assert,
       { assertionSuffix: ' after typing a date in the input.' },
     );
     await click(els.datetimePickerClearDatetime);
 
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.powerDatapickerExample3FormStartDateField}`,
       assert,
       {

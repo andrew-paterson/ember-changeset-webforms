@@ -7,7 +7,11 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  failedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 module('Acceptance | Form methods', function (hooks) {
   setupApplicationTest(hooks);
@@ -18,12 +22,12 @@ module('Acceptance | Form methods', function (hooks) {
       '[data-test-id="example-1"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods1-form-name-field"]'),
+      failedValidation('[data-test-id="form-methods1-form-name-field"]'),
       'Name fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods1-form-email-field"]'),
-      'Email fields fails validation with UI triggered when external validate button is clicked and field is empty',
+      failedValidation('[data-test-id="form-methods1-form-email-field"]'),
+      'Email fields fails /*  */validation with UI triggered when external validate button is clicked and field is empty',
     );
     await fillIn(
       '[data-test-id="form-methods1-form-name-field"] input',
@@ -44,11 +48,11 @@ module('Acceptance | Form methods', function (hooks) {
       13,
     );
     assert.ok(
-      cth.passedValidation('[data-test-id="form-methods1-form-name-field"]'),
+      passedValidation('[data-test-id="form-methods1-form-name-field"]'),
       'Name fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
     assert.ok(
-      cth.passedValidation('[data-test-id="form-methods1-form-email-field"]'),
+      passedValidation('[data-test-id="form-methods1-form-email-field"]'),
       'Email fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
   });
@@ -56,22 +60,22 @@ module('Acceptance | Form methods', function (hooks) {
   test('validate method with skipUnvalidated', async function (assert) {
     await visit('docs/form-methods');
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods2-form-name-field"]'),
+      await wasValidated('[data-test-id="form-methods2-form-name-field"]'),
       'Name is not validated on insert.',
     );
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods2-form-email-field"]'),
+      failedValidation('[data-test-id="form-methods2-form-email-field"]'),
       'Email fields fails validation with UI triggered when inserted with invalid value',
     );
     await click(
       '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods2-form-name-field"]'),
+      await wasValidated('[data-test-id="form-methods2-form-name-field"]'),
       'Name is not validated when external validate button is clicked',
     );
     assert.ok(
-      cth.passedValidation('[data-test-id="form-methods2-form-email-field"]'),
+      passedValidation('[data-test-id="form-methods2-form-email-field"]'),
       'Email fields is revalidated with with UI triggered when external validate button is clicked',
     );
   });
@@ -124,7 +128,7 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods7-form-email-field"]'),
+      failedValidation('[data-test-id="form-methods7-form-email-field"]'),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -152,11 +156,11 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is cleared after the clear button is clicked.',
       );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods7-form-name-field"]'),
+      await wasValidated('[data-test-id="form-methods7-form-name-field"]'),
       'Name field is unvalidated  after the clear button is clicked.',
     );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods7-form-email-field"]'),
+      await wasValidated('[data-test-id="form-methods7-form-email-field"]'),
       'Email field is unvalidated  after the clear button is clicked.',
     );
   });
@@ -198,7 +202,7 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods8-form-email-field"]'),
+      failedValidation('[data-test-id="form-methods8-form-email-field"]'),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -229,11 +233,11 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is reset to default value after the reset form button is clicked.',
       );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods8-form-name-field"]'),
+      await wasValidated('[data-test-id="form-methods8-form-name-field"]'),
       'Name field is unvalidated  after the reset form button is clicked.',
     );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods8-form-email-field"]'),
+      await wasValidated('[data-test-id="form-methods8-form-email-field"]'),
       'Email field is unvalidated  after the reset form button is clicked.',
     );
   });
@@ -275,7 +279,7 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      cth.failedValidation('[data-test-id="form-methods9-form-email-field"]'),
+      failedValidation('[data-test-id="form-methods9-form-email-field"]'),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -294,11 +298,11 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is cleared after the reset form button is clicked.',
       );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods9-form-name-field"]'),
+      await wasValidated('[data-test-id="form-methods9-form-name-field"]'),
       'Name field is unvalidated  after the reset form button is clicked.',
     );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="form-methods9-form-email-field"]'),
+      await wasValidated('[data-test-id="form-methods9-form-email-field"]'),
       'Email field is unvalidated  after the reset form button is clicked.',
     );
   });
@@ -307,7 +311,7 @@ module('Acceptance | Form methods', function (hooks) {
     await visit('docs/form-methods');
 
     assert.ok(
-      cth.passedValidation('[data-test-id="form-methods6-form-email-field"]'),
+      passedValidation('[data-test-id="form-methods6-form-email-field"]'),
       'Email field passes validation when inserted',
     );
     await fillIn(
@@ -320,13 +324,13 @@ module('Acceptance | Form methods', function (hooks) {
       1,
     );
     assert.ok(
-      cth.passedValidation('[data-test-id="form-methods6-form-email-field"]'),
+      passedValidation('[data-test-id="form-methods6-form-email-field"]'),
       'Email field passes validation before pushErrors is called',
     );
     await click(
       '[data-test-id="example-6"] [data-test-id="cwf-submit-form-button"]',
     );
-    await cth.failedValidation(
+    await failedValidation(
       '[data-test-id="form-methods6-form-email-field"]',
       assert,
       {

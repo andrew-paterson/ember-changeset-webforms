@@ -193,7 +193,7 @@ export default class FormField {
     var changeset = this.changeset;
     this.snapshots.push(this.changeset.snapshot());
     this.eventLog.push('valueUpdated');
-    this.previousValue = changeset.get(this.propertyName);
+    this.previousValue = this.fieldValue;
     if (this.valueFilter && value) {
       value = this.valueFilter(value, this);
     }

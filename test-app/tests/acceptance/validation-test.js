@@ -12,7 +12,12 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  fieldErrorText,
+  passedValidation,
+  failedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 import { selectChoose } from 'ember-power-select/test-support';
 
 module('Acceptance | Field validation', function (hooks) {
@@ -21,30 +26,26 @@ module('Acceptance | Field validation', function (hooks) {
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');
     await assert.notOk(
-      await cth.wasValidated(`${testEls.signupFormNameField}`),
+      await wasValidated(`${testEls.signupFormNameField}`),
       'Field with validation event "insert" is not validated when empty on insert.',
     );
-    await cth.failedValidation(
-      `${testEls.signupFormRecoveryEmailField}`,
-      assert,
-      {
-        assertionSuffix:
-          'Invalid field with validation event "insert" fails validation insert.',
-      },
-    );
+    await failedValidation(`${testEls.signupFormRecoveryEmailField}`, assert, {
+      assertionSuffix:
+        'Invalid field with validation event "insert" fails validation insert.',
+    });
     await focus(`${testEls.signupFormNameField} input`);
     assert.notOk(
-      await cth.wasValidated(`${testEls.signupFormNameField}`),
+      await wasValidated(`${testEls.signupFormNameField}`),
       'Field without validation event "keyUp" loses validation when focussed.',
     );
     await blur(`${testEls.signupFormNameField} input`);
     assert.strictEqual(
-      cth.fieldErrorText(`${testEls.signupFormNameField}`).join(''),
+      fieldErrorText(`${testEls.signupFormNameField}`).join(''),
       `Name can't be blank`,
       'Correct default error message shows for empty name field after focus out.',
     );
     await focus(`${testEls.signupFormNameField} input`);
-    await cth.failedValidation(`${testEls.signupFormNameField}`, assert, {
+    await failedValidation(`${testEls.signupFormNameField}`, assert, {
       assertionSuffix:
         'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
     });
@@ -54,7 +55,7 @@ module('Acceptance | Field validation', function (hooks) {
       'keyup',
       1,
     );
-    await cth.passedValidation(`${testEls.signupFormNameField}`, assert, {
+    await passedValidation(`${testEls.signupFormNameField}`, assert, {
       assertionSuffix:
         'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
     });
@@ -64,11 +65,11 @@ module('Acceptance | Field validation', function (hooks) {
       'keyup',
       1,
     );
-    await cth.failedValidation(`${testEls.signupFormNameField}`, assert, {
+    await failedValidation(`${testEls.signupFormNameField}`, assert, {
       assertionSuffix:
         'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
     });
-    await cth.passedValidation(`${testEls.signupFormEmailField}`, assert, {
+    await passedValidation(`${testEls.signupFormEmailField}`, assert, {
       assertionSuffix:
         'Valid field with validation event "insert" passes validation on insert.',
     });
@@ -77,32 +78,26 @@ module('Acceptance | Field validation', function (hooks) {
     await focus(`${testEls.signupFormPasswordField} input`);
     await blur(`${testEls.signupFormPasswordField} input`);
     assert.ok(
-      await cth.wasValidated(`${testEls.signupFormPasswordField}`),
+      await wasValidated(`${testEls.signupFormPasswordField}`),
       'Validation runs on focus out of input field by default.',
     );
     await click(
       `${testEls.signupFormAcceptTermsFieldRadioOptionTrue} input[type="radio"]`,
     );
 
-    await cth.passedValidation(
-      `${testEls.signupFormAcceptTermsField}`,
-      assert,
-      {
-        assertionSuffix:
-          'Validation runs after selecting option in radio button group.',
-      },
-    );
+    await passedValidation(`${testEls.signupFormAcceptTermsField}`, assert, {
+      assertionSuffix:
+        'Validation runs after selecting option in radio button group.',
+    });
     await click(
       `${testEls.signupFormConfirmHumanField} input[type="checkbox"]`,
     );
-    await cth.passedValidation(
-      `${testEls.signupFormConfirmHumanField}`,
-      assert,
-      { assertionSuffix: 'Validation runs after checking single checkbox.' },
-    );
+    await passedValidation(`${testEls.signupFormConfirmHumanField}`, assert, {
+      assertionSuffix: 'Validation runs after checking single checkbox.',
+    });
     await click('.ember-basic-dropdown-trigger');
     await selectChoose(find(testEls.signupFormCountryField), 'United States');
-    await cth.passedValidation(`${testEls.signupFormCountryField}`, assert, {
+    await passedValidation(`${testEls.signupFormCountryField}`, assert, {
       assertionSuffix: 'Validation runs after selecting power select option.',
     });
     // TODO checkbox group and text area.
@@ -117,12 +112,12 @@ module('Acceptance | Field validation', function (hooks) {
       'All fields with validation rules are validated when user clicks submit button.',
     );
     assert.strictEqual(
-      cth.fieldErrorText(testEls.signupFormCountryField).join(''),
+      fieldErrorText(testEls.signupFormCountryField).join(''),
       `Nation of origin can't be blank`,
       'Passing "description" as an argument to validationRules replaces the default validation description ("Details.country) with the description provided.',
     );
     assert.strictEqual(
-      cth.fieldErrorText(testEls.signupFormAcceptTermsField).join(''),
+      fieldErrorText(testEls.signupFormAcceptTermsField).join(''),
       'You must accept the terms to continue.',
       'Passing "message" as an argument to validationRules replaces the default validation message with the message provided.',
     );
@@ -142,10 +137,7 @@ module('Acceptance | Field validation', function (hooks) {
       `${testEls.integratingCustomValidatorsForm} ${els.cwfField}`,
     );
     assert.strictEqual(
-      cth
-        .fieldErrorText(fields[0])
-        .concat(cth.fieldErrorText(fields[1]))
-        .join('|'),
+      fieldErrorText(fields[0]).concat(fieldErrorText(fields[1])).join('|'),
       'The primary number field must be unique, but it is the same as recovery number.|The recovery number field must be unique, but it is the same as primary number.',
       'Custom validator is applied correctly.',
     );

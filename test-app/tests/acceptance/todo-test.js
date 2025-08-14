@@ -4,7 +4,6 @@ import { setupApplicationTest } from 'ember-qunit';
 module('Acceptance | TODO', function (hooks) {
   setupApplicationTest(hooks);
 
-  todo('Form schema from query params', async function (assert) {});
   todo('Input trimmed by default', async function (assert) {});
   todo(
     'data value or defaultValue of false does not become null',
@@ -36,7 +35,11 @@ module('Acceptance | TODO', function (hooks) {
     async function (assert) {},
   );
   todo('ARIA label on all SVGs', async function (assert) {});
-
+  todo(
+    'DefaultValue and data prop for a field - data prop must win',
+    async function (assert) {},
+  );
+  todo('valueFilter oin preflight form', async function (assert) {});
   // clone-group => cloneGroup
   // Error message description must always include the field label
 });

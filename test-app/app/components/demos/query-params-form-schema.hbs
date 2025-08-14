@@ -1,0 +1,25 @@
+<DocsDemo as |demo|>
+  <demo.example @name="changeset-webform-with-query-params-example-1.hbs">
+    {{! components/demos/query-params-form-schema.hbs }}
+    <ChangesetWebform
+      @formSchema={{@queryParamsFormSchema}}
+      @data={{@queryParamsFormData}}
+      @submitAction={{@applyFormValues}}
+    />
+  </demo.example>
+  <demo.snippet
+    @name="controller.js"
+    @label="Controller"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="component-invocation.hbs"
+    @label="Template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="changeset-webform-with-query-params-example-1.hbs"
+    @label="Component template"
+    @language="htmlbars"
+  />
+</DocsDemo>

@@ -10,7 +10,11 @@ import {
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
+import {
+  passedValidation,
+  failedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 module('Acceptance | Field methods', function (hooks) {
   setupApplicationTest(hooks);
@@ -21,7 +25,7 @@ module('Acceptance | Field methods', function (hooks) {
       '[data-test-id="example-1"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      cth.failedValidation('[data-test-id="field-methods1-form-name-field"]'),
+      failedValidation('[data-test-id="field-methods1-form-name-field"]'),
       'Name fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     await fillIn(
@@ -34,7 +38,7 @@ module('Acceptance | Field methods', function (hooks) {
       13,
     );
     assert.ok(
-      cth.passedValidation('[data-test-id="field-methods1-form-name-field"]'),
+      passedValidation('[data-test-id="field-methods1-form-name-field"]'),
       'Name fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
   });
@@ -42,20 +46,20 @@ module('Acceptance | Field methods', function (hooks) {
   test('validate method with skipUnvalidated', async function (assert) {
     await visit('docs/field-methods');
     assert.notOk(
-      await cth.wasValidated('[data-test-id="field-methods2-form-name-field"]'),
+      await wasValidated('[data-test-id="field-methods2-form-name-field"]'),
       'Name is not validated on insert.',
     );
     // await click(
     //   '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     // );
     // assert.notOk(
-    //   await cth.wasValidated('[data-test-id="field-methods2-form-name-field"]'),
+    //   await wasValidated('[data-test-id="field-methods2-form-name-field"]'),
     //   'Name is not validated when external validate button is clicked, when field has not yet been validated',
     // );
     await focus('[data-test-id="field-methods2-form-name-field"] input');
     await blur('[data-test-id="field-methods2-form-name-field"] input');
     assert.ok(
-      cth.failedValidation('[data-test-id="field-methods2-form-name-field"]'),
+      failedValidation('[data-test-id="field-methods2-form-name-field"]'),
       'Name field fails validation after focus out when name is invalid.',
     );
 
@@ -63,9 +67,7 @@ module('Acceptance | Field methods', function (hooks) {
       '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      await cth.passedValidation(
-        '[data-test-id="field-methods2-form-name-field"]',
-      ),
+      await passedValidation('[data-test-id="field-methods2-form-name-field"]'),
       'Name is has successful validation when external validate button is clicked',
     );
   });
@@ -109,7 +111,7 @@ module('Acceptance | Field methods', function (hooks) {
         'Name field has has value "New name" after clicking "Update value of the name field" button.',
       );
     assert.notOk(
-      await cth.wasValidated('[data-test-id="field-methods4-form-name-field"]'),
+      await wasValidated('[data-test-id="field-methods4-form-name-field"]'),
       'Name is not validated when "Update value of the name field" button is clicked',
     );
   });
@@ -117,7 +119,7 @@ module('Acceptance | Field methods', function (hooks) {
   test('pushErrors method - field unvalidated when called', async function (assert) {
     await visit('docs/field-methods');
     assert.notOk(
-      await cth.wasValidated('[data-test-id="field-methods7-form-name-field"]'),
+      await wasValidated('[data-test-id="field-methods7-form-name-field"]'),
       'Field is not validated on insert.',
     );
     await checkPushErrors(assert);
@@ -128,7 +130,7 @@ module('Acceptance | Field methods', function (hooks) {
     await focus('[data-test-id="field-methods7-form-name-field"] input');
     await blur('[data-test-id="field-methods7-form-name-field"] input');
 
-    await cth.passedValidation(
+    await passedValidation(
       '[data-test-id="field-methods7-form-name-field"]',
       assert,
       {
@@ -143,7 +145,7 @@ module('Acceptance | Field methods', function (hooks) {
     await fillIn('[data-test-id="field-methods7-form-name-field"] input', '');
     await blur('[data-test-id="field-methods7-form-name-field"] input');
 
-    await cth.failedValidation(
+    await failedValidation(
       '[data-test-id="field-methods7-form-name-field"]',
       assert,
       {
@@ -162,7 +164,7 @@ async function checkPushErrors(assert, opts = {}) {
     'One pushed error message',
   );
   await blur('[data-test-id="example-7"] [data-test-id="error-message-input"]');
-  await cth.failedValidation(
+  await failedValidation(
     `[data-test-id="field-methods7-form-name-field"]`,
     assert,
     {

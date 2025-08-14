@@ -1,9 +1,11 @@
+{{! BEGIN-SNIPPET custom-clicker-component.hbs }}
 <button
   data-test-class="cwf-clicker-element"
   type="button"
-  onclick={{@onClick}}
+  {{on "click" @onClick}}
   class="btn-{{@props.buttonType}} d-flex"
   ...attributes
 >{{@formField.clickerText}}
   <this.icon class="width-lg ms-2" />
 </button>
+{{! END-SNIPPET}}

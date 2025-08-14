@@ -4,6 +4,9 @@ export default async function preFlightForm(changesetWebform, componentArgs) {
   try {
     const changeset = changesetWebform.changeset;
     changesetWebform.fields.forEach((field) => {
+      if (field.valueFilter) {
+        field.valueFilter(field.fieldValue, field);
+      }
       field.eventLog.push('submit');
       if (field.clonedFields) {
         field.clonedFields.forEach((clonedField, index) => {

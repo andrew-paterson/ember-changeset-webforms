@@ -3,8 +3,13 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import testEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
-import cth from 'ember-changeset-webforms/test-support/helpers';
 import { selectChoose } from 'ember-power-select/test-support';
+import {
+  fieldErrorText,
+  passedValidation,
+  failedValidation,
+  wasValidated,
+} from 'ember-changeset-webforms/test-support/helpers';
 
 module('Acceptance | Custom fields', function (hooks) {
   setupApplicationTest(hooks);
@@ -13,7 +18,7 @@ module('Acceptance | Custom fields', function (hooks) {
     await visit('/docs/creating-custom-fields');
     await focus(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       assert,
       {
@@ -21,9 +26,9 @@ module('Acceptance | Custom fields', function (hooks) {
       },
     );
     assert.strictEqual(
-      cth
-        .fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`)
-        .join('|'),
+      fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`).join(
+        '|',
+      ),
       `Phone number can't be blank|Country code and number are required`,
       'Correct error message shows for empty code and number on focus out.',
     );
@@ -33,7 +38,7 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
 
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       assert,
       {
@@ -42,9 +47,9 @@ module('Acceptance | Custom fields', function (hooks) {
       },
     );
     assert.strictEqual(
-      cth
-        .fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`)
-        .join('|'),
+      fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`).join(
+        '|',
+      ),
       `Country code is required`,
       'Error message updates correctly, showeing the field is revalidated number on focus out, after filling in the phone number input.',
     );
@@ -54,7 +59,7 @@ module('Acceptance | Custom fields', function (hooks) {
       'Andorra',
     );
     assert.ok(
-      await cth.passedValidation(
+      await passedValidation(
         `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       ),
       'Field passes validation when country code is selected, after previously failing validation twice.',
@@ -65,7 +70,7 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
 
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       assert,
       {
@@ -74,24 +79,20 @@ module('Acceptance | Custom fields', function (hooks) {
       },
     );
     assert.strictEqual(
-      cth
-        .fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`)
-        .join('|'),
+      fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`).join(
+        '|',
+      ),
       `Phone number may only contain numbers and spaces`,
       'Error message updates correctly on focus out, after filling in the phone number input and including disallowed characters',
     );
     await focus(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await assert.notOk(
-      await cth.wasValidated(
-        `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
+      await wasValidated(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`),
       'Validation is omitted on the field when the phone number input is focussed.',
     );
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await assert.ok(
-      await cth.wasValidated(
-        `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
+      await wasValidated(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`),
       'Validation is unhidden on the field when the phone number input is blurred.',
     );
   });
@@ -103,9 +104,7 @@ module('Acceptance | Custom fields', function (hooks) {
       'Andorra',
     );
     await assert.notOk(
-      await cth.wasValidated(
-        `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
+      await wasValidated(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`),
       'Field is not validated when the country code is been selected, but the field has the input has not been interacted with.',
     );
     await fillIn(
@@ -114,7 +113,7 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${testEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     assert.ok(
-      await cth.passedValidation(
+      await passedValidation(
         `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       ),
       'Field passes validation when phone number input if blurred, when country code was selected.',
@@ -124,7 +123,7 @@ module('Acceptance | Custom fields', function (hooks) {
   test('Submit clicked', async function (assert) {
     await visit('/docs/creating-custom-fields');
     await click(els.cwfSubmitButton);
-    await cth.failedValidation(
+    await failedValidation(
       `${testEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       assert,
       {
@@ -133,9 +132,9 @@ module('Acceptance | Custom fields', function (hooks) {
       },
     );
     assert.strictEqual(
-      cth
-        .fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`)
-        .join('|'),
+      fieldErrorText(`${testEls.cwfFieldTypePhoneNumberWithCountryCode}`).join(
+        '|',
+      ),
       `Phone number can't be blank|Country code and number are required`,
       'Field fails validation with correct error messages on submit without any interaction with the field.',
     );
