@@ -36,6 +36,7 @@ Router.map(function () {
     this.route('field-methods');
     this.route('debug-mode');
     this.route('changeset-webform-with-query-params');
+    this.route('test-helpers');
   });
   this.route('not-found', { path: '/*path' });
 });

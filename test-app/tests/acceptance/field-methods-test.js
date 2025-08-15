@@ -15,6 +15,7 @@ import {
   failedValidation,
   wasValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 module('Acceptance | Field methods', function (hooks) {
   setupApplicationTest(hooks);
@@ -25,7 +26,10 @@ module('Acceptance | Field methods', function (hooks) {
       '[data-test-id="example-1"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      failedValidation('[data-test-id="field-methods1-form-name-field"]'),
+      failedValidation(
+        '[data-test-id="field-methods1-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     await fillIn(
@@ -37,37 +41,46 @@ module('Acceptance | Field methods', function (hooks) {
       'keyup',
       13,
     );
+    // BEGIN-SNIPPET passed-validation-helper-return-boolean.js
     assert.ok(
-      passedValidation('[data-test-id="field-methods1-form-name-field"]'),
+      passedValidation(
+        '[data-test-id="field-methods1-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
+    // END-SNIPPET
   });
 
   test('validate method with skipUnvalidated', async function (assert) {
     await visit('docs/field-methods');
     assert.notOk(
-      await wasValidated('[data-test-id="field-methods2-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="field-methods2-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name is not validated on insert.',
     );
-    // await click(
-    //   '[data-test-id="example-2"] [data-test-id="validate-externally"]',
-    // );
-    // assert.notOk(
-    //   await wasValidated('[data-test-id="field-methods2-form-name-field"]'),
-    //   'Name is not validated when external validate button is clicked, when field has not yet been validated',
-    // );
     await focus('[data-test-id="field-methods2-form-name-field"] input');
     await blur('[data-test-id="field-methods2-form-name-field"] input');
+    // BEGIN-SNIPPET failed-validation-helper-return-boolean.js
     assert.ok(
-      failedValidation('[data-test-id="field-methods2-form-name-field"]'),
+      failedValidation(
+        '[data-test-id="field-methods2-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name field fails validation after focus out when name is invalid.',
     );
+    // END-SNIPPET
 
     await click(
       '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      await passedValidation('[data-test-id="field-methods2-form-name-field"]'),
+      await passedValidation(
+        '[data-test-id="field-methods2-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name is has successful validation when external validate button is clicked',
     );
   });
@@ -111,7 +124,10 @@ module('Acceptance | Field methods', function (hooks) {
         'Name field has has value "New name" after clicking "Update value of the name field" button.',
       );
     assert.notOk(
-      await wasValidated('[data-test-id="field-methods4-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="field-methods4-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name is not validated when "Update value of the name field" button is clicked',
     );
   });
@@ -119,7 +135,10 @@ module('Acceptance | Field methods', function (hooks) {
   test('pushErrors method - field unvalidated when called', async function (assert) {
     await visit('docs/field-methods');
     assert.notOk(
-      await wasValidated('[data-test-id="field-methods7-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="field-methods7-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Field is not validated on insert.',
     );
     await checkPushErrors(assert);
@@ -132,10 +151,9 @@ module('Acceptance | Field methods', function (hooks) {
 
     await passedValidation(
       '[data-test-id="field-methods7-form-name-field"]',
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix: 'Field passed validation before pushError is called.',
-      },
+      'Field passed validation before pushError is called.',
     ),
       await checkPushErrors(assert);
   });
@@ -144,17 +162,15 @@ module('Acceptance | Field methods', function (hooks) {
     await visit('docs/field-methods');
     await fillIn('[data-test-id="field-methods7-form-name-field"] input', '');
     await blur('[data-test-id="field-methods7-form-name-field"] input');
-
     await failedValidation(
       '[data-test-id="field-methods7-form-name-field"]',
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix: 'Field failed validation before pushError is called.',
-      },
-    ),
-      await checkPushErrors(assert, {
-        existingErrors: [`Name can't be blank`],
-      });
+      'Field failed validation before pushError is called.',
+    );
+    await checkPushErrors(assert, {
+      existingErrors: [`Name can't be blank`],
+    });
   });
 });
 
@@ -166,11 +182,9 @@ async function checkPushErrors(assert, opts = {}) {
   await blur('[data-test-id="example-7"] [data-test-id="error-message-input"]');
   await failedValidation(
     `[data-test-id="field-methods7-form-name-field"]`,
+    validationTestHelpersDefaults,
     assert,
-    {
-      assertionSuffix:
-        'The pushErrors field method works when field has not yet been validated when it is called.',
-    },
+    'The pushErrors field method works when field has not yet been validated when it is called.',
   );
   await fillIn(
     '[data-test-id="example-7"] [data-test-id="error-message-input"]',

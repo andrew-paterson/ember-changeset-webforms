@@ -16,6 +16,7 @@ import {
   wasValidated,
   noneValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 module('Acceptance | Form submission', function (hooks) {
   setupApplicationTest(hooks);
@@ -23,7 +24,10 @@ module('Acceptance | Form submission', function (hooks) {
   test('Basics', async function (assert) {
     await visit('/docs/form-settings');
     assert.notOk(
-      await wasValidated(testEls.signupFormNameField),
+      await wasValidated(
+        testEls.signupFormNameField,
+        validationTestHelpersDefaults,
+      ),
       'Name field is not validated on insert.',
     );
     assert
@@ -37,26 +41,33 @@ module('Acceptance | Form submission', function (hooks) {
         'Steve Holt',
         'Name field has value after filling in focussing out.',
       );
-    await passedValidation(testEls.signupFormNameField, assert, {
-      assertionSuffix:
-        'Name field passes validation after  filling in focussing out.',
-    });
+    await passedValidation(
+      testEls.signupFormNameField,
+      validationTestHelpersDefaults,
+      assert,
+      'Name field passes validation after  filling in focussing out.',
+    );
     assert
       .dom(`${testEls.signupFormRecoveryEmailField} input`)
       .hasValue('test', 'Email recovery field has initial value "test".');
-    await failedValidation(testEls.signupFormRecoveryEmailField, assert, {
-      assertionSuffix: 'Email recovery field has failed validation on insert.',
-    });
+    await failedValidation(
+      testEls.signupFormRecoveryEmailField,
+      validationTestHelpersDefaults,
+      assert,
+      'Email recovery field has failed validation on insert.',
+    );
     await fillIn(
       `${testEls.signupFormRecoveryEmailField} input`,
       'test@email.com',
     );
     await blur(`${testEls.signupFormRecoveryEmailField} input`);
 
-    await passedValidation(testEls.signupFormRecoveryEmailField, assert, {
-      assertionSuffix:
-        'Email recovery field passes validation after completing the email and focussing out.',
-    });
+    await passedValidation(
+      testEls.signupFormRecoveryEmailField,
+      validationTestHelpersDefaults,
+      assert,
+      'Email recovery field passes validation after completing the email and focussing out.',
+    );
     assert
       .dom(`${testEls.signupFormRecoveryEmailField} input`)
       .hasValue(
@@ -70,12 +81,17 @@ module('Acceptance | Form submission', function (hooks) {
         'test',
         'Email recovery field has value "test" after clicking "Discard changes".',
       );
-    await failedValidation(testEls.signupFormRecoveryEmailField, assert, {
-      assertionSuffix:
-        'Email recovery field fails validation after clicking "Discard changes".',
-    });
+    await failedValidation(
+      testEls.signupFormRecoveryEmailField,
+      validationTestHelpersDefaults,
+      assert,
+      'Email recovery field fails validation after clicking "Discard changes".',
+    );
     assert.notOk(
-      await wasValidated(testEls.signupFormNameField),
+      await wasValidated(
+        testEls.signupFormNameField,
+        validationTestHelpersDefaults,
+      ),
       'Name field is not validated after clicking "Discard changes".',
     );
     assert
@@ -104,11 +120,9 @@ module('Acceptance | Form submission', function (hooks) {
     await click(submitButton);
     await failedValidation(
       '[data-test-id="default-form-submission-form-name-field"]',
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix:
-          'Name field fails validation when submit clicked while the field is empty.',
-      },
+      'Name field fails validation when submit clicked while the field is empty.',
     );
     assert
       .dom(alert)
@@ -162,11 +176,9 @@ module('Acceptance | Form submission', function (hooks) {
     await click(submitButton);
     await failedValidation(
       '[data-test-id="custom-form-submission-form-name-field"]',
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix:
-          'Name field fails validation when submit clicked while the field is empty.',
-      },
+      'Name field fails validation when submit clicked while the field is empty.',
     );
     await fillIn(
       '[data-test-id="custom-form-submission-form-name-field"] input',

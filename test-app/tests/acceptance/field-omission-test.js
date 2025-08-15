@@ -6,6 +6,7 @@ import {
   passedValidation,
   wasValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 // TODO test and document if the data prop of an omitted field is sent with the data payload to submitAction
 
@@ -158,11 +159,11 @@ async function selectMealRequiredYes(assert, opts = {}) {
   );
   await passedValidation(
     testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredField`],
+    Object.assign({}, validationTestHelpersDefaults, {
+      passedValidationAssertionPrefix: 'Meal required field passed validation',
+    }),
     assert,
-    {
-      assertionPrefix: 'Meal required field passed validation',
-      assertionSuffix: 'after selecting "Yes"',
-    },
+    'after selecting "Yes"',
   );
   await assert
     .dom(testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`])
@@ -172,6 +173,7 @@ async function selectMealRequiredYes(assert, opts = {}) {
   await assert.notOk(
     await wasValidated(
       testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`],
+      validationTestHelpersDefaults,
     ),
     'Meal option field is not validated on insert.',
   );
@@ -190,11 +192,11 @@ async function selectMealRequiredNo(assert, opts = {}) {
   );
   await passedValidation(
     `${testEls[`omittingFields${opts.demoNumber || '1'}FormMealRequiredField`]}`,
+    Object.assign({}, validationTestHelpersDefaults, {
+      passedValidationAssertionPrefix: 'Meal required field passed validation',
+    }),
     assert,
-    {
-      assertionPrefix: 'Meal required field passed validation',
-      assertionSuffix: 'after selecting "No"',
-    },
+    'after selecting "No"',
   );
   await assert
     .dom(testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`])
@@ -214,11 +216,11 @@ async function selectMealOptionBeef(assert, opts = {}) {
   );
   await passedValidation(
     testEls[`omittingFields${opts.demoNumber || '1'}FormMealOptionField`],
+    Object.assign({}, validationTestHelpersDefaults, {
+      passedValidationAssertionPrefix: 'Meal option field passed validation',
+    }),
     assert,
-    {
-      assertionPrefix: 'Meal option field passed validation',
-      assertionSuffix: 'after selecting a meal option',
-    },
+    'after selecting a meal option',
   );
   assert
     .dom(

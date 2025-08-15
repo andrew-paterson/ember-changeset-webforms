@@ -19,6 +19,7 @@ import {
   wasValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
 import { selectChoose } from 'ember-power-select/test-support';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 module('Acceptance | Field validation', function (hooks) {
   setupApplicationTest(hooks);
@@ -26,16 +27,26 @@ module('Acceptance | Field validation', function (hooks) {
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');
     await assert.notOk(
-      await wasValidated(`${testEls.signupFormNameField}`),
+      await wasValidated(
+        `${testEls.signupFormNameField}`,
+        validationTestHelpersDefaults,
+      ),
       'Field with validation event "insert" is not validated when empty on insert.',
     );
-    await failedValidation(`${testEls.signupFormRecoveryEmailField}`, assert, {
-      assertionSuffix:
-        'Invalid field with validation event "insert" fails validation insert.',
-    });
+    // BEGIN-SNIPPET failed-validation-helper-with-assert.js
+    await failedValidation(
+      `${testEls.signupFormRecoveryEmailField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Invalid field with validation event "insert" fails validation insert.',
+    );
+    // END-SNIPPET
     await focus(`${testEls.signupFormNameField} input`);
     assert.notOk(
-      await wasValidated(`${testEls.signupFormNameField}`),
+      await wasValidated(
+        `${testEls.signupFormNameField}`,
+        validationTestHelpersDefaults,
+      ),
       'Field without validation event "keyUp" loses validation when focussed.',
     );
     await blur(`${testEls.signupFormNameField} input`);
@@ -45,61 +56,84 @@ module('Acceptance | Field validation', function (hooks) {
       'Correct default error message shows for empty name field after focus out.',
     );
     await focus(`${testEls.signupFormNameField} input`);
-    await failedValidation(`${testEls.signupFormNameField}`, assert, {
-      assertionSuffix:
-        'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
-    });
+    await failedValidation(
+      `${testEls.signupFormNameField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
+    );
     await fillIn(`${testEls.signupFormNameField} input`, 'T');
     await triggerKeyEvent(
       find(`${testEls.signupFormNameField} input`),
       'keyup',
       1,
     );
-    await passedValidation(`${testEls.signupFormNameField}`, assert, {
-      assertionSuffix:
-        'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
-    });
+    // BEGIN-SNIPPET passed-validation-helper-with-assert.js
+    await passedValidation(
+      `${testEls.signupFormNameField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
+    );
+    // END-SNIPPET
     await fillIn(`${testEls.signupFormNameField} input`, '');
     await triggerKeyEvent(
       find(`${testEls.signupFormNameField} input`),
       'keyup',
       1,
     );
-    await failedValidation(`${testEls.signupFormNameField}`, assert, {
-      assertionSuffix:
-        'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
-    });
-    await passedValidation(`${testEls.signupFormEmailField}`, assert, {
-      assertionSuffix:
-        'Valid field with validation event "insert" passes validation on insert.',
-    });
+    await failedValidation(
+      `${testEls.signupFormNameField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
+    );
+    await passedValidation(
+      `${testEls.signupFormEmailField}`,
+      validationTestHelpersDefaults,
+      assert,
+
+      'Valid field with validation event "insert" passes validation on insert.',
+    );
     await fillIn(`${testEls.signupFormEmailField} input`, 'bluemangroup');
     await blur(`${testEls.signupFormEmailField} input`);
     await focus(`${testEls.signupFormPasswordField} input`);
     await blur(`${testEls.signupFormPasswordField} input`);
     assert.ok(
-      await wasValidated(`${testEls.signupFormPasswordField}`),
+      await wasValidated(
+        `${testEls.signupFormPasswordField}`,
+        validationTestHelpersDefaults,
+      ),
       'Validation runs on focus out of input field by default.',
     );
     await click(
       `${testEls.signupFormAcceptTermsFieldRadioOptionTrue} input[type="radio"]`,
     );
 
-    await passedValidation(`${testEls.signupFormAcceptTermsField}`, assert, {
-      assertionSuffix:
-        'Validation runs after selecting option in radio button group.',
-    });
+    await passedValidation(
+      `${testEls.signupFormAcceptTermsField}`,
+      validationTestHelpersDefaults,
+      assert,
+
+      'Validation runs after selecting option in radio button group.',
+    );
     await click(
       `${testEls.signupFormConfirmHumanField} input[type="checkbox"]`,
     );
-    await passedValidation(`${testEls.signupFormConfirmHumanField}`, assert, {
-      assertionSuffix: 'Validation runs after checking single checkbox.',
-    });
+    await passedValidation(
+      `${testEls.signupFormConfirmHumanField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Validation runs after checking single checkbox.',
+    );
     await click('.ember-basic-dropdown-trigger');
     await selectChoose(find(testEls.signupFormCountryField), 'United States');
-    await passedValidation(`${testEls.signupFormCountryField}`, assert, {
-      assertionSuffix: 'Validation runs after selecting power select option.',
-    });
+    await passedValidation(
+      `${testEls.signupFormCountryField}`,
+      validationTestHelpersDefaults,
+      assert,
+      'Validation runs after selecting power select option.',
+    );
     // TODO checkbox group and text area.
   });
 

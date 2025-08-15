@@ -7,6 +7,7 @@ module.exports = function (defaults) {
     snippetSearchPaths: [
       'app',
       '../ember-changeset-webforms/src/utils',
+      '../ember-changeset-webforms/src/test-support',
       'config',
       'tests',
     ],

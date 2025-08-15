@@ -12,6 +12,7 @@ import {
   failedValidation,
   wasValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 module('Acceptance | Form methods', function (hooks) {
   setupApplicationTest(hooks);
@@ -22,11 +23,17 @@ module('Acceptance | Form methods', function (hooks) {
       '[data-test-id="example-1"] [data-test-id="validate-externally"]',
     );
     assert.ok(
-      failedValidation('[data-test-id="form-methods1-form-name-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods1-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name fields fails validation with UI triggered when external validate button is clicked and field is empty',
     );
     assert.ok(
-      failedValidation('[data-test-id="form-methods1-form-email-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods1-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email fields fails /*  */validation with UI triggered when external validate button is clicked and field is empty',
     );
     await fillIn(
@@ -48,11 +55,17 @@ module('Acceptance | Form methods', function (hooks) {
       13,
     );
     assert.ok(
-      passedValidation('[data-test-id="form-methods1-form-name-field"]'),
+      passedValidation(
+        '[data-test-id="form-methods1-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
     assert.ok(
-      passedValidation('[data-test-id="form-methods1-form-email-field"]'),
+      passedValidation(
+        '[data-test-id="form-methods1-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email fields passes validation with UI triggered when external validate button is clicked and field is filled in correctly',
     );
   });
@@ -60,22 +73,34 @@ module('Acceptance | Form methods', function (hooks) {
   test('validate method with skipUnvalidated', async function (assert) {
     await visit('docs/form-methods');
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods2-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods2-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name is not validated on insert.',
     );
     assert.ok(
-      failedValidation('[data-test-id="form-methods2-form-email-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods2-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email fields fails validation with UI triggered when inserted with invalid value',
     );
     await click(
       '[data-test-id="example-2"] [data-test-id="validate-externally"]',
     );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods2-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods2-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name is not validated when external validate button is clicked',
     );
     assert.ok(
-      passedValidation('[data-test-id="form-methods2-form-email-field"]'),
+      passedValidation(
+        '[data-test-id="form-methods2-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email fields is revalidated with with UI triggered when external validate button is clicked',
     );
   });
@@ -128,7 +153,10 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      failedValidation('[data-test-id="form-methods7-form-email-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods7-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -156,11 +184,17 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is cleared after the clear button is clicked.',
       );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods7-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods7-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name field is unvalidated  after the clear button is clicked.',
     );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods7-form-email-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods7-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is unvalidated  after the clear button is clicked.',
     );
   });
@@ -202,7 +236,10 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      failedValidation('[data-test-id="form-methods8-form-email-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods8-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -233,11 +270,17 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is reset to default value after the reset form button is clicked.',
       );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods8-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods8-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name field is unvalidated  after the reset form button is clicked.',
     );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods8-form-email-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods8-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is unvalidated  after the reset form button is clicked.',
     );
   });
@@ -279,7 +322,10 @@ module('Acceptance | Form methods', function (hooks) {
       .hasValue('steveholt!', 'Email field is updated');
 
     assert.ok(
-      failedValidation('[data-test-id="form-methods9-form-email-field"]'),
+      failedValidation(
+        '[data-test-id="form-methods9-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is validated before clicking clear form button',
     );
     await click(
@@ -298,11 +344,17 @@ module('Acceptance | Form methods', function (hooks) {
         'Email field is cleared after the reset form button is clicked.',
       );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods9-form-name-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods9-form-name-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Name field is unvalidated  after the reset form button is clicked.',
     );
     assert.notOk(
-      await wasValidated('[data-test-id="form-methods9-form-email-field"]'),
+      await wasValidated(
+        '[data-test-id="form-methods9-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field is unvalidated  after the reset form button is clicked.',
     );
   });
@@ -311,7 +363,10 @@ module('Acceptance | Form methods', function (hooks) {
     await visit('docs/form-methods');
 
     assert.ok(
-      passedValidation('[data-test-id="form-methods6-form-email-field"]'),
+      passedValidation(
+        '[data-test-id="form-methods6-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field passes validation when inserted',
     );
     await fillIn(
@@ -324,7 +379,10 @@ module('Acceptance | Form methods', function (hooks) {
       1,
     );
     assert.ok(
-      passedValidation('[data-test-id="form-methods6-form-email-field"]'),
+      passedValidation(
+        '[data-test-id="form-methods6-form-email-field"]',
+        validationTestHelpersDefaults,
+      ),
       'Email field passes validation before pushErrors is called',
     );
     await click(
@@ -332,11 +390,9 @@ module('Acceptance | Form methods', function (hooks) {
     );
     await failedValidation(
       '[data-test-id="form-methods6-form-email-field"]',
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix:
-          'Email field fails validation after form is submitted and pushErrors is called',
-      },
+      'Email field fails validation after form is submitted and pushErrors is called',
     );
   });
 

@@ -33,7 +33,7 @@ function _getElements(arg, indexes) {
   if (indexes?.length) {
     elements = indexes.map((index) => elements[index]);
   }
-  return elements;
+  return elements.filter((el) => el);
 }
 
 async function _waitForMs(ms) {
@@ -56,18 +56,17 @@ function fieldErrorText(arg) {
   return Array.from(errors).map((error) => error.textContent.trim());
 }
 
-async function passedValidation(arg, assert, opts = {}) {
+async function passedValidation(arg, opts = {}, assert, assertionSuffix) {
   const fieldElement = _getElement(arg);
-  opts.validationBackgroundImage =
-    opts.validBackgroundImage ||
-    `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")`;
-  opts.validationBorderColour = opts.validBorderColour || 'rgb(25, 135, 84)';
-  opts.validationBackgroundColour =
-    opts.validBackgroundColour || 'rgb(25, 135, 84)';
-  opts.presentValidationClass = opts.validClass || 'is-valid';
-  opts.absentValidationClass = opts.invalidClass || 'is-invalid';
-  opts.assertionPrefix = opts.assertionPrefix || 'Field passsed validation';
+  opts.validationBackgroundImage = opts.validBackgroundImage; //|| `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")`;
+  opts.validationBorderColour = opts.validBorderColour; // || 'rgb(25, 135, 84)';
+  opts.validationBackgroundColour = opts.validBackgroundColour; // || 'rgb(25, 135, 84)';
+  opts.presentValidationClass = opts.validClass; // || 'is-valid';
+  opts.absentValidationClass = opts.invalidClass; // || 'is-invalid';
+  opts.assertionPrefix =
+    opts.passedValidationAssertionPrefix || 'Field passed validation';
   opts.validationResult = 'valid';
+  opts.assertionSuffix = assertionSuffix;
 
   await _waitForMs(200);
   if (assert) {
@@ -81,21 +80,20 @@ async function passedValidation(arg, assert, opts = {}) {
         `[${opts.assertionPrefix}] field does not have error messages container element => ${opts.assertionSuffix}`,
       );
   }
-  return checkValidation(fieldElement, assert, opts);
+  return _checkValidation(fieldElement, assert, opts);
 }
 
-async function failedValidation(arg, assert, opts = {}) {
+async function failedValidation(arg, opts = {}, assert, assertionSuffix) {
   const fieldElement = _getElement(arg);
-  opts.validationBackgroundImage =
-    opts.invalidBackgroundImage ||
-    `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e")`;
-  opts.validationBorderColour = opts.invalidBorderColour || 'rgb(220, 53, 69)';
-  opts.validationBackgroundColour =
-    opts.invalidBackgroundColour || 'rgb(220, 53, 69)';
-  opts.presentValidationClass = opts.invalidClass || 'is-invalid';
-  opts.absentValidationClass = opts.validClass || 'is-valid';
-  opts.assertionPrefix = opts.assertionPrefix || 'Field failed validation';
+  opts.validationBackgroundImage = opts.invalidBackgroundImage; // || `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e")`;
+  opts.validationBorderColour = opts.invalidBorderColour; // || 'rgb(220, 53, 69)';
+  opts.validationBackgroundColour = opts.invalidBackgroundColour; // || 'rgb(220, 53, 69)';
+  opts.presentValidationClass = opts.invalidClass; // || 'is-invalid';
+  opts.absentValidationClass = opts.validClass; // || 'is-valid';
+  opts.assertionPrefix =
+    opts.failedValidationAssertionPrefix || 'Field failed validation';
   opts.validationResult = 'invalid';
+  opts.assertionSuffix = assertionSuffix;
 
   await _waitForMs(200);
   if (assert) {
@@ -104,24 +102,17 @@ async function failedValidation(arg, assert, opts = {}) {
       `[${opts.assertionPrefix}] field has at least one error message => ${opts.assertionSuffix}`,
     );
   }
-  return checkValidation(fieldElement, assert, opts);
+  return _checkValidation(fieldElement, assert, opts);
 }
 
-function checkValidation(fieldElement, assert, opts = {}) {
-  opts.elementWithValidationClass = opts.elementWithValidationClass || [
-    '.form-control',
-    '.form-check-input',
-  ];
-  opts.validationBorderColourElements = opts.validationBorderColourElements || [
-    '.form-control',
-    '.form-check-input',
-  ];
+function _checkValidation(fieldElement, assert, opts = {}) {
+  opts.elementsWithValidationClass = opts.elementsWithValidationClass || [];
+  opts.validationBorderColourElements =
+    opts.validationBorderColourElements || [];
   opts.validationBackgroundColourElements =
-    opts.validationBackgroundColourElements || [
-      '.form-check-input.was-validated',
-    ];
+    opts.validationBackgroundColourElements || [];
   opts.validationBackgroundImageElements =
-    opts.validationBackgroundImageElements || ['.form-control'];
+    opts.validationBackgroundImageElements || [];
   const firstMatchingEl = (selectors) => {
     for (var selector of selectors) {
       const el = fieldElement.querySelector(selector);
@@ -148,24 +139,24 @@ function checkValidation(fieldElement, assert, opts = {}) {
     opts.validationBackgroundColourElements,
   );
 
-  const elementWithValidationClass =
-    firstMatchingEl(opts.elementWithValidationClass) || fieldElement;
+  const firstFoundElementWithValidationClass =
+    firstMatchingEl(opts.elementsWithValidationClass) || fieldElement;
 
   if (assert) {
     assert
-      .dom(elementWithValidationClass)
+      .dom(firstFoundElementWithValidationClass)
       .hasClass(
         opts.presentValidationClass,
-        `[${opts.assertionPrefix}] ${opts.elementWithValidationClass} element has class '${opts.presentValidationClass}' => ${opts.assertionSuffix}`,
+        `[${opts.assertionPrefix}] ${opts.elementsWithValidationClass} element has class '${opts.presentValidationClass}' => ${opts.assertionSuffix}`,
       );
     assert
       .dom(
-        fieldElement.querySelector(opts.elementWithValidationClass) ||
+        fieldElement.querySelector(opts.elementsWithValidationClass) ||
           fieldElement,
       )
       .doesNotHaveClass(
         opts.absentValidationClass,
-        `[${opts.assertionPrefix}] Form ${opts.elementWithValidationClass} element does not have class '${opts.absentValidationClass}' => ${opts.assertionSuffix}`,
+        `[${opts.assertionPrefix}] Form ${opts.elementsWithValidationClass} element does not have class '${opts.absentValidationClass}' => ${opts.assertionSuffix}`,
       );
 
     if (validationBorderColourElementsCss) {
@@ -198,7 +189,7 @@ function checkValidation(fieldElement, assert, opts = {}) {
   }
 
   if (
-    elementWithValidationClass.classList.contains(
+    firstFoundElementWithValidationClass.classList.contains(
       opts.presentValidationClass,
     ) &&
     [
@@ -223,69 +214,72 @@ function checkValidation(fieldElement, assert, opts = {}) {
   return false;
 }
 
-async function allPassedValidation(arg, indexes) {
+async function allPassedValidation(arg, opts, indexes) {
   const elements = _getElements(arg, indexes);
   let allPassed = true;
   for (var el of elements) {
-    if (!(await passedValidation(el))) {
+    if (!(await passedValidation(el, opts))) {
       allPassed = false;
     }
   }
   return allPassed;
 }
 
-async function allFailedValidation(arg, indexes) {
+async function allFailedValidation(arg, opts, indexes) {
   const elements = _getElements(arg, indexes);
   let allFailed = true;
   for (var el of elements) {
-    if (!(await failedValidation(el))) {
+    if (!(await failedValidation(el, opts))) {
       allFailed = false;
     }
   }
   return allFailed;
 }
 
-async function wasValidated(arg) {
-  return (await passedValidation(arg)) || (await failedValidation(arg));
+async function wasValidated(arg, opts) {
+  return (
+    (await passedValidation(arg, opts)) || (await failedValidation(arg, opts))
+  );
 }
 
-async function allValidated(arg, indexes = []) {
+async function allValidated(arg, opts, indexes = []) {
   const els = _getElements(arg, indexes);
   if (!els.length) {
     return false;
   }
   for (var el of els) {
-    if (!(await wasValidated(el))) {
+    if (!(await wasValidated(el, opts))) {
       return false;
     }
   }
   return true;
 }
 
-async function noneValidated(arg, indexes = []) {
+async function noneValidated(arg, opts, indexes = []) {
   const els = _getElements(arg, indexes);
   if (!els.length) {
     return false;
   }
   for (var el of els) {
-    if (await wasValidated(el)) {
+    if (await wasValidated(el, opts)) {
       return false;
     }
   }
   return true;
 }
 
-async function removeClone(arg, indexes = []) {
+async function removeClones(arg, indexes = []) {
   const element = _getElement(arg);
+  let elementsToClick = [];
   if (indexes?.length) {
-    const elementsToClick = indexes.map(
+    elementsToClick = indexes.map(
       (index) => element.querySelectorAll(els.cwfRemoveClone)[index],
     );
-    for (var el of elementsToClick) {
-      await click(el);
-    }
   } else {
-    await click(element.querySelector(els.cwfRemoveClone));
+    elementsToClick = element.querySelectorAll(els.cwfRemoveClone);
+  }
+  for (var el of elementsToClick) {
+    await click(el);
   }
 }
 
@@ -300,7 +294,7 @@ async function clickSubmitButton(arg) {
 }
 
 function changesetWebformStateAsJSON(parentSelector, customTransforms) {
-  const formElement = find(parentSelector);
+  const formElement = _getElement(parentSelector);
   return Array.from(formElement.querySelectorAll('[data-test-cwf-field]')).map(
     (el) => {
       const obj = {
@@ -309,7 +303,7 @@ function changesetWebformStateAsJSON(parentSelector, customTransforms) {
           .getAttribute('data-test-class')
           .replace('cwf-field-type-', ''),
       };
-      obj.validationStatus = validationStatus(el);
+      obj.validationStatus = _validationStatus(el);
       const inputSelector = 'input:not([type=checkbox]):not([type=radio])';
       const input = el.querySelector(inputSelector);
       if (input) {
@@ -373,7 +367,7 @@ function changesetWebformStateAsJSON(parentSelector, customTransforms) {
   );
 }
 
-function validationStatus(el) {
+function _validationStatus(el) {
   if (!el.hasAttribute('data-test-validates')) {
     return 'not-applicable';
   }
@@ -386,14 +380,12 @@ function validationStatus(el) {
 export { fieldErrorText };
 export { passedValidation };
 export { failedValidation };
-export { checkValidation };
 export { allPassedValidation };
 export { allFailedValidation };
 export { wasValidated };
 export { allValidated };
 export { noneValidated };
-export { removeClone };
+export { removeClones };
 export { addClone };
 export { clickSubmitButton };
 export { changesetWebformStateAsJSON };
-export { validationStatus };

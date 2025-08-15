@@ -22,6 +22,7 @@ import {
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import moment from 'moment';
+import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
 module('Acceptance | Power datepicker field', function (hooks) {
   setupApplicationTest(hooks);
@@ -2192,6 +2193,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     assert.notOk(
       await wasValidated(
         `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,
+        validationTestHelpersDefaults,
       ),
       'Field is not validated on insert.',
     );
@@ -2228,18 +2230,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
     );
     await passedValidation(
       `${testEls.powerDatapickerExample3FormStartDateField}`,
+      validationTestHelpersDefaults,
       assert,
-      { assertionSuffix: ' after typing a date in the input.' },
+      ' after typing a date in the input.',
     );
     await click(els.datetimePickerClearDatetime);
-
     await failedValidation(
       `${testEls.powerDatapickerExample3FormStartDateField}`,
+      validationTestHelpersDefaults,
       assert,
-      {
-        assertionSuffix:
-          ' after clearing the date input by clicking the clear button.',
-      },
+      ' after clearing the date input by clicking the clear button.',
     );
     await clickTrigger(
       `${parentFieldSelector} ${testEls.powerDatapickerExample3FormStartDateField}`,

@@ -138,6 +138,7 @@ module(
           assertionSuffix: 'after form is submitted with changes',
         },
       );
+      // BEGIN-SNIPPET changeset-webform-state-as-json-test-helper-usage.js
       assert.deepEqual(
         changesetWebformStateAsJSON(
           '[data-test-id="form-schema-from-queryparams-example-form"]',
@@ -191,6 +192,7 @@ module(
         ],
         'Form rendered from URL query params is correct on load.',
       );
+      // END-SNIPPET
     });
   },
 );
