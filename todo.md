@@ -64,7 +64,7 @@ TODO Document and test for <EmberChangesetWebforms::FieldElements::FieldDescript
 @descriptionMarkdown={{@formField.descriptionMarkdown}}
 />
 
-`fieldType: 'clone-group',` => `fieldType: 'cloneGroup',`
+`fieldType: 'cloneGroup',` => `fieldType: 'cloneGroup',`
 
 Chnagelog
 

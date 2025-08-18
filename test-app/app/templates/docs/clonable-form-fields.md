@@ -4,7 +4,7 @@ A clonable form field allows the user to add and remove instances of a field. Th
 
 To make a field clonable, the `fieldType` property must be set to `clone-group`, and a `cloneFieldSchema` property must be included as well.
 
-Apart from the above properties, a clone group can have all the same settings and validations as any other field (Of course, validation rules aimed ayt single fields will not be relevant in this case).
+Apart from the above properties, a clone group can have all the same settings and validations as any other field.
 
 The `cloneFieldSchema` property behaves exactly as the field Schema on any other field. It is self contained and can have any of the settings, validation rules, and validation events that any other field can have.
 
@@ -18,9 +18,7 @@ A clone group field can have `minClones` and `maxClones` properties- integers sp
 
 Where the number of clones is less than `maxClones` an "Add clone" button will be displayed.
 
-Wherer the number of clones is greater than `minClones`, a remove clone button will display with each clone.
-
-which can be replaced by a component that is specified in global config, or passed to an indsance of the `<ChangesetWebform>` component. See <LinkTo @route="docs.custom-components">Custom components</LinkTo>.
+Where the number of clones is greater than `minClones`, a remove clone button will display with each clone. [#REF custom components]
 
 ## Tracked clone settings
 

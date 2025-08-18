@@ -392,7 +392,7 @@ function clonedFieldSchema() {
   const formSchema = cloneDeep(allFieldTypesFieldSchema);
   formSchema.fields = formSchema.fields.map((field) => {
     const newField = {
-      fieldType: 'clone-group',
+      fieldType: 'cloneGroup',
       fieldId: field.fieldId,
       fieldLabel: field.fieldLabel,
       cloneFieldSchema: field,

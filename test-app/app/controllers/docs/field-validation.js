@@ -1,10 +1,11 @@
 import Controller from '@ember/controller';
-import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
+import addonDefaults from 'ember-changeset-webforms/utils/addon-defaults';
 
 export default class Fieldvalidation extends Controller {
   addonDefaults = addonDefaults;
 
   get obj() {
+    console.log(addonDefaults);
     return filterObjectKeys(addonDefaults);
   }
 
@@ -27,6 +28,7 @@ export default class Fieldvalidation extends Controller {
 }
 
 function filterObjectKeys(addonDefaults) {
+  console.log('addonDefaults', addonDefaults);
   function filterKeys(obj) {
     if (typeof obj !== 'object' || obj === null) {
       return null;

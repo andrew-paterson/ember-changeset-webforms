@@ -70,8 +70,8 @@ In order to override these defaults, an `attrsFromConfig` object can included in
 
 1. **[App level configuration](#1-app-level-configuration)** - `changesetWebformsDefaults.attrsFromConfig` in `services/ember-changeset-webforms.js` (Applied throuought the app wide config)
 2. **[App level configuration - field type specific](#2-app-level-configuration-field-type-specific)** - Any of the field types `changesetWebformsDefaults.fieldTypes` in `services/ember-changeset-webforms.js` (Applied throuought the app wide config)
-3. **[Form level configuration](#3-form-level-configuration)** - `@formSchema.attrsFromConfig` (Applied to a specific instance of a ChangesetWebform component)
-4. **[Form level configuration - field type specific](#4-form-level-configuration-field-type-specific)** - Any of the field types defined in `@formSchema.fieldSettings.fieldTypes` (Applied to all fields with the specified `fieldType`, within specific instance of a ChangesetWebform component)
+3. **[Form level configuration](#3-form-level-configuration)** - `@formSchema.attrsFromConfig` (Applied to a specific instance of a `ChangesetWebform` component)
+4. **[Form level configuration - field type specific](#4-form-level-configuration-field-type-specific)** - Any of the field types defined in `@formSchema.fieldSettings.fieldTypes` (Applied to all fields with the specified `fieldType`, within specific instance of a `ChangesetWebform` component)
 5. **[Field level configuration](#5-field-level-configuration)** - `field.attrsFromConfig` where field is the definition of a specidfic field in `@formSchema.fields`.
 
 At each level, the merged value of `attrsFromConfig` will be inherited, so you only need to include config for the namespaces that you would like to override.

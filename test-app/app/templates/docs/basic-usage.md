@@ -16,7 +16,7 @@ See <LinkTo @route="docs.action-handling">Action handling</LinkTo> for more deta
 
 Every `formSchema` has formSettings object which defines options for the form as a whole.
 
-Note that `formName` is required and no two forms rendered ont he same page should have the same name.
+Note that `formName` is required and no two forms rendered on the same page should have the same name.
 
 In the example above, the following default options are overriden:
 

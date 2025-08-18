@@ -2,7 +2,7 @@
 
 Every instance of the instance of the ChangesetWebform component is underpinned by an instance of the `changesetWebform` class instance. It has several methods and properties which apply to the form as a whole, outlined below.
 
-Note that the `changesetWebform` instance is included as an argument in all action callbacks. See [Action handling](docs/action-handling).
+Note that the `changesetWebform` class instance is included as an argument in all action callbacks. See [Action handling](docs/action-handling).
 
 ## Methods
 

@@ -53,8 +53,8 @@ At each level, the merged value of `attrsFromConfig` will be inherited, so you o
 
 Here, `@formSchema` refers to the object whioch is passed to `@formSchema` property of the `ChangesetWebform` component.
 
-- `@formSchema.attrsFromConfig` (Applied to a specific instance of a ChangesetWebform component)
-- Any of the field types defined in `@formSchema.fieldSettings.fieldTypes` (Applied to all fields with the specified `fieldType`, within specific instance of a ChangesetWebform component)
+- `@formSchema.attrsFromConfig` (Applied to a specific instance of a `ChangesetWebform` component)
+- Any of the field types defined in `@formSchema.fieldSettings.fieldTypes` (Applied to all fields with the specified `fieldType`, within specific instance of a `ChangesetWebform` component)
 - `field.attrsFromConfig` where field is the definition of a specidfic field in `@formSchema.fields`
 
 ## Configuring element class names

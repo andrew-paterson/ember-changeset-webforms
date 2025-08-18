@@ -12,7 +12,7 @@ export default class CloneGroupFormComponent extends Component {
       {
         fieldId: 'emails',
         fieldLabel: 'User emails',
-        fieldType: 'clone-group',
+        fieldType: 'cloneGroup',
         cloneButtonText: 'Add email address',
         cloneFieldSchema: {
           fieldLabel: 'Email',

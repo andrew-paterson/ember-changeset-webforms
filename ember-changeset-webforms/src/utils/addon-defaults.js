@@ -243,7 +243,7 @@ export default {
     },
     {
       // BEGIN-SNIPPET clone-group-field-options.js
-      fieldType: 'clone-group',
+      fieldType: 'cloneGroup',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: {
         componentClass: IconTrashComponent,

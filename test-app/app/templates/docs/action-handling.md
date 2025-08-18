@@ -4,7 +4,7 @@ Ember Changeset Webforms aims to be as flexible and customisable as possible. Fo
 
 ## `afterGenerateChangesetWebform` action
 
-Called when the `changesetWebform` instance is created, which occues as soon as the component is intersted into the DOM.
+Called when the `changesetWebform` class instance is created, which occues as soon as the component is intersted into the DOM.
 
 Arguments: (`changesetWebform`)
 
@@ -105,7 +105,7 @@ Arguments: (`changesetWebform`)
 
 ## `beforeSubmitForm` action
 
-Called after a form has been preflighted and passed validation, in response to the `submit()` method being called on the `changesetWebform` instance, usually when the user clicks the submit button.
+Called after a form has been preflighted and passed validation, in response to the `submit()` method being called on the `changesetWebform` class instance, usually when the user clicks the submit button.
 
 Arguments: (`changesetWebform`)
 
@@ -139,7 +139,7 @@ An attempt to submit the form has failed where:
 
 ## `onFormSubmit` action
 
-Called when the `submit` method on the `changesetWebform` instance is called. This is usually when user clicks the submit button, but could also be initiated from outside of the form.
+Called when the `submit` method on the `changesetWebform` class instance is called. This is usually when user clicks the submit button, but could also be initiated from outside of the form.
 
 Arguments: (`changesetWebform`, `componentArgs`)
 

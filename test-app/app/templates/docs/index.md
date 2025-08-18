@@ -4,9 +4,9 @@
 
 Simply define a form schema as a "plain old JavaScript object", which includes an array of `fields`, each with options for UI and validation.
 
-This schema can then be passed to the `ChangesetWebform` component in order to render a form, as below. The creation of the changeset, with its associated validators, is handled by the component, so that you need only think about what fields you would like to include in a webform, and how they should be validated.
+This schema can then be passed to the `ChangesetWebform` component in order to render a form, as below. The creation of the changeset, with its associated validators, is handled by the component, so that you need only think about what fields you would like to include in a webform, and how and when they should be validated.
 
-The component can also accept POJO, Ember object or Ember model as its `@data` property, which will pre-populate the changeset and UI with the relevant values.
+The rendered form can also be pre populated with data, by passing a plain Javascript object, an Ember object,or Ember Data model as its `@data` property.
 
 ## Example
 
