@@ -78,54 +78,59 @@ validationRules: [
 ```
 The example below shows a basic implementation of the `validatePresence`, `validateFormat` and `validateLength` validators.
 
-
-
 <Demos::ValidationBasics />
 
 ## Validation events
 
-Under the hood, each field has an `eventLog` and `validatesOn` property, both of which are arrays of event name strings.
+In addition to defining validation rules, we can also configure which events should trigger field validation. The addon provides some sane defaults, so that we don't have to configure obvious validation events over and over.
 
-Items are added to the `eventLog` array in response to various events, such as insertion of a field into the DOM, form submission, value updates, focussing out of inputs, and many others. Note that these are not limited the the names of actual browser events.
+Note that we're not referring to browser events here, but customised event names which the built in fields send as the first argument to the `onUserInteraction` action, when the user takes the related action.
 
-The `validatesOn` property defines which events should enable validation for a field.
+Validation events are specified in the `validatesOn` property of a field.
 
-If there is any intersection between the `eventLog` and `validatesOn` arrays, validation is enabled for a field and it will be revalidated whenever it's value is updated, or the form is submitted.
+### Validation event names for built in fields
 
-This means that by updating the `validatesOn` property of a field, you can control which events trigger the validation of a field.
+The snippet below shows all of the available event names which can be passed to the `validatesOn` array for a field.
 
-For example, when a field is inserted into the DOM with a value, `insertWithValue` is added to the `eventLog` array of the relevant field. Thus, if you add `insertWithValue` to the `validatesOn` array, the field will validate when inserted into the DOM, provided that it is inserted with a value.
+Those which are shown under `Included by addon defaults` are included in the `validatesOn` array of the field's definition in addon config.
 
-<Demos::FormMethodsExampleTwo />
+Such events will trigger validation by default, and do not need to be added to the `validatesOn` array for a field in our app of component config.
+
+Those under `Not included by addon defaults` need to be included in app or component config if we would like them to trigger validation. 
+
+<InterpolatedSimpleJsSnippet @object={{this.fieldSettingsValidateOnString}} @title="Validation event names for built in fields" />
+
+### Customising validation events for a field
+
+The example below shows three scenrios when defining validation events.
+
+1. The `name` field has no `validatesOn` property, and so the field uses the defaults. Therefore, it validates on `focusOut` but not `keyUp`.
+2. The `email` field overrides the `validatesOn` property. Therefore, it only validates on `keyUp` and does not validate on `focusOut`.
+3. The `phoneNumber` field adds `keyUp` to the `validatesOn` property. This is achieved by including the srting `$inherited` in the array for `validatesOn`. Therefore, it validates both on `focusOut` and `keyUp`.
+
+<Demos::ValidationEvents />
+
+The addon defaults outlined above can be overridden at the app level, or within a particular form schema. See <LinkTo @route="docs.configuration-options">Configuration options</LinkTo>.
+
+### Forcing validation in an action
+
+Under the hood, each field has property called `eventLog`, an array which is populated with the names of all the validation events which have occurred. For example when a user types in an input field, the field's `eventLog` property will have the strings `focusIn`, `keyDown`, and `keyUp` added to it.
+
+If there is any intersection between the `eventLog` and `validatesOn` properties, the field's validation is activated.
+
+The addon defaults include `forceValidation` in a field's `validatesOn` property.
+
+Thus, you can forcibly activate a field's validation by pushing the string `forceValidation` into `field.eventLog`, as shown in terh `updateNameField` action in the example below.
+
+<Demos::ForcingValidation />
 
 ### Using your own validation event names
 
 The example below shows how you can trigger validation in customised ways by adding an event string to the `validatesOn` array of a field, and then pushing the same string into the `eventLog` array of the field when it should be validated.
 
-Clicking the "Update value of name field" button updates the value of the name field, and validates the field.
+In the example below, clicking the "Update value of name field" button updates the value of the name field, and validates the field by pushing the custom event name `valueExternallyUpdated` into `eventLog`. This works because `valueExternallyUpdated` is added to the the `validatesOn` property of the field.
 
 <Demos::FieldMethodsExampleFive />
-
-### The `alwaysValidateOn` property
-
-Most use cases will require that certain events always trigger validation on all fields, or at least all fields of a certain type. For example it is common that:
-
-- clicking the submit button triggers validation on all fields, and
-- focussing out of an input field will always trigger validation on that field.
-
-Assuming this is the desired behaviour, it would be needlessly repetitive to have to populate the `validatesOn` array with events such as `submit` for all fields and `focusOut` for all `input` fields.
-
-For this reason, the addon defines an `alwaysValidateOn` in `fieldSettings` (Applicable to all fields), as well as each type of field. These defaults are shown below.
-
-<InterpolatedSimpleJsSnippet @object={{this.fieldSettingsValidateOnString}} @title="Addon defaults for alwaysValidateOn" />
-
-It is important to note the use of `$inherited` in field types. This causes the relevant `validatesOn` array to inherit the values from the `validatesOn` array in `fieldSettings`. Thus, `submit` is added to the `validatesOn` array for each field type.
-
-### Overriding `alwaysValidateOn`
-
-The addon defaults outlined above can be overridden at the app level, or within a particular form schema. See [http://localhost:6200/docs/configuration-options](http://localhost:6200/docs/configuration-options).
-
-
 
 ## Setting custom validity on DOM elements
 

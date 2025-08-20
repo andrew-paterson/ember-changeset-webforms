@@ -256,7 +256,7 @@ function getFieldTypeBreakdown(field) {
       semanticMarkup: true,
     },
     {
-      fieldType: 'cloneGroup',
+      fieldType: 'clone-group',
       fieldLabelElement: 'div ',
       selector: `[data-test-id="${field.id}"] .ember-power-select-trigger`,
     },

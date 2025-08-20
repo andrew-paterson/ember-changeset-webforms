@@ -347,7 +347,6 @@ export default class FormField {
     var groupValue = this.fieldValue || [];
     groupValue.splice(index, 1);
     masterFormField.eventLog.push('removeClone');
-    // this.args.updateFieldValue(groupValue);
     this.updateValue(groupValue); // TODO by not calling updateﬃeldValue int eh component, we don't have the action callback. Attach it to the formField instance.
     masterFormField.clonedFields.forEach((clone, index) => {
       clone.index = index;

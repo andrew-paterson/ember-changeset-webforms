@@ -77,10 +77,16 @@ function parse(fieldSchema, formName) {
       field = customParser(field);
     });
   }
-  field.validatesOn = ['forceValidation']
-    .concat(field.validatesOn || [])
-    .concat(field.alwaysValidateOn || []);
-  delete field.alwaysValidateOn;
+  if (!field.ignoreValidation) {
+    field.validatesOn = ['forceValidation'].concat(field.validatesOn || []);
+  }
+  const arr = ['keyDown', 'keyUp'];
+  if (
+    arr.some((event) => field.validatesOn.includes(event)) &&
+    field.showValidationWhenFocussed !== false
+  ) {
+    field.showValidationWhenFocussed = true;
+  }
   delete field.cloneFieldSchema;
   return field;
 }

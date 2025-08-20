@@ -25,7 +25,7 @@ export default class PowerSelect extends Component {
       value = null;
     }
     this.args.updateFieldValue(value);
-    this.args.onUserInteraction(value, 'optionSelected', event);
+    this.args.onUserInteraction('optionSelected', value, event);
   }
 
   @action

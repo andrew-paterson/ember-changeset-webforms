@@ -11,7 +11,7 @@ export default class PowerSelectCheckboxesComponent extends Component {
   }
 
   @action
-  optionClicked(option) {
+  optionToggled(option) {
     const formField = this.args.formField;
     var currentlySelectedOptions = formField.fieldValue
       ? [...formField.fieldValue] // To avoid mutating the original array
@@ -21,7 +21,7 @@ export default class PowerSelectCheckboxesComponent extends Component {
     } else {
       currentlySelectedOptions.push(option);
     }
-    this.args.onUserInteraction('optionClicked');
+    this.args.onUserInteraction('optionToggled');
     this.args.updateFieldValue(currentlySelectedOptions);
   }
 

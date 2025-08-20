@@ -13,7 +13,7 @@ export default class CloneGroupFormWithKeyupComponent extends Component {
       {
         fieldId: 'countryCodes',
         fieldLabel: 'Country ISO codes',
-        fieldType: 'cloneGroup',
+        fieldType: 'clone-group',
         minClones: 2,
         cloneFieldSchema: {
           fieldLabel: 'Country code',
