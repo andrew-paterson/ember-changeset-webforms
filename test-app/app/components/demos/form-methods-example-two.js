@@ -28,7 +28,7 @@ export default class FormMethodsExample1Component extends Component {
         fieldType: 'input',
         inputType: 'email',
         fieldLabel: 'Email',
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

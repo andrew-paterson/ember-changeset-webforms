@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import ChangesetWebform from '../utils/changeset-webform-class.js';
 import onSubmit from '../utils/on-submit.js';
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { getOwner } from '@ember/application';
 import addonDefaults from '../utils/addon-defaults.js';
 

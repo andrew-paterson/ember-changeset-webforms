@@ -15,7 +15,7 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldId: 'mealRequired',
         fieldLabel: 'Would you like to order a meal?',
         fieldType: 'radioButtonGroup',
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -32,7 +32,7 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldType: 'radioButtonGroup',
         fieldLabel: 'Please select a meal option',
         omitted: true,
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

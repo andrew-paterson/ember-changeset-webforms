@@ -146,7 +146,7 @@ export default {
       radioButtonLabel: ['form-check-label'],
     },
     attrFunctions: {
-      fieldWrapper(element, changesetWebform, formField) {
+      focussedField(element, changesetWebform, formField) {
         const classNameSettings =
           changesetWebform.formSchemaWithDefaults.classNameSettings;
         if (formField.focussed) {
@@ -162,6 +162,15 @@ export default {
           element.classList.add(...classNameSettings.validatedField);
         } else {
           element.classList.remove(...classNameSettings.validatedField);
+        }
+      },
+      disabledField(element, changesetWebform, formField) {
+        const classNameSettings =
+          changesetWebform.formSchemaWithDefaults.classNameSettings;
+        if (formField.disabled) {
+          element.classList.add(...classNameSettings.disabledField);
+        } else {
+          element.classList.remove(...classNameSettings.disabledField);
         }
       },
     },
@@ -203,9 +212,8 @@ export default {
     name: null, // String - defaults to the fieldId
     // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
-    validatesOn: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: ['submit', 'pushErrors'], // Array of strings
-    showValidationWhenFocussed: false, // Boolean - unless this is tru, validation colours, icons and messages will be omitted for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
+    validatesOn: ['submit', 'pushErrors'], // Array of strings, specifing the names of events which should triggger validation.
+    showValidationWhenFocussed: null, // Boolean - unless this is true, validation colours, icons and messages will be omitted for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
     omitted: false, // Boolean - or object - if true, the field is omitted and also ignored when validating or submitting the form. Can also be an object which defines rules for dynamic omission/inclusion. See /docs/hiding-and-showing-fields.
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
     labelComponent: null, // Object with { componentClass, props }.
@@ -237,13 +245,13 @@ export default {
       placeholder: null, // String - placeholder text of the input
       trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
-      alwaysValidateOn: ['$inherited', 'focusOut'], // Array of strings
+      validatesOn: ['$inherited', 'focusOut'], // Array of strings
       // END-SNIPPET
       componentClass: InputComponent,
     },
     {
       // BEGIN-SNIPPET clone-group-field-options.js
-      fieldType: 'cloneGroup',
+      fieldType: 'clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: {
         componentClass: IconTrashComponent,
@@ -261,7 +269,7 @@ export default {
       maxClones: null, // Number - maximum number of clones allowed.
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
-      alwaysValidateOn: ['$inherited', 'removeClone'], // Array of strings
+      validatesOn: ['$inherited', 'removeClone'], // Array of strings
       cloneGroupActionsPosition: 'cloneGroupWrapper', // String. Can also be labelWrapper, If cloneGroupWrapper, the clone group action buttons and content will appear below the cloned fields. If `labelWrapper` the the field bale will be wrapper in a div, and the clone group action buttons will be rendered in the label wrapper, after the label element.
       requiresAriaLabelledBy: true,
       // END-SNIPPET
@@ -272,7 +280,7 @@ export default {
       // BEGIN-SNIPPET textarea-field-options.js
       fieldType: 'textarea',
       autofocus: false, // Boolean - whether to autofocus the input on insert
-      alwaysValidateOn: ['$inherited', 'focusOut'], // Array of strings
+      validatesOn: ['$inherited', 'focusOut'], // Array of strings
       includeLabelForAttr: true, // Boolean - if true, the label element will have a 'for' attribute that matches the input element's 'id' attribute.
       // END-SNIPPET
       componentClass: TextareaComponent,
@@ -290,7 +298,7 @@ export default {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@changesetWebform and @formField are passed to the component.
       selectedItemComponent: null, // The imported class of the component to pass to the Power Select component. See https://ember-power-select.com/docs/api-reference
-      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      validatesOn: ['$inherited', 'valueUpdated'], // Array of strings
       requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass: PowerSelectComponent,
@@ -316,7 +324,7 @@ export default {
       dateRangeSettings: null,
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
-      alwaysValidateOn: ['$inherited', 'valueUpdated', 'blurDateTimeInput'], // Array of strings
+      validatesOn: ['$inherited', 'valueUpdated', 'blurDateTimeInput'], // Array of strings
       requiresAriaLabelledBy: true,
       // END-SNIPPET
       componentClass: PowerDatepickerComponent,
@@ -344,7 +352,7 @@ export default {
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
       checkboxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
-      alwaysValidateOn: ['$inherited', 'checkboxToggled'], // Array of strings
+      validatesOn: ['$inherited', 'checkboxToggled'], // Array of strings
       // END-SNIPPET
       componentClass: CheckboxComponent,
     },
@@ -357,7 +365,7 @@ export default {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['$inherited', 'radioOptionChanged'], // Array of strings
+      validatesOn: ['$inherited', 'radioOptionChanged'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
       componentClass: RadioButtonGroupComponent,
@@ -371,7 +379,7 @@ export default {
       // `props` can be included to pass state or data to the component, accessible as {{@props}}.
       // `@option`, `@for`, `@labelId`, `@checked`, `@changesetWebform`, and `@formField` are also passed to the component.
       // Set `for={{@for}}` and `id={{@labelId}} on the label element in the component to ensure accessibility.
-      alwaysValidateOn: ['$inherited', 'checkboxToggled'], // Array of strings
+      validatesOn: ['$inherited', 'checkboxToggled'], // Array of strings
       isFieldset: true, // Wrap field options in a fieldset element and field label in a legend element.
       // END-SNIPPET
       componentClass: CheckboxGroupComponent,
@@ -387,6 +395,7 @@ export default {
       // Add `{{on "click" @onClick}} to the element in the component to ensure the clicker works.
       // END-SNIPPET
       componentClass: ClickerComponent,
+      ignoreValidation: true,
     },
     {
       // BEGIN-SNIPPET staticContent-field-options.js
@@ -399,6 +408,7 @@ export default {
       // `@changesetWebform and @formField are passed to the component.
       // END-SNIPPET
       componentClass: StaticContentComponent,
+      ignoreValidation: true,
     },
     {
       // BEGIN-SNIPPET powerSelectCheckboxes-field-options.js
@@ -408,7 +418,7 @@ export default {
       searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
       options: [], // Array of items to show in the dropdown. Items can either all be objects, or they can all be primitives, such as strings or numbers. If an array of objects is passed, then optionDisplayProp should be passed to determine which property in the object should be shown as the label of the option in the list.
       optionDisplayProp: null, // String - which property of the object to show in the list if options is an array of objects.
-      alwaysValidateOn: ['$inherited', 'valueUpdated'], // Array of strings
+      validatesOn: ['$inherited', 'valueUpdated'], // Array of strings
       triggerComponent: PowerSelectCheckboxesTriggerComponent, // Optional -  imported class of the component pass to the Power Select compoent as `triggerComponent`.
       // `@extra` is passed to the component from the Power Select component
       requiresAriaLabelledBy: true,

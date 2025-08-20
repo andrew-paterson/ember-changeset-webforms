@@ -19,21 +19,9 @@ export default class ValidatingFieldWrapper extends Component {
   }
 
   get attrsFromConfigNameSpaces() {
-    const final = [];
+    const final = ['focussedField', 'disabledField', 'validatedField'];
     const formField = this.args.formField;
     final.push(formField.isClone ? 'cloneWrapper' : 'fieldWrapper');
-    if (formField.focussed) {
-      final.push('focussedField');
-    }
-    if (formField.disabled) {
-      final.push('disabledField');
-    }
-    if (formField.showValidation) {
-      final.push('validatedField');
-    }
-    if (formField.required) {
-      final.push('requiredField');
-    }
     if (formField.validates) {
       final.push('validatingField');
     }

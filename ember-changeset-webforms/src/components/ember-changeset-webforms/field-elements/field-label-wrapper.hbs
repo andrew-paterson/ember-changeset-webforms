@@ -6,7 +6,10 @@
     {{yield}}
   </legend>
 {{else if (eq this.labelType "div")}}
-  <div ...attributes>
+  <div
+    {{attrs-from-config "divLabel" @changesetWebform @formField}}
+    ...attributes
+  >
     {{yield}}
   </div>
 {{else}}

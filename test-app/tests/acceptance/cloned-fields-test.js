@@ -67,12 +67,11 @@ module('Acceptance | Cloned fields', function (hooks) {
     await focus(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"] input`,
     );
-
     await blur(
       `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"] input`,
     );
     await failedValidation(
-      `[data-test-id="add-emails-form-emails-field-clone-1"]`,
+      `${testEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       validationTestHelpersDefaults,
       assert,
       'First clone fails validation when user focusses out and clone is empty.',

@@ -21,7 +21,7 @@ module('Integration | Accessibility test', function (hooks) {
         fieldType: 'input',
         inputType: 'email',
         hideLabel: true,
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         defaultValue: 'test',
         validationRules: [
           {
@@ -392,7 +392,7 @@ function clonedFieldSchema() {
   const formSchema = cloneDeep(allFieldTypesFieldSchema);
   formSchema.fields = formSchema.fields.map((field) => {
     const newField = {
-      fieldType: 'cloneGroup',
+      fieldType: 'clone-group',
       fieldId: field.fieldId,
       fieldLabel: field.fieldLabel,
       cloneFieldSchema: field,

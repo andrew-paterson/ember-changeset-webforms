@@ -141,7 +141,7 @@ module('Acceptance | Field validation', function (hooks) {
     await visit('/docs/field-validation');
     await click(`[data-test-id="signup"] ${els.cwfSubmitButton}`);
     assert.strictEqual(
-      findAll(els.cwfFieldErrors).length,
+      findAll(`[data-test-id="signup"] ${els.cwfFieldErrors}`).length,
       8,
       'All fields with validation rules are validated when user clicks submit button.',
     );

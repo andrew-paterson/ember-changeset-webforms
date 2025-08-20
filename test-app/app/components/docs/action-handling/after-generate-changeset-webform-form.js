@@ -29,7 +29,7 @@ export default class AfterGenerateChangesetWebformForm extends Component {
         fieldId: 'email',
         fieldLabel: 'Email',
         fieldType: 'input',
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

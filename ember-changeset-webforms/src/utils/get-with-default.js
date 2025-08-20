@@ -56,9 +56,16 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
       field,
       mergeWithArrayInheritanceCustomiser,
     );
-    if (!mergedField.alwaysValidateOn.includes('submit')) {
+    mergedField.validatesOn = mergedField.validatesOn || [];
+    if (mergedField.ignoreValidation) {
+      mergedField.validatesOn = [];
+    }
+    if (
+      !mergedField.validatesOn.includes('submit') &&
+      !mergedField.ignoreValidation
+    ) {
       console.warn(
-        `[Ember Changeset Webforms] Field ${field.fieldId} does not validate on submit. This is not recommended. You can either add $inherited or submit to the alwaysValidateOn array. The current value is [${mergedField.alwaysValidateOn}]`,
+        `[Ember Changeset Webforms] Field ${field.fieldId} does not validate on submit. This is not recommended. You can either add $inherited or submit to the validatesOn array. The current value is [${mergedField.validatesOn}]`,
       );
     }
     if (field.cloneFieldSchema) {

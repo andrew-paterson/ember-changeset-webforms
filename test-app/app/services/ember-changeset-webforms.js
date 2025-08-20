@@ -77,7 +77,7 @@ export default class EmberChangesetWebforms extends Service {
         fieldType: 'phoneNumberWithCountryCode',
         // import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/phone-number-with-country-code';
         componentClass: PhoneNumberWithCountryCodeComponent,
-        alwaysValidateOn: ['$inherited', 'focusOutPhoneNumberInput'],
+        validatesOn: ['$inherited', 'focusOutPhoneNumberInput'],
         attrsFromConfig: {
           classNames: {
             fieldControls: [

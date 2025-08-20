@@ -159,9 +159,9 @@ formSchema = {
       ],
     },
     // {
-    //   fieldId: 'cloneGroup',
+    //   fieldId: 'clone-group',
     //   fieldLabel: 'User emails',
-    //   fieldType: 'cloneGroup',
+    //   fieldType: 'clone-group',
     //   minClones: 2,
     //   maxClones: 4,
     //   validationRules: [
