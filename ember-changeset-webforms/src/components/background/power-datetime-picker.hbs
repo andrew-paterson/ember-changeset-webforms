@@ -5,18 +5,18 @@
     as |dropdown|
   >
     <dropdown.Trigger
-      onmousedown={{this.onTriggerFocus}}
-      {{attrs-from-config
-        "powerDatePickerTriggerWrapper"
-        @changesetWebform
-        @formField
-      }}
+      onmouseup={{this.onTriggerFocus}}
       aria-labelledby={{@ariaLabelledBy}}
       aria-describedby={{@ariaDescribedBy}}
       aria-label={{@ariaLabel}}
       aria-invalid={{@ariaInvalid}}
       aria-errormessage={{@ariaErrorMessage}}
       aria-required={{@required}}
+      class={{ember-changeset-webforms/class-names-from-config
+        "powerDatePickerTriggerWrapper"
+        @changesetWebform
+        @formField
+      }}
     >
       {{@ariaDescribedBy}}
       {{#if @value}}

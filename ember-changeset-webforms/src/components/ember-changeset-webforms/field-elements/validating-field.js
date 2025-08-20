@@ -33,7 +33,6 @@ export default class ValidatingField extends Component {
   @action
   onUserInteraction(eventName, value, event) {
     const formField = this.args.formField;
-
     if (this.isDestroyed || this.isDestroying || formField.disabled) {
       return;
     }

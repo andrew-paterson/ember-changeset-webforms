@@ -28,7 +28,7 @@ export default class SignupFormComponent extends Component {
         fieldId: 'email',
         fieldLabel: 'Email',
         fieldType: 'input',
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -45,7 +45,7 @@ export default class SignupFormComponent extends Component {
         fieldId: 'recoveryEmail',
         fieldLabel: 'Recovery email',
         fieldType: 'input',
-        validatesOn: ['insertWithValue'],
+        validatesOn: ['$inherited', 'insertWithValue'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

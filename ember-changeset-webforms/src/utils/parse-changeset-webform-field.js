@@ -37,7 +37,7 @@ function parse(fieldSchema, formName) {
     field.clonedFieldBlueprint = parse(field.cloneFieldSchema, formName);
   }
 
-  if (field.options) {
+  if (field.options && Array.isArray(field.options)) {
     field.options = field.options.map(function (option) {
       if (field.fieldType === 'radioButtonGroup' && isPrimitive(option)) {
         option = { label: option, value: option };
@@ -77,10 +77,16 @@ function parse(fieldSchema, formName) {
       field = customParser(field);
     });
   }
-  field.validatesOn = ['forceValidation']
-    .concat(field.validatesOn || [])
-    .concat(field.alwaysValidateOn || []);
-  delete field.alwaysValidateOn;
+  if (!field.ignoreValidation) {
+    field.validatesOn = ['forceValidation'].concat(field.validatesOn || []);
+  }
+  const arr = ['keyDown', 'keyUp'];
+  if (
+    arr.some((event) => field.validatesOn.includes(event)) &&
+    field.showValidationWhenFocussed !== false
+  ) {
+    field.showValidationWhenFocussed = true;
+  }
   delete field.cloneFieldSchema;
   return field;
 }

@@ -20,7 +20,7 @@ export default class ValidatingClone extends Component {
   }
 
   @action
-  onUserInteractionClone(eventName, value, event) {
+  onUserInteractionClone(eventName) {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }

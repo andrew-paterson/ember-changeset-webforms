@@ -4,10 +4,10 @@
   @searchEnabled={{true}}
   @closeOnSelect={{false}}
   @searchPlaceholder={{@formField.searchPlaceholder}}
-  @options={{this.orderedOptions}}
+  @options={{@formField.options}}
   @selected={{@formField.fieldValue}}
   @placeholder={{@formField.placeholder}}
-  @onChange={{this.optionClicked}}
+  @onChange={{this.optionToggled}}
   @onKeydown={{this.onkeydown}}
   @onClose={{this.onclose}}
   @onOpen={{this.onOpen}}
@@ -20,6 +20,7 @@
   @ariaLabelledBy={{@formField.ariaLabelledBy}}
   @required={{@formField.required}}
   aria-errormessage={{@formField.ariaErrorMessage}}
+  @loadingMessage={{@formField.loadingMessage}}
   {{attrs-from-config
     "powerSelectCheckboxesTrigger"
     @changesetWebform

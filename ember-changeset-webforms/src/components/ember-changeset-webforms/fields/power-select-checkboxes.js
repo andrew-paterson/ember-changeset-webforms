@@ -1,17 +1,15 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import removeObject from '../../../utils/remove-object.js';
 import 'ember-power-select/styles';
 
 export default class PowerSelectCheckboxesComponent extends Component {
-  @tracked orderedOptions;
   optionSelected(option) {
     return (this.args.formField.fieldValue || []).includes(option);
   }
 
   @action
-  optionClicked(option) {
+  optionToggled(option) {
     const formField = this.args.formField;
     var currentlySelectedOptions = formField.fieldValue
       ? [...formField.fieldValue] // To avoid mutating the original array
@@ -21,18 +19,30 @@ export default class PowerSelectCheckboxesComponent extends Component {
     } else {
       currentlySelectedOptions.push(option);
     }
-    this.args.onUserInteraction('optionClicked');
+    this.args.onUserInteraction('optionToggled');
     this.args.updateFieldValue(currentlySelectedOptions);
   }
 
-  @action onOpen() {
-    this.orderedOptions = (this.args.formField.options || [])
-      .filter((option) => this.optionSelected(option))
-      .concat(
-        (this.args.formField.options || []).filter(
-          (option) => !this.optionSelected(option),
-        ),
-      );
+  @action
+  onOpen(dropdown) {
+    if (this.args.formField.displaySelectedFirst) {
+      const listId = `#ember-power-select-options-${dropdown.uniqueId}`;
+      setTimeout(() => {
+        const optionsElement = document.querySelector(listId);
+        optionsElement.style.display = 'flex';
+        optionsElement.style.flexDirection = 'column';
+        const listElements = optionsElement.querySelectorAll(
+          `.ember-power-select-option`,
+        );
+        Array.from(listElements).forEach((listElement) => {
+          if (listElement.getAttribute('aria-selected') === 'true') {
+            listElement.style.order = -1;
+          } else {
+            listElement.style.removeProperty('order');
+          }
+        });
+      });
+    }
   }
 
   @action

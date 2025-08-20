@@ -1,12 +1,11 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 
-export default class fieldMethodsExample1Component extends Component {
-  // BEGIN-SNIPPET field-methods-example-5.js"
+export default class forcingValidationComponent extends Component {
+  // BEGIN-SNIPPET forcing-validation.js"
   formSchema = {
     formSettings: {
-      formName: 'fieldMethods5',
+      formName: 'forcingValidation',
       hideSubmitButton: true,
     },
     fields: [
@@ -14,7 +13,6 @@ export default class fieldMethodsExample1Component extends Component {
         fieldId: 'name',
         fieldType: 'input',
         fieldLabel: 'Name',
-        validatesOn: ['$inherited', 'valueExternallyUpdated'],
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -35,9 +33,8 @@ export default class fieldMethodsExample1Component extends Component {
   }
 
   @action updateNameField() {
-    this.nameField.eventLog.push('valueExternallyUpdated');
+    this.nameField.eventLog.push('forceValidation');
     this.nameField.updateValue('New Name');
   }
-
-  // END-SNIPPET
 }
+// END-SNIPPET

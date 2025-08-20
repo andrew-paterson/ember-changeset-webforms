@@ -55,6 +55,9 @@ function setQueryParamsWithDefaults(controller, queryParamsObjects) {
 function formDataFromUrlParams(controller, queryParamsObjects) {
   const final = {};
   queryParamsObjects.forEach((item) => {
+    if (!item.ecwFieldSchema) {
+      return;
+    }
     const propName = item.paramName;
     if (item.fieldValueFromUrlParamFunc) {
       final[propName] = item.fieldValueFromUrlParamFunc(

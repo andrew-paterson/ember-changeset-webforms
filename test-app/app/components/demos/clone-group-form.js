@@ -12,7 +12,7 @@ export default class CloneGroupFormComponent extends Component {
       {
         fieldId: 'emails',
         fieldLabel: 'User emails',
-        fieldType: 'cloneGroup',
+        fieldType: 'clone-group',
         minClones: 2,
         maxClones: 4,
         validationRules: [
@@ -31,7 +31,7 @@ export default class CloneGroupFormComponent extends Component {
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          validatesOn: ['insertWithValue'],
+          validatesOn: ['$inherited', 'insertWithValue'],
           validationRules: [
             {
               validationMethod: 'validateFormat',

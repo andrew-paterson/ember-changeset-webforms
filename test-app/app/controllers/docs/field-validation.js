@@ -1,60 +1,53 @@
 import Controller from '@ember/controller';
 import addonDefaults from 'ember-changeset-webforms/utils/addon-defaults';
+import getWithDefaultUtil from 'ember-changeset-webforms/utils/get-with-default';
+import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
+import eventNamesFromFunctionCalls from '../../utils/event-names-from-function-calls';
 
 export default class Fieldvalidation extends Controller {
   addonDefaults = addonDefaults;
 
-  get obj() {
-    console.log(addonDefaults);
-    return filterObjectKeys(addonDefaults);
-  }
-
-  get fieldSettingsValidateOn() {
-    return this.obj.fieldSettings?.validateOn || [];
-  }
-
   get fieldSettingsValidateOnString() {
-    const string = JSON.stringify(this.obj, null, 2);
-    return string
-      .split('\n')
-      .map((line) => {
-        if (line.indexOf('$inherited') > -1) {
-          return `${line} // Inherits 'submit' from fieldSettings above`;
-        }
-        return line;
-      })
-      .join('\n');
-  }
-}
+    const formSchemaWithDefaultsWithEachFieldType = getWithDefaultUtil(
+      [addonDefaults],
+      {
+        fields: addonDefaults.fieldTypes.map((item) => ({
+          fieldType: item.fieldType,
+          fieldId: item.fieldType,
+          fieldLabel: item.fieldType,
+        })),
+      },
+    );
+    const final = {};
 
-function filterObjectKeys(addonDefaults) {
-  console.log('addonDefaults', addonDefaults);
-  function filterKeys(obj) {
-    if (typeof obj !== 'object' || obj === null) {
-      return null;
-    }
-    const result = {};
-    for (const key in obj) {
-      if (key === 'alwaysValidateOn' || key === 'fieldType') {
-        result[key] = obj[key];
-      } else if (Array.isArray(obj[key])) {
-        const test = obj[key]
-          .map((item) => {
-            const nestedResult = filterKeys(item);
-            return nestedResult;
-          })
-          .filter((item) => item !== null);
-        if (test.length > 0) {
-          result[key] = test;
+    formSchemaWithDefaultsWithEachFieldType.fields =
+      formSchemaWithDefaultsWithEachFieldType.fields.map((field) =>
+        parseChangesetWebformField(field),
+      );
+
+    formSchemaWithDefaultsWithEachFieldType.fields.forEach((field) => {
+      if (field.validatesOn.length) {
+        final[field.fieldType] = final[field.fieldType] || {};
+        final[field.fieldType].validatesOn = [
+          '// Included by addon defaults //',
+        ].concat(field.validatesOn);
+        if (!eventNamesFromFunctionCalls[field.fieldType]) {
+          return;
         }
-      } else if (typeof obj[key] === 'object') {
-        const nestedResult = filterKeys(obj[key]);
-        if (nestedResult && Object.keys(nestedResult).length > 0) {
-          result[key] = nestedResult;
-        }
+        final[field.fieldType].validatesOn.push(
+          '// Not included by addon defaults //',
+        );
+        (eventNamesFromFunctionCalls[field.fieldType] || []).forEach(
+          (eventName) => {
+            if (!final[field.fieldType].validatesOn.includes(eventName)) {
+              final[field.fieldType].validatesOn.push(eventName);
+            }
+          },
+        );
       }
-    }
-    return result;
+    });
+    return JSON.stringify(final, null, 2)
+      .replace(/"\/\//g, `//`)
+      .replace(/\/\/"/g, ``);
   }
-  return filterKeys(addonDefaults);
 }
