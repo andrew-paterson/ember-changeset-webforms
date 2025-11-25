@@ -9,8 +9,6 @@ export default class FieldLabel extends Component {
     if (
       !formField.fieldLabel &&
       !formField.labelComponent &&
-      // !formField.fieldLegend &&
-      // !formField.legendComponent &&
       !formField.labelMarkdown
     ) {
       return true;

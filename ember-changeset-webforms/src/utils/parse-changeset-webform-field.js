@@ -12,7 +12,14 @@ export default function parseChangesetWebformField(fieldSchema, formName) {
       `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
-  if (!fieldSchema.fieldLabel) {
+  if (
+    !fieldSchema.fieldLabel &&
+    !fieldSchema.labelComponent &&
+    !fieldSchema.labelMarkdown &&
+    !['noDisplay', 'singleCheckbox', 'staticContent'].includes(
+      fieldSchema.fieldType,
+    )
+  ) {
     console.warn(
       `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel should be included for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
     );

@@ -121,3 +121,7 @@ removeCloneButton => removeCloneComponent
       }} in ember-changeset-webforms/src/components/changeset-webform.hbs
 
 [x] test that attrs-from-config works on trigger for power select checkboxes
+
+[ ] Aria for the clicker element
+
+[ ] Ability to specificy that a custom field definition should not warn about missing fieldLabel

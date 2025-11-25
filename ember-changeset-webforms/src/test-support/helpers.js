@@ -342,6 +342,10 @@ function changesetWebformStateAsJSON(parentSelector, customTransforms) {
       if (obj.fieldType === 'single-checkbox') {
         obj[camelize(obj.fieldType)] = {
           checked: el.querySelector('input[type="checkbox"]').checked,
+          checkboxLabel: _removeExtraSpaces(
+            el.querySelector('[data-test-class="cwf-checkbox-label"]')
+              .textContent,
+          ),
         };
       }
       if (['power-select', 'power-select-checkboxes'].includes(obj.fieldType)) {
