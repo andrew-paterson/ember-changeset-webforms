@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 
 export default class fieldMethodsExample1Component extends Component {
   // BEGIN-SNIPPET field-methods-example-4.js"

@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist/
+dist/
 /tmp/
 
 # dependencies
@@ -27,3 +27,5 @@ package.json.ember-try
 deploy-test-app
 
 .DS_Store
+utils_bak
+

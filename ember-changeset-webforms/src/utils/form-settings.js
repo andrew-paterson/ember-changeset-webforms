@@ -1,6 +1,7 @@
+import _FormSettings from 'validated-changeset-webforms/dist/utils/form-settings';
 import { tracked } from '@glimmer/tracking';
 
-export default class FormSettings {
+export default class FormSettings extends _FormSettings {
   // BEGIN-SNIPPET form-settings-tracked-props.js
   @tracked hideSubmitButton;
   @tracked submitButtonText;
@@ -11,9 +12,4 @@ export default class FormSettings {
   @tracked resetFormButtonText;
   @tracked requestInFlight;
   // END-SNIPPET
-  constructor(args) {
-    for (const key in args) {
-      this[key] = args[key];
-    }
-  }
 }

@@ -19,7 +19,7 @@ import {
   failedValidation,
   wasValidated,
 } from 'ember-changeset-webforms/test-support/helpers';
-import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
+import keyCodesMap from 'validated-changeset-webforms/dist/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import moment from 'moment';
 import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';

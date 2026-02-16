@@ -2,11 +2,17 @@ import createChangeset from './create-changeset.js';
 import parseChangesetWebformField from './parse-changeset-webform-field.js';
 import FormSettings from './form-settings.js';
 
-export default function createChangesetWebformProps(instance, data, opts) {
+export default function createChangesetWebformProps(
+  instance,
+  data,
+  opts,
+  modules,
+) {
   const parsedFields = instance.formSchemaWithDefaults.fields.map((field) =>
     parseChangesetWebformField(
       field,
       instance.formSchemaWithDefaults.formSettings.formName,
+      modules,
     ),
   );
 
@@ -17,6 +23,7 @@ export default function createChangesetWebformProps(instance, data, opts) {
       data,
       instance.formSchemaWithDefaults.validators,
       opts.ignoreDefaultValues,
+      modules.Changeset,
     );
 
   const snapshots = [];
@@ -33,11 +40,12 @@ export default function createChangesetWebformProps(instance, data, opts) {
     formField._checkOmitted();
     // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
   });
+  const FormSettingsModule = modules.FormSettings || FormSettings;
   return {
     changeset: changeset,
     parsedFields: parsedFields,
     snapshots: snapshots,
-    formSettings: new FormSettings(
+    formSettings: new FormSettingsModule(
       instance.formSchemaWithDefaults.formSettings,
     ),
   };

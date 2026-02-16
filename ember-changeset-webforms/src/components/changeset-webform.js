@@ -1,12 +1,24 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import ChangesetWebform from '../utils/changeset-webform-class.js';
-import onSubmit from '../utils/on-submit.js';
+import onSubmit from 'validated-changeset-webforms/dist/utils/on-submit.js';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { getOwner } from '@ember/application';
 import addonDefaults from '../utils/addon-defaults.js';
+import _FormField from '../utils/form-field.js';
+import _FormFieldClone from '../utils/form-field-clone.js';
+import _FormSettings from '../utils/form-settings.js';
+import _OptionClass from '../utils/option-class.js';
+import { Changeset } from 'ember-changeset';
 
+const modules = {
+  FormField: _FormField,
+  FormFieldClone: _FormFieldClone,
+  FormSettings: _FormSettings,
+  Option: _OptionClass,
+  Changeset: Changeset,
+};
 export default class ChangesetWebformComponent extends Component {
   @service emberChangesetWebforms;
   @tracked changesetWebform;
@@ -16,7 +28,7 @@ export default class ChangesetWebformComponent extends Component {
     if (config && config.environment === 'production') {
       return false;
     }
-    return this.emberChangesetWebforms.debug || this.args.debug;
+    return this.emberChangesetWebforms?.debug || this.args.debug;
   }
 
   @action
@@ -33,13 +45,20 @@ export default class ChangesetWebformComponent extends Component {
       // TODO after validateallFields
     };
     this.changesetWebform = new ChangesetWebform(
-      [addonDefaults, this.emberChangesetWebforms.changesetWebformsDefaults],
       this.args.formSchema,
       this.args.data,
-      this.args.dynamicIncludeExcludeConditions,
-      onFormSubmit,
-      debug,
-      callbacks,
+      {
+        appDefaults: [
+          addonDefaults,
+          this.emberChangesetWebforms.changesetWebformsDefaults,
+        ],
+        dynamicIncludeExcludeConditions:
+          this.args.dynamicIncludeExcludeConditions,
+        onFormSubmit: onFormSubmit,
+        debug: debug,
+        callbacks: callbacks,
+        modules: modules,
+      },
     );
     if (this.changesetWebform.debug) {
       console.log(

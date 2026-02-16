@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import keyCodesMap from '../../utils/keycodes-map.js';
+import keyCodesMap from 'validated-changeset-webforms/dist/utils/keycodes-map.js';
 import { tracked } from '@glimmer/tracking';
 import moment from 'moment';
 import 'ember-power-calendar/styles';

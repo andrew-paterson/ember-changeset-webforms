@@ -9,7 +9,7 @@ import {
   setQueryParamsWithDefaults,
   formDataFromUrlParams,
   applyFormValues,
-} from 'ember-changeset-webforms/utils/changeset-webform-with-query-params';
+} from 'validated-changeset-webforms/dist/utils/changeset-webform-with-query-params';
 // END-SNIPPET
 export default class FormSchemaFromQueryParams extends Controller {
   authenticated = 'false';

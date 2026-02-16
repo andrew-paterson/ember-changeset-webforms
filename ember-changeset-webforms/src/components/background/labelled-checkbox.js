@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import safeName from '../../utils/safe-name.js';
+import safeName from 'validated-changeset-webforms/dist/utils/safe-name.js';
 
 export default class LabelledCheckbox extends Component {
   get checkboxId() {

@@ -93,6 +93,7 @@ module('Acceptance | Field methods', function (hooks) {
     await click(
       '[data-test-id="example-3"] [data-test-id="toggle-name-field"]',
     );
+
     assert
       .dom('[data-test-id="field-methods3-form-name-field"]')
       .doesNotExist(
@@ -116,7 +117,6 @@ module('Acceptance | Field methods', function (hooks) {
     await click(
       '[data-test-id="example-4"] [data-test-id="update-name-field"]',
     );
-
     assert
       .dom('[data-test-id="field-methods4-form-name-field"] input')
       .hasValue(

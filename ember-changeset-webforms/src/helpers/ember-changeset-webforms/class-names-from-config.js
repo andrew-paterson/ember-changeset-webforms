@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import classNamesFromConfig from '../../utils/class-names-from-config.js';
+import classNamesFromConfig from 'validated-changeset-webforms/dist/utils/class-names-from-config.js';
 
 export default helper(function dynamicClasses(params) {
   const [names, changesetWebform, formField] = params;

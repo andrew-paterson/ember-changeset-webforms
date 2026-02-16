@@ -7,9 +7,8 @@ module.exports = function (defaults) {
     snippetSearchPaths: [
       'app',
       '../ember-changeset-webforms/src/utils',
-      '../ember-changeset-webforms/src/test-support',
+      '../validated-changeset-webforms/src/utils',
       'config',
-      'tests',
     ],
     'ember-cli-addon-docs': {
       documentingAddonAt: '../ember-changeset-webforms',

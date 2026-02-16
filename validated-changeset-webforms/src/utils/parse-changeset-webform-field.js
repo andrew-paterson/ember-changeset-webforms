@@ -1,9 +1,13 @@
 import FormField from './form-field.js';
-import { typeOf as emberTypeOf } from '@ember/utils';
+import isObject from './is-object.js';
 import Option from './option-class.js';
 import safeName from './safe-name.js';
 
-export default function parseChangesetWebformField(fieldSchema, formName) {
+export default function parseChangesetWebformField(
+  fieldSchema,
+  formName,
+  modules = {},
+) {
   if (!fieldSchema) {
     return;
   }
@@ -24,8 +28,9 @@ export default function parseChangesetWebformField(fieldSchema, formName) {
       `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel should be included for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
     );
   }
-  const parsedField = parse(fieldSchema, formName);
-  return new FormField(parsedField);
+  const parsedField = parse(fieldSchema, formName, modules.Option);
+  const FormFieldModule = modules.FormField || FormField;
+  return new FormFieldModule(parsedField, modules.FormFieldClone);
 }
 
 function isPrimitive(value) {
@@ -34,7 +39,7 @@ function isPrimitive(value) {
   );
 }
 
-function parse(fieldSchema, formName) {
+function parse(fieldSchema, formName, modulesOption = Option) {
   let field = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
   if (field.cloneFieldSchema) {
@@ -52,8 +57,8 @@ function parse(fieldSchema, formName) {
       if (field.fieldType === 'checkboxGroup' && isPrimitive(option)) {
         option = { label: option, key: option };
       }
-      if (emberTypeOf(option) === 'object') {
-        return new Option(option);
+      if (isObject(option)) {
+        return new modulesOption(option);
       }
       return option;
     });
