@@ -5,7 +5,7 @@ import FormSettings from './form-settings.js';
 export default function createChangesetWebformProps(
   instance,
   data,
-  opts,
+  opts = {},
   modules,
 ) {
   const parsedFields = instance.formSchemaWithDefaults.fields.map((field) =>

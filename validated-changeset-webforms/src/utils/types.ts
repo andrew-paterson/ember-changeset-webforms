@@ -1,19 +1,125 @@
-export interface CwfCallbacks {
+import { Changeset } from 'validated-changeset';
+
+import type FormField from './form-field.js';
+import type FormFieldClone from './form-field-clone.js';
+
+export type CwfCallbacks = {
   beforeClearForm?: (instance: any) => void;
   afterClearForm?: (instance: any) => void;
   beforeResetForm?: (instance: any) => void;
   afterResetForm?: (instance: any) => void;
   // allow other optional callbacks (preserve compatibility)
   [key: string]: any;
-}
+};
 
-export interface ChangesetWebformProps {
-  formSchema: any;
+export type ChangesetWebformProps = {
   formSchemaWithDefaults: any;
   debug: boolean;
   dynamicIncludeExcludeConditions: any;
   callbacks: CwfCallbacks;
-  fields: any[];
-  submit: Function;
-  changeset: any;
-}
+  changeset: ReturnType<typeof Changeset>;
+  modules: any[];
+  formSettings: any;
+};
+
+export type FormSettings = {
+  formName: string | null;
+  novalidate: boolean;
+  hideSubmitButton: boolean;
+  submitButtonText: string | null;
+  requestInFlightIcon: null;
+  addCloneButtonIconComponent: null;
+  clearFormButton: boolean;
+  clearFormButtonText: string | null;
+  resetFormButton: boolean;
+  resetFormButtonText: string | null;
+  submitAfterClear: boolean;
+  clearFormAfterSubmit: boolean;
+  submitButtonType: string | null;
+  attrsFromConfig: any;
+};
+
+export type FormSchema = {
+  formSettings: FormSettings;
+  fields: FieldSchema[];
+};
+
+type validationRule = {
+  validationMethod: string;
+  arguments: any;
+  activateValidation?: number[] | null;
+};
+
+export type FieldSchema = {
+  // Core identifiers (required)
+  fieldId: string; // String (required)
+  fieldLabel: string | ((clone: FormField | FormFieldClone) => string); // String (required)
+  fieldType: string | null;
+
+  // Identity / HTML attrs
+  propertyName: string | null; // Optional - defaults to `fieldId`
+  name: string | null; // Optional - defaults to the fieldId
+  id: string | null; // Optional - element id
+
+  // Type and presentation
+  inputType?: string | null; // e.g. 'text', 'password'
+  placeholder?: string | ((clone: FormField | FormFieldClone) => string) | null;
+  fieldDescription?: string | null;
+
+  // Validation & behaviour
+  validationRules?: validationRule[] | null;
+  validatesOn?: string[] | null;
+  showValidationWhenFocussed?: boolean | null;
+  ignoreValidation?: boolean | null;
+
+  // Omission / visibility
+  omitted?: boolean | object | null;
+  isOmitted?: boolean | null; // derived at runtime
+  resetWhenOmitted?: boolean | null;
+
+  // Defaults / values
+  defaultValue?: any | null;
+  valueFilter?: (value: any, env: FormField | FormFieldClone) => any;
+
+  // Labels / accessibility
+  labelComponent?: any | null;
+  labelMarkdown?: string | null;
+  hideLabel?: boolean | null;
+  includeLabelForAttr?: boolean | null;
+  requiresAriaLabelledBy?: boolean | null;
+
+  // State & flags
+  disabled?: boolean | null;
+  autofocus?: boolean | null;
+
+  // Clone/group related
+  cloneFieldSchema?: any | null;
+  cloneGroupName?: string | null;
+  cloneGroupNumber?: number | null;
+  clonedFieldBlueprint?: FormFieldClone | null;
+
+  minClones?: number | null;
+  maxClones?: number | null;
+
+  cloneButtonText?: string | null;
+
+  // Options / select-like fields
+  options?: any[] | null;
+  optionDisplayProp?: string | null;
+  optionComponent?: any | null;
+  selectedItemComponent?: any | null;
+
+  // Presentation / config
+  attrsFromConfig?: any | null;
+  cloneActionsPosition?:
+    | 'labelWrapper'
+    | 'preClones'
+    | 'fieldWrapperEl'
+    | 'fieldActions'
+    | 'fieldContents'
+    | null;
+};
+
+export type ValidityElement = Element & {
+  setCustomValidity(message: string): void;
+};

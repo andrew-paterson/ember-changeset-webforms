@@ -1,28 +1,59 @@
-// import { tracked } from '@glimmer/tracking';
-// import { TrackedArray } from 'tracked-built-ins';
+import FieldsBaseClass from './fields-base-class.js';
+import type { FieldSchema } from './types.js';
 import removeAll from './remove-all.js';
 import FormFieldClone from './form-field-clone.js';
 import removeObject from './remove-object.js';
 import safeName from './safe-name.js';
 
-export default class FormField {
-  constructor(args, FormFieldCloneClass = FormFieldClone) {
+export default class FormField extends FieldsBaseClass {
+  // Omission / visibility
+  omitted?: FieldSchema['omitted'];
+  isOmitted?: FieldSchema['isOmitted'];
+  resetWhenOmitted?: FieldSchema['resetWhenOmitted'];
+  // Clone/group related
+  cloneFieldSchema?: FieldSchema['cloneFieldSchema'];
+  cloneGroupName?: FieldSchema['cloneGroupName'];
+  cloneGroupNumber?: FieldSchema['cloneGroupNumber'];
+  clonedFieldBlueprint?: FieldSchema['clonedFieldBlueprint'];
+  minClones?: FieldSchema['minClones'];
+  maxClones?: FieldSchema['maxClones'];
+  cloneButtonText?: FieldSchema['cloneButtonText'];
+  // Presentation / config
+  attrsFromConfig?: FieldSchema['attrsFromConfig'];
+  cloneActionsPosition?: FieldSchema['cloneActionsPosition'];
+  // Runtime wiring (assigned by parser/create functions)
+  snapshots?: any[] | null;
+  FormFieldCloneClass: typeof FormFieldClone;
+  lastUpdatedClone?: any | null;
+  cloneId?: number | null;
+  clonedFields?: FormFieldClone[] | null;
+  cloneCountStatus?: 'min' | 'max' | null;
+  constructor(
+    args,
+    FormFieldCloneClass: typeof FormFieldClone = FormFieldClone,
+  ) {
+    super();
     for (const key in args) {
       this[key] = args[key];
     }
     this.FormFieldCloneClass = FormFieldCloneClass;
   }
-
   get fieldValue() {
-    // TODO check this works wehen fieldId and property name are different
-    return this.changeset.get(this.propertyName);
+    // TODO check this works when fieldId and property name are different
+    if (!this.changesetWebform.changeset) {
+      console.log(this);
+      return;
+    }
+    return this.changesetWebform.changeset.get(this.propertyName);
   }
-
   get validationErrors() {
-    // TODO check this works wehen fieldId and property name are different
-    return this.changeset.get(`error.${this.propertyName}.validation`) || [];
+    // TODO check this works when fieldId and property name are different
+    return (
+      this.changesetWebform.changeset.get(
+        `error.${this.propertyName}.validation`,
+      ) || []
+    );
   }
-
   get masterFormFieldValidationErrors() {
     const masterFormFieldValidationErrors = this.validationErrors.filter(
       (item) => {
@@ -31,17 +62,14 @@ export default class FormField {
     );
     return masterFormFieldValidationErrors;
   }
-
   get eventLogValidated() {
     return this.validatesOn.filter((eventName) =>
       this.eventLog.includes(eventName),
     );
   }
-
   get validates() {
     return this.validationRules.length > 0;
   }
-
   get wasValidated() {
     if (!this.validates) {
       return null;
@@ -49,22 +77,11 @@ export default class FormField {
     if (this.hideValidation) {
       return null;
     }
-    // if (!this.showValidationWhenFocussed && this.focussed) {
-    //   return null;
-    // }
     if (!this.eventLogValidated.length) {
       return null;
     }
-    // if (
-    //   this.eventLogValidated.length === 1 &&
-    //   this.eventLogValidated[0] === 'insert' &&
-    //   !this.fieldValue
-    // ) {
-    //   return null;
-    // }
     return true;
   }
-
   get showValidation() {
     if (!this.wasValidated) {
       return false;
@@ -74,7 +91,6 @@ export default class FormField {
     }
     return true;
   }
-
   get required() {
     return this.validationRules.find(function (rule) {
       return (
@@ -85,7 +101,6 @@ export default class FormField {
       ? true
       : false;
   }
-
   get validationStatus() {
     if (!this.wasValidated) {
       return null;
@@ -96,50 +111,40 @@ export default class FormField {
       return 'invalid';
     }
   }
-
   get isGroup() {
     return this.options ? true : null;
   }
-
   get typeClass() {
     return `cwf-field-type-${safeName(this.fieldType)}`;
   }
-
   get labelId() {
     return `${this.id}-label`;
   }
-
   get ariaLabelledBy() {
     if (!this.hideLabel && this.requiresAriaLabelledBy) {
       return this.labelId;
     }
     return null;
   }
-
   get ariaLabel() {
     if (this.hideLabel) {
       return this.fieldLabel;
     }
     return null;
   }
-
   get ariaInvalid() {
     return (this.validationErrors || []).length ? true : false;
   }
-
   get ariaErrorMessage() {
     return (this.validationErrors || []).length ? `${this.id}-errors` : null;
   }
-
   get ariaDescribedBy() {
     return this.fieldDescription ? `${this.id}-description` : null;
   }
-
   get isValid() {
     return this.validationStatus === 'valid';
   }
-
-  _checkConditions(ruleSet, formField) {
+  _checkConditions(ruleSet: any, formField: FormField) {
     const results = ruleSet.conditions.map((condition) => {
       if (condition.conditions) {
         return this._checkConditions(condition, formField);
@@ -152,7 +157,6 @@ export default class FormField {
       return results.includes(true) ? ruleSet.returns : !ruleSet.returns;
     }
   }
-
   _checkCondition(formField, condition) {
     const relatedSiblingField = formField.siblings.find((siblingField) => {
       return siblingField.fieldId === condition.fieldId;
@@ -170,17 +174,16 @@ export default class FormField {
       },
       dynamicIncludeExcludeConditions,
     );
-    for (var key in conditionChecks) {
+    for (const key in conditionChecks) {
       if (condition[key] && !conditionChecks[key](value, condition)) {
         return false;
       }
     }
     return true;
   }
-
   updateValue(value) {
-    var changeset = this.changeset;
-    this.snapshots.push(this.changeset.snapshot());
+    const changeset = this.changesetWebform.changeset;
+    this.snapshots.push(this.changesetWebform.changeset.snapshot());
     this.eventLog.push('valueUpdated');
     this.previousValue = this.fieldValue;
     if (this.valueFilter && value) {
@@ -196,12 +199,10 @@ export default class FormField {
       );
     }
   }
-
-  setOmission(omitted) {
+  setOmission(omitted?: boolean | object | null) {
     this.omitted = omitted;
     this._checkOmitted();
   }
-
   _checkOmitted() {
     const initiallyOmitted = this.isOmitted;
     if (!this.omitted) {
@@ -221,27 +222,20 @@ export default class FormField {
       this.isOmitted = false;
     }
   }
-
   reset() {
-    this.changeset.rollbackProperty(this.propertyName);
+    this.changesetWebform.changeset.rollbackProperty(this.propertyName);
     // We use removeAll to avoid eventLog being forcibly reset as a prop, which breaks tracking
     removeAll(this.eventLog);
   }
-
-  async validate(opts = {}) {
+  async validate(opts: any = {}) {
     if (!('skipUnvalidated' in opts) || opts.skipUnvalidated !== true) {
       this.eventLog.push('forceValidation');
     }
-    const formField = this;
-    const changeset = this.changeset;
-    if (
-      !formField.validates ||
-      formField.isOmitted ||
-      !this.eventLogValidated.length
-    ) {
+    const changeset = this.changesetWebform.changeset;
+    if (!this.validates || this.isOmitted || !this.eventLogValidated.length) {
       return;
     }
-    const res = await changeset.validate(formField.propertyName);
+    const res = await changeset.validate(this.propertyName);
     this._setCustomValidity();
     // TODO document and improve opts.callbacks !== false
     if (
@@ -256,7 +250,6 @@ export default class FormField {
     }
     return res[0];
   }
-
   _setCustomValidity() {
     (this.customValidityEls || []).forEach((el) => {
       el.setCustomValidity((this.validationErrors || []).join());
@@ -265,42 +258,37 @@ export default class FormField {
       clonedField._setCustomValidity();
     });
   }
-
-  pushErrors(errors) {
-    this.changeset.pushErrors(this.propertyName, ...errors);
+  pushErrors(errors?: any[]) {
+    this.changesetWebform.changeset.pushErrors(this.propertyName, ...errors);
     this.eventLog.push('pushErrors');
     this._setCustomValidity();
   }
-
-  cloneField(opts = {}) {
-    var masterFormField = this;
-    var newField = { ...masterFormField.clonedFieldBlueprint };
-    newField.id = `${masterFormField.id}-clone-${this.cloneId(masterFormField)}`;
-    newField.isClone = true;
-    newField.cloneId = this.cloneId(masterFormField);
-    newField.eventLog = []; //TrackedArray.from([]); // BD must recreate this, otherwise all clones share the same instance of eventLog array.
+  cloneField(opts: any = {}) {
+    const newField = { ...this.clonedFieldBlueprint };
     const clone = new this.FormFieldCloneClass(newField);
-    clone.changeset = this.changeset;
-    clone.masterFormField = masterFormField;
-    masterFormField.clonedFields.push(clone);
-    clone.index = masterFormField.clonedFields.indexOf(clone);
-    clone.fieldLabel = this._cloneFieldLabel(clone, masterFormField);
+    clone.cloneId = this.generateCloneId(this);
+    clone.id = `${this.id}-clone-${clone.cloneId}`;
+    clone.isClone = true;
+    clone.changesetWebform = this.changesetWebform;
+    clone.masterFormField = this;
+    this.clonedFields.push(clone);
+    clone.fieldLabel = this._cloneFieldLabel(clone, this);
     clone.placeholder = this._clonePlaceholder(clone);
-    var lastIndex = masterFormField.clonedFields.length - 1;
-    masterFormField.lastUpdatedClone = {
+    clone.index = this.clonedFields.indexOf(clone);
+    const lastIndex = this.clonedFields.length - 1;
+    this.lastUpdatedClone = {
       // Useful for something like swapping field values between clones.
       index: lastIndex,
       previousValue: null,
     };
     if (!opts.fromData) {
-      var fieldValue = this.fieldValue || [];
+      const fieldValue = this.fieldValue || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
       this.updateValue(fieldValue); // TODO by not calling updatFieldValue int eh component, we don't have the action callback. Attach it to the formField instance.
     }
-    this.checkMinMaxClones(masterFormField);
+    this.checkMinMaxClones(this);
   }
-
-  checkMinMaxClones(masterFormField) {
+  checkMinMaxClones(masterFormField: FormField) {
     if (
       masterFormField.maxClones &&
       masterFormField.clonedFields.length >= masterFormField.maxClones
@@ -315,8 +303,7 @@ export default class FormField {
       masterFormField.cloneCountStatus = null;
     }
   }
-
-  cloneId(masterFormField) {
+  generateCloneId(masterFormField: FormField) {
     const startFrom = 1;
     const clonedFields = masterFormField.clonedFields;
     if (!(clonedFields || []).length) {
@@ -327,22 +314,19 @@ export default class FormField {
     });
     return sortedClones[0].cloneId + 1;
   }
-
-  removeClone(clone) {
-    var masterFormField = this;
-    var index = masterFormField.clonedFields.indexOf(clone);
-    removeObject(masterFormField.clonedFields, clone);
-    this.checkMinMaxClones(masterFormField);
-    var groupValue = this.fieldValue || [];
+  removeClone(clone: FormFieldClone) {
+    const index = this.clonedFields.indexOf(clone);
+    removeObject(this.clonedFields, clone);
+    this.checkMinMaxClones(this);
+    const groupValue = this.fieldValue || [];
     groupValue.splice(index, 1);
-    masterFormField.eventLog.push('removeClone');
-    this.updateValue(groupValue); // TODO by not calling updateﬃeldValue int eh component, we don't have the action callback. Attach it to the formField instance.
-    masterFormField.clonedFields.forEach((clone, index) => {
+    this.eventLog.push('removeClone');
+    this.updateValue(groupValue); // TODO by not calling updatedFieldValue in the component, we don't have the action callback. Attach it to the formField instance.
+    this.clonedFields.forEach((clone, index) => {
       clone.index = index;
     });
   }
-
-  _cloneFieldLabel(clone, masterFormField) {
+  _cloneFieldLabel(clone: FormFieldClone, masterFormField: FormField) {
     if (clone.fieldLabel) {
       return typeof clone.fieldLabel === 'function'
         ? clone.fieldLabel(clone)
@@ -350,8 +334,7 @@ export default class FormField {
     }
     return `${masterFormField.fieldLabel} ${(clone.index + 1).toString()}`;
   }
-
-  _clonePlaceholder(clone) {
+  _clonePlaceholder(clone: FormFieldClone) {
     if (clone.placeholder) {
       return typeof clone.placeholder === 'function'
         ? clone.placeholder(clone)

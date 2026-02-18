@@ -1,7 +1,16 @@
+import type { FieldSchema } from './types.js';
 import safeName from './safe-name.js';
+import FieldsBaseClass from './fields-base-class.js';
+import type FormField from './form-field.js';
 
-export default class FormFieldClone {
+export default class FormFieldClone extends FieldsBaseClass {
+  masterFormField: FormField;
+  // Presentation / config
+  cloneActionsPosition?: FieldSchema['cloneActionsPosition'];
+  // Runtime wiring (assigned by parser/create functions)
+  cloneId?: number | null;
   constructor(args) {
+    super();
     for (const key in args) {
       this[key] = args[key];
     }
@@ -12,8 +21,8 @@ export default class FormFieldClone {
   }
 
   get fieldValue() {
-    var groupValue = this.masterFormField.fieldValue;
-    var index = this.index;
+    const groupValue = this.masterFormField.fieldValue;
+    const index = this.index;
     if (!groupValue) {
       return null;
     }
@@ -28,8 +37,9 @@ export default class FormFieldClone {
 
   get validationErrors() {
     return (
-      this.changeset.get(`error.${this.masterFormField.fieldId}.validation`) ||
-      []
+      this.changesetWebform.changeset.get(
+        `error.${this.masterFormField.fieldId}.validation`,
+      ) || []
     );
   }
 
@@ -45,9 +55,9 @@ export default class FormFieldClone {
   }
 
   get cloneValidationErrors() {
-    var index = this.index;
-    const changeset = this.changeset;
-    var validationErrors =
+    const index = this.index;
+    const changeset = this.changesetWebform.changeset;
+    const validationErrors =
       changeset.get(`error.${this.masterFormField.fieldId}.validation`) || [];
     const cloneValidationErrors = validationErrors.find((item) => {
       return typeof item === 'object' || item.clones;
@@ -70,22 +80,10 @@ export default class FormFieldClone {
   }
 
   get validationStatus() {
-    // var clonedFormField = this;
-
-    // if (
-    //   !clonedFormField.showValidationWhenFocussed &&
-    //   clonedFormField.focussed
-    // ) {
-    //   return null;
-    // }
-
-    // if (!this.eventLogValidated.length) {
-    //   return null;
-    // }
     if (!this.wasValidated) {
       return null;
     }
-    var clonedFieldValidationErrors = this.cloneValidationErrors || [];
+    const clonedFieldValidationErrors = this.cloneValidationErrors || [];
     if (clonedFieldValidationErrors.length === 0) {
       return 'valid';
     } else {

@@ -222,7 +222,7 @@ export default {
     // `props` can be included to pass state or data to the component, accessible as {{@props}}.
     // `@changesetWebform, and @formField are passed to the component.
     labelMarkdown: null, // String - a markdown string to render as HTML within the label element.
-    hideLabel: null, // Hide the label from the user
+    hideLabel: null, // Boolean - Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     resetWhenOmitted: true, // Boolean - reset the field value and validation when the field is omitted from the form.
     attrsFromConfig: {

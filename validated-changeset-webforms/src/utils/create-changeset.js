@@ -1,8 +1,8 @@
-// import { Changeset as defaultChangeset } from 'validated-changeset';
-// import { Changeset } from 'ember-changeset';
+import {
+  lookupValidator,
+  Changeset as defaultChangeset,
+} from 'validated-changeset';
 
-// import lookupValidator from 'ember-changeset-validations';
-import { lookupValidator } from 'validated-changeset';
 import createValidations from './create-validations.js';
 
 export default function createChangeset(
@@ -10,8 +10,7 @@ export default function createChangeset(
   data,
   validators,
   ignoreDefaultValues,
-  // Changeset = defaultChangeset,
-  Changeset,
+  Changeset = defaultChangeset,
 ) {
   data = data || {};
   const validationsMap = createValidations(formFields, validators);
