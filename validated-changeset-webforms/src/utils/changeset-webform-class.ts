@@ -2,6 +2,7 @@ import getWithDefaultUtil from './get-with-default.js';
 import createCwfProps from './create-changeset-webform-props.js';
 import type { ChangesetWebformProps, FormSchema } from './types.js';
 import FormField from './form-field.js';
+import { Changeset } from 'validated-changeset';
 
 function setCwfProps(instance: ChangesetWebform, data?: any): void {
   const props = createCwfProps(instance, data, instance.modules);
@@ -66,7 +67,7 @@ export default class ChangesetWebform {
     });
   }
 
-  getField(fieldId) {
+  getField(fieldId: string) {
     const field = this.fields.find((field) => field.fieldId === fieldId);
     if (!field) {
       return null;

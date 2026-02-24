@@ -22,6 +22,19 @@ export type ChangesetWebformProps = {
   formSettings: any;
 };
 
+type AttrsFromConfig = {
+  classNames?: {
+    [key: string]: string[] | null;
+  };
+  attrFunctions?: {
+    [key: string]: (
+      element: HTMLElement,
+      changesetWebform: any[],
+      field: FormField | FormFieldClone,
+    ) => void;
+  };
+};
+
 export type FormSettings = {
   formName: string | null;
   novalidate: boolean;
@@ -36,7 +49,7 @@ export type FormSettings = {
   submitAfterClear: boolean;
   clearFormAfterSubmit: boolean;
   submitButtonType: string | null;
-  attrsFromConfig: any;
+  attrsFromConfig: AttrsFromConfig | null;
 };
 
 export type FormSchema = {
@@ -94,7 +107,7 @@ export type FieldSchema = {
   customParsers?: ((field: FieldSchema) => any)[] | null;
 
   // Clone/group related
-  cloneFieldSchema?: any | null;
+  cloneFieldSchema?: FieldSchema | null;
   cloneGroupName?: string | null;
   cloneGroupNumber?: number | null;
   clonedFieldBlueprint?: FieldSchema | null;
@@ -111,7 +124,7 @@ export type FieldSchema = {
   selectedItemComponent?: any | null;
 
   // Presentation / config
-  attrsFromConfig?: any | null;
+  attrsFromConfig?: AttrsFromConfig | null;
   cloneActionsPosition?:
     | 'labelWrapper'
     | 'preClones'
@@ -127,17 +140,19 @@ export type ValidityElement = Element & {
   setCustomValidity(message: string): void;
 };
 
-// // Your implementation
-
 export type FieldValidator<TContent = Record<string, any>, TValue = any> = (
   key: keyof TContent & string,
   newValue: TValue,
   oldValue: TValue,
   changes: Partial<Record<keyof TContent, TValue>>,
   content: TContent,
-) => true | string | { clones: any[] };
+) => true | string | { clones: (true | string)[] };
 
 // Factory that returns a FieldValidator
 export type ValidatorFactory<TContent = Record<string, any>, TValue = any> = (
   opts?: any,
 ) => FieldValidator<TContent, TValue>;
+
+export type ClassNameSettings = {
+  [key: string]: string[] | null;
+};

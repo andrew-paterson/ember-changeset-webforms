@@ -181,7 +181,7 @@ export default class FormField extends FieldsBaseClass {
     }
     return true;
   }
-  updateValue(value) {
+  updateValue(value: any) {
     const changeset = this.changesetWebform.changeset;
     this.snapshots.push(this.changesetWebform.changeset.snapshot());
     this.eventLog.push('valueUpdated');
