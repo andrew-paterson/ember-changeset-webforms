@@ -1,10 +1,11 @@
 import getWithDefaultUtil from './get-with-default.js';
 import createCwfProps from './create-changeset-webform-props.js';
-import type { ChangesetWebformProps, FormSchema } from './types.js';
+import type { ChangesetWebformProps, FormSchema, FormData } from './types.js';
 import FormField from './form-field.js';
+
 import { Changeset } from 'validated-changeset';
 
-function setCwfProps(instance: ChangesetWebform, data?: any): void {
+function setCwfProps(instance: ChangesetWebform, data?: FormData): void {
   const props = createCwfProps(instance, data, instance.modules);
   if (!instance.changeset) {
     instance.changeset = props.changeset;
@@ -18,14 +19,14 @@ export default class ChangesetWebform {
   debug: boolean;
   dynamicIncludeExcludeConditions: ChangesetWebformProps['dynamicIncludeExcludeConditions'];
   callbacks: ChangesetWebformProps['callbacks'];
-  fields: FormField[];
+  fields: InstanceType<typeof FormField>[];
   submit: Function;
   changeset: ChangesetWebformProps['changeset'];
   modules: ChangesetWebformProps['modules'];
   formSettings: ChangesetWebformProps['formSettings'];
   constructor(
     public formSchema: FormSchema,
-    data: any,
+    data: FormData,
     opts: any,
   ) {
     const {

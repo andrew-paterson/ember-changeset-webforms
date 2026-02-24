@@ -1,5 +1,9 @@
-export default function nullifyExcludedFields(changesetWebform) {
-  var notAllowedKeys = changesetWebform.fields
+import ChangesetWebform from './changeset-webform-class.js';
+
+export default function nullifyOmittedFields(
+  changesetWebform: InstanceType<typeof ChangesetWebform>,
+) {
+  const notAllowedKeys = changesetWebform.fields
     .filter((field) => {
       return field.isOmitted;
     })

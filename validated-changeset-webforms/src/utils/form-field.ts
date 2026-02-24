@@ -1,5 +1,9 @@
 import FieldsBaseClass from './fields-base-class.js';
-import type { FieldSchema } from './types.js';
+import type {
+  FieldSchema,
+  ChangesetWebformProps,
+  ValidationRule,
+} from './types.js';
 import removeAll from './remove-all.js';
 import FormFieldClone from './form-field-clone.js';
 import removeObject from './remove-object.js';
@@ -24,10 +28,15 @@ export default class FormField extends FieldsBaseClass {
   // Runtime wiring (assigned by parser/create functions)
   snapshots?: any[] | null;
   FormFieldCloneClass: typeof FormFieldClone;
-  lastUpdatedClone?: any | null;
+  lastUpdatedClone?: {
+    index: number;
+    previousValue: any;
+    previousLength?: number;
+  } | null;
   cloneId?: number | null;
   clonedFields?: FormFieldClone[] | null;
   cloneCountStatus?: 'min' | 'max' | null;
+  dynamicIncludeExcludeConditions?: ChangesetWebformProps['dynamicIncludeExcludeConditions'];
   constructor(
     args,
     FormFieldCloneClass: typeof FormFieldClone = FormFieldClone,
@@ -41,7 +50,6 @@ export default class FormField extends FieldsBaseClass {
   get fieldValue() {
     // TODO check this works when fieldId and property name are different
     if (!this.changesetWebform.changeset) {
-      console.log(this);
       return;
     }
     return this.changesetWebform.changeset.get(this.propertyName);
@@ -92,7 +100,7 @@ export default class FormField extends FieldsBaseClass {
     return true;
   }
   get required() {
-    return this.validationRules.find(function (rule) {
+    return this.validationRules.find(function (rule: ValidationRule) {
       return (
         rule.validationMethod === 'validatePresence' &&
         (rule.arguments === true || rule.arguments.presence === true)

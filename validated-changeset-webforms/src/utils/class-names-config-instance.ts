@@ -7,7 +7,7 @@ export default (
   elementTypesString: string,
   changesetWebform: InstanceType<typeof ChangesetWebform>,
   formField: InstanceType<typeof FormField>,
-) => {
+): string[] => {
   if (!changesetWebform) {
     return;
   }

@@ -1,11 +1,13 @@
 import classNamesConfigInstance from './class-names-config-instance.js';
+import ChangesetWebform from './changeset-webform-class.js';
+import type FormField from './form-field.js';
+import { ClassNameSettings } from './types.js';
 
 export default function (
-  elementTypesString,
-  changesetWebform,
-  formField,
-  element,
-) {
+  elementTypesString: string,
+  changesetWebform: InstanceType<typeof ChangesetWebform>,
+  formField: InstanceType<typeof FormField>,
+): string[] {
   if (!changesetWebform) {
     return;
   }
@@ -13,7 +15,6 @@ export default function (
     elementTypesString,
     changesetWebform,
     formField,
-    element,
   );
   const elementTypes = elementTypesString.split(',');
   elementTypes.forEach((elementType) => {
@@ -33,11 +34,11 @@ export default function (
 }
 
 function applyValidationClassNames(
-  changesetWebform,
-  formField,
-  classNamesArray,
-) {
-  let classNameSettings =
+  changesetWebform: InstanceType<typeof ChangesetWebform>,
+  formField: InstanceType<typeof FormField>,
+  classNamesArray: string[],
+): string[] {
+  const classNameSettings: ClassNameSettings =
     changesetWebform.formSchemaWithDefaults.classNameSettings;
   if (classNamesArray.includes('$validationClassNames')) {
     classNamesArray = classNamesArray.concat(

@@ -15,7 +15,9 @@ export type CwfCallbacks = {
 export type ChangesetWebformProps = {
   formSchemaWithDefaults: any;
   debug: boolean;
-  dynamicIncludeExcludeConditions: any;
+  dynamicIncludeExcludeConditions: {
+    [key: string]: (value: any, condition: any) => boolean;
+  };
   callbacks: CwfCallbacks;
   changeset: ReturnType<typeof Changeset>;
   modules: any[];
@@ -57,7 +59,7 @@ export type FormSchema = {
   fields: FieldSchema[];
 };
 
-type validationRule = {
+export type ValidationRule = {
   validationMethod: string;
   arguments: any;
   activateValidation?: number[] | null;
@@ -80,7 +82,7 @@ export type FieldSchema = {
   fieldDescription?: string | null;
 
   // Validation & behaviour
-  validationRules?: validationRule[] | null;
+  validationRules?: ValidationRule[] | null;
   validatesOn?: string[] | null;
   showValidationWhenFocussed?: boolean | null;
   ignoreValidation?: boolean | null;
@@ -155,4 +157,8 @@ export type ValidatorFactory<TContent = Record<string, any>, TValue = any> = (
 
 export type ClassNameSettings = {
   [key: string]: string[] | null;
+};
+
+export type FormData = {
+  [key: string]: any;
 };
