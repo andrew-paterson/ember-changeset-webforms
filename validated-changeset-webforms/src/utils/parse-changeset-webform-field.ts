@@ -1,54 +1,29 @@
-// import FormFieldClone from './form-field-clone.js';
-
-import FormField from './form-field.js';
 import isObject from './is-object.js';
 import Option from './option-class.js';
 import safeName from './safe-name.js';
+import { FieldSchema } from './types.js';
 
-export default function parseChangesetWebformField(
-  fieldSchema,
-  formName,
-  modules = {},
-) {
-  if (!fieldSchema) {
-    return;
-  }
-  if (!fieldSchema.fieldId) {
-    throw Error(
-      `[Ember validating field] fieldId is a required field for each field in a validating form.`,
-    );
-  }
-  if (
-    !fieldSchema.fieldLabel &&
-    !fieldSchema.labelComponent &&
-    !fieldSchema.labelMarkdown &&
-    !['noDisplay', 'singleCheckbox', 'staticContent'].includes(
-      fieldSchema.fieldType,
-    )
-  ) {
-    console.warn(
-      `[Ember validating field - ${fieldSchema.fieldId}] fieldLabel should be included for each field in a validating form. You can set hideLabel to true if you want to hide the label.`,
-    );
-  }
-  const parsedField = parse(fieldSchema, formName, modules.Option);
-  const FormFieldModule = modules.FormField || FormField;
-  return new FormFieldModule(parsedField, modules.FormFieldClone);
-}
-
-function isPrimitive(value) {
+function isPrimitive(value: any): boolean {
   return (
     value === null || (typeof value !== 'object' && typeof value !== 'function')
   );
 }
 
-function parse(fieldSchema, formName, modulesOption = Option) {
-  let field = { ...fieldSchema };
+export default function parseChangesetWebformField(
+  fieldSchema: FieldSchema,
+  formName: string,
+  CustomOptionModule?: typeof Option,
+): FieldSchema {
+  let field: FieldSchema = { ...fieldSchema };
   field.fieldSchema = fieldSchema;
   if (field.cloneFieldSchema) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;
     field.cloneFieldSchema.fieldId = field.fieldId;
-    field.clonedFieldBlueprint = parse(field.cloneFieldSchema, formName);
+    field.clonedFieldBlueprint = parseChangesetWebformField(
+      field.cloneFieldSchema,
+      formName,
+    );
   }
 
   if (field.options && Array.isArray(field.options)) {
@@ -59,8 +34,9 @@ function parse(fieldSchema, formName, modulesOption = Option) {
       if (field.fieldType === 'checkboxGroup' && isPrimitive(option)) {
         option = { label: option, key: option };
       }
+      const optionModule = CustomOptionModule || Option;
       if (isObject(option)) {
-        return new modulesOption(option);
+        return new optionModule(option);
       }
       return option;
     });

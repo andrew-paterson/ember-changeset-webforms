@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import addonDefaults from 'ember-changeset-webforms/utils/addon-defaults';
 import getWithDefaultUtil from 'validated-changeset-webforms/dist/utils/get-with-default';
-import parseChangesetWebformField from 'validated-changeset-webforms/dist/utils/parse-changeset-webform-field';
+import generateFormFieldInstance from 'validated-changeset-webforms/dist/utils/generate-form-field-instance';
 import eventNamesFromFunctionCalls from '../../utils/event-names-from-function-calls';
 
 export default class Fieldvalidation extends Controller {
@@ -22,7 +22,7 @@ export default class Fieldvalidation extends Controller {
 
     formSchemaWithDefaultsWithEachFieldType.fields =
       formSchemaWithDefaultsWithEachFieldType.fields.map((field) =>
-        parseChangesetWebformField(field),
+        generateFormFieldInstance(field),
       );
 
     formSchemaWithDefaultsWithEachFieldType.fields.forEach((field) => {

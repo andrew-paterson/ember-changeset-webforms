@@ -3,8 +3,8 @@ import createCwfProps from './create-changeset-webform-props.js';
 import type { ChangesetWebformProps, FormSchema } from './types.js';
 import FormField from './form-field.js';
 
-function setCwfProps(instance: ChangesetWebform, data?: any, opts?: {}): void {
-  const props = createCwfProps(instance, data, opts, instance.modules);
+function setCwfProps(instance: ChangesetWebform, data?: any): void {
+  const props = createCwfProps(instance, data, instance.modules);
   if (!instance.changeset) {
     instance.changeset = props.changeset;
   }
@@ -93,7 +93,7 @@ export default class ChangesetWebform {
   }
 
   async validate(opts) {
-    var validatePromises = this.fields
+    const validatePromises = this.fields
       .map((field) => {
         return field.validate(opts);
       })

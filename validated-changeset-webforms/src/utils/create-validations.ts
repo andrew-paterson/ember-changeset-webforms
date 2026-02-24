@@ -1,11 +1,19 @@
-import clonedValidator from '../validators/cloned.js';
-import uniqueCloneValidator from '../validators/unique-clone.js';
 import { unflatten } from 'flat';
 
-export default function createValidations(fields, validators = {}) {
+import clonedValidator from '../validators/cloned.js';
+import uniqueCloneValidator from '../validators/unique-clone.js';
+import { FieldValidator, ValidatorFactory } from './types.js';
+
+type validators = {
+  [key: string]: ValidatorFactory;
+};
+
+export default function createValidations(fields, validators: validators = {}) {
+  // console.log(validators);
+  // validators.foo = 'bar';
   validators.validateClone = clonedValidator;
   validators.uniqueClone = uniqueCloneValidator;
-  var validations = {};
+  const validations = {};
   if (!fields) {
     return validations;
   }
@@ -25,9 +33,9 @@ export default function createValidations(fields, validators = {}) {
       });
     }
 
-    var fieldValidations = [];
+    const fieldValidations = [];
     field.validationRules.forEach((rule) => {
-      var validator = validators[rule.validationMethod];
+      const validator = validators[rule.validationMethod];
       if (!validator) {
         return;
       }

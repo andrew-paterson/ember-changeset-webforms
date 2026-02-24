@@ -4,12 +4,16 @@ import {
 } from 'validated-changeset';
 
 import createValidations from './create-validations.js';
+import { ValidatorFactory } from './types.js';
+
+type validators = {
+  [key: string]: ValidatorFactory;
+};
 
 export default function createChangeset(
   formFields,
   data,
-  validators,
-  ignoreDefaultValues,
+  validators: validators = {},
   Changeset = defaultChangeset,
 ) {
   data = data || {};

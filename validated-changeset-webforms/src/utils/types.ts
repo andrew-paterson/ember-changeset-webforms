@@ -91,12 +91,13 @@ export type FieldSchema = {
   // State & flags
   disabled?: boolean | null;
   autofocus?: boolean | null;
+  customParsers?: ((field: FieldSchema) => any)[] | null;
 
   // Clone/group related
   cloneFieldSchema?: any | null;
   cloneGroupName?: string | null;
   cloneGroupNumber?: number | null;
-  clonedFieldBlueprint?: FormFieldClone | null;
+  clonedFieldBlueprint?: FieldSchema | null;
 
   minClones?: number | null;
   maxClones?: number | null;
@@ -118,8 +119,25 @@ export type FieldSchema = {
     | 'fieldActions'
     | 'fieldContents'
     | null;
+
+  fieldSchema?: FieldSchema | null;
 };
 
 export type ValidityElement = Element & {
   setCustomValidity(message: string): void;
 };
+
+// // Your implementation
+
+export type FieldValidator<TContent = Record<string, any>, TValue = any> = (
+  key: keyof TContent & string,
+  newValue: TValue,
+  oldValue: TValue,
+  changes: Partial<Record<keyof TContent, TValue>>,
+  content: TContent,
+) => true | string | { clones: any[] };
+
+// Factory that returns a FieldValidator
+export type ValidatorFactory<TContent = Record<string, any>, TValue = any> = (
+  opts?: any,
+) => FieldValidator<TContent, TValue>;

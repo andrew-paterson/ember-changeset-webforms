@@ -1,15 +1,10 @@
 import createChangeset from './create-changeset.js';
-import parseChangesetWebformField from './parse-changeset-webform-field.js';
+import generateFormFieldInstance from './generate-form-field-instance.js';
 import FormSettings from './form-settings.js';
 
-export default function createChangesetWebformProps(
-  instance,
-  data,
-  opts = {},
-  modules,
-) {
+export default function createChangesetWebformProps(instance, data, modules) {
   const parsedFields = instance.formSchemaWithDefaults.fields.map((field) =>
-    parseChangesetWebformField(
+    generateFormFieldInstance(
       field,
       instance.formSchemaWithDefaults.formSettings.formName,
       modules,
@@ -22,7 +17,6 @@ export default function createChangesetWebformProps(
       parsedFields,
       data,
       instance.formSchemaWithDefaults.validators,
-      opts.ignoreDefaultValues,
       modules.Changeset,
     );
 

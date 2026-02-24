@@ -1,6 +1,6 @@
-export default function validateClone(options = {}) {
+export default function validateClone(options: any = {}) {
   return (key, newValue, oldValue, changes, content) => {
-    var allCloneValidations = [];
+    const allCloneValidations = [];
     options.validationRules = options.validationRules || [];
     newValue = newValue || [];
     newValue.forEach((item, index) => {
@@ -14,12 +14,12 @@ export default function validateClone(options = {}) {
         allCloneValidations.push([]);
         return;
       }
-      var thisCloneValidations = [];
+      let thisCloneValidations = [];
       options.validationRules.forEach((cloneValidation) => {
         const func = options.validators[cloneValidation.validationMethod](
           cloneValidation.arguments,
         );
-        var validationResult = func(key, item, oldValue, changes, content);
+        const validationResult = func(key, item, oldValue, changes, content);
         if (validationResult !== true) {
           thisCloneValidations.push(validationResult);
         }

@@ -125,3 +125,5 @@ removeCloneButton => removeCloneComponent
 [ ] Aria for the clicker element
 
 [ ] Ability to specificy that a custom field definition should not warn about missing fieldLabel
+
+[ ] labelComponent, labelMarkdown on clones
