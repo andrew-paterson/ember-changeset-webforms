@@ -3,7 +3,7 @@ import PhoneNumberWithCountryCodeComponent from '../components/custom-fields/pho
 import IconArrowUp from '../components/svg/icons/icon-arrow-up';
 import RequestInFlightIcon from '../components/button-icons/request-in-flight-icon';
 // BEGIN-SNIPPET import-default-validators.js
-import defaultValidators from 'validated-changeset-webforms/dist/utils/default-validators';
+import defaultValidators from 'ember-changeset-webforms/utils/default-validators';
 // END-SNIPPET
 
 export default class EmberChangesetWebforms extends Service {

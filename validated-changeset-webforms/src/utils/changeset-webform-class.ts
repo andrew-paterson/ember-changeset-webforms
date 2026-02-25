@@ -1,9 +1,12 @@
 import getWithDefaultUtil from './get-with-default.js';
 import createCwfProps from './create-changeset-webform-props.js';
-import type { ChangesetWebformProps, FormSchema, FormData } from './types.js';
+import type {
+  ChangesetWebformProps,
+  FormSchema,
+  FormData,
+  ValidationResult,
+} from './types.js';
 import FormField from './form-field.js';
-
-import { Changeset } from 'validated-changeset';
 
 function setCwfProps(instance: ChangesetWebform, data?: FormData): void {
   const props = createCwfProps(instance, data, instance.modules);
@@ -94,8 +97,13 @@ export default class ChangesetWebform {
     formField.pushErrors(opts.errors);
   }
 
-  async validate(opts) {
+  async validate(opts?: {
+    skipUnvalidated?: boolean | null;
+  }): Promise<ValidationResult[]> {
     const validatePromises = this.fields
+      .filter((field) => {
+        return field.validationRules && field.validationRules.length > 0;
+      })
       .map((field) => {
         return field.validate(opts);
       })

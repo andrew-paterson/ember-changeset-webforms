@@ -1,6 +1,6 @@
 import isObject from './is-object.js';
 
-function isPromiseLike(obj) {
+function isPromiseLike(obj: Record<string, any>): boolean {
   return (
     !!obj &&
     !!obj.then &&
@@ -12,6 +12,6 @@ function isPromiseLike(obj) {
   );
 }
 
-export default function isPromise(obj) {
+export default function isPromise(obj: Record<string, any>): boolean {
   return isObject(obj) && isPromiseLike(obj);
 }

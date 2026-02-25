@@ -1,6 +1,12 @@
-import nullifyOmittedFields from '../utils/nullify-omitted-fields.js';
+import nullifyOmittedFields from './nullify-omitted-fields.js';
+import ChangesetWebform from './changeset-webform-class.js';
+import { ValidationResult } from './types.js';
+import { SubmitCallbacks, ValidationCallbacks } from './types.js';
 
-export default async function preFlightForm(changesetWebform, componentArgs) {
+export default async function preFlightForm(
+  changesetWebform: InstanceType<typeof ChangesetWebform>,
+  callbacks: SubmitCallbacks & ValidationCallbacks,
+) {
   try {
     const changeset = changesetWebform.changeset;
     changesetWebform.fields.forEach((field) => {
@@ -23,22 +29,20 @@ export default async function preFlightForm(changesetWebform, componentArgs) {
         // TODO test for cloned fields without any validation rules
       }
     });
-    const validationResult = await changesetWebform.validate();
-    if (componentArgs.afterValidateFields) {
-      await componentArgs.afterValidateFields(
-        changesetWebform,
-        validationResult,
-      );
+
+    const validationResult: ValidationResult[] =
+      await changesetWebform.validate();
+    if (callbacks.afterValidateFields) {
+      await callbacks.afterValidateFields(changesetWebform, validationResult);
     }
     if (changeset.isValid) {
-      if (componentArgs.formValidationPassed) {
-        await componentArgs.formValidationPassed(changesetWebform);
+      if (callbacks.formValidationPassed) {
+        await callbacks.formValidationPassed(changesetWebform);
       }
-
       nullifyOmittedFields(changesetWebform); // TODO test this
     } else {
-      if (componentArgs.formValidationFailed) {
-        await componentArgs.formValidationFailed(changesetWebform);
+      if (callbacks.formValidationFailed) {
+        await callbacks.formValidationFailed(changesetWebform);
       }
     }
   } catch (err) {

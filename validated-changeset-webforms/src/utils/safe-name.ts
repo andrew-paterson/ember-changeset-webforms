@@ -1,5 +1,4 @@
-function dasherize(str) {
-  if (str == null) return '';
+function dasherize(str: string): string {
   // Insert dashes between camelCase boundaries, replace underscores/spaces with dashes
   return String(str)
     .replace(/([a-z\d])([A-Z])/g, '$1-$2')
@@ -7,9 +6,9 @@ function dasherize(str) {
     .replace(/-+/g, '-');
 }
 
-export default function safeName(str) {
+export default function safeName(str: string): string {
   if (!str) {
-    return;
+    return '';
   }
   str = dasherize(str).toLowerCase();
 

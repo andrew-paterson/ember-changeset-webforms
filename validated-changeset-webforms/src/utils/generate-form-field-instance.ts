@@ -1,17 +1,24 @@
 import parseChangesetWebformField from './parse-changeset-webform-field.js';
 import FormField from './form-field.js';
+import FormFieldClone from './form-field-clone.js';
+import Option from './option-class.js';
+import { FieldSchema } from './types.js';
 
 export default function generateFormFieldInstance(
-  fieldSchema,
-  formName,
-  modules = {},
+  fieldSchema: FieldSchema,
+  formName: string,
+  modules: {
+    FormField?: typeof FormField;
+    FormFieldClone?: typeof FormFieldClone;
+    Option?: typeof Option;
+  } = {},
 ) {
   if (!fieldSchema) {
     return;
   }
   if (!fieldSchema.fieldId) {
     throw Error(
-      `[Ember validating field] fieldId is a required field for each field in a validating form.`,
+      '[Ember validating field] fieldId is a required field for each field in a validating form.',
     );
   }
   if (

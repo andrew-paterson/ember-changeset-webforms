@@ -10,14 +10,14 @@ export default function createChangesetWebformProps(
   data: FormData,
   modules: any,
 ) {
-  const parsedFields: FormField[] = instance.formSchemaWithDefaults.fields.map(
-    (field) =>
+  const parsedFields: InstanceType<typeof FormField>[] =
+    instance.formSchemaWithDefaults.fields.map((field) =>
       generateFormFieldInstance(
         field,
         instance.formSchemaWithDefaults.formSettings.formName,
         modules,
       ),
-  );
+    );
 
   const changeset =
     instance.changeset ||

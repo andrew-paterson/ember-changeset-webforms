@@ -1,5 +1,6 @@
 import { Changeset } from 'validated-changeset';
 
+import ChangesetWebform from './changeset-webform-class.js';
 import type FormField from './form-field.js';
 import type FormFieldClone from './form-field-clone.js';
 
@@ -161,4 +162,53 @@ export type ClassNameSettings = {
 
 export type FormData = {
   [key: string]: any;
+};
+
+export type Option = {
+  value: any;
+  label?: string | number;
+  key?: string | number;
+};
+
+export type ValidationResult =
+  | string
+  | {
+      value: any;
+      validation: string[];
+    };
+
+export type SubmitCallbacks = {
+  beforeSubmitForm?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<void> | void;
+  submitAction?: (
+    data: any,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<any> | any;
+  submitSuccess?: (
+    response: any,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  submitError?: (
+    error: any,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  submitComplete?: (
+    status: 'success' | 'error',
+    responseOrError: any,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+};
+
+export type ValidationCallbacks = {
+  afterValidateFields?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+    validationResult: any,
+  ) => Promise<void> | void;
+  formValidationPassed?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<void> | void;
+  formValidationFailed?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<void> | void;
 };
