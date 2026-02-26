@@ -49,10 +49,10 @@ If `@submitError` is passed to the `<ChangesetWebform />` component it will be c
 
 If the `@onFormSubmit` action is passed to the `<ChangesetWebform />` component, it will completely override all default form submission behaviour.
 
-The action receives the `changesetWebform` object, as well as the component `args` as arguments.
+The action receives the `changesetWebform` object as its only argument.
 
-The example below also shows how the preflight utli can be invoked if needed.
+The example below also shows how the preflight util can be invoked if needed (See `Preflighting` above).
 
 <Demos::CustomFormSubmission />
 
-<!-- TODO test for submission from outside the form, -->
+<!-- TODO test for submission from outside the form -->

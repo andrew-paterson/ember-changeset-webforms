@@ -5,6 +5,7 @@ import type {
   FormSchema,
   FormData,
   ValidationResult,
+  OnSubmit,
 } from './types.js';
 import FormField from './form-field.js';
 
@@ -23,7 +24,7 @@ export default class ChangesetWebform {
   dynamicIncludeExcludeConditions: ChangesetWebformProps['dynamicIncludeExcludeConditions'];
   callbacks: ChangesetWebformProps['callbacks'];
   fields: InstanceType<typeof FormField>[];
-  submit: Function;
+  submit: () => OnSubmit;
   changeset: ChangesetWebformProps['changeset'];
   modules: ChangesetWebformProps['modules'];
   formSettings: ChangesetWebformProps['formSettings'];

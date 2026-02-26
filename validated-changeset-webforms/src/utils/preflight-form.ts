@@ -1,14 +1,11 @@
 import nullifyOmittedFields from './nullify-omitted-fields.js';
 import ChangesetWebform from './changeset-webform-class.js';
-import { ValidationResult } from './types.js';
-import { SubmitCallbacks, ValidationCallbacks } from './types.js';
+import { CwfCallbacks, ValidationResult } from './types.js';
 
 export default async function preFlightForm(
   changesetWebform: InstanceType<typeof ChangesetWebform>,
-  // callbacks: SubmitCallbacks & ValidationCallbacks,
 ) {
-  const callbacks: SubmitCallbacks & ValidationCallbacks =
-    changesetWebform.callbacks;
+  const callbacks: CwfCallbacks = changesetWebform.callbacks;
   try {
     const changeset = changesetWebform.changeset;
     changesetWebform.fields.forEach((field) => {

@@ -174,7 +174,38 @@ export type ValidationResult =
       validation: string[];
     };
 
-export type SubmitCallbacks = {
+export type CwfCallbacks = {
+  afterValidateFields?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+    validationResult: any,
+  ) => Promise<void> | void;
+  formValidationPassed?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<void> | void;
+  formValidationFailed?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => Promise<void> | void;
+  afterFieldValidation?: (
+    formField: InstanceType<typeof FormField>,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+    validationResult: any,
+  ) => Promise<void> | void;
+  onFieldValueChange?: (
+    formField: InstanceType<typeof FormField>,
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  beforeClearForm?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  afterClearForm?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  beforeResetForm?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
+  afterResetForm?: (
+    changesetWebform: InstanceType<typeof ChangesetWebform>,
+  ) => void;
   beforeSubmitForm?: (
     changesetWebform: InstanceType<typeof ChangesetWebform>,
   ) => Promise<void> | void;
@@ -197,25 +228,6 @@ export type SubmitCallbacks = {
   ) => void;
 };
 
-export type ValidationCallbacks = {
-  afterValidateFields?: (
-    changesetWebform: InstanceType<typeof ChangesetWebform>,
-    validationResult: any,
-  ) => Promise<void> | void;
-  formValidationPassed?: (
-    changesetWebform: InstanceType<typeof ChangesetWebform>,
-  ) => Promise<void> | void;
-  formValidationFailed?: (
-    changesetWebform: InstanceType<typeof ChangesetWebform>,
-  ) => Promise<void> | void;
-};
-
-export type CwfCallbacks = {
-  beforeClearForm?: (instance: any) => void;
-  afterClearForm?: (instance: any) => void;
-  beforeResetForm?: (instance: any) => void;
-  afterResetForm?: (instance: any) => void;
-  // allow other optional callbacks (preserve compatibility)
-  [key: string]: any;
-} & SubmitCallbacks &
-  ValidationCallbacks;
+export type OnSubmit = (
+  changesetWebform: InstanceType<typeof ChangesetWebform>,
+) => any;

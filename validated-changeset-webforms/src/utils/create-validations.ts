@@ -2,15 +2,13 @@ import { unflatten } from 'flat';
 
 import clonedValidator from '../validators/cloned.js';
 import uniqueCloneValidator from '../validators/unique-clone.js';
-import { FieldValidator, ValidatorFactory } from './types.js';
+import { ValidatorFactory } from './types.js';
 
 type validators = {
   [key: string]: ValidatorFactory;
 };
 
 export default function createValidations(fields, validators: validators = {}) {
-  // console.log(validators);
-  // validators.foo = 'bar';
   validators.validateClone = clonedValidator;
   validators.uniqueClone = uniqueCloneValidator;
   const validations = {};

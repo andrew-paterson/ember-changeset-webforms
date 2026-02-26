@@ -44,6 +44,7 @@ export default class ChangesetWebformComponent extends Component {
       submitData: this.args.submitData,
       submitSuccess: this.args.submitSuccess,
       submitError: this.args.submitError,
+      submitComplete: this.args.submitComplete,
       afterFieldValidation: this.args.afterFieldValidation,
       afterValidateFields: this.args.afterValidateFields,
       formValidationPassed: this.args.formValidationPassed,
