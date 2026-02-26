@@ -24,7 +24,7 @@ export default class FormWideClassSettingsComponent extends Component {
       },
     ],
   };
-  @action submitAction(data, changesetWebform) {
+  @action submitData(data, changesetWebform) {
     if (this.serverResponseType.startsWith('Asynchronous')) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {

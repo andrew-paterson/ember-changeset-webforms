@@ -197,8 +197,8 @@ module('Integration | Component | Action handling', function (hooks) {
         isValue,
         isBrowserEvent,
       ],
-      submitAction: [isChangesetDataObject, isChangesetWebformObject],
-      onFormSubmit: [isChangesetWebformObject, isComponentArgs],
+      submitData: [isChangesetDataObject, isChangesetWebformObject],
+      onFormSubmit: [isChangesetWebformObject],
       beforeClearForm: [isChangesetWebformObject],
       afterClearForm: [isChangesetWebformObject],
       beforeResetForm: [isChangesetWebformObject],
@@ -231,7 +231,7 @@ module('Integration | Component | Action handling', function (hooks) {
       changesetWebform = argsPassedByAction[0];
     }
     actionCalls[actionName] = argsPassedByAction;
-    if (actionName === 'submitAction') {
+    if (actionName === 'submitData') {
       if (serverResponseType === 'error') {
         throw new Error('Server error occurred');
       } else {
@@ -256,7 +256,7 @@ module('Integration | Component | Action handling', function (hooks) {
         @beforeClearForm={{fn this.generalAction "beforeClearForm"}}  
         @afterValidateFields={{fn this.generalAction "afterValidateFields"}}
         @beforeSubmitForm={{fn this.generalAction "beforeSubmitForm"}}
-        @submitAction={{fn this.generalAction "submitAction"}}
+        @submitData={{fn this.generalAction "submitData"}}
         @submitSuccess={{fn this.generalAction "submitSuccess"}}
         @submitError={{fn this.generalAction "submitError"}}
       />`);
@@ -286,7 +286,7 @@ module('Integration | Component | Action handling', function (hooks) {
     await click(testEls.cwfSubmitFormButton);
     checkActionArgs(assert, 'afterValidateFields');
     checkActionArgs(assert, 'beforeSubmitForm');
-    checkActionArgs(assert, 'submitAction', {
+    checkActionArgs(assert, 'submitData', {
       changeset: changesetWebform.changeset,
     });
     checkActionArgs(assert, 'submitError');

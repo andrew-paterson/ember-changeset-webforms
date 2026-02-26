@@ -8,7 +8,7 @@ import {
 } from 'ember-changeset-webforms/test-support/helpers';
 import validationTestHelpersDefaults from 'ember-changeset-webforms/test-support/validation-test-helpers-defaults';
 
-// TODO test and document if the data prop of an omitted field is sent with the data payload to submitAction
+// TODO test and document if the data prop of an omitted field is sent with the data payload to submitData
 
 module('Acceptance | Field omission', function (hooks) {
   setupApplicationTest(hooks);

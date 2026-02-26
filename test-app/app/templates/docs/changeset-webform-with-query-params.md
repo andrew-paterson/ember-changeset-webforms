@@ -129,7 +129,7 @@ We call the `formDataFromUrlParams` function with two required arguments:
 
 Finally, we need an action to run when the user clicks the submit button, which sets the relevant controller properties to the associated values from the form data.
 
-We define an action which is passed to the `ChangesetWebform` component as `@submitAction`.
+We define an action which is passed to the `ChangesetWebform` component as `@submitData`.
 
 In that action, we call the `applyFormValues` with three required arguments:
 

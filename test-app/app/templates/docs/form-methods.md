@@ -39,7 +39,7 @@ onFieldValueChange(formField, changesetWebform) {
 
 ### `getData`
 
-Saves the underlying chnageset, and returns the value of `changeset.data`. This is the javascript object whoch represents that collective values of the form fields. It is the data that would be passed to `submitAction`.
+Saves the underlying chnageset, and returns the value of `changeset.data`. This is the javascript object whoch represents that collective values of the form fields. It is the data that would be passed to `submitData`.
 
 <Demos::FormMethodsExampleFive />
 

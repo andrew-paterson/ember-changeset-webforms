@@ -48,8 +48,8 @@ export default class ChangesetWebform {
     this.callbacks = callbacks;
     this.modules = modules;
     setCwfProps(this, data);
-    this.submit = (componentArgs, callbacks) => {
-      return onFormSubmit(this, componentArgs, callbacks);
+    this.submit = () => {
+      return onFormSubmit(this);
     };
   }
 

@@ -25,9 +25,8 @@ export default class FormWideClassSettingsComponent extends Component {
     ],
   };
 
-  @action async onFormSubmit(changesetWebform, componentArgs) {
-    console.log(componentArgs);
-    await preFlightForm(changesetWebform, componentArgs);
+  @action async onFormSubmit(changesetWebform) {
+    await preFlightForm(changesetWebform);
     if (!changesetWebform.changeset.isValid) {
       return;
     }

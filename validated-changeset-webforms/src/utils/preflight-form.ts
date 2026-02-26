@@ -5,8 +5,10 @@ import { SubmitCallbacks, ValidationCallbacks } from './types.js';
 
 export default async function preFlightForm(
   changesetWebform: InstanceType<typeof ChangesetWebform>,
-  callbacks: SubmitCallbacks & ValidationCallbacks,
+  // callbacks: SubmitCallbacks & ValidationCallbacks,
 ) {
+  const callbacks: SubmitCallbacks & ValidationCallbacks =
+    changesetWebform.callbacks;
   try {
     const changeset = changesetWebform.changeset;
     changesetWebform.fields.forEach((field) => {

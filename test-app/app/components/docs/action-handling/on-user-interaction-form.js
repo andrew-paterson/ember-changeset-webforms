@@ -61,7 +61,7 @@ export default class OnUserInteractionForm extends Component {
   }
 
   @action
-  submitAction(data, changsetWebform) {
+  submitData(data, changsetWebform) {
     let dataProps = [];
     for (var key in data) {
       dataProps.push(`"${key}" => "${data[key]}"`);

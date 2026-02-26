@@ -178,7 +178,7 @@ export type SubmitCallbacks = {
   beforeSubmitForm?: (
     changesetWebform: InstanceType<typeof ChangesetWebform>,
   ) => Promise<void> | void;
-  submitAction?: (
+  submitData?: (
     data: any,
     changesetWebform: InstanceType<typeof ChangesetWebform>,
   ) => Promise<any> | any;

@@ -33,9 +33,6 @@ export default class ChangesetWebformComponent extends Component {
 
   @action
   didInsert() {
-    if (this.args.onFormSubmit) {
-      console.log('this.args.onFormSubmit', this.args.onFormSubmit);
-    }
     const debug = this.debugMode;
     const onFormSubmit = this.args.onFormSubmit || onSubmit;
     const callbacks = {
@@ -44,8 +41,7 @@ export default class ChangesetWebformComponent extends Component {
       afterResetForm: this.args.afterResetForm,
       beforeClearForm: this.args.beforeClearForm,
       afterClearForm: this.args.afterClearForm,
-      // formSchema: this.args.formSchema,
-      submitAction: this.args.submitAction,
+      submitData: this.args.submitData,
       submitSuccess: this.args.submitSuccess,
       submitError: this.args.submitError,
       afterFieldValidation: this.args.afterFieldValidation,
@@ -53,8 +49,6 @@ export default class ChangesetWebformComponent extends Component {
       formValidationPassed: this.args.formValidationPassed,
       beforeSubmitForm: this.args.beforeSubmitForm,
       formValidationFailed: this.args.formValidationFailed,
-
-      // TODO after validateallFields
     };
     this.changesetWebform = new ChangesetWebform(
       this.args.formSchema,
@@ -72,7 +66,6 @@ export default class ChangesetWebformComponent extends Component {
         modules: modules,
       },
     );
-    // console.log('submit', this.changesetWebform.submit);
     if (this.changesetWebform.debug) {
       console.log(
         '[Ember Changeset Webforms] DEBUG changesetWebform object',

@@ -13,7 +13,7 @@ export default async function onSubmit(
   const callbacks: CwfCallbacks = changesetWebform.callbacks;
   console.log('callbacks', callbacks);
   // console.log('callbacks2', callbacks2);
-  await preFlightForm(changesetWebform, callbacks);
+  await preFlightForm(changesetWebform);
   if (!changesetWebform.changeset.isValid) {
     return;
   }
@@ -25,8 +25,8 @@ export default async function onSubmit(
   try {
     const savedChangeset = await changesetWebform.changeset.save();
     submitActionResponse = savedChangeset;
-    if (callbacks.submitAction) {
-      submitActionResponse = await callbacks.submitAction(
+    if (callbacks.submitData) {
+      submitActionResponse = await callbacks.submitData(
         savedChangeset.data,
         changesetWebform,
       );

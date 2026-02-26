@@ -27,7 +27,7 @@ export default class CustomSubmitActionPromise extends Component {
   };
 
   @action
-  submitAction(_changesetData, changesetWebform) {
+  submitData(_changesetData, changesetWebform) {
     return changesetWebform.changeset.save().then((response) => {
       return this.fetchPromise(
         '/forgot-password' +
