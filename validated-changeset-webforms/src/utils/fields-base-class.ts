@@ -1,6 +1,6 @@
-import type ChangesetWebform from './changeset-webform-class.js';
-import type { FieldSchema, ValidityElement } from './types.js';
-import FormField from './form-field.js';
+import type ChangesetWebform from '../changeset-webform.js';
+import type { FieldSchema, ValidityElement } from '../types.js';
+import FormField from '../ui/form-field.js';
 
 export default class FieldsBaseClass {
   fieldId: FieldSchema['fieldId'];

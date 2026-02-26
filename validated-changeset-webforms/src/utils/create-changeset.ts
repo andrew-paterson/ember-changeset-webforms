@@ -4,7 +4,7 @@ import {
 } from 'validated-changeset';
 
 import createValidations from './create-validations.js';
-import { ValidatorFactory } from './types.js';
+import { ValidatorFactory } from '../types.js';
 
 type validators = {
   [key: string]: ValidatorFactory;

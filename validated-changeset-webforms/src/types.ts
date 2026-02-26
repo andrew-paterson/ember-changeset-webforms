@@ -1,8 +1,8 @@
 import { Changeset } from 'validated-changeset';
 
-import ChangesetWebform from './changeset-webform-class.js';
-import type FormField from './form-field.js';
-import type FormFieldClone from './form-field-clone.js';
+import ChangesetWebform from './changeset-webform.js';
+import type FormField from './ui/form-field.js';
+import type FormFieldClone from './ui/form-field-clone.js';
 
 export type ChangesetWebformProps = {
   formSchemaWithDefaults: any;

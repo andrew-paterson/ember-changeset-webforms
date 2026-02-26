@@ -1,7 +1,7 @@
 import isObject from './is-object.js';
-import Option from './option-class.js';
+import Option from '../ui/option-class.js';
 import safeName from './safe-name.js';
-import { FieldSchema } from './types.js';
+import { FieldSchema } from '../types.js';
 
 function isPrimitive(value: any): boolean {
   return (

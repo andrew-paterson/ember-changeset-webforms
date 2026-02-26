@@ -1,4 +1,4 @@
-import ChangesetWebform from './changeset-webform-class.js';
+import ChangesetWebform from '../changeset-webform.js';
 
 export default function nullifyOmittedFields(
   changesetWebform: InstanceType<typeof ChangesetWebform>,

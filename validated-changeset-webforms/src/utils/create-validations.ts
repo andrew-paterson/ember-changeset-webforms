@@ -2,7 +2,7 @@ import { unflatten } from 'flat';
 
 import clonedValidator from '../validators/cloned.js';
 import uniqueCloneValidator from '../validators/unique-clone.js';
-import { ValidatorFactory } from './types.js';
+import { ValidatorFactory } from '../types.js';
 
 type validators = {
   [key: string]: ValidatorFactory;

@@ -1,6 +1,6 @@
 import nullifyOmittedFields from './nullify-omitted-fields.js';
-import ChangesetWebform from './changeset-webform-class.js';
-import { CwfCallbacks, ValidationResult } from './types.js';
+import ChangesetWebform from '../changeset-webform.js';
+import { CwfCallbacks, ValidationResult } from '../types.js';
 
 export default async function preFlightForm(
   changesetWebform: InstanceType<typeof ChangesetWebform>,

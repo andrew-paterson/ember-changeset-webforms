@@ -1,9 +1,9 @@
 import _mergeWith from 'lodash.mergewith';
 
 import mergeWithArrayInheritanceCustomiser from './merge-with-array-inheritance-customiser.js';
-import ChangesetWebform from './changeset-webform-class.js';
-import type FormField from './form-field.js';
-import { ClassNameSettings } from './types.js';
+import ChangesetWebform from '../changeset-webform.js';
+import type FormField from '../ui/form-field.js';
+import { ClassNameSettings } from '../types.js';
 
 export default function (
   elementType: string,

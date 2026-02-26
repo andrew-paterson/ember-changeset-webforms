@@ -1,7 +1,7 @@
 import mergedClassNameSettings from './merged-class-name-settings.js';
-import ChangesetWebform from './changeset-webform-class.js';
-import type FormField from './form-field.js';
-import { ClassNameSettings } from './types.js';
+import ChangesetWebform from '../changeset-webform.js';
+import type FormField from '../ui/form-field.js';
+import { ClassNameSettings } from '../types.js';
 
 export default (
   elementTypesString: string,

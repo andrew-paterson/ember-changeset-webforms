@@ -1,5 +1,6 @@
-import getWithDefaultUtil from './get-with-default.js';
-import createCwfProps from './create-changeset-webform-props.js';
+import getWithDefaultUtil from './utils/get-with-default.js';
+import createChangesetWebformProps from './utils/create-changeset-webform-props.js';
+import onFormSubmitDefault from './utils/on-submit.js';
 import type {
   ChangesetWebformProps,
   FormSchema,
@@ -7,10 +8,13 @@ import type {
   ValidationResult,
   OnSubmit,
 } from './types.js';
-import FormField from './form-field.js';
+import FormField from './ui/form-field.js';
 
-function setCwfProps(instance: ChangesetWebform, data?: FormData): void {
-  const props = createCwfProps(instance, data, instance.modules);
+function setChangesetWebformProps(
+  instance: ChangesetWebform,
+  data?: FormData,
+): void {
+  const props = createChangesetWebformProps(instance, data, instance.modules);
   if (!instance.changeset) {
     instance.changeset = props.changeset;
   }
@@ -36,11 +40,12 @@ export default class ChangesetWebform {
     const {
       appDefaults,
       dynamicIncludeExcludeConditions,
-      onFormSubmit,
       debug,
       callbacks,
       modules,
     } = opts;
+
+    const onFormSubmit = opts.onFormSubmit || onFormSubmitDefault;
     const formSchemaWithDefaults = getWithDefaultUtil(appDefaults, formSchema);
     this.formSchema = { ...formSchema };
     this.formSchemaWithDefaults = { ...formSchemaWithDefaults };
@@ -48,7 +53,7 @@ export default class ChangesetWebform {
     this.dynamicIncludeExcludeConditions = dynamicIncludeExcludeConditions;
     this.callbacks = callbacks;
     this.modules = modules;
-    setCwfProps(this, data);
+    setChangesetWebformProps(this, data);
     this.submit = () => {
       return onFormSubmit(this);
     };
@@ -117,7 +122,7 @@ export default class ChangesetWebform {
       this.callbacks.beforeClearForm(this);
     }
     this.changeset.rollback();
-    setCwfProps(this);
+    setChangesetWebformProps(this);
     this.fields.forEach((field) => {
       this.changeset.set(field.propertyName, null);
     });
@@ -131,7 +136,7 @@ export default class ChangesetWebform {
       this.callbacks.beforeResetForm(this);
     }
     this.changeset.rollback();
-    setCwfProps(this);
+    setChangesetWebformProps(this);
     if (this.callbacks.afterResetForm) {
       this.callbacks.afterResetForm(this);
     }

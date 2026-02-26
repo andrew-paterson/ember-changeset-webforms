@@ -1,4 +1,4 @@
-import { ValidatorFactory } from '../utils/types.js';
+import { ValidatorFactory } from '../types.js';
 
 const validateUniqueClone: ValidatorFactory = function validateUniqueClone(
   opts = {},

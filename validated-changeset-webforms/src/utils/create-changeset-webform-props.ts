@@ -1,9 +1,9 @@
 import createChangeset from './create-changeset.js';
 import generateFormFieldInstance from './generate-form-field-instance.js';
-import FormSettings from './form-settings.js';
-import ChangesetWebform from './changeset-webform-class.js';
-import FormField from './form-field.js';
-import { FormData } from './types.js';
+import FormSettings from '../ui/form-settings.js';
+import ChangesetWebform from '../changeset-webform.js';
+import FormField from '../ui/form-field.js';
+import { FormData } from '../types.js';
 
 export default function createChangesetWebformProps(
   instance: InstanceType<typeof ChangesetWebform>,
@@ -37,10 +37,8 @@ export default function createChangesetWebformProps(
     formField.dynamicIncludeExcludeConditions =
       instance.dynamicIncludeExcludeConditions;
     formField.snapshots = snapshots;
-    // formField.changeset = changeset; // TODO remove this
     formField.changesetWebform = instance;
     formField._checkOmitted();
-    // We set changeset props to null if they have no initial values. This ensurs that validators such as uniqueness work, and that all keys are sent in the payload.
   });
   const FormSettingsModule = modules.FormSettings || FormSettings;
   return {

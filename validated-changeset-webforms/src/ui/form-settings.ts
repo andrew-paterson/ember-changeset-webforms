@@ -1,4 +1,4 @@
-import { FormSettings as FormSettingsType } from './types.js';
+import { FormSettings as FormSettingsType } from '../types.js';
 
 export default class FormSettings {
   constructor(args: FormSettingsType) {

@@ -1,13 +1,13 @@
-import FieldsBaseClass from './fields-base-class.js';
+import FieldsBaseClass from '../utils/fields-base-class.js';
 import type {
   FieldSchema,
   ChangesetWebformProps,
   ValidationRule,
-} from './types.js';
-import removeAll from './remove-all.js';
+} from '../types.js';
+import removeAll from '../utils/remove-all.js';
 import FormFieldClone from './form-field-clone.js';
-import removeObject from './remove-object.js';
-import safeName from './safe-name.js';
+import removeObject from '../utils/remove-object.js';
+import safeName from '../utils/safe-name.js';
 
 export default class FormField extends FieldsBaseClass {
   // Omission / visibility

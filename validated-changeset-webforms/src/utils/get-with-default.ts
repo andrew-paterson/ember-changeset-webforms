@@ -8,7 +8,7 @@ import {
   FormSettings,
   FieldSchema,
   ClassNameSettings,
-} from './types.js';
+} from '../types.js';
 
 export default function getWithDefault(
   defaults: Record<string, any>[] = [],

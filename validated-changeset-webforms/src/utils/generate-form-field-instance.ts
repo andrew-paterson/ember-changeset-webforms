@@ -1,8 +1,8 @@
 import parseChangesetWebformField from './parse-changeset-webform-field.js';
-import FormField from './form-field.js';
-import FormFieldClone from './form-field-clone.js';
-import Option from './option-class.js';
-import { FieldSchema } from './types.js';
+import FormField from '../ui/form-field.js';
+import FormFieldClone from '../ui/form-field-clone.js';
+import Option from '../ui/option-class.js';
+import { FieldSchema } from '../types.js';
 
 export default function generateFormFieldInstance(
   fieldSchema: FieldSchema,

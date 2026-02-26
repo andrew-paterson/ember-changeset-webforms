@@ -1,6 +1,6 @@
-import type { FieldSchema } from './types.js';
-import safeName from './safe-name.js';
-import FieldsBaseClass from './fields-base-class.js';
+import type { FieldSchema } from '../types.js';
+import safeName from '../utils/safe-name.js';
+import FieldsBaseClass from '../utils/fields-base-class.js';
 import type FormField from './form-field.js';
 
 export default class FormFieldClone extends FieldsBaseClass {

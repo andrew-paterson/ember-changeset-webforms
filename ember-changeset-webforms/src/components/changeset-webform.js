@@ -1,7 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import ChangesetWebform from '../utils/changeset-webform-class.js';
-import onSubmit from 'validated-changeset-webforms/dist/utils/on-submit.js';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { getOwner } from '@ember/application';
@@ -34,7 +33,6 @@ export default class ChangesetWebformComponent extends Component {
   @action
   didInsert() {
     const debug = this.debugMode;
-    const onFormSubmit = this.args.onFormSubmit || onSubmit;
     const callbacks = {
       onFieldValueChange: this.args.onFieldValueChange,
       beforeResetForm: this.args.beforeResetForm,
@@ -61,7 +59,7 @@ export default class ChangesetWebformComponent extends Component {
         ],
         dynamicIncludeExcludeConditions:
           this.args.dynamicIncludeExcludeConditions,
-        onFormSubmit: onFormSubmit,
+        onFormSubmit: this.args.onFormSubmit,
         debug: debug,
         callbacks: callbacks,
         modules: modules,

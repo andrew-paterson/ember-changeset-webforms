@@ -1,6 +1,6 @@
 import preFlightForm from './preflight-form.js';
-import ChangesetWebform from './changeset-webform-class.js';
-import { CwfCallbacks } from './types.js';
+import ChangesetWebform from '../changeset-webform.js';
+import { CwfCallbacks } from '../types.js';
 
 export default async function onSubmit(
   changesetWebform: InstanceType<typeof ChangesetWebform>,

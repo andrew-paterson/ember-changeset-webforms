@@ -1,8 +1,8 @@
 import _mergeWith from 'lodash.mergewith';
 
-import ChangesetWebform from './changeset-webform-class';
-import FormField from './form-field';
-import { AttrsFromConfig } from './types';
+import ChangesetWebform from '../changeset-webform';
+import FormField from '../ui/form-field';
+import { AttrsFromConfig } from '../types';
 
 export default function (
   elementType: string,

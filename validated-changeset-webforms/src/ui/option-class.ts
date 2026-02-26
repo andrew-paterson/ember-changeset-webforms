@@ -1,4 +1,4 @@
-import { Option as OptionType } from './types.js';
+import { Option as OptionType } from '../types.js';
 
 export default class Option {
   // label: string;
