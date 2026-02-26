@@ -1,4 +1,4 @@
-import _FormSettings from 'validated-changeset-webforms/ui/form-settings';
+import { FormSettings as _FormSettings } from 'validated-changeset-webforms';
 import { tracked } from '@glimmer/tracking';
 
 export default class FormSettings extends _FormSettings {

@@ -1,5 +1,5 @@
 import _mergeWith from 'lodash.mergewith';
-import mergeWithArrayInheritanceCustomiser from 'validated-changeset-webforms/utils/merge-with-array-inheritance-customiser';
+import { mergeWithArrayInheritanceCustomiser } from 'validated-changeset-webforms';
 
 function createFormSchema(queryParamsObjects, formName, merge) {
   var formSchema = {

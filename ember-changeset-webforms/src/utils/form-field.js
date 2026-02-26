@@ -1,4 +1,4 @@
-import _FormField from 'validated-changeset-webforms/ui/form-field';
+import { FormField as _FormField } from 'validated-changeset-webforms';
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
 

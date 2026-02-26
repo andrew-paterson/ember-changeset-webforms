@@ -44,10 +44,5 @@
   ],
   "engines": {
     "node": "12.* || 14.* || >= 16"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/validated-changeset-webforms.es5.js"
-    }
   }
 }

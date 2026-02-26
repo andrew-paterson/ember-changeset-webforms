@@ -1,4 +1,4 @@
-import _FormFieldClone from 'validated-changeset-webforms/ui/form-field-clone';
+import { FormFieldClone as _FormFieldClone } from 'validated-changeset-webforms';
 import { tracked } from '@glimmer/tracking';
 import { TrackedArray } from 'tracked-built-ins';
 
