@@ -1,5 +1,5 @@
 import { tracked } from '@glimmer/tracking';
-import _ChangesetWebform from 'validated-changeset-webforms/dist/changeset-webform';
+import _ChangesetWebform from 'validated-changeset-webforms/changeset-webform';
 
 export default class ChangesetWebform extends _ChangesetWebform {
   @tracked changeset;

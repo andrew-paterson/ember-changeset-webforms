@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import safeName from 'validated-changeset-webforms/dist/utils/safe-name.js';
+import safeName from 'validated-changeset-webforms/utils/safe-name.js';
 import './power-select-option-checkbox.css';
 
 export default class PowerSelectOptionCheckbox extends Component {

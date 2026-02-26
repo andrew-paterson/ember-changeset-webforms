@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 // BEGIN-SNIPPET custom-form-submission.js"
-import preFlightForm from 'validated-changeset-webforms/dist/utils/preflight-form';
+import preFlightForm from 'validated-changeset-webforms/utils/preflight-form';
 
 export default class FormWideClassSettingsComponent extends Component {
   @tracked alert;
