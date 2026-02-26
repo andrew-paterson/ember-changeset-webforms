@@ -4,15 +4,6 @@ import ChangesetWebform from './changeset-webform-class.js';
 import type FormField from './form-field.js';
 import type FormFieldClone from './form-field-clone.js';
 
-export type CwfCallbacks = {
-  beforeClearForm?: (instance: any) => void;
-  afterClearForm?: (instance: any) => void;
-  beforeResetForm?: (instance: any) => void;
-  afterResetForm?: (instance: any) => void;
-  // allow other optional callbacks (preserve compatibility)
-  [key: string]: any;
-};
-
 export type ChangesetWebformProps = {
   formSchemaWithDefaults: any;
   debug: boolean;
@@ -25,7 +16,7 @@ export type ChangesetWebformProps = {
   formSettings: any;
 };
 
-type AttrsFromConfig = {
+export type AttrsFromConfig = {
   classNames?: {
     [key: string]: string[] | null;
   };
@@ -58,6 +49,12 @@ export type FormSettings = {
 export type FormSchema = {
   formSettings: FormSettings;
   fields: FieldSchema[];
+  attrsFromConfig?: AttrsFromConfig | null;
+  attrFunctions?: AttrsFromConfig['attrFunctions'] | null;
+  fieldSettings?: any;
+  validators?: {
+    [key: string]: ValidatorFactory | FieldValidator;
+  } | null;
 };
 
 export type ValidationRule = {
@@ -212,3 +209,13 @@ export type ValidationCallbacks = {
     changesetWebform: InstanceType<typeof ChangesetWebform>,
   ) => Promise<void> | void;
 };
+
+export type CwfCallbacks = {
+  beforeClearForm?: (instance: any) => void;
+  afterClearForm?: (instance: any) => void;
+  beforeResetForm?: (instance: any) => void;
+  afterResetForm?: (instance: any) => void;
+  // allow other optional callbacks (preserve compatibility)
+  [key: string]: any;
+} & SubmitCallbacks &
+  ValidationCallbacks;

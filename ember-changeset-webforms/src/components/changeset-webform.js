@@ -33,15 +33,27 @@ export default class ChangesetWebformComponent extends Component {
 
   @action
   didInsert() {
+    if (this.args.onFormSubmit) {
+      console.log('this.args.onFormSubmit', this.args.onFormSubmit);
+    }
     const debug = this.debugMode;
     const onFormSubmit = this.args.onFormSubmit || onSubmit;
     const callbacks = {
       onFieldValueChange: this.args.onFieldValueChange,
-      afterFieldValidation: this.args.afterFieldValidation,
       beforeResetForm: this.args.beforeResetForm,
       afterResetForm: this.args.afterResetForm,
       beforeClearForm: this.args.beforeClearForm,
       afterClearForm: this.args.afterClearForm,
+      // formSchema: this.args.formSchema,
+      submitAction: this.args.submitAction,
+      submitSuccess: this.args.submitSuccess,
+      submitError: this.args.submitError,
+      afterFieldValidation: this.args.afterFieldValidation,
+      afterValidateFields: this.args.afterValidateFields,
+      formValidationPassed: this.args.formValidationPassed,
+      beforeSubmitForm: this.args.beforeSubmitForm,
+      formValidationFailed: this.args.formValidationFailed,
+
       // TODO after validateallFields
     };
     this.changesetWebform = new ChangesetWebform(
@@ -60,6 +72,7 @@ export default class ChangesetWebformComponent extends Component {
         modules: modules,
       },
     );
+    // console.log('submit', this.changesetWebform.submit);
     if (this.changesetWebform.debug) {
       console.log(
         '[Ember Changeset Webforms] DEBUG changesetWebform object',
@@ -100,6 +113,7 @@ export default class ChangesetWebformComponent extends Component {
 
   @action
   onFormSubmit(changesetWebform) {
+    // Get keys in this.args whoch is a proxy object and convert to array to log, as logging the proxy directly causes it to resolve and log all keys and values which is not desirable
     return changesetWebform.submit(this.args);
   }
 

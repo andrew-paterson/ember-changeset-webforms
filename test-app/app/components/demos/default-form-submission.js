@@ -44,7 +44,10 @@ export default class FormWideClassSettingsComponent extends Component {
     }
   }
 
-  @action submitSuccess(response) {
+  @action submitSuccess(response, arg2, arg3) {
+    console.log('-----------------------response', response);
+    console.log('-----------------------arg2', arg2);
+    console.log('-----------------------arg3', arg3);
     this.alert = {
       type: 'success',
       message: response,

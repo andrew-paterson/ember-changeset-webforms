@@ -1,10 +1,10 @@
 export default function (
-  objValue,
-  srcValue,
-  keyName,
-  _parentObjValue,
-  parentSrcValue,
-) {
+  objValue: any,
+  srcValue: any,
+  keyName: string,
+  _parentObjValue: any,
+  parentSrcValue: any,
+): any {
   if (keyName === 'customParser') {
     if (!parentSrcValue.fieldType) {
       return srcValue;

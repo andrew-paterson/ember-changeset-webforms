@@ -1,7 +1,27 @@
 import _mergeWith from 'lodash.mergewith';
-import mergeWithArrayInheritanceCustomiser from './merge-with-array-inheritance-customiser.js';
 
-export default function getWithDefault(defaults = [], formSchema = {}) {
+import mergeWithArrayInheritanceCustomiser from './merge-with-array-inheritance-customiser.js';
+import {
+  FormSchema,
+  ValidatorFactory,
+  AttrsFromConfig,
+  FormSettings,
+  FieldSchema,
+  ClassNameSettings,
+} from './types.js';
+
+export default function getWithDefault(
+  defaults: Record<string, any>[] = [],
+  formSchema: FormSchema,
+): {
+  validators: {
+    [key: string]: ValidatorFactory;
+  };
+  classNameSettings: ClassNameSettings;
+  attrFunctions: AttrsFromConfig['attrFunctions'];
+  formSettings: FormSettings;
+  fields: FieldSchema[];
+} {
   const fieldSettingsDefaults = defaults.map((item) => item.fieldSettings);
   const formSettingsDefaults = defaults.map((item) => item.formSettings);
   const validatorsDefaults = defaults.map((item) => item.validators);
@@ -15,12 +35,12 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
   const formSettings = _mergeWith(
     {},
     ...formSettingsDefaults,
-    formSchema.formSettings,
+    formSchema ? formSchema.formSettings : {},
   );
   const classNameSettings = _mergeWith(
     {},
     ...classNamesDefaults,
-    formSchema.attrsFromConfig?.classNames,
+    formSchema ? formSchema.attrsFromConfig?.classNames : {},
     mergeWithArrayInheritanceCustomiser,
   );
 
@@ -81,7 +101,7 @@ export default function getWithDefault(defaults = [], formSchema = {}) {
       }, []);
       const mergedCloneField = _mergeWith(
         {},
-        ...cloneFieldDefaults,
+        ...Object.values(cloneFieldDefaults),
         field.cloneFieldSchema,
         mergeWithArrayInheritanceCustomiser,
       );

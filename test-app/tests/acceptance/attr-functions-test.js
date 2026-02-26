@@ -61,5 +61,11 @@ module('Acceptance | Configuring class names', function (hooks) {
       .exists(
         'Submit button has class btn-primary and does not have class btn-success after submit action resolves.',
       );
+    assert
+      .dom('[data-test-id="attr-functions-form-name-field-label"]')
+      .includesText(
+        'Label loaded at',
+        'Field label has text content set by attr function from form field config on load.',
+      );
   });
 });
