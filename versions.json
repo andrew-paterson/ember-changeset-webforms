@@ -14,8 +14,8 @@
   "-latest": {
     "path": "",
     "name": "Latest",
-    "sha": "3447314a24535dcff23017bd313b74c102169303",
-    "tag": "0.2.0"
+    "sha": "e27926ed06a9f407d8d137181c328c4bea1cf7a7",
+    "tag": "0.3.0"
   },
   "0.0.3": {
     "path": "versions/0.0.3",
@@ -46,5 +46,11 @@
     "name": "feature/convert-base-class-to-typescript",
     "sha": "709e8f2afe580ad72cc7d651879098a5fce7823d",
     "tag": null
+  },
+  "0.3.0": {
+    "path": "versions/0.3.0",
+    "name": "0.3.0",
+    "sha": "e27926ed06a9f407d8d137181c328c4bea1cf7a7",
+    "tag": "0.3.0"
   }
 }
