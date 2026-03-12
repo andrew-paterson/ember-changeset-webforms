@@ -1,6 +1,6 @@
 {
   "name": "validated-changeset-webforms",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "dist/validated-changeset-webforms.umd.js",
   "module": "dist/validated-changeset-webforms.es5.js",
   "types": "dist/index.d.ts",
@@ -9,9 +9,9 @@
     "build": "rollup --config",
     "start": "rollup --config --watch"
   },
-  "author": "",
+  "author": "Andrew Paterson",
   "license": "ISC",
-  "description": "",
+  "description": "A data layer for webforms built on top of Validated Changeset, used as the base class for webform components such as Ember Changeset Webforms.",
   "dependencies": {
     "@babel/runtime": "^7.26.0",
     "@ember/string": "^3.1.1",
@@ -39,9 +39,6 @@
     "rollup-plugin-sourcemaps": "^0.6.3",
     "typescript": "^5.9.3"
   },
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": "12.* || 14.* || >= 16"
   }
