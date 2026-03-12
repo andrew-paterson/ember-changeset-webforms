@@ -40,5 +40,11 @@
     "name": "0.2.0",
     "sha": "3447314a24535dcff23017bd313b74c102169303",
     "tag": "0.2.0"
+  },
+  "feature/convert-base-class-to-typescript": {
+    "path": "versions/feature/convert-base-class-to-typescript",
+    "name": "feature/convert-base-class-to-typescript",
+    "sha": "e20c9b7b83cf0c8f5e99bfd3612a23064d8897c5",
+    "tag": null
   }
 }
