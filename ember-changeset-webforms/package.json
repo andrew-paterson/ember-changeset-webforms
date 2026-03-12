@@ -1,11 +1,12 @@
 {
   "name": "ember-changeset-webforms",
-  "version": "0.2.6",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.3.0",
+  "description": "Declarative webforms built on top of Ember Changeset and Ember Changeset Validations",
   "keywords": [
     "ember-addon"
   ],
   "repository": "https://github.com/andrew-paterson/ember-changeset-webforms",
+  "homepage": "https://ember-changeset-webforms.com",
   "license": "MIT",
   "author": "",
   "directories": {
@@ -43,7 +44,7 @@
     "lodash.mergewith": "^4.6.2",
     "markdown-it": "^13.0.1",
     "moment": "^2.29.4",
-    "validated-changeset-webforms": "^0.0.2"
+    "validated-changeset-webforms": "^0.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -132,7 +133,6 @@
     "type": "addon",
     "version": 2
   },
-  "homepage": "https://andrew-paterson.github.io/ember-changeset-webforms",
   "ember": {
     "edition": "octane"
   },

@@ -1,6 +1,6 @@
 {
   "name": "test-app",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [],
   "repository": "https://github.com/andrew-paterson/ember-changeset-webforms",
@@ -94,7 +94,7 @@
     "stylelint-config-standard": "^34.0.0",
     "stylelint-prettier": "^4.1.0",
     "tracked-built-ins": "^4.0.0",
-    "validated-changeset-webforms": "workspace:*",
+    "validated-changeset-webforms": "^0.0.3",
     "webpack": "^5.74.0"
   },
   "engines": {

@@ -7,7 +7,6 @@ module.exports = function (defaults) {
     snippetSearchPaths: [
       'app',
       '../ember-changeset-webforms/src/utils',
-      '../validated-changeset-webforms/src/utils',
       'config',
     ],
     'ember-cli-addon-docs': {
