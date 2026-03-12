@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 // BEGIN-SNIPPET custom-form-submission.js"
-import preFlightForm from 'ember-changeset-webforms/utils/preflight-form';
+import { preFlightForm } from 'validated-changeset-webforms';
 
 export default class FormWideClassSettingsComponent extends Component {
   @tracked alert;
@@ -24,8 +24,9 @@ export default class FormWideClassSettingsComponent extends Component {
       },
     ],
   };
-  @action async onFormSubmit(changesetWebform, componentArgs) {
-    await preFlightForm(changesetWebform, componentArgs);
+
+  @action async onFormSubmit(changesetWebform) {
+    await preFlightForm(changesetWebform);
     if (!changesetWebform.changeset.isValid) {
       return;
     }

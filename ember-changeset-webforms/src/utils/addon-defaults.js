@@ -197,7 +197,7 @@ export default {
     resetFormButton: false, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
     resetFormButtonText: 'Discard changes',
     submitAfterClear: false, // Boolean. If true submits, the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters.
-    clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully.
+    clearFormAfterSubmit: false, // Boolean or string - if true, all fields are reset to their defaults after a the form submitData returns successfully.
     submitButtonType: 'button', // String - the type of the submit button. Can be 'button' or 'submit'.
     attrsFromConfig: {
       classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
@@ -222,7 +222,7 @@ export default {
     // `props` can be included to pass state or data to the component, accessible as {{@props}}.
     // `@changesetWebform, and @formField are passed to the component.
     labelMarkdown: null, // String - a markdown string to render as HTML within the label element.
-    hideLabel: null, // Hide the label from the user
+    hideLabel: null, // Boolean - Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     resetWhenOmitted: true, // Boolean - reset the field value and validation when the field is omitted from the form.
     attrsFromConfig: {

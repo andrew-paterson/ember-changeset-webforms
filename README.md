@@ -96,7 +96,7 @@ This is how you would create something like an edit account form, where the user
 
     {{ember-changeset-webforms/validating-form
       formSchema=formSchema
-      submitAction=(action submitAction)
+      submitData=(action submitData)
       data=model
     }}
 
@@ -130,7 +130,7 @@ The `propsHash` property exists for the edge case in which you need to update a 
 
     {{ember-changeset-webforms/validating-form
       formSchema=formSchema
-      submitAction=(action submitAction)
+      submitData=(action submitData)
       data=model
     }}
 
@@ -160,7 +160,7 @@ If you need to be able to update individual properties from outside the form, yo
 
     {{ember-changeset-webforms/validating-form
       formSchema=formSchema
-      submitAction=(action submitAction)
+      submitData=(action submitData)
       data=model
       propHash=(
         name=model.name
@@ -179,7 +179,7 @@ Note that `propsHash` can accept nested hashes.
 
     {{ember-changeset-webforms/validating-form
       formSchema=formSchema
-      submitAction=(action submitAction)
+      submitData=(action submitData)
       data=model
       propHash=(
         name=model.name

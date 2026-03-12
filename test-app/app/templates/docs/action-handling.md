@@ -74,28 +74,28 @@ Called after the form is cleared in response to the user clicking the "Clear for
 
 Arguments: (`changesetWebform`)
 
-## `submitAction` action
+## `submitData` action
 
 Called after the form has been preflighted, in response to the user clicking "Submit". See <LinkTo @route="docs.form-submission">Form submission</LinkTo> for details on what preflighting does.
 
 Arguments: (`data`, `changesetWebform`)
 
-The `submitAction` callback is where you use the data that comes out of the `CWFC` when the form is submitted. This is where you can submit the data to the server, if that is required.
+The `submitData` callback is where you use the data that comes out of the `CWFC` when the form is submitted. This is where you can submit the data to the server, if that is required.
 
 It should also return the result of that call so that the form knows when the call resolves. This allows it to:
 
 - set `formSettings.requestInFlight` to false, allowing request in flight UX to update.
 - call the appropriate `submitSuccess` or `submitError` callback, if they have been passed to the component.
 
-### Where `submitAction` is not required
+### Where `submitData` is not required
 
 In some cases, the `@data` prop passed to the `CWFC` may have it's own `save()` method which will initiate a server call with the form data.
 
 An example is where `@data` is an Ember Data model. The internal behaviour of the `CWFC` is to call `changeset.save()` which [will proxy to the underlying object's save method](https://github.com/adopted-ember-addons/ember-changeset?tab=readme-ov-file#save), if it exists.
 
-When the `save()` method is called on the Ember Data model, a `PATCH` request will automatically be made to the relevant endpoint, and `submitAction` is not necessary.
+When the `save()` method is called on the Ember Data model, a `PATCH` request will automatically be made to the relevant endpoint, and `submitData` is not necessary.
 
-<!-- TODO warning if .save and submitAction co-exist and link to these docs. -->
+<!-- TODO warning if .save and submitData co-exist and link to these docs. -->
 
 ## `afterValidateFields` action
 
@@ -113,7 +113,7 @@ Called before:
 
 - `changesetWebform.formSettings.requestInFlight` is set to `true`
 - the `save()` method is called on the underlying changeset
-- the `submitAction` callback is called, if it has been passed.
+- the `submitData` callback is called, if it has been passed.
 
 ## `submitSuccess` action
 
@@ -123,8 +123,8 @@ Arguments: (`successServerResponse`, `changesetWebform`)
 
 The form has been successfully submitted where:
 
-- A success response is returned from the `submitAction` callback.
-- A success response is returned from the underlying objects `save()` method, where `submitAction` is not passed.
+- A success response is returned from the `submitData` callback.
+- A success response is returned from the underlying objects `save()` method, where `submitData` is not passed.
 
 ## `submitError` action
 
@@ -134,8 +134,8 @@ Arguments: (`errorServerResponse`, `changesetWebform`)
 
 An attempt to submit the form has failed where:
 
-- An error response is returned from the `submitAction` callback.
-- An error response is returned from the underlying objects `save()` method, where `submitAction` is not passed.
+- An error response is returned from the `submitData` callback.
+- An error response is returned from the underlying objects `save()` method, where `submitData` is not passed.
 
 ## `onFormSubmit` action
 

@@ -7,7 +7,7 @@ export default class FormWideClassSettingsComponent extends Component {
       formName: 'attrFunctions',
     },
     attrFunctions: {
-      submitButton(element, changesetWebform, _formField, _classNameSettings) {
+      submitButton(element, changesetWebform) {
         if (changesetWebform.formSettings.requestInFlight) {
           element.classList.replace('btn-primary', 'btn-success');
         } else {
@@ -20,6 +20,14 @@ export default class FormWideClassSettingsComponent extends Component {
         fieldId: 'name',
         fieldType: 'input',
         fieldLabel: 'Name',
+        attrsFromConfig: {
+          attrFunctions: {
+            fieldLabel(element, _changesetWebform, _formField) {
+              element.textContent = `${element.textContent} (Label loaded at ${new Date().toLocaleTimeString()}}`;
+              ('This value is set by an attr function from the form field config.');
+            },
+          },
+        },
       },
     ],
   };

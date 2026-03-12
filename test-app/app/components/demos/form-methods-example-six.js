@@ -46,7 +46,7 @@ export default class FormMethodsExample1Component extends Component {
   };
 
   @action
-  submitAction(data, changesetWebform) {
+  submitData(data, changesetWebform) {
     if (data.email === 'taken@example.com') {
       changesetWebform.pushErrors({
         fieldId: 'email',

@@ -94,6 +94,7 @@
     "stylelint-config-standard": "^34.0.0",
     "stylelint-prettier": "^4.1.0",
     "tracked-built-ins": "^4.0.0",
+    "validated-changeset-webforms": "workspace:*",
     "webpack": "^5.74.0"
   },
   "engines": {

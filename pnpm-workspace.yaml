@@ -1,3 +1,4 @@
 packages:
-  - "ember-changeset-webforms"
-  - "test-app"
+  - 'ember-changeset-webforms'
+  - 'test-app'  
+  - 'validated-changeset-webforms'

@@ -2,7 +2,7 @@
   <div class="bg-light px-4 py-1 border-bottom">
     <ChangesetWebform
       @formSchema={{this.serverResponseFormSchema}}
-      @submitAction={{this.submit}}
+      @submitData={{this.submit}}
       @onFieldValueChange={{this.onFieldValueChange}}
       @data={{hash serverResponseType=this.serverResponseType}}
     />
@@ -23,7 +23,7 @@
     {{/if}}
     <ChangesetWebform
       @formSchema={{this.formSchema}}
-      @submitAction={{this.submitAction}}
+      @submitData={{this.submitData}}
       @submitSuccess={{this.submitSuccess}}
       @submitError={{this.submitError}}
       @afterValidateFields={{this.afterValidateFields}}

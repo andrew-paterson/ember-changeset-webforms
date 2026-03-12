@@ -53,7 +53,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
     changesetEmailProp = changesetWebform.changeset.data.email;
   };
 
-  this.submitAction = (data) => {
+  this.submitData = (data) => {
     changesetEmailProp = data.email;
   };
 
@@ -72,7 +72,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       <ChangesetWebform
       @formSchema={{this.formSchema}}
       @data={{hash name="Steve Holt" email="steveholt@bluthcompany.com"}}
-      @submitAction={{this.submitAction}}
+      @submitData={{this.submitData}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       />`);
     assert.strictEqual(
@@ -103,7 +103,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       <ChangesetWebform
       @formSchema={{this.formSchema2}}
       @data={{hash name="Steve Holt" email="steveholt@bluthcompany.com"}}
-      @submitAction={{this.submitAction}}
+      @submitData={{this.submitData}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       @onUserInteraction={{this.onUserInteraction}}
       />`);
@@ -155,7 +155,7 @@ module('Integration | Component | Nullify omitted fields', function (hooks) {
       <ChangesetWebform
       @formSchema={{this.formSchema3}}
       @data={{hash name="Steve Holt" email="steveholt@bluthcompany.com"}}
-      @submitAction={{this.submitAction}}
+      @submitData={{this.submitData}}
       @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
       />`);
     assert.strictEqual(

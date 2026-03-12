@@ -1,7 +1,7 @@
 import { modifier } from 'ember-modifier';
-import _classNamesFromConfig from '../utils/class-names-from-config.js';
-import setCustomValidity from '../utils/set-custom-validity.js';
-import mergedAttrFunctions from '../utils/merged-attr-functions.js';
+import { classNamesFromConfig as _classNamesFromConfig } from 'validated-changeset-webforms';
+import { setCustomValidity } from 'validated-changeset-webforms';
+import { mergedAttrFunctions } from 'validated-changeset-webforms';
 
 export default modifier((element, [names, changesetWebform, formField]) => {
   if (!changesetWebform) {

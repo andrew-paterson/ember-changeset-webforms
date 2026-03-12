@@ -1,12 +1,12 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist/
+dist/
 /tmp/
 
 # dependencies
 /bower_components/
-/node_modules/
+node_modules
 
 # misc
 /.env*
@@ -27,3 +27,5 @@ package.json.ember-try
 deploy-test-app
 
 .DS_Store
+utils_bak
+

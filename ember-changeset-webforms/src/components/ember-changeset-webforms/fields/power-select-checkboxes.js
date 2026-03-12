@@ -1,6 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import removeObject from '../../../utils/remove-object.js';
+import { removeObject } from 'validated-changeset-webforms';
 import 'ember-power-select/styles';
 
 export default class PowerSelectCheckboxesComponent extends Component {
