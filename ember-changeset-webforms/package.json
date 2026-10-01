@@ -43,7 +43,7 @@
     "flat": "^5.0.2",
     "lodash.mergewith": "^4.6.2",
     "markdown-it": "^13.0.1",
-    "moment": "^2.29.4",
+    "moment": "^2.31.0",
     "validated-changeset-webforms": "^0.0.3"
   },
   "devDependencies": {
